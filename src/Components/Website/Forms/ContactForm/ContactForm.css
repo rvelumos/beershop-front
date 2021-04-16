@@ -1,0 +1,12 @@
+fieldset {
+    border: 0;
+}
+
+.ContactForm {
+    max-width: 800px;
+    text-align: left;
+    margin: 0 auto;
+    width:98%;
+}
+
+

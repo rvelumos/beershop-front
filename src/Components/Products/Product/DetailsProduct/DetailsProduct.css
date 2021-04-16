@@ -1,0 +1,27 @@
+.DetailsProduct {
+    display: flex;
+    flex-direction: row;
+    width: 98%;
+}
+
+section {
+    width: 1100px;
+}
+
+.DetailsProduct .rightContent {
+    width: 100%;
+}
+
+.DetailsProduct .rightUpperContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.DetailsProduct .rightContent .discountContainer{
+    margin-left: -200px;
+}
+
+.recommendedProducts {
+    display: flex;
+}

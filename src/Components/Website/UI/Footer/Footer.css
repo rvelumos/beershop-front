@@ -1,0 +1,28 @@
+.Footer {
+    width: 100%;
+}
+
+.FooterContainer {
+    max-width: 1200px;
+    margin: 10px auto;
+    width:100%;
+    display: flex;
+}
+
+Footer a,
+Footer ul {
+    color:white;
+    font-family: "Poppins ExtraLight";
+    padding: 0;
+    line-height: 20px;
+    font-size: 0.9em;
+    list-style: none;
+}
+
+.FooterColumn {
+    margin:20px 75px 20px 15px;
+}
+
+.copyright {
+    margin: 10px auto;
+}

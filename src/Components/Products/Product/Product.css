@@ -1,0 +1,91 @@
+.Product {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 200px;
+    border-radius: 3px 3px 3px 3px;
+    border: 1px solid #eee;
+    margin: 25px;
+    padding: 30px;
+}
+
+.Product:hover {
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.Product img {
+    width: 100%;
+}
+
+.productOrder {
+    display: flex;
+}
+
+.DetailsProduct .button,
+.orderProduct .button {
+    text-transform: capitalize !important;
+}
+
+.DetailsProduct input[type=text],
+.orderProduct input[type=text] {
+    width: 20px !important;
+    margin: 10px 5px 10px 0;
+    padding: 12px;
+    outline: 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: all 300ms ease-out;
+    box-shadow: 0;
+}
+
+.DetailsProduct input[type=text]:focus,
+.orderProduct input[type=text]:focus {
+    border: 1px solid #FFA303;
+    box-shadow: 1px 1px 20px  #efefef;
+    transition: all 300ms ease-in;
+}
+
+.productDescription {
+    font-family: "Poppins ExtraLight";
+    font-size: 0.8em;
+}
+
+.ProductOverviewAdmin div {
+    min-width: 200px;
+}
+
+.productPrice {
+    font-weight: bold;
+    font-family: "Poppins SemiBold";
+}
+
+.outOfStock,
+.stockAlmostEmpty,
+.stockFull {
+    font-style: italic;
+    font-size: 0.8em;
+    color: green;
+}
+
+.outOfStock {
+    font-style: normal;
+    color: red;
+}
+
+.outOfStock::before {
+    content: "\2717";
+}
+
+.stockAlmostEmpty {
+    color: orange;
+    font-style: italic;
+}
+
+.stockAlmostEmpty::before {
+    content: "\26A0";
+}
+
+.stockFull::before {
+    content: "\2713";
+}

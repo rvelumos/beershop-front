@@ -1,0 +1,13 @@
+.OfferBannerContainer {
+    height: 200px;
+    margin-top: 140px;
+    background-image: url('../../../Assets/images/banner2.jpg');
+    background-size: cover;
+}
+
+.OfferBannerContainer span {
+    color: white;
+    margin-top: 30px;
+    font-size: 175%;
+    text-shadow: 1px 1px 4px #666 ;
+}

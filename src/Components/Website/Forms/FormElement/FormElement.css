@@ -1,0 +1,4 @@
+input:read-only {
+    pointer-events: none;
+    background-color: #eee;
+}

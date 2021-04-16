@@ -1,0 +1,10 @@
+.Error {
+    color:red;
+}
+
+.errorContainer {
+    background-color:salmon;
+    padding: 10px;
+    max-width: 500px;
+    width:98%;
+}

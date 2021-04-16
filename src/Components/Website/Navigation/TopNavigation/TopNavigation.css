@@ -1,0 +1,14 @@
+.TopNavigationContainer {
+    background-color:#333;
+    height:130px;
+    position: fixed;
+    padding-bottom: 10px;
+    top: 0;
+    width:100%;
+    z-index: 9999;
+}
+
+.TopNavigationContainer a {
+    display: flex;
+}
+

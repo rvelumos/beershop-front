@@ -1,0 +1,68 @@
+.TopNavigationItems {
+    display: flex;
+    max-width:1200px;
+    min-width: 1200px;
+    margin: 0 auto;
+    width:98%;
+}
+
+.TopNavigationRightContent {
+    display: flex;
+    flex-wrap: wrap;
+    width: 900px;
+}
+
+
+.TopNavigationUpperSection,
+.TopNavigationBottomSection{
+    display:flex;
+    max-width:900px;
+    min-width: 900px;
+    width:98%;
+}
+
+.LogoContainer {
+    display: flex;
+    max-width: 210px;
+    height: 130px;
+    margin: 0 20px 0 10px;
+    width: 98%;
+    background-image: url("../../../../../Assets/images/website_logo.png");
+    background-size: cover;
+}
+
+.TopNavigationSearch .TopNavigationInfo {
+    color: #FFA303;
+    text-align: left;
+    list-style-type: none;
+}
+
+.TopNavigationSearch span {
+    vertical-align: middle;
+}
+
+.TopNavigationSearch .TopNavigationInfo li::before {
+    content: "\2713";
+    margin-right:5px;
+}
+
+.TopNavigationSearch {
+    min-width: 900px;
+    margin: 0;
+}
+
+.TopNavigationSearch span {
+    display: inline-block;
+}
+
+.TopNavigationSearch .TopNavigationInfo {
+    color: #FFA303;
+    font-size: 0.9em;
+    font-weight: 300;
+    min-width: 300px;
+    text-align: left;
+}
+
+.TopNavigationIcon {
+    display: flex;
+}

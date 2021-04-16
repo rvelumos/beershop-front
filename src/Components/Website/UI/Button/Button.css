@@ -1,0 +1,31 @@
+.buttonCheckout,
+.button {
+    background-color: #FFA303;
+    border: 0;
+    border-radius: 2px;
+    color:white;
+    height: 45px;
+    font-weight: bold;
+    margin: 10px 0;
+    cursor: pointer;
+    padding:7px 12px;
+    text-transform: uppercase;
+    transition: background-color 0.5s ease-in;
+}
+
+.buttonCheckout,
+.button:hover {
+    background-color: #ffb83f;
+    transition: background-color 0.5s ease-in;
+}
+
+.buttonCheckout {
+    text-transform: capitalize;
+}
+
+.buttonCheckout:disabled,
+.button:disabled {
+    background-color: #999999;
+    border: 1px solid #666;
+    cursor: not-allowed;
+}

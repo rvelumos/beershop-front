@@ -1,0 +1,32 @@
+.GiftCardTop,
+.GiftCard {
+    display: flex;
+    flex-direction: row;
+    width: 900px;
+}
+
+.GiftCardTop {
+    color: #FFA303;
+}
+
+.GiftCard p {
+    padding: 0;
+    margin: 0;
+}
+
+.giftCardName {
+    font-weight: bold;
+    min-width: 125px;
+}
+
+.giftCardCode {
+    min-width: 250px;
+}
+
+.giftCardAmount {
+    min-width: 75px;
+}
+
+.giftCardExpirationDate {
+    min-width: 125px;
+}

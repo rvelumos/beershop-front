@@ -1,0 +1,12 @@
+.LeftMenuContainer {
+    display: flex;
+    min-width: 250px;
+}
+
+.logout,
+.LeftMenuItems {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin: 20px;
+}

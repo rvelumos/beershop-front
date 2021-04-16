@@ -1,0 +1,19 @@
+.IconContainer {
+    float: left;
+    margin: 0 10px;
+}
+
+.IconContainer .iconCart,
+.IconContainer .iconUser {
+    background-size: cover;
+    height: 25px;
+    width: 25px;
+}
+
+.IconContainer .iconCart {
+    background-image: url('../../../../Assets/icons/menu_icon_cart.png');
+}
+
+.IconContainer .iconUser {
+    background-image: url('../../../../Assets/icons/menu_icon_user.png');
+}

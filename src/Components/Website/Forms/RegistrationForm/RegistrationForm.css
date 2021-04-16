@@ -1,0 +1,39 @@
+.RegisterForm {
+    width: auto;
+}
+
+.RegisterForm fieldset {
+    background-color: #fcfcfc;
+    border: 1px solid #eee;
+    border-radius: 3px 3px 3px 3px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    width: 1000px;
+}
+
+.RegisterForm .formElement {
+    display: flex;
+    flex-direction: column;
+}
+
+.RegisterForm #float-label {
+    min-width: 425px;
+    margin: 10px 25px ;
+}
+
+.RegisterForm label {
+    font-size: 0.9em !important;
+}
+
+.RegisterForm select {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px 4px 4px 4px;
+    margin: 10px 5px;
+}
+
+.RegisterForm select:first-of-type {
+    margin-left: 25px;
+}
+

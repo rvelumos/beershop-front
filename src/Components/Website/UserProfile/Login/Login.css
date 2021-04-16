@@ -1,0 +1,53 @@
+.Login {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: 20px;
+    min-width: 500px;
+}
+
+.register,
+.LoginForm {
+    background-color: #fcfcfc;
+    border: 1px solid #eee;
+    border-radius: 3px 3px 3px 3px;
+    min-height: 250px;
+    padding: 20px;
+}
+
+.formContainer a {
+    color: #FFA303;
+    text-decoration: underline;
+}
+
+.formContainer .button {
+    font-size: 0.8em;
+}
+
+.formContainer input[type=password],
+.formContainer input[type=text] {
+    width: auto !important;
+}
+
+.formContainer span,
+.formContainer p {
+    font-family: "Poppins ExtraLight";
+    font-size: 0.9em;
+    margin: 30px 15px;
+}
+
+.formContainer span {
+    margin: 0;
+}
+
+.loginContainer {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
