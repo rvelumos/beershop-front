@@ -22,16 +22,14 @@ function App() {
 
     const getAuthorities = () => {
         if (localStorage.getItem('user') !== null) {
-            const user = JSON.parse(localStorage.getItem('user'));
             const token = localStorage.getItem('user_token');
 
-            console.log('eerste ' + token);
+            console.log('de token in getAuthorities is:  ' + token);
             setToken(token);
-            setUsername(user.data.name);
 
-            if (user.data.authorities[0].authority === 'ROLE_ADMIN') setAdminAuthenticated(true);
-            if (user.data.authorities[0].authority === 'ROLE_MANUFACTURER') setManufacturerAuthenticated(true);
-            if (user.data.authorities[0].authority === 'ROLE_CUSTOMER') setUserAuthenticated(true);
+            // if (user.data.authorities[0].authority === 'ROLE_ADMIN') setAdminAuthenticated(true);
+            // if (user.data.authorities[0].authority === 'ROLE_MANUFACTURER') setManufacturerAuthenticated(true);
+            // if (user.data.authorities[0].authority === 'ROLE_CUSTOMER') setUserAuthenticated(true);
         }
     }
 
@@ -49,9 +47,8 @@ function App() {
                         {isAdminAuthenticated || isManufacturerAuthenticated ?
                             <CMSLayout
                                 authorityAdmin={isAdminAuthenticated}
-                                username={username}
-                                token={token}
                                 authorityManufacturer={isManufacturerAuthenticated}
+                                token={token}
                             />
                          : <Login cmsLogin={cmsLogin} setCmsLogin={setCmsLogin} redirectUrl="/cms" />  }
                     </Route>
