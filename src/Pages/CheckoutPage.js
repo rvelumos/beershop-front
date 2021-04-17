@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import ShoppingCart from "../Components/Website/ShoppingCart/ShoppingCart";
 import {useLocation} from "react-router";
 

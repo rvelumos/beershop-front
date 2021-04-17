@@ -1,11 +1,8 @@
-import React from 'react';
+import React {useState}  from 'react';
 import Products from "../Components/Products/Products";
 import FilterSelectionMenu from "../Components/Website/Filter/FilterSelectionMenu/FilterSelectionMenu";
 
 const ProductPage = (props) => {
-
-
-
 
     const [amountItem, setAmountItem] = useState('');
 
