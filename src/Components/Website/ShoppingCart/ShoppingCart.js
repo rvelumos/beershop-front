@@ -1,6 +1,7 @@
 import React, {memo, useEffect,  useState} from 'react';
 //import Button from "../UI/Button/Button";
 import axios from "axios";
+import Product from "../../Products/Product/Product";
 
 const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartItems, setShoppingCartActive}) => {
 
@@ -9,9 +10,10 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
 
     let shoppingCart = localStorage.getItem("shopping_carts");
     const [error, setError] = useState("");
-    const [loading, toggleLoading] = useState(false);
+    const [loading, toggleLoading] = useState(true);
 
     useEffect(() => {
+        console.log('hierooo');
         shoppingCart = JSON.parse(shoppingCart);
         if (shoppingCart) {
             setShoppingCartItems(shoppingCart)
@@ -72,7 +74,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
     //     localStorage.setItem('shopping_cart', cartString)
     // }
 
-    const shoppingCartOverview = memo(() => {
+    function shoppingCartOverview () {
 
         if (shoppingCartItems) {
             Object.keys(shoppingCartItems).forEach((item, i) => {
@@ -80,6 +82,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
 
 //                useEffect(() => {
                 async function getCurrentProductInfo() {
+                    //toggleLoading(true);
                     const id = item.replace("beer_item_", "");
                     let url = `http://localhost:8080/api/v1/product/${id}`;
 
@@ -87,19 +90,16 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
 
                     try {
                         const result = await axios.get(url);
-                        if (result.data.length > 0) {
-                            setUpdatedShoppingCartItems(result.data);
-                        } else {
-                            setUpdatedShoppingCartItems("");
-                            setError("Geen resultaten");
-                        }
+
+                        console.log("HIERO");
+                        setUpdatedShoppingCartItems(result.data);
+
                         console.log(updatedShoppingCartItems);
-                        toggleLoading(false);
                     } catch (e) {
                         console.error(e);
                         setError("Fout bij ophalen gegevens.");
-                        toggleLoading(false);
                     }
+                    toggleLoading(false);
                 }
 
                 getCurrentProductInfo();
@@ -111,13 +111,14 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
         return(
             <p>ssss</p>
         )
-    })
+    }
 
     return (
         <>
             <div className="home">
                 <h1>Winkelwagen</h1>
-                {shoppingCartActive ? shoppingCartOverview
+                {loading ? <p>loading...</p> : <Product product_items={updatedShoppingCartItems} />}
+                {shoppingCartActive ? shoppingCartOverview()
                 : <p>Er zijn geen items aan je winkelwagen toegevoegd.</p>
                 }
             </div>

@@ -10,8 +10,6 @@ import CMSLayout from "./Templates/CMSLayout";
 import Login from "./Components/Website/UserProfile/Login/Login";
 
 function App() {
-
-    const [username, setUsername] = useState(false);
     const [isUserAuthenticated, setUserAuthenticated] = useState(false);
     const [isAdminAuthenticated, setAdminAuthenticated] = useState(false);
     const [isManufacturerAuthenticated, setManufacturerAuthenticated] = useState(false);
@@ -31,6 +29,7 @@ function App() {
             if (role === 'ROLE_ADMIN') setAdminAuthenticated(true);
             if (role === 'ROLE_MANUFACTURER') setManufacturerAuthenticated(true);
             if (role === 'ROLE_CUSTOMER') setUserAuthenticated(true);
+
         }
     }
 
@@ -48,9 +47,8 @@ function App() {
                         {isAdminAuthenticated || isManufacturerAuthenticated ?
                             <CMSLayout
                                 authorityAdmin={isAdminAuthenticated}
-                                username={username}
-                                token={token}
                                 authorityManufacturer={isManufacturerAuthenticated}
+                                token={token}
                             />
                          : <Login cmsLogin={cmsLogin} setCmsLogin={setCmsLogin} redirectUrl="/cms" />  }
                     </Route>

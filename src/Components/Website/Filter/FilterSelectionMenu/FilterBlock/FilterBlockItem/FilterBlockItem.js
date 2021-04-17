@@ -93,18 +93,18 @@ function FilterBlockItems(props) {
                 filterItems.valueName.map((filterItem) => {
                     return (
                         <>
-                            <div key={filterItem.id} className="filterItem">
-                                <input
-                                    type="checkbox"
-                                    placeholder=""
-                                    name={valueName+"[]"}
-                                    id={filterItem.name}
-                                    className="filterItemInput"
-                                    value={filterItem.id}
-                                    onClick={(e) => handleClick(e)}
-                                />
-                                <label htmlFor={filterItem.name}>{filterItem.name}</label>
-                            </div>
+                        <div key={filterItem.id} className="filterItem">
+                            <input
+                                type="checkbox"
+                                placeholder=""
+                                name={valueName+"[]"}
+                                id={filterItem.name}
+                                className="filterItemInput"
+                                value={filterItem.id}
+                                onClick={(e) => handleClick(e)}
+                            />
+                            <label htmlFor={filterItem.name}>{filterItem.name}</label>
+                        </div>
                         </>
                     )
                 })

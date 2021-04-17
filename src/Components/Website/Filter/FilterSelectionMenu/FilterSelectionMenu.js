@@ -46,7 +46,14 @@ function FilterSelectionMenu (props) {
             <form>
                 <div className="filterTitle">
                     <h3>Categorie</h3>
-                    <FilterBlockItems key={filterItems} valueName="category" filterItems={filterItems} setFilterItems={setFilterItems} categoryArray={categoryArray} setCategoryArray={setCategoryArray} />
+                    <FilterBlockItems
+                          key={filterItems}
+                          valueName="category"
+                          filterItems={filterItems}
+                          setFilterItems={setFilterItems}
+                          categoryArray={categoryArray}
+                          setCategoryArray={setCategoryArray}
+                    />
                 </div>
 
                 <div className="filterTitle">

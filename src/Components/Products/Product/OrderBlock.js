@@ -86,24 +86,24 @@ const OrderBlock = ({productItem, isAdmin, section}) => {
             <>
             {discount_container}
             {image}
-            <div className="orderProduct">
                 {title}
                 <p className="productPrice">€{final_price} </p>
-                <form onSubmit={AddToCart} method="POST">
-                    <input
-                        type="text"
-                        placeholder=""
-                        maxLength="2"
-                        name={productName}
-                        // value={current_value}
-                        onChange={evt => handleChange(evt)}
-                        readOnly={read_only}
-                        tabIndex={tab_index}
-                    />
-                    <Button value="Bestellen" usage="buttonCheckout" disabled={button_disabled} name="cart" type="cart"/><br/>
-                    {stock_info}
-                </form>
-            </div>
+                <div className="orderProduct">
+                    <form onSubmit={AddToCart} method="POST">
+                        <input
+                            type="text"
+                            placeholder=""
+                            maxLength="2"
+                            name={productName}
+                            // value={current_value}
+                            onChange={evt => handleChange(evt)}
+                            readOnly={read_only}
+                            tabIndex={tab_index}
+                        />
+                        <Button value="Bestellen" usage="buttonCheckout" disabled={button_disabled} name="cart" type="cart"/><br/>
+                        {stock_info}
+                    </form>
+                </div>
             </>
         )
     }

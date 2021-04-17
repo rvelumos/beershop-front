@@ -28,7 +28,7 @@ const Gift = (props) => {
         <div className="Product">
             <h3 className="productName">{name}</h3>
             <p className="productDescription">{description}</p>
-            <div className="productOrder">
+            <div className="orderProduct">
                 <form onSubmit={addToCart}>
                     <input
                         type="text"

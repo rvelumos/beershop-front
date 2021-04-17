@@ -17,15 +17,18 @@
     width: 100%;
 }
 
-.productOrder {
+.orderProduct {
     display: flex;
 }
 
+
+.filterPrice .button,
 .DetailsProduct .button,
 .orderProduct .button {
     text-transform: capitalize !important;
 }
 
+.filterPrice input[type=text],
 .DetailsProduct input[type=text],
 .orderProduct input[type=text] {
     width: 20px !important;
@@ -37,6 +40,12 @@
     font-size: 16px;
     transition: all 300ms ease-out;
     box-shadow: 0;
+}
+
+.filterPrice input[type=text] {
+    padding: 5px 10px !important;
+    height:30px !important;
+    min-width: 40px;
 }
 
 .DetailsProduct input[type=text]:focus,
