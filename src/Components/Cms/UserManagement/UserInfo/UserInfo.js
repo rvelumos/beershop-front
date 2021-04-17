@@ -48,7 +48,7 @@ function UserInfo(props) {
     }
 
     const User = (props) => {
-        const {users, token} = props;
+        const {users} = props;
             return(
                 users.map((userInfo) => {
                     return (
@@ -62,7 +62,7 @@ function UserInfo(props) {
                             <td><p className="userAddress">{userInfo.address}</p></td>
                             <td><p className="userCP">{userInfo.customer_points}</p></td>
                             <td><p className="userNewsletter">{userInfo.newsletter ? "X" : null}</p></td>
-                            <td><p className="userRoles"></p></td>
+                            <td><p className="userRoles">{GetRolesUser()}</p></td>
                             <td><p className="userActions">Edit Delete</p></td>
                         </tr>
                     )
@@ -71,6 +71,7 @@ function UserInfo(props) {
     }
     return(
         <>
+            {error && <p> {error} </p>}
             {loading? <LoadingIndicator />:
             <div className="userContainer">
                 <table className="UserDetails">

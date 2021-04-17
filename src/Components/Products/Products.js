@@ -5,6 +5,7 @@ import Product from './Product/Product';
 import LoadingIndicator from "../Website/UI/LoadingIndicator/LoadingIndicator";
 import Error from "../Website/UI/Feedback/Error/Error";
 import {useParams} from "react-router";
+import * as qs from "querystring";
 
 function Products(props) {
 
@@ -14,6 +15,7 @@ function Products(props) {
 
     const { searchResult } = useParams();
     const { isAdmin } = props;
+    const {categoryArray, tasteArray} = props;
 
     useEffect(() => {
         async function getProducts() {
@@ -37,8 +39,24 @@ function Products(props) {
                 url = `${url}latest/`;
             }
 
+            let param_config = "";
+
+            if(categoryArray !== null) {
+                param_config = {
+                    params: {
+                        category: categoryArray
+                    },
+                    paramsSerializer: function(params) {
+                        const newParams = "category_id=" + params.category.map(param=>`${param}`).join(',')
+                        return newParams
+                    },
+                }
+            }
+
             try {
-                const result = await axios.get(url);
+                const result = await axios.get(url, {
+                    param_config
+                })
                 if (result.data.length > 0){
                     setProductItems(result.data);
                 } else {
@@ -57,7 +75,7 @@ function Products(props) {
         getProducts();
 
         // eslint-disable-next-line
-    }, [searchResult]);
+    }, [searchResult, categoryArray, tasteArray]);
 
     return (
         <>

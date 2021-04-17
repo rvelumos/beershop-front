@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import ShoppingCart from "../Components/Website/ShoppingCart/ShoppingCart";
 import {useLocation} from "react-router";
 
@@ -10,6 +10,7 @@ const CheckoutPage = () => {
 
 
     if (location.state !== null && shoppingCartItems === '') {
+        console.log(location.state.data);
         setShoppingCartItems(location.state.data);
         setShoppingCartActive(true);
 
