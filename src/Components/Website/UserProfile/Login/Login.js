@@ -25,7 +25,7 @@ const Login = (props) => {
 
         const username = props.username;
         const password = props.password;
-        let url = `http://localhost:8080/authenticate/`;
+        let url = `/authenticate/`;
 
         try {
             const result = await axios.post(url, {
@@ -38,7 +38,8 @@ const Login = (props) => {
                     password: password
                 }
             )
-            login(result);
+
+            loginUser(result);
             console.log(result);
         }catch(e) {
                 console.error(e);
@@ -106,7 +107,7 @@ const Login = (props) => {
         <>
             <div className="loginContainer">
                 {error && <Error type="message_container" content={error} /> }
-                {loading ? <LoadingIndicator /> : <AuthLoginForm /> }
+                {loading ? <><LoadingIndicator /> LOGIN</> : <AuthLoginForm /> }
             </div>
         </>
     )

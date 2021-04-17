@@ -14,7 +14,7 @@ function AuthContextProvider({ children }) {
     });
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('user_token');
 
         if(token !== null && userdata.user === null) {
             fetchUserData(token);
