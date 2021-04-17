@@ -7,7 +7,7 @@ import Button from "../../UI/Button/Button";
 import FormElement from "../../Forms/FormElement/FormElement";
 import { useHistory } from "react-router-dom";
 import './Login.css';
-import AuthContext from "../../../../context/AuthContext";
+import {AuthContext} from "../../../../context/AuthContext";
 
 const Login = (props) => {
     const [error, setError] = useState(false);
@@ -27,7 +27,7 @@ const Login = (props) => {
 
         const username = props.username;
         const password = props.password;
-        let url = `http://localhost:8080/authenticate/`;
+        let url = `/authenticate/`;
 
         try {
             const result = await axios.post(url, {
@@ -40,20 +40,21 @@ const Login = (props) => {
                     password: password
                 }
             )
+            loginUser(result);
             console.log(result);
         }catch(e) {
                 console.error(e);
         }
     }
 
-    function SaveSession(token) {
-
-        const timer = setTimeout(() => {
-       //     window.location.reload(true);
-            toggleLoading(false);
-        }, 500);
-        return () => clearTimeout(timer);
-    }
+    // function SaveSession(token) {
+    //
+    //     const timer = setTimeout(() => {
+    //    //     window.location.reload(true);
+    //         toggleLoading(false);
+    //     }, 500);
+    //     return () => clearTimeout(timer);
+    // }
 
     const AuthLoginForm = () => {
         const { register, errors, handleSubmit } = useForm({
@@ -107,7 +108,7 @@ const Login = (props) => {
         <>
             <div className="loginContainer">
                 {error && <Error type="message_container" content={error} /> }
-                {loading ? <LoadingIndicator /> : <AuthLoginForm /> }
+                {loading ? <><LoadingIndicator /> LOGIN</> : <AuthLoginForm /> }
             </div>
         </>
     )
