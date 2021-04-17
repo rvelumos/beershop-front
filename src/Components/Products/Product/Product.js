@@ -10,7 +10,7 @@ function Product(props) {
             return (
                 product_items.map((product_item) => {
                     return (
-                            <div className="Product">
+                            <div className="Product" key={product_item.id}>
                                 <OrderBlock mode="main" productItem={product_item} section="overview" />
                             </div>
                     )

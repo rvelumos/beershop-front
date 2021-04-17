@@ -12,7 +12,6 @@ const RegistrationForm = () => {
 
     const [error, setError] = useState(false);
     const [loading, toggleLoading] = useState(false);
-    const [roles, setRoles] = useState(false);
     const [sentForm, setSentForm] = useState(false);
 
     const [formValues, setFormValues] = useState({
@@ -69,7 +68,6 @@ const RegistrationForm = () => {
                 })
 
                 console.log("Role result: "+result);
-                setRoles(true);
             }catch (e) {
                 console.error(e);
                 setError("Fout bij verwerken logingegevens.");

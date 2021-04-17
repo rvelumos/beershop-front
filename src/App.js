@@ -10,8 +10,6 @@ import CMSLayout from "./Templates/CMSLayout";
 import Login from "./Components/Website/UserProfile/Login/Login";
 
 function App() {
-
-    const [username, setUsername] = useState(false);
     const [isUserAuthenticated, setUserAuthenticated] = useState(false);
     const [isAdminAuthenticated, setAdminAuthenticated] = useState(false);
     const [isManufacturerAuthenticated, setManufacturerAuthenticated] = useState(false);
@@ -23,13 +21,14 @@ function App() {
     const getAuthorities = () => {
         if (localStorage.getItem('user') !== null) {
             const token = localStorage.getItem('user_token');
+            const role = localStorage.getItem('user_role');
 
             console.log('de token in getAuthorities is:  ' + token);
             setToken(token);
 
-            // if (user.data.authorities[0].authority === 'ROLE_ADMIN') setAdminAuthenticated(true);
-            // if (user.data.authorities[0].authority === 'ROLE_MANUFACTURER') setManufacturerAuthenticated(true);
-            // if (user.data.authorities[0].authority === 'ROLE_CUSTOMER') setUserAuthenticated(true);
+             if (role === 'ROLE_ADMIN') setAdminAuthenticated(true);
+             if (role === 'ROLE_MANUFACTURER') setManufacturerAuthenticated(true);
+             if (role === 'ROLE_CUSTOMER') setUserAuthenticated(true);
         }
     }
 

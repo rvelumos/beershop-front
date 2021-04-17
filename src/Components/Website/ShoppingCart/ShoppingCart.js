@@ -12,6 +12,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
     const [loading, toggleLoading] = useState(false);
 
     useEffect(() => {
+        console.log('hierooo');
         shoppingCart = JSON.parse(shoppingCart);
         if (shoppingCart) {
             setShoppingCartItems(shoppingCart)
@@ -25,52 +26,52 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
     }, [])
 
 
-    const addItem = (item) => {
-
-        let cartCopy = [...shoppingCartItems];
-        let {ID} = item;
-        let existingItem = cartCopy.find(cartItem => cartItem.ID === ID);
-
-        if (existingItem) {
-            existingItem.quantity += item.quantity
-        } else {
-            cartCopy.push(item)
-        }
-
-        setShoppingCartItems(cartCopy)
-
-        let stringCart = JSON.stringify(cartCopy);
-        localStorage.setItem("cart", stringCart)
-    }
-
-    const editItem = (itemID, amount) => {
-
-        let cartCopy = [...shoppingCartItems]
-        let itemExists = cartCopy.find(item => item.ID === itemID);
-
-        if (!itemExists) return
-        itemExists.quantity += amount;
-
-        if (itemExists.quantity <= 0) {
-            cartCopy = cartCopy.filter(item => item.ID !== itemID)
-        }
-
-        setShoppingCartItems(cartCopy);
-
-        let cartString = JSON.stringify(cartCopy);
-        localStorage.setItem('shopping_cart', cartString);
-    }
-
-    const removeItem = (itemID) => {
-
-        let cartCopy = [...shoppingCartItems]
-        cartCopy = cartCopy.filter(item => item.ID !== itemID);
-
-        setShoppingCartItems(cartCopy);
-
-        let cartString = JSON.stringify(cartCopy)
-        localStorage.setItem('shopping_cart', cartString)
-    }
+    // const addItem = (item) => {
+    //
+    //     let cartCopy = [...shoppingCartItems];
+    //     let {ID} = item;
+    //     let existingItem = cartCopy.find(cartItem => cartItem.ID === ID);
+    //
+    //     if (existingItem) {
+    //         existingItem.quantity += item.quantity
+    //     } else {
+    //         cartCopy.push(item)
+    //     }
+    //
+    //     setShoppingCartItems(cartCopy)
+    //
+    //     let stringCart = JSON.stringify(cartCopy);
+    //     localStorage.setItem("cart", stringCart)
+    // }
+    //
+    // const editItem = (itemID, amount) => {
+    //
+    //     let cartCopy = [...shoppingCartItems]
+    //     let itemExists = cartCopy.find(item => item.ID === itemID);
+    //
+    //     if (!itemExists) return
+    //     itemExists.quantity += amount;
+    //
+    //     if (itemExists.quantity <= 0) {
+    //         cartCopy = cartCopy.filter(item => item.ID !== itemID)
+    //     }
+    //
+    //     setShoppingCartItems(cartCopy);
+    //
+    //     let cartString = JSON.stringify(cartCopy);
+    //     localStorage.setItem('shopping_cart', cartString);
+    // }
+    //
+    // const removeItem = (itemID) => {
+    //
+    //     let cartCopy = [...shoppingCartItems]
+    //     cartCopy = cartCopy.filter(item => item.ID !== itemID);
+    //
+    //     setShoppingCartItems(cartCopy);
+    //
+    //     let cartString = JSON.stringify(cartCopy)
+    //     localStorage.setItem('shopping_cart', cartString)
+    // }
 
     const shoppingCartOverview = memo(() => {
 
@@ -117,6 +118,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
         <>
             <div className="home">
                 <h1>Winkelwagen</h1>
+                {loading ? loading : <p>Items</p>}
                 {shoppingCartActive ? shoppingCartOverview
                 : <p>Er zijn geen items aan je winkelwagen toegevoegd.</p>
                 }

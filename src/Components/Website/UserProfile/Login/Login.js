@@ -5,17 +5,15 @@ import Error from "../../UI/Feedback/Error/Error";
 import {useForm} from "react-hook-form";
 import Button from "../../UI/Button/Button";
 import FormElement from "../../Forms/FormElement/FormElement";
-import { useHistory } from "react-router-dom";
 import './Login.css';
-import AuthContext from "../../../../context/AuthContext";
+import {AuthContext} from "../../../../context/AuthContext";
 
 const Login = (props) => {
     const [error, setError] = useState(false);
     const [loading, toggleLoading] = useState(false);
-    const { cmsLogin } = props;
 
-    const { loginUser } = useContext(AuthContext);
-    const history = useHistory();
+    const { cmsLogin } = props;
+    const { login } = useContext(AuthContext);
 
     function OnFormSubmit(data) {
          AuthLogin(data);
@@ -40,20 +38,21 @@ const Login = (props) => {
                     password: password
                 }
             )
+            login(result);
             console.log(result);
         }catch(e) {
                 console.error(e);
         }
     }
 
-    function SaveSession(token) {
-
-        const timer = setTimeout(() => {
-       //     window.location.reload(true);
-            toggleLoading(false);
-        }, 500);
-        return () => clearTimeout(timer);
-    }
+    // function SaveSession(token) {
+    //
+    //     const timer = setTimeout(() => {
+    //    //     window.location.reload(true);
+    //         toggleLoading(false);
+    //     }, 500);
+    //     return () => clearTimeout(timer);
+    // }
 
     const AuthLoginForm = () => {
         const { register, errors, handleSubmit } = useForm({
