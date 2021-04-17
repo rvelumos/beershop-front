@@ -10,6 +10,7 @@ const CheckoutPage = () => {
 
 
     if (location.state !== null && shoppingCartItems === '') {
+        console.log(location.state.data);
         setShoppingCartItems(location.state.data);
         setShoppingCartActive(true);
 
