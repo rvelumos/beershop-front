@@ -22,16 +22,15 @@ function App() {
 
     const getAuthorities = () => {
         if (localStorage.getItem('user') !== null) {
-            const user = JSON.parse(localStorage.getItem('user'));
             const token = localStorage.getItem('user_token');
+            const role = localStorage.getItem('user_role');
 
-            console.log('eerste ' + token);
+            console.log('de token in getAuthorities is:  ' + token);
             setToken(token);
-            setUsername(user.data.name);
 
-            if (user.data.authorities[0].authority === 'ROLE_ADMIN') setAdminAuthenticated(true);
-            if (user.data.authorities[0].authority === 'ROLE_MANUFACTURER') setManufacturerAuthenticated(true);
-            if (user.data.authorities[0].authority === 'ROLE_CUSTOMER') setUserAuthenticated(true);
+            if (role === 'ROLE_ADMIN') setAdminAuthenticated(true);
+            if (role === 'ROLE_MANUFACTURER') setManufacturerAuthenticated(true);
+            if (role === 'ROLE_CUSTOMER') setUserAuthenticated(true);
         }
     }
 

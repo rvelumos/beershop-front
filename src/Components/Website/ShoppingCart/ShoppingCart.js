@@ -25,52 +25,52 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
     }, [])
 
 
-    const addItem = (item) => {
-
-        let cartCopy = [...shoppingCartItems];
-        let {ID} = item;
-        let existingItem = cartCopy.find(cartItem => cartItem.ID === ID);
-
-        if (existingItem) {
-            existingItem.quantity += item.quantity
-        } else {
-            cartCopy.push(item)
-        }
-
-        setShoppingCartItems(cartCopy)
-
-        let stringCart = JSON.stringify(cartCopy);
-        localStorage.setItem("cart", stringCart)
-    }
-
-    const editItem = (itemID, amount) => {
-
-        let cartCopy = [...shoppingCartItems]
-        let itemExists = cartCopy.find(item => item.ID === itemID);
-
-        if (!itemExists) return
-        itemExists.quantity += amount;
-
-        if (itemExists.quantity <= 0) {
-            cartCopy = cartCopy.filter(item => item.ID !== itemID)
-        }
-
-        setShoppingCartItems(cartCopy);
-
-        let cartString = JSON.stringify(cartCopy);
-        localStorage.setItem('shopping_cart', cartString);
-    }
-
-    const removeItem = (itemID) => {
-
-        let cartCopy = [...shoppingCartItems]
-        cartCopy = cartCopy.filter(item => item.ID !== itemID);
-
-        setShoppingCartItems(cartCopy);
-
-        let cartString = JSON.stringify(cartCopy)
-        localStorage.setItem('shopping_cart', cartString)
-    }
+    // const addItem = (item) => {
+    //
+    //     let cartCopy = [...shoppingCartItems];
+    //     let {ID} = item;
+    //     let existingItem = cartCopy.find(cartItem => cartItem.ID === ID);
+    //
+    //     if (existingItem) {
+    //         existingItem.quantity += item.quantity
+    //     } else {
+    //         cartCopy.push(item)
+    //     }
+    //
+    //     setShoppingCartItems(cartCopy)
+    //
+    //     let stringCart = JSON.stringify(cartCopy);
+    //     localStorage.setItem("cart", stringCart)
+    // }
+    //
+    // const editItem = (itemID, amount) => {
+    //
+    //     let cartCopy = [...shoppingCartItems]
+    //     let itemExists = cartCopy.find(item => item.ID === itemID);
+    //
+    //     if (!itemExists) return
+    //     itemExists.quantity += amount;
+    //
+    //     if (itemExists.quantity <= 0) {
+    //         cartCopy = cartCopy.filter(item => item.ID !== itemID)
+    //     }
+    //
+    //     setShoppingCartItems(cartCopy);
+    //
+    //     let cartString = JSON.stringify(cartCopy);
+    //     localStorage.setItem('shopping_cart', cartString);
+    // }
+    //
+    // const removeItem = (itemID) => {
+    //
+    //     let cartCopy = [...shoppingCartItems]
+    //     cartCopy = cartCopy.filter(item => item.ID !== itemID);
+    //
+    //     setShoppingCartItems(cartCopy);
+    //
+    //     let cartString = JSON.stringify(cartCopy)
+    //     localStorage.setItem('shopping_cart', cartString)
+    // }
 
     const shoppingCartOverview = memo(() => {
 
