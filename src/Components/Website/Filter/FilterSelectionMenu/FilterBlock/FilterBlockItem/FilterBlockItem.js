@@ -37,18 +37,18 @@ function FilterBlockItems(props) {
                 filterItems.map((filterItem) => {
                     return (
                         <>
-                        <div key={uuidv4()} className="filterItem">
-                                    <input
-                                        type="checkbox"
-                                        placeholder=""
-                                        name={valueName+"[]"}
-                                        id={filterItem.name}
-                                        className="filterItemInput"
-                                        value={filterItem.id}
-                                        onClick={(e) => handleClick(e)}
-                                    />
-                            <label htmlFor={filterItem.name}>{filterItem.name}</label>
-                        </div>
+                            <div key={uuidv4()} className="filterItem">
+                                <input
+                                    type="checkbox"
+                                    placeholder=""
+                                    name={valueName+"[]"}
+                                    id={filterItem.name}
+                                    className="filterItemInput"
+                                    value={filterItem.id}
+                                    onClick={(e) => handleClick(e)}
+                                />
+                                <label htmlFor={filterItem.name}>{filterItem.name}</label>
+                            </div>
                         </>
                     )
                 })
