@@ -5,7 +5,7 @@ import OrderBlock from "./OrderBlock";
 function Product(props) {
     const displayProductItems = (props) => {
         const {product_items} = props;
-
+console.log('de items zijn' + product_items)
         if(product_items.length  > 0) {
             return (
                 product_items.map((product_item) => {
