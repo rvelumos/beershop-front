@@ -122,7 +122,6 @@ const RegistrationForm = () => {
 
                                 <h3>Account informatie</h3>
                                 <fieldset>
-
                                     <div className="formElement">
                                         <FormElement
                                             type="text"

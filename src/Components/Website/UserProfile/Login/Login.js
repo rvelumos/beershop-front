@@ -13,7 +13,7 @@ const Login = (props) => {
     const [loading, toggleLoading] = useState(false);
 
     const { cmsLogin } = props;
-    const { login } = useContext(AuthContext);
+    const { loginUser } = useContext(AuthContext);
 
     function OnFormSubmit(data) {
          AuthLogin(data);
@@ -25,7 +25,7 @@ const Login = (props) => {
 
         const username = props.username;
         const password = props.password;
-        let url = `/authenticate/`;
+        let url = `http://localhost:8080/authenticate/`;
 
         try {
             const result = await axios.post(url, {

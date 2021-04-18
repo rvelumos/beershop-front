@@ -11,7 +11,7 @@ import Login from "./Components/Website/UserProfile/Login/Login";
 
 function App() {
     const [isUserAuthenticated, setUserAuthenticated] = useState(false);
-    const [isAdminAuthenticated, setAdminAuthenticated] = useState(false);
+    const [isAdminAuthenticated, setAdminAuthenticated] = useState(true);
     const [isManufacturerAuthenticated, setManufacturerAuthenticated] = useState(false);
     const [cmsLogin, setCmsLogin] = useState(false);
     const [token, setToken] = useState("");
@@ -33,8 +33,10 @@ function App() {
         }
     }
 
+    //if(token==='')
+      //  getAuthorities();
     if(token==='')
-        getAuthorities();
+        setToken("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjE5NjM4NjI5LCJpYXQiOjE2MTg3NzQ2Mjl9.oh17PXcUb4KNRieizMx1eRaMO6v9DAjA_102tgXpQr8");
 
     console.log(isAdminAuthenticated);
 

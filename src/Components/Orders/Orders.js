@@ -36,7 +36,7 @@ const Orders = ({isAdmin, token}) => {
                             "Access-Control-Allow-Origin": "*",
                         }
                     });
-                console.log(result);
+                console.log(result.data);
                 if (result.data.length > 0) {
                     setOrderItems(result.data);
                     console.log(orderItems);

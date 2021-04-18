@@ -29,11 +29,11 @@ function AuthContextProvider({ children }) {
     }, [])
 
     async function loginUser(jwtToken) {
-        console.log(jwtToken);
+        console.log("token opgehaald: " + jwtToken);
 
         fetchUserData(jwtToken);
 
-        localStorage.setItem('token', jwtToken);
+        localStorage.setItem('user_token', jwtToken);
     }
 
     async function fetchUserData(jwtToken) {
@@ -55,10 +55,10 @@ function AuthContextProvider({ children }) {
                 },
                 status: 'done'
             })
-            history.push('/mijn_account/');
+//            history.push('/mijn_account/');
 
         } catch(e) {
-
+            console.error(e);
         }
     }
 

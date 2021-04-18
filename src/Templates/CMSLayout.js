@@ -10,6 +10,7 @@ import Orders from "../Components/Orders/Orders";
 import Products from "../Components/Products/Products";
 import GiftCards from "../Components/GiftCards/GiftCards";
 import UserManagement from "../Components/Cms/UserManagement/UserManagement";
+import OrderAddEdit from "../Components/Orders/Order/OrderAddEdit";
 
 const CMSLayout = (props) => {
     const { authorityAdmin, authorityManufacturer, username, token } = props;
@@ -35,7 +36,7 @@ const CMSLayout = (props) => {
                 </Route>
 
                 <Route path='/cms/products/create'>
-                    {/*<AddProduct />*/}
+                    {/*<ProductAddEdit mode="add" />*/}
                 </Route>
 
                 <Route path='/cms/products/:order_id'>
@@ -43,7 +44,7 @@ const CMSLayout = (props) => {
                 </Route>
 
                 <Route path='/cms/products/edit/:order_id'>
-                    {/*<EditProduct />*/}
+                    <OrderAddEdit mode="edit" />
                 </Route>
 
                 <Route  path='/cms/orders/' exact>
@@ -51,7 +52,7 @@ const CMSLayout = (props) => {
                 </Route>
 
                 <Route path='/cms/orders/create'>
-                    {/*<AddOrder />*/}
+                    <OrderAddEdit mode="add" />
                 </Route>
 
                 <Route path='/cms/orders/:order_id'>
@@ -59,7 +60,7 @@ const CMSLayout = (props) => {
                 </Route>
 
                 <Route path='/cms/orders/edit/:order_id'>
-                    {/*<EditOrder />*/}
+                    <OrderAddEdit mode="add" />
                 </Route>
 
                 <Route path="/cms/users">
