@@ -53,6 +53,7 @@ function Products(props) {
                 }
             }
 
+            console.log(url);
             try {
                 const result = await axios.get(url, {
                     param_config

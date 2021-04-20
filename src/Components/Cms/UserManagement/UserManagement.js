@@ -3,6 +3,8 @@ import LoadingIndicator from "../../Website/UI/LoadingIndicator/LoadingIndicator
 import UserInfo from "./UserInfo/UserInfo";
 import Error from "../../Website/UI/Feedback/Error/Error";
 import axios from "axios";
+import Button from "../../Website/UI/Button/Button";
+import {Link} from "react-router-dom";
 
 const UserManagement = ({isAdmin, token}) => {
 
@@ -52,7 +54,7 @@ const UserManagement = ({isAdmin, token}) => {
 
     return (
         <>
-            <div className="UsersOverview">
+            <div className="overview">
                 {loading ? <LoadingIndicator /> : <UserInfo users={users} error={error} token={token} setError={setError} />}
                 {error && <Error type="message_container" content={error} /> }
             </div>

@@ -1,5 +1,25 @@
-main.cms .LeftMenuContainer {
+.LeftMenuContainer {
     background-color: #eee;
     padding : 25px;
     height: 100vh;
+}
+
+.LeftMenuContainer a {
+    color: #000;
+    padding: 10px;
+}
+
+.LeftMenuContainer a:hover {
+    font-weight:bold;
+    color: #ffa303;
+}
+
+.LeftMenuContainer a.active {
+    font-weight: bold;
+}
+
+.LeftMenuContainer a.active:before {
+    content: "\27A4";
+    color: #ffa303;
+    margin-right: 7px;
 }

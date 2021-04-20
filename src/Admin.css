@@ -1,7 +1,106 @@
-
-
 main.cms {
     width: 100% !important;
     max-width: 100% !important;
 }
 
+.overview {
+    display: flex;
+    flex-direction: row;
+    width: 98%;
+    margin: 20px auto;
+}
+
+.itemContainer {
+    max-width: 1300px;
+    margin: 10px auto;
+}
+
+.itemContainer .button {
+    font-size: 0.9em;
+    float: right;
+    height: 35px;
+    border-radius: 3px 3px 3px;
+}
+
+.tableDetails {
+    display: table;
+    border-spacing: 0 10px;
+    max-width: 1300px;
+    width: 100%;
+    margin: 20px auto;
+}
+
+.tableDetails td:first-of-type {
+    background-color: white;
+    border: none;
+    text-align: center;
+    width: 40px;
+}
+
+.tableDetails td:last-of-type {
+    width: 70px;
+}
+
+.tableDetails td:first-of-type p {
+    padding: 5px;
+    width: 50px;
+}
+
+.tableDetails tr:hover:not(:first-of-type) td:not(:first-of-type) {
+    background-color: #f2f6ff;
+    transition: background-color 0.5s ease-in;
+}
+
+.tableDetails td {
+    padding: 10px;
+    width: 300px;
+    border-top: 1px solid #eee;
+    background-color: #fafafa;
+    transition: background-color 0.5s ease-out;
+}
+
+.tableDetails tr:first-of-type {
+    background-color: #333 !important;
+    color: white;
+    font-weight: bold;
+}
+
+.tableDetails tr:first-of-type td {
+    height: 60px;
+}
+
+.tableDetails tr:first-of-type td:not(:first-of-type){
+    background-color: transparent;
+}
+
+
+.actionContainer {
+    display: flex;
+    width: 75px;
+}
+
+.button {
+    background-color: #ffa303;
+    padding: 10px 20px;
+    color: white !important;
+}
+
+.delete,
+.edit {
+    width: 25px;
+    height: 25px;
+    font-size: 2em;
+    padding: 5px;
+}
+
+.edit a{
+    color: #97befc !important;
+}
+
+.delete {
+    color:red !important;
+}
+
+.overview a {
+    color: #ffa303;
+}

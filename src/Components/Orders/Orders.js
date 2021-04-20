@@ -3,6 +3,7 @@ import LoadingIndicator from "../Website/UI/LoadingIndicator/LoadingIndicator";
 import Order from "./Order/Order";
 import Error from "../Website/UI/Feedback/Error/Error";
 import axios from "axios";
+import './Orders.css';
 
 const Orders = ({isAdmin, token}) => {
 
@@ -55,7 +56,7 @@ const Orders = ({isAdmin, token}) => {
 
     return (
         <>
-            <div className="OrdersOverview">
+            <div className="overview">
                 {loading ? <LoadingIndicator /> : <Order orderItems={orderItems} error={error} isAdmin={isAdmin} setError={setError} />}
                 {error && <Error type="message_container" content={error} /> }
             </div>

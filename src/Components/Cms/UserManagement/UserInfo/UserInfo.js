@@ -1,15 +1,20 @@
 import React, {useEffect, useState} from 'react';
+import {
+    Link
+} from "react-router-dom";
 import './UserInfo.css';
 import { v4 as uuidv4 } from 'uuid';
 import axios from "axios";
 import LoadingIndicator from "../../../Website/UI/LoadingIndicator/LoadingIndicator";
 
 function UserInfo(props) {
-    const [loading, toggleLoading] = useState(true);
+    const [loading, toggleLoading] = useState(false);
     const [userRoles, setUserRoles] = useState('');
     const [error, setError] = useState(true);
 
-    function GetRolesUser(id, token) {
+    const {token} = props;
+
+    function GetRolesUser(id) {
 
         useEffect(() => {
             async function getRoles() {
@@ -29,22 +34,44 @@ function UserInfo(props) {
                     if (result.data.length > 0){
                         setUserRoles(result.data);
                     } else {
-                        setUserRoles("");
+                        setUserRoles("Geen");
                         setError("Geen rollen gedefineerd");
                     }
                     console.log(userRoles);
-                    toggleLoading(false);
                 } catch (e) {
                     console.error(e);
                     setError("Fout bij ophalen gegevens.");
-                    toggleLoading(false);
                 }
+                toggleLoading(false);
             }
 
             getRoles();
 
             // eslint-disable-next-line
         }, [userRoles]);
+    }
+
+    async function deleteUser(id) {
+        toggleLoading(true);
+        let url = `http://localhost:8080/api/v1/users/${id}`;
+
+        try {
+            const result = await axios.delete(url, {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            if (result.data.length > 0){
+
+            } else {
+                setError("Gebruiker niet gevonden");
+            }
+            console.log(userRoles);
+        } catch (e) {
+            console.error(e);
+            setError("Fout bij ophalen gegevens.");
+        }
+        toggleLoading(false);
     }
 
     const User = (props) => {
@@ -62,8 +89,13 @@ function UserInfo(props) {
                             <td><p className="userAddress">{userInfo.address}</p></td>
                             <td><p className="userCP">{userInfo.customer_points}</p></td>
                             <td><p className="userNewsletter">{userInfo.newsletter ? "X" : null}</p></td>
-                            <td><p className="userRoles">{GetRolesUser()}</p></td>
-                            <td><p className="userActions">Edit Delete</p></td>
+                            <td><p className="userRoles"></p></td>
+                            <td>
+                                <div className="actionContainer">
+                                    <div class="edit"><Link to={`/cms/users/edit/${userInfo.id}`}>&#9999;</Link></div>
+                                    <div class="delete" onClick={(e) => deleteUser(userInfo.id)}>&#10008;</div>
+                                </div>
+                            </td>
                         </tr>
                     )
             })
@@ -72,25 +104,27 @@ function UserInfo(props) {
     return(
         <>
             {error && <p> {error} </p>}
-            {loading? <LoadingIndicator />:
-            <div className="userContainer">
-                <table className="UserDetails">
-                    <tr>
-                        <td>ID</td>
-                        <td>Voornaam</td>
-                        <td>Achternaam</td>
-                        <td>Geboortedatum</td>
-                        <td>E-mail</td>
-                        <td>Telefoon</td>
-                        <td>Adres</td>
-                        <td>Punten</td>
-                        <td>Nieuwsbrief</td>
-                        <td>Rollen</td>
-                        <td>Acties</td>
-                    </tr>
-                    {User(props)}
-                </table>
-            </div>}
+            {loading ? <LoadingIndicator/> :
+                <div className="itemContainer">
+                    <Link to="/cms/users/add/" className="button">Gebruiker toevoegen</Link><br /><br />
+                    <table className="tableDetails">
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>Voornaam</td>
+                            <td>Achternaam</td>
+                            <td>Geboortedatum</td>
+                            <td>E-mail</td>
+                            <td>Telefoon</td>
+                            <td>Adres</td>
+                            <td>Punten</td>
+                            <td>Nieuwsbrief</td>
+                            <td>Rollen</td>
+                            <td>Acties</td>
+                        </tr>
+                        {User(props)}
+                    </table>
+                </div>
+            }
         </>
     )
 }

@@ -11,6 +11,7 @@ import Products from "../Components/Products/Products";
 import GiftCards from "../Components/GiftCards/GiftCards";
 import UserManagement from "../Components/Cms/UserManagement/UserManagement";
 import OrderAddEdit from "../Components/Orders/Order/OrderAddEdit";
+import {AddEditForm as GiftCardForm} from "../Components/GiftCards/GiftCard/AddEditForm";
 
 const CMSLayout = (props) => {
     const { authorityAdmin, authorityManufacturer, username, token } = props;
@@ -27,8 +28,16 @@ const CMSLayout = (props) => {
                     <GiftCards isAdmin={authorityAdmin} token={token} />
                 </Route>
 
+                <Route path="/cms/giftcards/edit/:id" exact>
+                    <GiftCardForm token={token} />
+                </Route>
+
+                <Route path="/cms/giftcards/create" exact>
+                    <GiftCardForm token={token} />
+                </Route>
+
                 <Route path="/cms/statistics">
-                    <StatisticsPage isManufacturer={authorityManufacturer} isAdmin={authorityAdmin}/>
+                    <StatisticsPage token={token} isManufacturer={authorityManufacturer} isAdmin={authorityAdmin}/>
                 </Route>
 
                 <Route path="/cms/products/" exact>
@@ -39,12 +48,12 @@ const CMSLayout = (props) => {
                     {/*<ProductAddEdit mode="add" />*/}
                 </Route>
 
-                <Route path='/cms/products/:order_id'>
-                   <DetailsProduct isAdmin={authorityAdmin}/>
+                <Route path='/cms/products/:product_id'>
+                   <DetailsProduct token={token} isAdmin={authorityAdmin}/>
                 </Route>
 
-                <Route path='/cms/products/edit/:order_id'>
-                    <OrderAddEdit mode="edit" />
+                <Route path='/cms/products/edit/:product_id'>
+                    <OrderAddEdit token={token} mode="edit" />
                 </Route>
 
                 <Route  path='/cms/orders/' exact>
@@ -52,7 +61,7 @@ const CMSLayout = (props) => {
                 </Route>
 
                 <Route path='/cms/orders/create'>
-                    <OrderAddEdit mode="add" />
+                    <OrderAddEdit mode="add" token={token} />
                 </Route>
 
                 <Route path='/cms/orders/:order_id'>

@@ -19,10 +19,10 @@ const GiftCards = ({isAdmin, token}) => {
         setError(false);
         toggleLoading(true);
 
-        let url = "/api/v1";
+        let url = "http://localhost:8080/api/v1";
 
         if (isAdmin) {
-            url = `${url}/admin/products/discounts`;
+            url = `${url}/products/type/4/`;
         } else {
             //fix!!!
             let customer_id = 1;
@@ -53,7 +53,7 @@ const GiftCards = ({isAdmin, token}) => {
 
     return (
         <>
-            <div className="GiftCardsOverview">
+            <div className="overview">
                 {loading ? <LoadingIndicator /> : <GiftCard giftCardItems={giftCardItems} error={error} setError={setError} />}
                 {error && <Error type="message_container" content={error} /> }
             </div>

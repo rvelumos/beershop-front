@@ -91,22 +91,24 @@ function FilterBlockItems(props) {
         if(filterItems.valueName.length  > 0) {
             return (
                 filterItems.valueName.map((filterItem) => {
-                    return (
-                        <>
-                        <div key={filterItem.id} className="filterItem">
-                            <input
-                                type="checkbox"
-                                placeholder=""
-                                name={valueName+"[]"}
-                                id={filterItem.name}
-                                className="filterItemInput"
-                                value={filterItem.id}
-                                onClick={(e) => handleClick(e)}
-                            />
-                            <label htmlFor={filterItem.name}>{filterItem.name}</label>
-                        </div>
-                        </>
-                    )
+                    if(filterItem.id != '999') {
+                        return (
+                            <>
+                                <div key={filterItem.id} className="filterItem">
+                                    <input
+                                        type="checkbox"
+                                        placeholder=""
+                                        name={valueName + "[]"}
+                                        id={filterItem.name}
+                                        className="filterItemInput"
+                                        value={filterItem.id}
+                                        onClick={(e) => handleClick(e)}
+                                    />
+                                    <label htmlFor={filterItem.name}>{filterItem.name}</label>
+                                </div>
+                            </>
+                        )
+                    }
                 })
             )
         }
