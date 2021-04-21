@@ -24,7 +24,6 @@ function DetailsProduct() {
         axios.get(url)
             .then((response) => {
                 const product = response.data;
-                console.log(product);
                 setProductItem(product);
                 toggleLoading(false);
             })
@@ -36,11 +35,18 @@ function DetailsProduct() {
 
     function getItemInfo() {
 
+        let image = "";
+        if(productItem.type!==4) {
+            image = <img src={`/product_images/product_${productItem.id}.png`} alt=''/>;
+        } else {
+            image = <img src={`/product_images/giftcard.png`} alt=''/>;
+        }
+
         return(
             <section>
                 <div className="DetailsProduct">
                     <div className="imageContent">
-                        <img src={"/product_images/product_"+productItem.id+".png"} alt="" />
+                        {image}
                     </div>
                     <div className="rightContent">
                         <div className="rightUpperContent">

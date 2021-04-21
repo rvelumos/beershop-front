@@ -89,9 +89,9 @@ function FilterBlockItems(props) {
         const {filterItems, valueName} = props;
 
         if(filterItems.valueName.length  > 0) {
+            filterItems.valueName = filterItems.valueName.filter(e => e.id !== 999);
             return (
                 filterItems.valueName.map((filterItem) => {
-                    if(filterItem.id != '999') {
                         return (
                             <>
                                 <div key={filterItem.id} className="filterItem">
@@ -108,7 +108,6 @@ function FilterBlockItems(props) {
                                 </div>
                             </>
                         )
-                    }
                 })
             )
         }

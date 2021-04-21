@@ -5,7 +5,6 @@ import Product from './Product/Product';
 import LoadingIndicator from "../Website/UI/LoadingIndicator/LoadingIndicator";
 import Error from "../Website/UI/Feedback/Error/Error";
 import {useParams} from "react-router";
-import * as qs from "querystring";
 
 function Products(props) {
 
@@ -14,7 +13,7 @@ function Products(props) {
     const [loading, toggleLoading] = useState(false);
 
     const { searchResult } = useParams();
-    const { isAdmin } = props;
+    const { isAdmin, token } = props;
     const {categoryArray, tasteArray} = props;
 
     useEffect(() => {
@@ -25,6 +24,9 @@ function Products(props) {
             toggleLoading(true);
 
             let url = `http://localhost:8080/api/v1/products/`;
+
+            if(isAdmin)
+                url = `${url}all/`;
 
             if (type > 0) {
                 url = `${url}type/${type}/`;
@@ -80,8 +82,8 @@ function Products(props) {
 
     return (
         <>
-            <div className={isAdmin ? "ProductOverviewAdmin" : "ProductOverview"} >
-                {loading ? <LoadingIndicator /> : <Product product_items={productItems} isAdmin={isAdmin} />}
+            <div className={isAdmin ? "overview" : "ProductOverview"} >
+                {loading ? <LoadingIndicator /> : <Product product_items={productItems} token={token} isAdmin={isAdmin} />}
                 {error && <Error type="message_container" content={error} /> }
             </div>
         </>

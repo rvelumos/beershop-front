@@ -1,13 +1,11 @@
 import React, {useState, createContext, useEffect} from 'react';
-import jwt_decode from 'jwt-decode';
+//import jwt_decode from 'jwt-decode';
 import axios from "axios";
 import LoadingIndicator from "../Components/Website/UI/LoadingIndicator/LoadingIndicator";
-import {useHistory} from "react-router-dom";
 
 export const AuthContext = createContext({});
 
 function AuthContextProvider({ children }) {
-    const history = useHistory();
     const [userdata, setUserdata] = useState({
         user: null,
         status: 'pending'
@@ -37,8 +35,8 @@ function AuthContextProvider({ children }) {
     }
 
     async function fetchUserData(jwtToken) {
-        const decoded = jwt_decode(jwtToken);
-        const userId = decoded.sub;
+        //const decoded = jwt_decode(jwtToken);
+        //const userId = decoded.sub;
         try {
             const result = await axios.get(`http://localhost:8080/authenticated/`, {
                 headers: {

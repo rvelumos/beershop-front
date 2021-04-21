@@ -33,8 +33,9 @@ function App() {
         }
     }
 
-    //if(token==='')
-      //  getAuthorities();
+    if(token==='bla')
+        getAuthorities();
+
     if(token==='')
         setToken("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjE5NjM4NjI5LCJpYXQiOjE2MTg3NzQ2Mjl9.oh17PXcUb4KNRieizMx1eRaMO6v9DAjA_102tgXpQr8");
 

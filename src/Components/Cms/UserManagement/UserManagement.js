@@ -3,10 +3,8 @@ import LoadingIndicator from "../../Website/UI/LoadingIndicator/LoadingIndicator
 import UserInfo from "./UserInfo/UserInfo";
 import Error from "../../Website/UI/Feedback/Error/Error";
 import axios from "axios";
-import Button from "../../Website/UI/Button/Button";
-import {Link} from "react-router-dom";
 
-const UserManagement = ({isAdmin, token}) => {
+const UserManagement = ({ token }) => {
 
     const [error, setError] = useState(false);
     const [users, setUsers] = useState("");

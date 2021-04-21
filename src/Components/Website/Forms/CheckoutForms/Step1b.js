@@ -1,11 +1,11 @@
 import React from 'react';
-import RegistrationForm from '../RegistrationForm/RegistrationForm';
+import RegistrationFormNew from '../RegistrationForm/RegistrationFormNew';
 
 const Step1b = () => {
 
     return (
         <>
-            <RegistrationForm />
+            <RegistrationFormNew />
         </>
     )
 }

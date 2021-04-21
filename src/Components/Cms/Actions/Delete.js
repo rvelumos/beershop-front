@@ -31,8 +31,8 @@ function DeleteItem(props) {
 
     return (
         <>
-            error && <p>Fout bij verwijderen van item.</p>
-            loading ? <LoadingIndicator /> : deleteRecord(props)
+            {error && <p>Fout bij verwijderen van item.</p>}
+            {loading ? <LoadingIndicator /> : deleteRecord(props)}
         </>
     )
 }

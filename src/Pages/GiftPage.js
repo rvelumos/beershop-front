@@ -1,5 +1,4 @@
 import React from 'react';
-import Gift from "../Components/Products/Product/Gift/Gift";
 import Products from "../Components/Products/Products";
 
 const GiftPage = () => {

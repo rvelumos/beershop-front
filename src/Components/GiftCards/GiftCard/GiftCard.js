@@ -9,7 +9,7 @@ function GiftCard(props) {
     function deleteGiftCard(id){
         const {token} = props;
         return (
-            <DeleteItem section="giftcards" id={id} token={token}></DeleteItem>
+            <DeleteItem section="giftcards" id={id} token={token} />
         )
     }
 
@@ -20,7 +20,6 @@ function GiftCard(props) {
             giftCardItems = Array.from(giftCardItems);
             return (
                 giftCardItems.map((giftCardItem) => {
-
                     return (
                         <>
                             <tr key={uuidv4()} className="Order">

@@ -1,18 +1,19 @@
-import React, {memo, useEffect,  useState} from 'react';
+import React, {useEffect, useState} from 'react';
 //import Button from "../UI/Button/Button";
 import axios from "axios";
 import Product from "../../Products/Product/Product";
+import Error from "../UI/Feedback/Error/Error";
 
 const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartItems, setShoppingCartActive}) => {
 
   //  const [shoppingCartTotal, setShoppingCartTotal] = useState("");
     const [updatedShoppingCartItems, setUpdatedShoppingCartItems] = useState("");
 
-    let shoppingCart = localStorage.getItem("shopping_carts");
     const [error, setError] = useState("");
     const [loading, toggleLoading] = useState(true);
 
     useEffect(() => {
+        let shoppingCart = localStorage.getItem("shopping_carts");
         console.log('hierooo');
         shoppingCart = JSON.parse(shoppingCart);
         if (shoppingCart) {
@@ -24,7 +25,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                 </div>
             )
         }
-    }, [])
+    }, [setShoppingCartItems])
 
 
     // const addItem = (item) => {
@@ -117,6 +118,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
         <>
             <div className="home">
                 <h1>Winkelwagen</h1>
+                {error && <Error type="message_container" content={error} />}
                 {loading ? <p>loading...</p> : <Product product_items={updatedShoppingCartItems} />}
                 {shoppingCartActive ? shoppingCartOverview()
                 : <p>Er zijn geen items aan je winkelwagen toegevoegd.</p>

@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 
 function Order(props) {
     const OrderItems = (props) => {
-        let {orderItems, setError, isAdmin} = props;
+        let {orderItems, isAdmin} = props;
 
             if(orderItems.length > 0) {
                 orderItems = Array.from(orderItems);
@@ -29,7 +29,7 @@ function Order(props) {
                                 <td className="orderPaidStatus">{orderItem.invoice_status}</td>
                                 <td>
                                     <div className="edit">
-                                        <Link to={`/cms/order/edit/${orderItem.id}`}>&#9999;</Link>
+                                        <Link to={`/cms/orders/edit/${orderItem.id}`}>&#9999;</Link>
                                     </div>
                                     {/*<div className="delete" onClick={HandleClick(orderItem.id)}>*/}
                                     {/*    &#10008;*/}
@@ -55,7 +55,7 @@ function Order(props) {
     return(
         <>
                 <div className="itemContainer">
-                    <Link to="/cms/orders/add/" className="button">Order toevoegen</Link><br /><br />
+                    <Link to="/cms/orders/create/" className="button">Order toevoegen</Link><br /><br />
                     <table className="tableDetails">
                         <tr>
                             <td>&nbsp;</td>
@@ -71,7 +71,6 @@ function Order(props) {
                     {OrderItems(props)}
                     </table>
                 </div>
-            }
         </>
     )
 }

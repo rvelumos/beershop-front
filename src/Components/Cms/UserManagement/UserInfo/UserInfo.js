@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
     Link
 } from "react-router-dom";
@@ -9,51 +9,52 @@ import LoadingIndicator from "../../../Website/UI/LoadingIndicator/LoadingIndica
 
 function UserInfo(props) {
     const [loading, toggleLoading] = useState(false);
-    const [userRoles, setUserRoles] = useState('');
+    //const [userRoles, setUserRoles] = useState('');
     const [error, setError] = useState(true);
+    const [message, setMessage] = useState(true);
 
     const {token} = props;
 
-    function GetRolesUser(id) {
-
-        useEffect(() => {
-            async function getRoles() {
-
-                toggleLoading(true);
-
-                let url = `/api/v1/users/${id}`;
-
-                try {
-                    const result = await axios.get(url, {
-                        headers : {
-                            "Authorization" : `Bearer ${token}`,
-                            'Content-Type': 'application/json',
-                            "Access-Control-Allow-Origin": "*",
-                        }
-                    });
-                    if (result.data.length > 0){
-                        setUserRoles(result.data);
-                    } else {
-                        setUserRoles("Geen");
-                        setError("Geen rollen gedefineerd");
-                    }
-                    console.log(userRoles);
-                } catch (e) {
-                    console.error(e);
-                    setError("Fout bij ophalen gegevens.");
-                }
-                toggleLoading(false);
-            }
-
-            getRoles();
-
-            // eslint-disable-next-line
-        }, [userRoles]);
-    }
+    // function GetRolesUser(id) {
+    //
+    //     useEffect(() => {
+    //         async function getRoles() {
+    //
+    //             toggleLoading(true);
+    //
+    //             let url = `/api/v1/users/${id}`;
+    //
+    //             try {
+    //                 const result = await axios.get(url, {
+    //                     headers : {
+    //                         "Authorization" : `Bearer ${token}`,
+    //                         'Content-Type': 'application/json',
+    //                         "Access-Control-Allow-Origin": "*",
+    //                     }
+    //                 });
+    //                 if (result.data.length > 0){
+    //                     setUserRoles(result.data);
+    //                 } else {
+    //                     setUserRoles("Geen");
+    //                     setError("Geen rollen gedefineerd");
+    //                 }
+    //                 console.log(userRoles);
+    //             } catch (e) {
+    //                 console.error(e);
+    //                 setError("Fout bij ophalen gegevens.");
+    //             }
+    //             toggleLoading(false);
+    //         }
+    //
+    //         getRoles();
+    //
+    //     // eslint-disable-next-line
+    //     }, [userRoles]);
+    // }
 
     async function deleteUser(id) {
         toggleLoading(true);
-        let url = `http://localhost:8080/api/v1/users/${id}`;
+        let url = `/api/v1/admin/customer/${id}`;
 
         try {
             const result = await axios.delete(url, {
@@ -61,17 +62,18 @@ function UserInfo(props) {
                     "Authorization": `Bearer ${token}`
                 }
             });
-            if (result.data.length > 0){
+            if(result) {
+                setMessage("Gebruiker is verwijderd... moment");
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
 
-            } else {
-                setError("Gebruiker niet gevonden");
             }
-            console.log(userRoles);
         } catch (e) {
             console.error(e);
-            setError("Fout bij ophalen gegevens.");
+            setError("Fout bij verwijderen gebruiker.");
+            toggleLoading(false);
         }
-        toggleLoading(false);
     }
 
     const User = (props) => {
@@ -81,6 +83,7 @@ function UserInfo(props) {
                     return (
                         <tr key={uuidv4()} className="Order">
                             <td><p className="userID">{userInfo.id}</p></td>
+                            <td><p className="userSex">{userInfo.sex}</p></td>
                             <td><p className="userFirstName">{userInfo.firstname}</p></td>
                             <td><p className="userLastName">{userInfo.lastname}</p></td>
                             <td><p className="userBirthDate">{userInfo.birth_date}</p></td>
@@ -103,13 +106,15 @@ function UserInfo(props) {
     }
     return(
         <>
-            {error && <p> {error} </p>}
+            {message && <p> {message} </p>}
             {loading ? <LoadingIndicator/> :
                 <div className="itemContainer">
-                    <Link to="/cms/users/add/" className="button">Gebruiker toevoegen</Link><br /><br />
+                    {error && <p> {error} </p>}
+                    <Link to="/cms/users/create/" className="button">Gebruiker toevoegen</Link><br /><br />
                     <table className="tableDetails">
                         <tr>
                             <td>&nbsp;</td>
+                            <td>Geslacht</td>
                             <td>Voornaam</td>
                             <td>Achternaam</td>
                             <td>Geboortedatum</td>

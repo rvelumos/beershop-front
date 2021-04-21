@@ -14,7 +14,7 @@ const CheckoutPage = () => {
         setShoppingCartItems(location.state.data);
         setShoppingCartActive(true);
 
-        let cartString = JSON.stringify(setShoppingCartItems)
+        let cartString = JSON.stringify(setShoppingCartItems);
         localStorage.setItem('shopping_cart', cartString)
     }
 

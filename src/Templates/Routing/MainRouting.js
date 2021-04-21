@@ -18,47 +18,47 @@ const MainRouting = () => {
     return (
         <>
             <Route path="/" exact>
-                <HomePage/>
+                <HomePage />
             </Route>
 
             <Route path="/zoeken/:searchResult">
-                <SearchResultsPage/>
+                <SearchResultsPage />
             </Route>
 
             <Route path="/product/:id">
-                <DetailsProduct/>
+                <DetailsProduct />
             </Route>
 
             <Route path="/alle-bieren">
-                <BeerPage/>
+                <BeerPage />
             </Route>
 
             <Route path="/aanbiedingen">
-                <ProductOfferPage/>
+                <ProductOfferPage />
             </Route>
 
             <Route path="/contact">
-                <ContactPage/>
+                <ContactPage />
             </Route>
 
             <Route path="/cadeaubonnen">
-                <GiftPage/>
+                <GiftPage />
             </Route>
 
             <Route path="/pakketten">
-                <PacketPage/>
+                <PacketPage />
             </Route>
 
             <Route path="/winkelwagen" exact>
-                <CheckoutPage/>
+                <CheckoutPage />
             </Route>
 
             <Route path="/winkelwagen/checkout/">
-                <CheckoutForm/>
+                <CheckoutForm />
             </Route>
 
             <Route path="/registreren/">
-                <RegistrationForm/>
+                <RegistrationForm />
             </Route>
 
             <Route path="/info/">

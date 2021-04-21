@@ -5,7 +5,7 @@ main.cms {
 
 .overview {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 98%;
     margin: 20px auto;
 }
@@ -73,6 +73,9 @@ main.cms {
     background-color: transparent;
 }
 
+.cms .formElement {
+    width: 98% !important;
+}
 
 .actionContainer {
     display: flex;
@@ -88,9 +91,14 @@ main.cms {
 .delete,
 .edit {
     width: 25px;
-    height: 25px;
     font-size: 2em;
     padding: 5px;
+    cursor: pointer;
+}
+
+.edit {
+    display: inline-block;
+    transform: rotate(130deg);
 }
 
 .edit a{

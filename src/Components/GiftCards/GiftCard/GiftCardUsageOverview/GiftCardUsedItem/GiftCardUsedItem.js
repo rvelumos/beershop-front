@@ -1,10 +1,8 @@
-import React from 'react';
-import './GiftCard.css';
-import { v4 as uuidv4 } from 'uuid';
+import DeleteItem from "../../../../Cms/Actions/Delete";
+import {v4 as uuidv4} from "uuid";
 import {Link} from "react-router-dom";
-import  DeleteItem  from "../../Cms/Actions/Delete";
 
-function GiftCardUsages(props) {
+function GiftCardUsedItem(props) {
 
     function deleteGiftCard(id){
         const {token} = props;
@@ -39,7 +37,7 @@ function GiftCardUsages(props) {
                                 <td><p className="giftCardAmount">{giftCardItem.amount}</p></td>
                                 <td><p className="giftCardCode">{giftCardItem.code}</p></td>
                                 <td><p className="giftCardExpirationDate">{expiration_date}</p></td>
-                                <td><p className="giftCardUsed">{used}</p></td>
+                                <td><p className={class_gc}>{used}</p></td>
                                 <td>
                                     <div className="actionContainer">
                                         <div className="edit"><Link to={`/cms/users/edit/${giftCardItem.id}`}>&#9999;</Link>
@@ -61,7 +59,7 @@ function GiftCardUsages(props) {
     return(
         <>
             <div className="itemContainer">
-                <Link to="/cms/giftcards/add/customer/" className="button">Cadeaukaart koppelen</Link><br /><br />
+                <Link to="/cms/giftcards/add/" className="button">Cadeaukaart toevoegen</Link><br /><br />
                 <table className="tableDetails">
                     <tr>
                         <td>&nbsp;</td>
@@ -79,4 +77,4 @@ function GiftCardUsages(props) {
     )
 }
 
-export default GiftCard;
+export default GiftCardUsedItem;

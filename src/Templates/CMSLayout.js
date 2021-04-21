@@ -3,15 +3,21 @@ import React from "react";
 import '../Admin.css';
 import DetailsProduct from "../Components/Products/Product/DetailsProduct/DetailsProduct";
 import { Route} from "react-router-dom";
+
+import LeftMenu from "../Components/Cms/Navigation/LeftMenu/LeftMenu";
+
 import StatisticsPage from "../Pages/Statistics/StatisticsPage";
 import AdminHomePage from "../Pages/Admin/AdminHomePage";
-import LeftMenu from "../Components/Cms/Navigation/LeftMenu/LeftMenu";
 import Orders from "../Components/Orders/Orders";
 import Products from "../Components/Products/Products";
 import GiftCards from "../Components/GiftCards/GiftCards";
 import UserManagement from "../Components/Cms/UserManagement/UserManagement";
-import OrderAddEdit from "../Components/Orders/Order/OrderAddEdit";
-import {AddEditForm as GiftCardForm} from "../Components/GiftCards/GiftCard/AddEditForm";
+
+import {AddEditForm as ProductForm} from "../Components/Products/Product/AddEditForm/AddEditForm";
+import {AddEditForm as OrderForm} from "../Components/Orders/Order/AddEditForm/AddEditForm";
+import {AddEditForm as UserForm} from "../Components/Cms/UserManagement/AddEditForm/AddEditForm";
+import {AddEditForm as GiftCardForm} from "../Components/GiftCards/GiftCard/AddEditForm/AddEditForm";
+import GiftCardUsageOverview from "../Components/GiftCards/GiftCard/GiftCardUsageOverview/GiftCardUsageOverview";
 
 const CMSLayout = (props) => {
     const { authorityAdmin, authorityManufacturer, username, token } = props;
@@ -28,7 +34,11 @@ const CMSLayout = (props) => {
                     <GiftCards isAdmin={authorityAdmin} token={token} />
                 </Route>
 
-                <Route path="/cms/giftcards/edit/:id" exact>
+                <Route path="/cms/giftcards/:id" exact>
+                    <GiftCardUsageOverview token={token} />
+                </Route>
+
+                <Route path="/cms/giftcards/edit/:id" >
                     <GiftCardForm token={token} />
                 </Route>
 
@@ -36,44 +46,57 @@ const CMSLayout = (props) => {
                     <GiftCardForm token={token} />
                 </Route>
 
-                <Route path="/cms/statistics">
+                <Route path="/cms/statistics" exact>
                     <StatisticsPage token={token} isManufacturer={authorityManufacturer} isAdmin={authorityAdmin}/>
                 </Route>
 
                 <Route path="/cms/products/" exact>
-                    <Products layout="table" isAdmin={authorityAdmin} />
+                    <Products token={token} layout="table" isAdmin={authorityAdmin} />
                 </Route>
 
-                <Route path='/cms/products/create'>
-                    {/*<ProductAddEdit mode="add" />*/}
+                <Route path='/cms/products/create' exact>
+                    <ProductForm mode="add" token={token} />
                 </Route>
 
-                <Route path='/cms/products/:product_id'>
+                <Route path='/cms/products/:id' exact>
                    <DetailsProduct token={token} isAdmin={authorityAdmin}/>
                 </Route>
 
-                <Route path='/cms/products/edit/:product_id'>
-                    <OrderAddEdit token={token} mode="edit" />
+                <Route path='/cms/products/edit/:id'>
+                    <ProductForm mode="edit" token={token} />
                 </Route>
 
                 <Route  path='/cms/orders/' exact>
                     <Orders isAdmin={authorityAdmin} token={token}/>
                 </Route>
 
-                <Route path='/cms/orders/create'>
-                    <OrderAddEdit mode="add" token={token} />
+                <Route path='/cms/orders/create' exact>
+                    <OrderForm mode="add" token={token} />
                 </Route>
 
-                <Route path='/cms/orders/:order_id'>
-                   {/*<DetailsOrder />    */}
+                <Route path='/cms/orders/:id' exact>
+                    {/*<DetailsOrder />    */}
                 </Route>
 
-                <Route path='/cms/orders/edit/:order_id'>
-                    <OrderAddEdit mode="add" />
+                <Route path='/cms/orders/edit/:id' exact>
+                    <OrderForm mode="edit" token={token} />
                 </Route>
 
-                <Route path="/cms/users">
-                    <UserManagement isAdmin={authorityAdmin} token={token}/>
+
+                <Route path="/cms/users" exact>
+                    <UserManagement token={token}/>
+                </Route>
+
+                <Route path='/cms/users/create'>
+                    <UserForm mode="add" token={token} />
+                </Route>
+
+                <Route path="/cms/users/:id">
+                    {/*<UserDetails token={token}/>*/}
+                </Route>
+
+                <Route path="/cms/users/edit/:id">
+                    <UserForm mode="edit" token={token} />
                 </Route>
 
             </main>

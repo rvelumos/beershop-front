@@ -4,6 +4,13 @@ import './FormElement.css';
 const FormElement = (props) => {
     const [valueLabel, setValueLabel] = useState('');
     const [isActiveLabel, setIsActiveLabel] = useState(false);
+    const [mode, setMode] = useState("init");
+    const {formValue} = props;
+
+    if(formValue !== "" && mode === "init") {
+        setIsActiveLabel(true);
+        setMode('loading');
+    }
 
     function handleTextChange(text) {
         if (text !== '') {
@@ -27,8 +34,9 @@ const FormElement = (props) => {
                         <input
                             type={props.type}
                             placeholder=""
+                            defaultValue=""
                             name={props.name}
-                            value={valueLabel}
+                            value={valueLabel ? valueLabel : formValue}
                             onChange={(e) => handleTextChange(e.target.value)}
                             ref={props.fieldRef}
                         />

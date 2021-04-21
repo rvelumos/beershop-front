@@ -1,18 +1,18 @@
 import React, {useState, useEffect} from 'react';
-import {useForm} from "react-hook-form";
-import {Link, useParams} from "react-router-dom";
-import AddEdit from "../../Cms/Actions/AddEdit";
-import LoadingIndicator from "../../Website/UI/LoadingIndicator/LoadingIndicator";
-import Error from "../../Website/UI/Feedback/Error/Error";
-import FormElement from "../../Website/Forms/FormElement/FormElement";
-import Button from "../../Website/UI/Button/Button";
+import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
+import AddEdit from "../../../Cms/Actions/AddEdit";
+import LoadingIndicator from "../../../Website/UI/LoadingIndicator/LoadingIndicator";
+import Error from "../../../Website/UI/Feedback/Error/Error";
+import FormElement from "../../../Website/Forms/FormElement/FormElement";
+import Button from "../../../Website/UI/Button/Button";
 import './AddEditForm.css';
 import axios from "axios";
 
 export function AddEditForm(props) {
     const [error, setError] = useState(false);
     const [loading, toggleLoading] = useState(false);
-    const [sentForm, setSentForm] = useState(false);
+    const [submittedForm, setSubmittedForm] = useState(false);
 
     const { id } = useParams();
     const { token } = props;
@@ -23,10 +23,11 @@ export function AddEditForm(props) {
         name: '',
         description: '',
         amount: '',
+        categoryId: '999',
+        manufacturer_id: '999'
     });
 
     useEffect(() => {
-        if(id) {
             async function getFormData (){
                 try {
                     const url=`http://localhost:8080/api/v1/product/${id}/`
@@ -37,40 +38,49 @@ export function AddEditForm(props) {
                             "Access-Control-Allow-Origin": "*",
                         }
                     });
-                    const {name, description, amount, discount_type} = result.data;
-                    if (result.data.length > 0) {
-                        setFormValues({
-                            name: name,
-                            description: description,
-                            amount: amount,
-                        });
-                        toggleLoading(false);
-                    }
+                    const {name, description, price} = result.data;
+
+                    setFormValues({
+                        name: name,
+                        description: description,
+                        price: price,
+                        manufacturer_id: '999',
+                        categoryId: '999',
+                    });
+                    console.table(formValues);
                 } catch (e) {
                     console.error(e);
                     setError("Fout bij ophalen gegevens.");
-                    toggleLoading(false);
                 }
+                toggleLoading(false);
             }
-            getFormData();
-        }
+            if(id !== undefined)
+                getFormData();
+    // eslint-disable-next-line
     },[])
 
     const changeHandler = e => {
-        setFormValues({...formValues, [e.target.name]: e.target.value})
+        setFormValues({[e.target.name]: e.target.value})
     }
 
     function onSubmitForm(data) {
-        console.table(data);
 
-        if(error === false) {
-            return (
-                <AddEdit isAddMode={isAddMode} id={id} itemData={data}/>
-            )
-        }
+        const { name, description, price} = data;
+
+        setFormValues({
+            name: name,
+            description: description,
+            price: price,
+            category_id: 999,
+            manufacturer_id: 999,
+            stock: 9999,
+            type: 4
+        })
+
+        setSubmittedForm(true);
     }
 
-    const GiftCardItems = () => {
+    const GiftCardItem = () => {
         const { register, errors, handleSubmit } = useForm({
             criteriaMode: "all",
             mode: "onChange",
@@ -80,7 +90,7 @@ export function AddEditForm(props) {
             <>
                 <div className="AddEditForm">
                         <div className="RegisterForm" >
-                            <h1>Cadeaubon toevoegen</h1>
+                            <h1>Cadeaubon {id ? "wijzigen" : "toevoegen"}</h1>
                             <form onSubmit={handleSubmit(onSubmitForm)}>
 
                                 <fieldset>
@@ -89,7 +99,7 @@ export function AddEditForm(props) {
                                             type="text"
                                             name="name"
                                             label="Naam"
-                                            value={formValues.name}
+                                            formValue={formValues.name}
                                             onChange={changeHandler}
                                             fieldRef={register({
                                                 required: 'Verplicht veld',
@@ -103,7 +113,7 @@ export function AddEditForm(props) {
                                             type="text"
                                             name="description"
                                             label="Omschrijving"
-                                            value={formValues.description}
+                                            formValue={formValues.description}
                                             onChange={changeHandler}
                                             fieldRef={register({
                                                 required: 'Verplicht veld',
@@ -115,15 +125,15 @@ export function AddEditForm(props) {
                                     <div className="formElement">
                                         <FormElement
                                             type="text"
-                                            name="amount"
-                                            label="Hoogte bedrag"
-                                            value={formValues.amount}
+                                            name="price"
+                                            label="Aanschafprijs"
+                                            formValue={formValues.price}
                                             onChange={changeHandler}
                                             fieldRef={register({
                                                 required: "Verplicht veld",
                                             })
                                             }
-                                            error={errors.amount ? <span className='error-message'>{errors.amount.message}</span> : <span>&nbsp;</span>}
+                                            error={errors.price ? <span className='error-message'>{errors.price.message}</span> : <span>&nbsp;</span>}
                                         />
                                     </div>
                                 </fieldset>
@@ -139,20 +149,12 @@ export function AddEditForm(props) {
         )
     }
 
-    function showMessage () {
-        return(
-            <div>
-                <h2>De data is succesvol opgeslagen!</h2>
-                <p>Klik <Link to='/giftcards'>hier</Link> om verder te gaan.</p>
-            </div>
-        )
-    }
-
     return (
         <>
             <div className="overview">
-                {loading ? <LoadingIndicator /> : <GiftCardItems /> }
-                {error && <Error type="message_container" content={error} /> }
+                { loading ? <LoadingIndicator /> : <GiftCardItem /> }
+                { error && <Error type="message_container" content={error} /> }
+                { submittedForm &&  <AddEdit isAddMode={isAddMode} token={token} section="product" id={id} itemData={formValues}/> }
             </div>
         </>
     )

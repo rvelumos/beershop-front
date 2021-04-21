@@ -6,10 +6,9 @@ const OrderBlock = ({productItem, isAdmin, section}) => {
 
     const [amountItem, setAmountItem] = useState('');
 
-    console.log("het is "+productItem);
     let history = useHistory();
 
-    function AddToCart (e){
+    function AddToCart(e) {
         e.preventDefault();
 
         history.push({
@@ -39,9 +38,9 @@ const OrderBlock = ({productItem, isAdmin, section}) => {
     }
 
     let stock_info = "";
-    let button_disabled="";
-    let read_only="";
-    let tab_index="0";
+    let button_disabled = "";
+    let read_only = "";
+    let tab_index = "0";
 
     if (productItem.stock === 0) {
         stock_info = <span className="outOfStock"> Uitverkocht</span>;
@@ -77,7 +76,12 @@ const OrderBlock = ({productItem, isAdmin, section}) => {
         let image="";
         let title="";
         if(section==='overview') {
-            image = <div className="image"><img src={"/product_images/product_"+productItem.id+".png"} alt='' /></div>;
+            if(productItem.type!==4) {
+                image = <div className="image"><img src={`/product_images/product_${productItem.id}.png`} alt=''/></div>;
+            } else {
+                image = <div className="image"><img src={`/product_images/giftcard.png`} alt=''/></div>;
+            }
+
             let url = `/product/${productItem.id}/`;
             title = <h3><a href={url}>{productItem.name}</a></h3>;
         }
@@ -95,7 +99,6 @@ const OrderBlock = ({productItem, isAdmin, section}) => {
                             placeholder=""
                             maxLength="2"
                             name={productName}
-                            // value={current_value}
                             onChange={evt => handleChange(evt)}
                             readOnly={read_only}
                             tabIndex={tab_index}
