@@ -20,6 +20,7 @@ const RegistrationForm = () => {
         email: '',
         phone: '',
         birth_date: '',
+        username: '',
         password: '',
         password_repeat: ''
     });
@@ -41,6 +42,7 @@ const RegistrationForm = () => {
 
             createRegistration({
                 firstname: data.firstname,
+                username: data.username,
                 lastname: data.lastname,
                 email: data.email,
                 phone: data.phone,
@@ -327,7 +329,7 @@ const RegistrationForm = () => {
                                     <div className="formElement">
                                         <FormElement
                                             type="text"
-                                            name="password"
+                                            name="username"
                                             defaultValue={formValues.username}
                                             label="Gebruikersnaam"
                                             onChange={changeHandler}

@@ -3,10 +3,9 @@ import {useForm} from "react-hook-form";
 import {useParams} from "react-router-dom";
 import axios from "axios";
 
-import AddEdit from "../../Actions/AddEdit";
+//import AddEdit from "../../Actions/AddEdit";
 
 import LoadingIndicator from "../../../Website/UI/LoadingIndicator/LoadingIndicator";
-import Error from "../../../Website/UI/Feedback/Error/Error";
 import FormElement from "../../../Website/Forms/FormElement/FormElement";
 import Button from "../../../Website/UI/Button/Button";
 import './AddEditForm.css';
@@ -18,7 +17,7 @@ export function AddEditForm(props) {
 
     const { id } = useParams();
     const { token } = props;
-    const isAddMode = !id;
+    //const isAddMode = !id;
 
     const [formValues, setFormValues] = useState({
         user_id: '',
@@ -83,32 +82,81 @@ export function AddEditForm(props) {
     }
 
     function onSubmitForm(data) {
-        console.table(formValues);
 
-        const {
-            email,
-            firstname,
-            lastname,
-            address,
-            birth_date,
-            phone,
-            newsletter,
-            sex
+        console.table(data);
 
-        } = data;
+        if(error === false) {
+            createLogin({
+                username: data.username,
+                password: data.password,
+                email: data.email,
+            })
 
-        setFormValues({
-            email: email,
-            firstname: firstname,
-            lastname: lastname,
-            address: address,
-            birth_date: birth_date,
-            phone: phone,
-            newsletter: newsletter,
-            sex: sex
-        });
+            createRegistration({
+                firstname: data.firstname,
+                username: data.username,
+                lastname: data.lastname,
+                email: data.email,
+                sex: data.sex,
+                phone: data.phone,
+                birth_date: data.birth_date,
+            })
+        }
+    }
 
-        setSubmittedForm(true);
+    async function createLogin(userData) {
+
+        setError(false);
+        toggleLoading(true);
+
+        let url = `http://localhost:8080/api/v1/create_user/`;
+
+        try {
+            const result = await axios.post(url, userData);
+            console.log("User result: "+result);
+
+            if(result) {
+                url = `http://localhost:8080/api/v1/create_authority/`;
+                try {
+                    const result = await axios.post(url, {
+                        authority: "ROLE_CUSTOMER",
+                        username: userData.username
+                    })
+                    console.log(result);
+                } catch (e) {
+                    console.error(e);
+                    setError("Fout bij verwerken logingegevens.");
+                }
+            }
+            setSubmittedForm(true);
+            toggleLoading(false);
+        } catch (e) {
+            console.error(e);
+            setError("Fout bij verwerken logingegevens.");
+            toggleLoading(false);
+        }
+    }
+
+    async function createRegistration(customerData) {
+        setError(false);
+        toggleLoading(true);
+
+        let url = `/api/v1/admin/customer/`;
+
+        try {
+            const result = await axios.post(url, customerData, {
+                headers: {
+                    "Content-type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            if(result)
+                console.log(result);
+        } catch (e) {
+            console.error(e);
+            setError("Fout bij verwerken registratiegegevens.");
+        }
+        toggleLoading(false);
     }
 
     const UserItem = () => {
@@ -125,7 +173,6 @@ export function AddEditForm(props) {
                         <form onSubmit={handleSubmit(onSubmitForm)}>
 
                             <fieldset>
-
                                 <div className="formElement">
                                     {errors.sex ? <span className='error-message'>{errors.sex.message}</span> : <span>&nbsp;</span>}
                                     <select name="sex" ref={register({ required: true })}>
@@ -133,6 +180,8 @@ export function AddEditForm(props) {
                                         <option value="M">Man</option>
                                         <option value="F">Vrouw</option>
                                     </select>
+                                </div>
+
                                 <div className="formElement">
                                     <FormElement
                                         type="text"
@@ -159,6 +208,22 @@ export function AddEditForm(props) {
                                         })
                                         }
                                         error={errors.lastname ? <span className='error-message'>{errors.lastname.message}</span> : <span>&nbsp;</span>}
+                                    />
+                                </div>
+
+                                <div className="formElement">
+                                    <FormElement
+                                        type="text"
+                                        name="email"
+                                        defaultValue={formValues.email}
+                                        label="E-mailadres"
+                                        onChange={changeHandler}
+                                        fieldRef={register({
+                                            required: "Verplicht veld",
+                                            pattern: /^\S+@\S+$/i
+                                        })
+                                        }
+                                        error={errors.email ? <span className='error-message'>{errors.email.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 
@@ -226,8 +291,45 @@ export function AddEditForm(props) {
                                         <option value="false">Nee</option>
                                     </select>
                                 </div>
+                            </fieldset>
 
-                                </div>
+                            <h2>Inloggegevens</h2>
+                            <fieldset>
+                                    <div className="formElement">
+                                        <FormElement
+                                            type="text"
+                                            name="username"
+                                            defaultValue={formValues.username}
+                                            label="Gebruikersnaam"
+                                            onChange={changeHandler}
+                                            fieldRef={register({
+                                                required: 'Verplicht veld',
+                                                minLength: {
+                                                    value: 5,
+                                                    message: "Geef tenminste 5 tekens op"
+                                                }
+                                            })}
+                                            error={errors.username ? <span className='error-message'>{errors.username.message}</span> : <span>&nbsp;</span>}
+                                        />
+                                    </div>
+
+                                    <div className="formElement">
+                                        <FormElement
+                                            type="password"
+                                            name="password"
+                                            defaultValue={formValues.password}
+                                            label="Wachtwoord"
+                                            onChange={changeHandler}
+                                            fieldRef={register({
+                                                required: 'Verplicht veld',
+                                                minLength: {
+                                                    value: 5,
+                                                    message: "Geef tenminste 5 tekens op"
+                                                },
+                                            })}
+                                            error={errors.password ? <span className='error-message'>{errors.password.message}</span> : <span>&nbsp;</span>}
+                                        />
+                                    </div>
                             </fieldset>
 
                             <Button
@@ -244,10 +346,11 @@ export function AddEditForm(props) {
     return (
         <>
             <div className="overview">
+                { submittedForm && <p className="notify">Gebruiker is toegevoegd</p> }
                 { loading ? <LoadingIndicator /> : <UserItem /> }
-                { error && <Error type="message_container" content={error} /> }
-                { submittedForm &&  <AddEdit isAddMode={isAddMode} token={token} section="product" id={id} itemData={formValues}/> }
+                { error && <p>{error}</p>}
             </div>
         </>
     )
 }
+export default AddEditForm;

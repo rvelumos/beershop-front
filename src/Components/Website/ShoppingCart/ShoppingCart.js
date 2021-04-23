@@ -1,29 +1,29 @@
 import React, {useEffect, useState} from 'react';
 //import Button from "../UI/Button/Button";
 import axios from "axios";
-import Product from "../../Products/Product/Product";
 import Error from "../UI/Feedback/Error/Error";
+import LoadingIndicator from "../../Website/UI/LoadingIndicator/LoadingIndicator";
 
 const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartItems, setShoppingCartActive}) => {
 
   //  const [shoppingCartTotal, setShoppingCartTotal] = useState("");
-    const [updatedShoppingCartItems, setUpdatedShoppingCartItems] = useState("");
+    const [updatedShoppingCartItems, setUpdatedShoppingCartItems] = useState({
+        data: ''
+    });
 
     const [error, setError] = useState("");
     const [loading, toggleLoading] = useState(true);
 
-    useEffect(() => {
+    useEffect(() =>{
         let shoppingCart = localStorage.getItem("shopping_carts");
-        console.log('hierooo');
-        shoppingCart = JSON.parse(shoppingCart);
-        if (shoppingCart) {
+        console.log('shoppingcartitems ');
+        console.log(shoppingCart);
+
+        // shoppingCart = JSON.parse(shoppingCart);
+        if (shoppingCart !== "") {
             setShoppingCartItems(shoppingCart)
-
-            return (
-                <div>
-
-                </div>
-            )
+            //setShoppingCartActive(true);
+            setShoppingCartItems(shoppingCart);
         }
     }, [setShoppingCartItems])
 
@@ -75,13 +75,17 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
     //     localStorage.setItem('shopping_cart', cartString)
     // }
 
-    function shoppingCartOverview () {
+    function ShoppingCartOverview () {
 
-        if (shoppingCartItems) {
+        useEffect(() => {
+
+        if (shoppingCartItems !== "") {
+            console.log("bij useeffect");
+            console.log(shoppingCartItems);
             Object.keys(shoppingCartItems).forEach((item, i) => {
                 console.log('items2 : ' + item);
 
-//                useEffect(() => {
+
                 async function getCurrentProductInfo() {
                     //toggleLoading(true);
                     const id = item.replace("beer_item_", "");
@@ -93,9 +97,17 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                         const result = await axios.get(url);
 
                         console.log("HIERO");
-                        setUpdatedShoppingCartItems(result.data);
 
+                        //let cartcopy = [...shoppingCartItems] ;
+                        //cartcopy.push(result.data);
+                        setUpdatedShoppingCartItems({
+                            ...setUpdatedShoppingCartItems,
+                            data: result.data
+                        });
+                        console.log('spread');
                         console.log(updatedShoppingCartItems);
+                        localStorage.setItem("shopping_carts", JSON.stringify(shoppingCartItems));
+
                     } catch (e) {
                         console.error(e);
                         setError("Fout bij ophalen gegevens.");
@@ -104,14 +116,25 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                 }
 
                 getCurrentProductInfo();
-                //               }, [])
+
             })
         }
-
+        }, [])
 
         return(
             <p>ssss</p>
         )
+    }
+
+    const getShoppingCartTable = () => {
+
+            return(
+                Object.entries(updatedShoppingCartItems).map((item) => {
+                    return(
+                        <p>Item!</p>
+                    )
+                })
+            )
     }
 
     return (
@@ -119,8 +142,11 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
             <div className="home">
                 <h1>Winkelwagen</h1>
                 {error && <Error type="message_container" content={error} />}
-                {loading ? <p>loading...</p> : <Product product_items={updatedShoppingCartItems} />}
-                {shoppingCartActive ? shoppingCartOverview()
+                {/*{loading ? <LoadingIndicator /> : <Product product_items={updatedShoppingCartItems} />}*/}
+                {loading ? <LoadingIndicator /> :
+                    getShoppingCartTable()
+                }
+                {shoppingCartActive ? ShoppingCartOverview()
                 : <p>Er zijn geen items aan je winkelwagen toegevoegd.</p>
                 }
             </div>

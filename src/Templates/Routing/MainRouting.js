@@ -25,7 +25,7 @@ const MainRouting = () => {
                 <SearchResultsPage />
             </Route>
 
-            <Route path="/product/:id">
+            <Route path="/product/:id" exact>
                 <DetailsProduct />
             </Route>
 

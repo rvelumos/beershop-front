@@ -57,7 +57,7 @@ const Orders = ({isAdmin, token}) => {
     return (
         <>
             <div className="overview">
-                {loading ? <LoadingIndicator /> : <Order orderItems={orderItems} error={error} isAdmin={isAdmin} setError={setError} />}
+                {loading ? <LoadingIndicator /> : <Order orderItems={orderItems} token={token} error={error} isAdmin={isAdmin} setError={setError} />}
                 {error && <Error type="message_container" content={error} /> }
             </div>
         </>

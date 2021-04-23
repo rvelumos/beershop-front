@@ -23,18 +23,18 @@ const FormElement = (props) => {
 
     return (
         <>
-            <div className="productDetailsContainer">
+            <div className="formElementContainer">
                 {/*<div className="productImage">*/}
 
                 {/*</div>*/}
-                <div className="productInfo">
+                <div className="formElementInfo">
                     {props.error}
                     {props.form ? <br /> : null }
                     <div id="float-label">
                         <input
                             type={props.type}
                             placeholder=""
-                            defaultValue=""
+                            // defaultValue=""
                             name={props.name}
                             value={valueLabel ? valueLabel : formValue}
                             onChange={(e) => handleTextChange(e.target.value)}

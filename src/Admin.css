@@ -10,6 +10,24 @@ main.cms {
     margin: 20px auto;
 }
 
+.overview .details {
+    cursor: pointer;
+    color: #ffa303;
+}
+
+.modal {
+    background-color: white;
+    border: 1px solid #eee;
+    border-radius: 4px 4px 4px 4px;
+    position: absolute;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    top: 150px;
+    max-width: 1300px;
+    min-height: 500px;
+    width: 90%;
+    z-index: 9999;
+}
+
 .itemContainer {
     max-width: 1300px;
     margin: 10px auto;

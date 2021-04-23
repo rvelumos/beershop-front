@@ -10,15 +10,17 @@ import CMSLayout from "./Templates/CMSLayout";
 import Login from "./Components/Website/UserProfile/Login/Login";
 
 function App() {
-    const [isUserAuthenticated, setUserAuthenticated] = useState(false);
-    const [isAdminAuthenticated, setAdminAuthenticated] = useState(true);
+    const [isUserAuthenticated, setUserAuthenticated] = useState(true);
+    const [isAdminAuthenticated, setAdminAuthenticated] = useState(false);
     const [isManufacturerAuthenticated, setManufacturerAuthenticated] = useState(false);
     const [cmsLogin, setCmsLogin] = useState(false);
     const [token, setToken] = useState("");
     const [shoppingCartItems, setShoppingCartItems] = useState("");
+    const [mode, setMode] = useState("init");
 
 
     const getAuthorities = () => {
+        setMode("authorizing");
         if (localStorage.getItem('user') !== null) {
             const token = localStorage.getItem('user_token');
             const role = localStorage.getItem('user_role');
@@ -33,11 +35,11 @@ function App() {
         }
     }
 
-    if(token==='bla')
+    if(mode==='init')
         getAuthorities();
 
-    if(token==='')
-        setToken("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjE5NjM4NjI5LCJpYXQiOjE2MTg3NzQ2Mjl9.oh17PXcUb4KNRieizMx1eRaMO6v9DAjA_102tgXpQr8");
+    //if(token==='')
+      //  setToken("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjE5NjM4NjI5LCJpYXQiOjE2MTg3NzQ2Mjl9.oh17PXcUb4KNRieizMx1eRaMO6v9DAjA_102tgXpQr8");
 
     console.log(isAdminAuthenticated);
 

@@ -1,51 +1,63 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import FormElement from "../Forms/FormElement/FormElement";
 import './Newsletter.css';
 import Button from "../UI/Button/Button";
 import SmallLoadingIndicator from "../UI/LoadingIndicator/SmallLoadingIndicator";
 import axios from "axios";
+import {useForm} from "react-hook-form";
 
 const Newsletter = () => {
 
     const [loading, toggleLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [message, setMessage] = useState(false);
+    const [mode, setMode] = useState('init');
+    const { register, errors, handleSubmit } = useForm({
+        criteriaMode: "all",
+        mode: "onChange",
+    });
 
-    const sendRequest = useCallback((e) => {
+    function onSubmitForm (data) {
 
-        e.preventDefault();
-        async function addMailAddress() {
+        const email = data.email;
 
-            const email = e.target.email.value;
+        SaveEmail(email);
+    }
 
-            setError(false);
-            toggleLoading(true);
+    function SaveEmail(email) {
+        if(mode==="init") {
+            setMode("insert");
+            async function addMailAddress() {
 
-            const requestOptions = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email  })
-            };
+                setError(false);
+                toggleLoading(true);
 
-            let url = `http://localhost:8080/api/v1/newsletter/subscriber/create`;
 
-            try {
-                const result = await axios.post(url, requestOptions);
+                const data = {
+                    email: email
+                }
 
-                console.log(result);
-                toggleLoading(false);
-            } catch (e) {
-                console.error(e);
-                setError("Fout bij ophalen gegevens.");
-                console.log(error)
-                toggleLoading(false);
+                let url = `http://localhost:8080/api/v1/newsletter/subscriber/create`;
+
+                try {
+                    const result = await axios.post(url, data);
+
+                    console.log(result);
+                    setMessage(true);
+                    toggleLoading(false);
+                } catch (e) {
+                    console.error(e);
+                    setError("Fout bij ophalen gegevens.");
+                    console.log(error)
+                    toggleLoading(false);
+                }
             }
+
+            addMailAddress();
+
+            // eslint-disable-next-line
         }
-
-        addMailAddress();
-
-        // eslint-disable-next-line
-    }, []);
-
+    }
 
     return (
         <>
@@ -56,17 +68,28 @@ const Newsletter = () => {
                         <p>Blijf op de hoogte van leuke aanbiedingen!</p>
                     </div>
                     <div className="newsletterInput">
-                        <form onSubmit={sendRequest}>
+                        <form onSubmit={handleSubmit(onSubmitForm)}>
+                            {errors.email ? <span className='error-message'>{errors.email.message}</span> : <span>&nbsp;</span>}<br />
                            <FormElement
                                type="text"
                                name="email"
                                label="E-mail"
+                               fieldRef={register({
+                                   required: "Verplicht veld",
+                                   pattern: {
+                                       value: /^\S+@\S+$/i,
+                                       message: "Ongeldige e-mail"
+                                   }
+                               })
+                               }
                            />
+
                             <Button
                                 value={loading ? <SmallLoadingIndicator /> : "Aanmelden" }
                                 usage="button"
                                 type="button"
                             />
+                            { message && <span>Je bent succesvol aangemeld!</span>}
                         </form>
 
                     </div>

@@ -106,7 +106,9 @@ function Product(props) {
                         </table></div>
                     </>
                     :
-                    displayProductItems(props)
+                    <>
+                        {displayProductItems(props)}
+                    </>
                 }
             </>}
 

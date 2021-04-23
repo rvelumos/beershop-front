@@ -1,7 +1,6 @@
 import React from "react";
 
 import '../Admin.css';
-import DetailsProduct from "../Components/Products/Product/DetailsProduct/DetailsProduct";
 import { Route} from "react-router-dom";
 
 import LeftMenu from "../Components/Cms/Navigation/LeftMenu/LeftMenu";
@@ -34,15 +33,15 @@ const CMSLayout = (props) => {
                     <GiftCards isAdmin={authorityAdmin} token={token} />
                 </Route>
 
-                <Route path="/cms/giftcards/:id" exact>
-                    <GiftCardUsageOverview token={token} />
-                </Route>
-
-                <Route path="/cms/giftcards/edit/:id" >
+                <Route path='/cms/giftcards/create' >
                     <GiftCardForm token={token} />
                 </Route>
 
-                <Route path="/cms/giftcards/create" exact>
+                <Route path='/cms/giftcard/:id/' >
+                    <GiftCardUsageOverview token={token} />
+                </Route>
+
+                <Route path='/cms/giftcards/edit/:id' >
                     <GiftCardForm token={token} />
                 </Route>
 
@@ -58,9 +57,9 @@ const CMSLayout = (props) => {
                     <ProductForm mode="add" token={token} />
                 </Route>
 
-                <Route path='/cms/products/:id' exact>
-                   <DetailsProduct token={token} isAdmin={authorityAdmin}/>
-                </Route>
+                {/*<Route path='/cms/products/:id' exact>*/}
+                   {/*<DetailsProduct token={token} isAdmin={authorityAdmin}/>*/}
+                {/*</Route>*/}
 
                 <Route path='/cms/products/edit/:id'>
                     <ProductForm mode="edit" token={token} />

@@ -16,14 +16,21 @@ const UserProfileRouting = ({userLoggedIn}) => {
                 }
             </Route>
 
-            <Route path="/mijn_account/orders">
+            <Route path="/mijn_account/mijn_orders" exact>
                 {userLoggedIn ?
                     <UserOrderPage/>
                     : <Redirect to="/mijn_account/"/>
                 }
             </Route>
 
-            <Route path="/mijn_account/cadeaubonnen">
+            <Route path="/mijn_account/orders" exact>
+                {userLoggedIn ?
+                    <UserOrderPage/>
+                    : <Redirect to="/mijn_account/"/>
+                }
+            </Route>
+
+            <Route path="/mijn_account/cadeaubonnen" exact>
                 {userLoggedIn ?
                     <UserGiftPage/>
                     : <Redirect to="/mijn_account/"/>

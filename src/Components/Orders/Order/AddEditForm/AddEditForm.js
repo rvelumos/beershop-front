@@ -137,8 +137,30 @@ export function AddEditForm(props) {
                                         onChange={changeHandler}
                                         fieldRef={register({
                                             required: 'Verplicht veld',
+                                            pattern: {
+                                                value: /^[0-9]*$/,
+                                                message: 'Ongeldige invoer'
+                                            }
                                         })}
                                         error={errors.shipping_id ? <span className='error-message'>{errors.shipping_id.message}</span> : <span>&nbsp;</span>}
+                                    />
+                                </div>
+
+                                <div className="formElement">
+                                    <FormElement
+                                        type="text"
+                                        name="customer_id"
+                                        label="Klant ID"
+                                        formValue={formValues.customer_id}
+                                        onChange={changeHandler}
+                                        fieldRef={register({
+                                            required: 'Verplicht veld',
+                                            pattern: {
+                                                value: /^[0-9]*$/,
+                                                message: 'Ongeldige invoer'
+                                            }
+                                        })}
+                                        error={errors.customer_id ? <span className='error-message'>{errors.customer_id.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 
@@ -150,9 +172,13 @@ export function AddEditForm(props) {
                                         formValue={formValues.order_sent}
                                         onChange={changeHandler}
                                         fieldRef={register({
-                                            required: "Verplicht veld",
-                                        })
-                                        }
+                                            required: 'Verplicht veld',
+                                            pattern: {
+                                                value: /^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[012])-\d{4}$/,
+                                                message: 'Ongeldige datum'
+                                            }
+                                        })}
+
                                         error={errors.order_sent ? <span className='error-message'>{errors.order_sent.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
@@ -165,7 +191,11 @@ export function AddEditForm(props) {
                                         formValue={formValues.price_total}
                                         onChange={changeHandler}
                                         fieldRef={register({
-                                            required: "Verplicht veld",
+                                            required: 'Verplicht veld',
+                                            pattern: {
+                                                value: /^[1-9]\d*(\.\d+)?$/,
+                                                message: 'Ongeldige invoer'
+                                            }
                                         })
                                         }
                                         error={errors.price_total ? <span className='error-message'>{errors.price_total.message}</span> : <span>&nbsp;</span>}
@@ -173,33 +203,24 @@ export function AddEditForm(props) {
                                 </div>
 
                                 <div className="formElement">
-                                    <FormElement
-                                        type="text"
-                                        name="order_status"
-                                        label="Orderstatus"
-                                        formValue={formValues.order_status}
-                                        onChange={changeHandler}
-                                        fieldRef={register({
-                                            required: "Verplicht veld",
-                                        })
-                                        }
-                                        error={errors.order_status ? <span className='error-message'>{errors.order_status.message}</span> : <span>&nbsp;</span>}
-                                    />
+                                        {errors.order_status ? <span className='error-message'>{errors.order_status.message}</span> : <span>&nbsp;</span>}
+                                        <select name="order_status" ref={register({ required: true })}>
+                                            <option value="">Order status &laquo; selecteer optie &raquo; </option>
+                                            <option value="NEW_ADDED">Nieuw</option>
+                                            <option value="PROCESSING">In behandeling</option>
+                                            <option value="SENT">Verzonden</option>
+                                            <option value="RECEIVED">Ontvangen</option>
+                                            <option value="CANCELLED">Geannuleerd</option>
+                                        </select>
                                 </div>
 
                                 <div className="formElement">
-                                    <FormElement
-                                        type="text"
-                                        name="invoice_status"
-                                        label="Factuurstatus"
-                                        formValue={formValues.invoice_status}
-                                        onChange={changeHandler}
-                                        fieldRef={register({
-                                            required: "Verplicht veld",
-                                        })
-                                        }
-                                        error={errors.invoice_status ? <span className='error-message'>{errors.invoice_status.message}</span> : <span>&nbsp;</span>}
-                                    />
+                                    {errors.invoice_status ? <span className='error-message'>{errors.invoice_status.message}</span> : <span>&nbsp;</span>}
+                                    <select name="invoice_status" ref={register({ required: true })}>
+                                        <option value="">Factuurstatus &laquo; selecteer optie &raquo; </option>
+                                        <option value="PAID">Betaald</option>
+                                        <option value="UNPAID">Niet betaald</option>
+                                    </select>
                                 </div>
                             </fieldset>
 

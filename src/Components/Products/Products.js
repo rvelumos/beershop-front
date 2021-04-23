@@ -14,7 +14,7 @@ function Products(props) {
 
     const { searchResult } = useParams();
     const { isAdmin, token } = props;
-    const {categoryArray, tasteArray} = props;
+    const {categoryArray} = props;
 
     useEffect(() => {
         async function getProducts() {
@@ -23,43 +23,37 @@ function Products(props) {
             setError(false);
             toggleLoading(true);
 
-            let url = `http://localhost:8080/api/v1/products/`;
+            let base_url = `http://localhost:8080/api/v1/products/`;
+            let url = "";
 
             if(isAdmin)
-                url = `${url}all/`;
+                url = `${base_url}all/`;
 
             if (type > 0) {
-                url = `${url}type/${type}/`;
+                url = `${base_url}type/${type}/`;
             }
 
             if (searchResult !== undefined) {
                 const cleanResult = searchResult.replace(/[^\w\s]/gi, "");
-                url = `${url}search/${cleanResult}/`;
+                url = `${base_url}search/${cleanResult}/`;
             }
 
             if (get === "latest") {
-                url = `${url}latest/`;
+                url = `${base_url}latest/`;
             }
 
-            let param_config = "";
+           // let param_config = "";
 
-            if(categoryArray !== null) {
-                param_config = {
-                    params: {
-                        category: categoryArray
-                    },
-                    paramsSerializer: function(params) {
-                        const newParams = "category_id=" + params.category.map(param=>`${param}`).join(',')
-                        return newParams
-                    },
-                }
+            if(categoryArray !== undefined && categoryArray.length > 0) {
+                console.log("params: ");
+                console.log(categoryArray);
+
+                url = base_url + "?category_id=" + categoryArray;
             }
 
             console.log(url);
             try {
-                const result = await axios.get(url, {
-                    param_config
-                })
+                const result = await axios.get(url)
                 if (result.data.length > 0){
                     setProductItems(result.data);
                 } else {
@@ -78,7 +72,7 @@ function Products(props) {
         getProducts();
 
         // eslint-disable-next-line
-    }, [searchResult, categoryArray, tasteArray]);
+    }, [searchResult, categoryArray]);
 
     return (
         <>

@@ -9,9 +9,7 @@ function FilterBlockItems(props) {
     const [loading, toggleLoading] = useState(true);
 
     const {categoryArray, setCategoryArray} = props;
-    const {tasteArray, setTasteArray, valueName} = props;
-
-    console.log("de valueName bovenaan is" + valueName);
+    const {setTasteArray, valueName} = props;
 
     useEffect(() => {
         async function getFilterItem({setFilterItems}) {
@@ -64,14 +62,19 @@ function FilterBlockItems(props) {
 
         let areInputsChecked = [checked];
         areInputsChecked.forEach(isInputChecked => {
-            if(isInputChecked.value === value && isInputChecked.name===name){
+            if(isInputChecked === value && isInputChecked.name===name){
                 isInputChecked.isChecked = evt.target.checked;
             } else {
-                const catArr = [categoryArray]
-                const index = catArr.indexOf(value);
-                catArr.splice(index, 1);
-                //setCategoryArray(catArr);
-                //console.log("de nieuwe array in checked: " + categoryArray);
+               if(!evt.target.checked) {
+                   const catArr = [...categoryArray]
+                   console.log("before: "+ catArr);
+                   const index = catArr.indexOf(value);
+
+                   if (index !== -1) {
+                       catArr.splice(index, 1);
+                       setCategoryArray(catArr);
+                   }
+               }
             }
         })
 
@@ -80,9 +83,6 @@ function FilterBlockItems(props) {
         // });
 
         setChecked(prev => [...prev, value]);
-
-        console.log("taste array " + tasteArray);
-        console.log("category array " + categoryArray);
     }
 
     const displayFilterBlockItems = (props) => {

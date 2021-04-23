@@ -18,6 +18,7 @@ export function AddEditForm(props) {
     const { token } = props;
     const isAddMode = !id;
 
+    console.log("id "+id);
 
     const [formValues, setFormValues] = useState({
         name: '',
@@ -29,6 +30,7 @@ export function AddEditForm(props) {
 
     useEffect(() => {
             async function getFormData (){
+
                 try {
                     const url=`http://localhost:8080/api/v1/product/${id}/`
                     const result = await axios.get(url, {
@@ -131,6 +133,10 @@ export function AddEditForm(props) {
                                             onChange={changeHandler}
                                             fieldRef={register({
                                                 required: "Verplicht veld",
+                                                pattern: {
+                                                    value: /^[1-9]\d*(\.\d+)?$/,
+                                                    message: 'Ongeldige invoer'
+                                                }
                                             })
                                             }
                                             error={errors.price ? <span className='error-message'>{errors.price.message}</span> : <span>&nbsp;</span>}
@@ -154,6 +160,7 @@ export function AddEditForm(props) {
             <div className="overview">
                 { loading ? <LoadingIndicator /> : <GiftCardItem /> }
                 { error && <Error type="message_container" content={error} /> }
+                {/*{ submittedForm && <p className="notify">Bon is toegevoegd</p> }*/}
                 { submittedForm &&  <AddEdit isAddMode={isAddMode} token={token} section="product" id={id} itemData={formValues}/> }
             </div>
         </>

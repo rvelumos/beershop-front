@@ -5,7 +5,6 @@ import UserProfilePage from "../../../Pages/User/UserProfilePage";
 function UserProfile() {
 
     const checkAuthentication = () => {
-        //const {username, password} = props;
         const userIsAuthenticated = false;
 
         if(userIsAuthenticated) {

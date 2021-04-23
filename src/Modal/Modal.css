@@ -1,0 +1,7 @@
+.modal .close {
+    width: 40px;
+    cursor: pointer;
+    font-size: 175%;
+    color: red;
+    padding: 20px;
+}

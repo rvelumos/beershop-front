@@ -44,6 +44,7 @@ export function AddEditForm(props) {
                     }
                 });
                 const {manufacturer_id,
+                    categoryId,
                     name,
                     price,
                     taste,
@@ -54,6 +55,7 @@ export function AddEditForm(props) {
 
                 setFormValues({
                     manufacturer_id: manufacturer_id,
+                    categoryId: categoryId,
                     name: name,
                     price: price,
                     taste: taste,
@@ -82,7 +84,7 @@ export function AddEditForm(props) {
     function onSubmitForm(data) {
         console.table(formValues);
 
-        const { category_id,
+        const { categoryId,
             manufacturer_id,
             name,
             price,
@@ -94,7 +96,7 @@ export function AddEditForm(props) {
         } = data;
 
         setFormValues({
-            category_id: category_id,
+            categoryId: categoryId,
             manufacturer_id: manufacturer_id,
             name: name,
             taste: taste,
@@ -143,14 +145,18 @@ export function AddEditForm(props) {
                                 <div className="formElement">
                                     <FormElement
                                         type="text"
-                                        name="category_id"
+                                        name="categoryId"
                                         label="Categorie"
-                                        formValue={formValues.category_id}
+                                        formValue={formValues.categoryId}
                                         onChange={changeHandler}
                                         fieldRef={register({
                                             required: 'Verplicht veld',
+                                            pattern: {
+                                                value: /^[0-9]*$/,
+                                                message: 'Ongeldige invoer'
+                                            }
                                         })}
-                                        error={errors.category_id ? <span className='error-message'>{errors.category_id.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.categoryId ? <span className='error-message'>{errors.categoryId.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 
@@ -163,6 +169,10 @@ export function AddEditForm(props) {
                                         onChange={changeHandler}
                                         fieldRef={register({
                                             required: "Verplicht veld",
+                                            pattern: {
+                                                value: /^[0-9]*$/,
+                                                message: 'Ongeldige invoer'
+                                            }
                                         })
                                         }
                                         error={errors.manufacturer_id ? <span className='error-message'>{errors.manufacturer_id.message}</span> : <span>&nbsp;</span>}
@@ -193,6 +203,10 @@ export function AddEditForm(props) {
                                         onChange={changeHandler}
                                         fieldRef={register({
                                             required: "Verplicht veld",
+                                            pattern: {
+                                                value: /^[1-9]\d*(\.\d+)?$/,
+                                                message: 'Ongeldige invoer'
+                                            }
                                         })
                                         }
                                         error={errors.price ? <span className='error-message'>{errors.price.message}</span> : <span>&nbsp;</span>}
@@ -204,10 +218,14 @@ export function AddEditForm(props) {
                                         type="text"
                                         name="stock"
                                         label="Voorraad"
-                                        formValue={formValues.invoice_status}
+                                        formValue={formValues.stock}
                                         onChange={changeHandler}
                                         fieldRef={register({
                                             required: "Verplicht veld",
+                                            pattern: {
+                                                value: /^[0-9]*$/,
+                                                message: 'Ongeldige invoer'
+                                            }
                                         })
                                         }
                                         error={errors.stock ? <span className='error-message'>{errors.stock.message}</span> : <span>&nbsp;</span>}
@@ -238,6 +256,10 @@ export function AddEditForm(props) {
                                         onChange={changeHandler}
                                         fieldRef={register({
                                             required: "Verplicht veld",
+                                            pattern: {
+                                                value: /^[0-9]*$/,
+                                                message: 'Ongeldige invoer'
+                                            }
                                         })
                                         }
                                         error={errors.type ? <span className='error-message'>{errors.type.message}</span> : <span>&nbsp;</span>}
@@ -253,6 +275,10 @@ export function AddEditForm(props) {
                                         onChange={changeHandler}
                                         fieldRef={register({
                                             required: "Verplicht veld",
+                                            pattern: {
+                                                value: /^[1-9]\d*(\.\d+)?$/,
+                                                message: 'Ongeldige invoer'
+                                            }
                                         })
                                         }
                                         error={errors.discount ? <span className='error-message'>{errors.discount.message}</span> : <span>&nbsp;</span>}
