@@ -7,6 +7,8 @@
     border: 1px solid #eee;
     margin: 25px;
     padding: 30px;
+    position: relative;
+    overflow: hidden;
 }
 
 .Product:hover {
@@ -28,6 +30,7 @@
     text-transform: capitalize !important;
 }
 
+.productAmountContainer input[type=text],
 .filterPrice input[type=text],
 .DetailsProduct input[type=text],
 .orderProduct input[type=text] {
@@ -48,6 +51,7 @@
     min-width: 40px;
 }
 
+.productAmountContainer input[type=text]:focus,
 .DetailsProduct input[type=text]:focus,
 .orderProduct input[type=text]:focus {
     border: 1px solid #FFA303;
@@ -97,4 +101,9 @@
 
 .stockFull::before {
     content: "\2713";
+}
+
+.formElement textarea {
+    margin: 0 20px;
+    width: 95%;
 }

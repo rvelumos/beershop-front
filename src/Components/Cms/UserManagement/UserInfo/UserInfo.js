@@ -13,7 +13,7 @@ function UserInfo(props) {
     const [error, setError] = useState(true);
     const [message, setMessage] = useState(true);
 
-    const {token} = props;
+    const {token, isAdmin} = props;
 
     // function GetRolesUser(id) {
     //
@@ -78,31 +78,48 @@ function UserInfo(props) {
 
     const User = (props) => {
         const {users} = props;
+        console.log(users);
+        if(isAdmin) {
             return(
                 users.map((userInfo) => {
-                    return (
-                        <tr key={uuidv4()} className="Order">
-                            <td><p className="userID">{userInfo.id}</p></td>
-                            <td><p className="userSex">{userInfo.sex}</p></td>
-                            <td><p className="userFirstName">{userInfo.firstname}</p></td>
-                            <td><p className="userLastName">{userInfo.lastname}</p></td>
-                            <td><p className="userBirthDate">{userInfo.birth_date}</p></td>
-                            <td><p className="userEmail">{userInfo.email}</p></td>
-                            <td><p className="userPhone">{userInfo.phone}</p></td>
-                            <td><p className="userAddress">{userInfo.address}</p></td>
-                            <td><p className="userCP">{userInfo.customer_points}</p></td>
-                            <td><p className="userNewsletter">{userInfo.newsletter ? "X" : null}</p></td>
-                            <td><p className="userRoles"></p></td>
-                            <td>
-                                <div className="actionContainer">
-                                    <div class="edit"><Link to={`/cms/users/edit/${userInfo.id}`}>&#9999;</Link></div>
-                                    <div class="delete" onClick={(e) => deleteUser(userInfo.id)}>&#10008;</div>
-                                </div>
-                            </td>
-                        </tr>
-                    )
-            })
+                        return (
+                            <tr key={uuidv4()} className="Order">
+                                <td><p className="userID">{userInfo.id}</p></td>
+                                <td><p className="userSex">{userInfo.sex}</p></td>
+                                <td><p className="userFirstName">{userInfo.firstname}</p></td>
+                                <td><p className="userLastName">{userInfo.lastname}</p></td>
+                                <td><p className="userBirthDate">{userInfo.birth_date}</p></td>
+                                <td><p className="userEmail">{userInfo.email}</p></td>
+                                <td><p className="userPhone">{userInfo.phone}</p></td>
+                                <td><p className="userAddress">{userInfo.address}</p></td>
+                                <td><p className="userCP">{userInfo.customer_points}</p></td>
+                                <td><p className="userNewsletter">{userInfo.newsletter ? "X" : null}</p></td>
+                                <td><p className="userRoles"></p></td>
+                                <td>
+                                    <div className="actionContainer">
+                                        <div class="edit"><Link to={`/cms/users/edit/${userInfo.id}`}>&#9999;</Link></div>
+                                        <div class="delete" onClick={(e) => deleteUser(userInfo.id)}>&#10008;</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        )
+                })
             )
+        }else {
+            return(
+                <>
+                    <tr><td>Geslacht</td><td>{users.sex}</td></tr>
+                    <tr><td>Voornaam:</td><td>{users.firstname}</td></tr>
+                    <tr><td>Achternaam:</td><td>{users.lastname}</td></tr>
+                    <tr><td>Geboortedatum:</td><td>{users.birth_date}</td></tr>
+                    <tr><td>E-mailadres:</td><td>{users.email}</td></tr>
+                    <tr><td>Telefoonnummer:</td><td>{users.phone}</td></tr>
+                    <tr><td>Adresgegevens:</td><td>{users.address}</td></tr>
+                    <tr><td>Jouw punten</td><td>{users.customer_points}</td></tr>
+                    <tr><td>Nieuwsbrief:</td><td>{users.newsletter ? "Ja" : "Nee"}</td></tr>
+                </>
+            )
+        }
     }
     return(
         <>
@@ -110,24 +127,37 @@ function UserInfo(props) {
             {loading ? <LoadingIndicator/> :
                 <div className="itemContainer">
                     {error && <p> {error} </p>}
-                    <Link to="/cms/users/create/" className="button">Gebruiker toevoegen</Link><br /><br />
-                    <table className="tableDetails">
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>Geslacht</td>
-                            <td>Voornaam</td>
-                            <td>Achternaam</td>
-                            <td>Geboortedatum</td>
-                            <td>E-mail</td>
-                            <td>Telefoon</td>
-                            <td>Adres</td>
-                            <td>Punten</td>
-                            <td>Nieuwsbrief</td>
-                            <td>Rollen</td>
-                            <td>Acties</td>
-                        </tr>
-                        {User(props)}
-                    </table>
+                    {isAdmin ?
+                        <>
+                            <Link to="/cms/users/create/" className="button">Gebruiker toevoegen</Link><br /><br />
+
+                            <table className="tableDetails">
+                                <tr>
+                                    <td>ID</td>
+                                    <td>Geslacht</td>
+                                    <td>Voornaam</td>
+                                    <td>Achternaam</td>
+                                    <td>Geboortedatum</td>
+                                    <td>E-mail</td>
+                                    <td>Telefoon</td>
+                                    <td>Adres</td>
+                                    <td>Punten</td>
+                                    <td>Nieuwsbrief</td>
+                                    <td>Rollen</td>
+                                    <td>Acties</td>
+                                </tr>
+                                {User(props)}
+                            </table>
+                        </>
+                        :
+                        <>
+                            <table className="tableDetailsUser">
+                                {User(props)}
+                            </table>
+                            <Link to="mijn_account/gegevens/edit/" className="button">Aanpassen</Link>
+                        </>
+                    }
+
                 </div>
             }
         </>

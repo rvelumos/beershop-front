@@ -11,7 +11,7 @@ import Login from "./Components/Website/UserProfile/Login/Login";
 
 function App() {
     const [isUserAuthenticated, setUserAuthenticated] = useState(true);
-    const [isAdminAuthenticated, setAdminAuthenticated] = useState(false);
+    const [isAdminAuthenticated, setAdminAuthenticated] = useState(true);
     const [isManufacturerAuthenticated, setManufacturerAuthenticated] = useState(false);
     const [cmsLogin, setCmsLogin] = useState(false);
     const [token, setToken] = useState("");
@@ -38,8 +38,8 @@ function App() {
     if(mode==='init')
         getAuthorities();
 
-    //if(token==='')
-      //  setToken("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjE5NjM4NjI5LCJpYXQiOjE2MTg3NzQ2Mjl9.oh17PXcUb4KNRieizMx1eRaMO6v9DAjA_102tgXpQr8");
+    if(token==='')
+        setToken("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjE5NjM4NjI5LCJpYXQiOjE2MTg3NzQ2Mjl9.oh17PXcUb4KNRieizMx1eRaMO6v9DAjA_102tgXpQr8");
 
     console.log(isAdminAuthenticated);
 
@@ -63,6 +63,7 @@ function App() {
                             userLoggedIn={isUserAuthenticated}
                             shoppingCartItems={shoppingCartItems}
                             setShoppingCartItems={setShoppingCartItems}
+                            token={token}
                             redirectUrl="/mijn_account"
                         />
                     </Route>

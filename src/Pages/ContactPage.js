@@ -7,7 +7,7 @@ const ContactPage = () => {
 
         <div className="ContactPage">
             <h1>Contact</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cumque dicta earum excepturi fugit hic id inventore, laborum modi nulla numquam odio odit pariatur porro possimus unde, vel veritatis voluptatum.</p>
+            <p>Indien je graag meer wilt te komen over de historie van ons, het bier wat we verkopen of heb je wellicht andere vragen/opmerkingen, aarzel dan niet om via onderstaand formulier contact op te nemen. We nemen dan zo spoedig mogelijk contact met je op.</p>
             <ContactForm />
         </div>
 

@@ -5,8 +5,10 @@ import {Link} from "react-router-dom";
 import Modal from "../../../Modal/Modal";
 
 function Order(props) {
+    const {isAdmin} = props;
+
     const OrderItems = (props) => {
-        let {orderItems, isAdmin, token} = props;
+        let {orderItems, token} = props;
 
         const [openCustomerModal, setOpenCustomerModal] = useState(false);
         const [currentModal, setCurrentModal] = useState('');
@@ -27,17 +29,21 @@ function Order(props) {
 
             if(orderItems.length > 0) {
                 orderItems = Array.from(orderItems);
+                console.log(orderItems);
                 return (
                     orderItems.map((orderItem) => {
+
+                    let order_date = orderItem.order_date;
+                    let order_sent = orderItem.order_sent;
+                    order_date = order_date.split('T')[0];
+                    if(order_sent !== null)order_sent = order_sent.split('T')[0];
+
                     if (isAdmin) {
                         let skip = true;
                         if(currentModal===orderItem.id) {
                              skip = false;
                         }
-                        let order_date = orderItem.order_date;
-                        let order_sent = orderItem.order_sent;
-                        order_date = order_date.split('T')[0];
-                        if(order_sent !== null)order_sent = order_sent.split('T')[0];
+
 
                         return (
                             <tr key={orderItem.id} className="Order">
@@ -67,10 +73,13 @@ function Order(props) {
                     } else {
                         return (
                             <>
-                                <tr key={uuidv4()} className="Order">
-                                    <td className="orderName">{orderItem.name}</td>
-                                    <td className="orderTotalPrice">{orderItem.total_price}</td>
-                                    <td className="orderCode">{orderItem.code}</td>
+                                <tr>
+                                    <td className="orderID">#{orderItem.id}</td>
+                                    <td className="orderDate">{order_date}</td>
+                                    <td className="orderSent">{order_sent}</td>
+                                    <td className="orderPrice">€{orderItem.price_total}</td>
+                                    <td className="orderInvoice">{orderItem.invoice_status}</td>
+                                    <td className="orderCode"><Link to={`/mijn_account/orders/details/${orderItem.id}`}>Details</Link></td>
                                 </tr>
                             </>
                         )
@@ -81,8 +90,9 @@ function Order(props) {
     }
     return(
         <>
+            {isAdmin ?
                 <div className="itemContainer">
-                    <Link to="/cms/orders/create/" className="button">Order toevoegen</Link><br /><br />
+                    <Link to="/cms/orders/create/" className="button">Order toevoegen</Link><br/><br/>
                     <table className="tableDetails">
                         <tr>
                             <td>&nbsp;</td>
@@ -95,9 +105,21 @@ function Order(props) {
                             <td>Factuur status</td>
                             <td>Acties</td>
                         </tr>
-                    {OrderItems(props)}
+                        {OrderItems(props)}
                     </table>
                 </div>
+                :
+                <table key={uuidv4()} className="tableOrder">
+                    <tr><td>Order ID: </td>
+                        <td>Besteld op: </td>
+                        <td>Verzonden op: </td>
+                        <td>Totaalprijs: </td>
+                        <td>Factuurstatus: </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    {OrderItems(props)}
+                </table>
+            }
         </>
     )
 }

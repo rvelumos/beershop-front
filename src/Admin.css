@@ -28,12 +28,12 @@ main.cms {
     z-index: 9999;
 }
 
-.itemContainer {
+.cms .itemContainer {
     max-width: 1300px;
     margin: 10px auto;
 }
 
-.itemContainer .button {
+.cms .itemContainer .button {
     font-size: 0.9em;
     float: right;
     height: 35px;
@@ -48,7 +48,7 @@ main.cms {
     margin: 20px auto;
 }
 
-.tableDetails td:first-of-type {
+.tableDetails tr:not(:first-of-type) td:first-of-type {
     background-color: white;
     border: none;
     text-align: center;
@@ -77,14 +77,15 @@ main.cms {
     transition: background-color 0.5s ease-out;
 }
 
-.tableDetails tr:first-of-type {
+.tableDetails tr:first-of-type td {
     background-color: #333 !important;
     color: white;
     font-weight: bold;
+    height: 60px;
 }
 
-.tableDetails tr:first-of-type td {
-    height: 60px;
+.tableDetails tr:first-of-type td:first-of-type {
+    text-align: center;
 }
 
 .tableDetails tr:first-of-type td:not(:first-of-type){

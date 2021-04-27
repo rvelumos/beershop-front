@@ -11,12 +11,13 @@ import Orders from "../Components/Orders/Orders";
 import Products from "../Components/Products/Products";
 import GiftCards from "../Components/GiftCards/GiftCards";
 import UserManagement from "../Components/Cms/UserManagement/UserManagement";
+import GiftCardUsageOverview from "../Components/GiftCards/GiftCard/GiftCardUsageOverview/GiftCardUsageOverview";
+import NewsletterOverview from "../Components/Cms/NewsletterOverview/NewsletterOverview";
 
 import {AddEditForm as ProductForm} from "../Components/Products/Product/AddEditForm/AddEditForm";
 import {AddEditForm as OrderForm} from "../Components/Orders/Order/AddEditForm/AddEditForm";
 import {AddEditForm as UserForm} from "../Components/Cms/UserManagement/AddEditForm/AddEditForm";
 import {AddEditForm as GiftCardForm} from "../Components/GiftCards/GiftCard/AddEditForm/AddEditForm";
-import GiftCardUsageOverview from "../Components/GiftCards/GiftCard/GiftCardUsageOverview/GiftCardUsageOverview";
 
 const CMSLayout = (props) => {
     const { authorityAdmin, authorityManufacturer, username, token } = props;
@@ -24,7 +25,7 @@ const CMSLayout = (props) => {
     return(
         <>
             <main className="cms">
-                <LeftMenu />
+                <LeftMenu isAdmin={authorityAdmin} />
                 <Route path="/cms" exact>
                     <AdminHomePage name={username} />
                 </Route>
@@ -38,11 +39,15 @@ const CMSLayout = (props) => {
                 </Route>
 
                 <Route path='/cms/giftcard/:id/' >
-                    <GiftCardUsageOverview token={token} />
+                    <GiftCardUsageOverview token={token} isAdmin={authorityAdmin} />
                 </Route>
 
                 <Route path='/cms/giftcards/edit/:id' >
                     <GiftCardForm token={token} />
+                </Route>
+
+                <Route path="/cms/newsletter" exact>
+                    <NewsletterOverview token={token} isManufacturer={authorityManufacturer} isAdmin={authorityAdmin}/>
                 </Route>
 
                 <Route path="/cms/statistics" exact>
@@ -83,7 +88,7 @@ const CMSLayout = (props) => {
 
 
                 <Route path="/cms/users" exact>
-                    <UserManagement token={token}/>
+                    <UserManagement isAdmin={authorityAdmin} token={token}/>
                 </Route>
 
                 <Route path='/cms/users/create'>

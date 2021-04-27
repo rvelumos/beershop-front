@@ -17,10 +17,13 @@
     background-color: red;
     color:white;
     font-size: 0.9em;
-    border-radius: 10px 10px 10px 10px;
-    width: 50px;
+    font-weight: bold;
+    height:25px;
+    left: -50px;
     padding: 5px;
     position: absolute;
-    transform: rotate(-30deg);
+    transform: rotate(-45deg);
     text-align: center;
+    width: 200px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import LeftMenu from "../../Components/Website/UserProfile/LeftMenu/LeftMenu";
 import Orders from "../../Components/Orders/Orders";
 
-const UserOrderPage = () => {
+const UserOrderPage = ({token}) => {
 
     return (
         <>
@@ -13,7 +13,7 @@ const UserOrderPage = () => {
                     <h1>Orders</h1>
                     <p>Jouw geplaatste orders</p>
 
-                    <Orders />
+                    <Orders token={token} />
                 </div>
             </div>
         </>

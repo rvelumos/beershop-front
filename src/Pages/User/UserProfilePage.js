@@ -10,7 +10,7 @@ const UserProfilePage = () => {
 
                 <div className="textContentContainer" >
                     <h1>Welkom op jouw profiel</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias blanditiis, commodi dolore ducimus est facere illo pariatur quas voluptatem voluptatibus.</p>
+                    <p>Je kunt in het menu je orders vinden, maar ook kan je je gegevens inzien/aanpassen en jouw aangeschafte cadeaubonnen verzilveren </p>
                 </div>
             </div>
         </>

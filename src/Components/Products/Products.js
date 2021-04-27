@@ -39,7 +39,7 @@ function Products(props) {
             }
 
             if (get === "latest") {
-                url = `${base_url}latest/`;
+                url = `${url}latest/`;
             }
 
            // let param_config = "";
@@ -48,7 +48,7 @@ function Products(props) {
                 console.log("params: ");
                 console.log(categoryArray);
 
-                url = base_url + "?category_id=" + categoryArray;
+                url = url + "?category_id=" + categoryArray;
             }
 
             console.log(url);
@@ -77,7 +77,7 @@ function Products(props) {
     return (
         <>
             <div className={isAdmin ? "overview" : "ProductOverview"} >
-                {loading ? <LoadingIndicator /> : <Product product_items={productItems} token={token} isAdmin={isAdmin} />}
+                {loading ? <LoadingIndicator /> : <Product productItems={productItems} token={token} isAdmin={isAdmin} />}
                 {error && <Error type="message_container" content={error} /> }
             </div>
         </>

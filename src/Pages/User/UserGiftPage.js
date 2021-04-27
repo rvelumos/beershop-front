@@ -3,7 +3,7 @@ import LeftMenu from "../../Components/Website/UserProfile/LeftMenu/LeftMenu";
 import GiftCards from "../../Components/GiftCards/GiftCards";
 
 
-const UserGiftPage = () => {
+const UserGiftPage = ({token}) => {
 
     return (
         <>
@@ -14,14 +14,7 @@ const UserGiftPage = () => {
                     <h1>Cadeaubonnen</h1>
                     <p>Overzicht van jouw cadeaubonnen</p>
 
-                    <div className="GiftCardTop">
-                        <p className="giftCardName">Naam</p>
-                        <p className="giftCardAmount">Waarde</p>
-                        <p className="giftCardCode">Code</p>
-                        <p className="giftCardExpirationDate">Geldig tot</p>
-                        <p className="giftCardUsed">Gebruikt</p>
-                    </div>
-                    <GiftCards />
+                    <GiftCards token={token} />
                 </div>
             </div>
         </>

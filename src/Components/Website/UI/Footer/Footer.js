@@ -1,6 +1,7 @@
 import React from 'react';
 import './Footer.css';
 import  '../../../../Assets/icons/icon_mail.png';
+import {Link} from "react-router-dom";
 
 const Footer = () => {
 
@@ -20,6 +21,9 @@ const Footer = () => {
                         <li className="phone">0612345678</li>
                         <li className="whatsapp">0612345678</li>
                     </ul>
+                    <ul>
+                        <li><Link to="/contact">Contactformulier</Link></li>
+                    </ul>
 
                 </div>
                 <div className="FooterColumn social" >
@@ -27,10 +31,10 @@ const Footer = () => {
                 </div>
                 <div className="FooterColumn conditions" >
                     <h4>Informatie:</h4>
-                    <a href="/info/voorwaarden">Algemene voorwaarden</a><br/>
-                    <a href="/info/privacy">Privacy</a><br />
-                    <a href="/info/bezorging">Bezorging</a><br />
-                    <a href="/info/faq">FAQ</a>
+                    <Link to="/info/voorwaarden">Algemene voorwaarden</Link><br/>
+                    <Link to="/info/privacy">Privacy</Link><br />
+                    <Link to="/info/bezorging">Bezorging</Link><br />
+                    <Link to="/info/faq">FAQ</Link>
                 </div>
             </div>
         </div>

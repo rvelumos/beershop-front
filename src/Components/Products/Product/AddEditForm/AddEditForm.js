@@ -233,18 +233,14 @@ export function AddEditForm(props) {
                                 </div>
 
                                 <div className="formElement">
-                                    <FormElement
-                                        type="text"
+                                    {errors.description ? <span className='error-message'>{errors.description.message}</span> : <span>&nbsp;</span>}
+                                    <textarea
                                         name="description"
-                                        label="Beschrijving"
-                                        formValue={formValues.description}
-                                        onChange={changeHandler}
+                                        placeholder="Omschrijving"
                                         fieldRef={register({
                                             required: "Verplicht veld",
-                                        })
-                                        }
-                                        error={errors.description ? <span className='error-message'>{errors.description.message}</span> : <span>&nbsp;</span>}
-                                    />
+                                        })}
+                                    >{formValues.description}</textarea>
                                 </div>
 
                                 <div className="formElement">

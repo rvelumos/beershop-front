@@ -20,7 +20,7 @@ const CheckoutPage = () => {
 
 
     return (
-        <div className="ContactPage">
+        <div className="shoppingCartPage">
             <ShoppingCart
                 shoppingCartItems={shoppingCartItems}
                 setShoppingCartItems={setShoppingCartItems}

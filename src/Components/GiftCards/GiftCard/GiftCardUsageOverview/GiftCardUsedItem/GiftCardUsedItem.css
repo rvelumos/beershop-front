@@ -1,0 +1,26 @@
+.giftCardUsedItemDetails {
+    border-collapse: collapse;
+    padding: 5px 8px 5px 0;
+    margin: 20px 10px 20px 0;
+    width: 100%;
+}
+
+.giftCardUsedItemDetails tr:first-of-type {
+    color: #ffa303;
+    font-weight: bold;
+}
+
+.giftCardUsedItemDetails td {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    width: 150px;
+}
+
+.giftCardUsedItemDetails .giftCardIsUsed td {
+    background-color: #eee;
+    color: #999;
+}
+
+.giftCardUsedItemDetails .giftCardIsUsed .giftCardCode {
+    background: linear-gradient(to left top, transparent 45.5%, red 47.5%, red 52.5%, transparent 54.5%)
+}

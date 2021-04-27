@@ -4,7 +4,7 @@ import UserInfo from "./UserInfo/UserInfo";
 import Error from "../../Website/UI/Feedback/Error/Error";
 import axios from "axios";
 
-const UserManagement = ({ token }) => {
+const UserManagement = ({ token, isAdmin }) => {
 
     const [error, setError] = useState(false);
     const [users, setUsers] = useState("");
@@ -53,7 +53,7 @@ const UserManagement = ({ token }) => {
     return (
         <>
             <div className="overview">
-                {loading ? <LoadingIndicator /> : <UserInfo users={users} error={error} token={token} setError={setError} />}
+                {loading ? <LoadingIndicator /> : <UserInfo users={users} error={error} isAdmin={isAdmin} token={token} setError={setError} />}
                 {error && <Error type="message_container" content={error} /> }
             </div>
         </>

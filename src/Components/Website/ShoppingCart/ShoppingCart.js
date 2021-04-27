@@ -1,18 +1,20 @@
 import React, {useEffect, useState} from 'react';
-//import Button from "../UI/Button/Button";
 import axios from "axios";
 import Error from "../UI/Feedback/Error/Error";
 import LoadingIndicator from "../../Website/UI/LoadingIndicator/LoadingIndicator";
+import './ShoppingCart.css';
+import {Link} from "react-router-dom";
+import Button from "../UI/Button/Button";
 
 const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartItems, setShoppingCartActive}) => {
 
-  //  const [shoppingCartTotal, setShoppingCartTotal] = useState("");
-    const [updatedShoppingCartItems, setUpdatedShoppingCartItems] = useState({
+    const [shoppingCartTotal, setShoppingCartTotal] = useState("");
+    let [updatedShoppingCartItems, setUpdatedShoppingCartItems] = useState({
         data: ''
     });
 
     const [error, setError] = useState("");
-    const [loading, toggleLoading] = useState(true);
+    const [loading, toggleLoading] = useState(false);
 
     useEffect(() =>{
         let shoppingCart = localStorage.getItem("shopping_carts");
@@ -21,9 +23,9 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
 
         // shoppingCart = JSON.parse(shoppingCart);
         if (shoppingCart !== "") {
-            setShoppingCartItems(shoppingCart)
+            //setShoppingCartItems(shoppingCart)
             //setShoppingCartActive(true);
-            setShoppingCartItems(shoppingCart);
+            //setShoppingCartItems(shoppingCart);
         }
     }, [setShoppingCartItems])
 
@@ -75,11 +77,68 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
     //     localStorage.setItem('shopping_cart', cartString)
     // }
 
+    function handleAmount(itemID, amount) {
+
+        let cartCopy = [...shoppingCartItems]
+        let itemExists = cartCopy.find(item => item.ID === itemID);
+
+        if (!itemExists) return
+        itemExists.quantity += amount;
+
+        if (itemExists.quantity <= 0) {
+            cartCopy = cartCopy.filter(item => item.ID !== itemID)
+        }
+
+        //setShoppingCartItems(cartCopy);
+
+        let cartString = JSON.stringify(cartCopy);
+        localStorage.setItem('shopping_cart', cartString);
+    }
+
+    function calculateTotal (price, amount) {
+        //const price = amount
+    }
+
+    function calculateItemTotal(itemID, price) {
+
+        let product = shoppingCartItems;
+        console.log(product);
+        const priceTotal = product.id * 2;
+    }
+
+    function decreaseAmount(id, name) {
+        const value = Object.values(shoppingCartItems);
+
+        console.log("aantal is "+value);
+        if (shoppingCartItems.id !== 0) {
+            setShoppingCartItems({
+                ...shoppingCartItems,
+                id: shoppingCartItems.id - 1
+            });
+        }
+        console.log(shoppingCartItems);
+    }
+
+    function increaseAmount(name, id) {
+        const value = Object.values(shoppingCartItems);
+
+        console.log("aantal is " +value);
+
+        if (shoppingCartItems.id <= 99) {
+            setShoppingCartItems({
+                ...shoppingCartItems,
+                id: shoppingCartItems.id + 1
+            });
+        }
+        console.log(shoppingCartItems);
+    }
+
     function ShoppingCartOverview () {
 
         useEffect(() => {
 
         if (shoppingCartItems !== "") {
+
             console.log("bij useeffect");
             console.log(shoppingCartItems);
             Object.keys(shoppingCartItems).forEach((item, i) => {
@@ -88,7 +147,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
 
                 async function getCurrentProductInfo() {
                     //toggleLoading(true);
-                    const id = item.replace("beer_item_", "");
+                    const id = item;
                     let url = `http://localhost:8080/api/v1/product/${id}`;
 
                     console.log(url);
@@ -96,14 +155,13 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                     try {
                         const result = await axios.get(url);
 
-                        console.log("HIERO");
-
                         //let cartcopy = [...shoppingCartItems] ;
                         //cartcopy.push(result.data);
                         setUpdatedShoppingCartItems({
                             ...setUpdatedShoppingCartItems,
                             data: result.data
                         });
+                        setShoppingCartActive(true);
                         console.log('spread');
                         console.log(updatedShoppingCartItems);
                         localStorage.setItem("shopping_carts", JSON.stringify(shoppingCartItems));
@@ -120,20 +178,45 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
             })
         }
         }, [])
-
-        return(
-            <p>ssss</p>
-        )
     }
 
     const getShoppingCartTable = () => {
 
+        console.log(updatedShoppingCartItems);
+        const newArrayItems = Array.from(Object.entries(updatedShoppingCartItems));
+
             return(
-                Object.entries(updatedShoppingCartItems).map((item) => {
-                    return(
-                        <p>Item!</p>
+                newArrayItems.map((cartItem) => {
+                    let image="";
+                    if(cartItem[1].type!==4) {
+                        image = <div className="image"><img src={`/product_images/product_${cartItem[1].id}.png`} alt=''/></div>;
+                    } else {
+                        image = <div className="image"><img src={`/product_images/giftcard.png`} alt=''/></div>;
+                    }
+                    return (
+                        <>
+                            <div className="productItemContainer">
+                                <div className="productImage">{image}</div>
+                                <div className="productName">{cartItem[1].name}</div>
+                                <div className="productAmountContainer">
+                                    <div className="productAmount" onClick={(e) => decreaseAmount(cartItem[1].id, cartItem.name)}> - </div>
+                                        <input
+                                            type="text"
+                                            placeholder=""
+                                            maxLength="2"
+                                            value={shoppingCartItems.id}
+                                            name={cartItem[1].name}
+                                            value={shoppingCartItems.id}
+                                        />
+                                    <div className="productAmount" onClick={(e) => increaseAmount(cartItem[1].id, cartItem.name)}> + </div>
+                                </div>
+                                <div className="productPrice">€{cartItem[1].price}</div>
+                                <div className="productPrice">{calculateItemTotal(cartItem[1].name, cartItem[1].price)}</div>
+                            </div>
+                        </>
                     )
                 })
+
             )
     }
 
@@ -144,9 +227,19 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                 {error && <Error type="message_container" content={error} />}
                 {/*{loading ? <LoadingIndicator /> : <Product product_items={updatedShoppingCartItems} />}*/}
                 {loading ? <LoadingIndicator /> :
-                    getShoppingCartTable()
+                    ShoppingCartOverview(updatedShoppingCartItems)
                 }
-                {shoppingCartActive ? ShoppingCartOverview()
+
+                {shoppingCartActive ?
+                    <>
+                        <div className="shoppingCartContainer">
+                            {getShoppingCartTable(updatedShoppingCartItems)}
+                        </div>
+                        <div className="shoppingCartCheckoutContainer">
+                            {calculateTotal(updatedShoppingCartItems)}
+                        </div>
+                        <Link to="/stap2" className="button">Checkout</Link>
+                    </>
                 : <p>Er zijn geen items aan je winkelwagen toegevoegd.</p>
                 }
             </div>

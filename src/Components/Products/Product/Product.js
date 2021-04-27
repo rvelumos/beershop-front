@@ -6,7 +6,7 @@ import axios from "axios";
 import LoadingIndicator from "../../Website/UI/LoadingIndicator/LoadingIndicator";
 
 function Product(props) {
-    let {product_items, isAdmin} = props;
+    let {productItems, isAdmin} = props;
 
     const [loading, toggleLoading] = useState(false);
     const [error, setError] = useState(true);
@@ -39,36 +39,38 @@ function Product(props) {
 
     const displayProductItems = () => {
 
-        if(product_items.length  > 0) {
+        if(productItems.length  > 0) {
             if(isAdmin) {
-                product_items = product_items.filter(e => e.type !== 4);
+                productItems = productItems.filter(e => e.type !== 4);
             }
             return (
 
-                product_items.map((product_item) => {
+                productItems.map((productItem) => {
                     if(!isAdmin) {
                         return (
-                            <div className="Product" key={product_item.id}>
-                                <OrderBlock mode="main" productItem={product_item} section="overview"/>
+                            <div className="Product" key={productItem.id}>
+                                <OrderBlock mode="main" productItem={productItem} section="overview"/>
                             </div>
                         )
                     } else {
+                        let shortDescription = <i>Niet ingevuld</i>;
+                        if(productItem.description !== null)shortDescription = productItem.description.substr(0,60) + "...";
                         return(
-                            <tr key={product_item.id} className="Order">
-                                <td className="productID">{product_item.id}</td>
-                                <td className="productCategory">{product_item.categoryId}</td>
-                                <td className="productManufacturer">{product_item.manufacturer_id}</td>
-                                <td className="productName">{product_item.name}</td>
-                                <td className="productPrice">€{product_item.price.toFixed(2)}</td>
-                                <td className="productTaste">{product_item.taste}</td>
-                                <td className="productStock">{product_item.stock}</td>
-                                <td className="productDescription">{product_item.description}</td>
-                                <td className="productType">{product_item.type}</td>
+                            <tr key={productItem.id} className="Order">
+                                <td className="productID">{productItem.id}</td>
+                                <td className="productCategory">{productItem.categoryId}</td>
+                                <td className="productManufacturer">{productItem.manufacturer_id}</td>
+                                <td className="productName">{productItem.name}</td>
+                                <td className="productPrice">€{productItem.price.toFixed(2)}</td>
+                                <td className="productTaste">{productItem.taste}</td>
+                                <td className="productStock">{productItem.stock}</td>
+                                <td className="productDescription">{shortDescription}</td>
+                                <td className="productType">{productItem.type}</td>
                                 <td>
                                     <div className="edit">
-                                        <Link to={`/cms/products/edit/${product_item.id}`}>&#9999;</Link>
+                                        <Link to={`/cms/products/edit/${productItem.id}`}>&#9999;</Link>
                                     </div>
-                                    <div className="delete" onClick={(e) => deleteProduct(product_item.id)}>
+                                    <div className="delete" onClick={(e) => deleteProduct(productItem.id)}>
                                         &#10008;
                                     </div>
                                 </td>

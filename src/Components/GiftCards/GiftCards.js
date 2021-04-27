@@ -3,6 +3,7 @@ import LoadingIndicator from "../Website/UI/LoadingIndicator/LoadingIndicator";
 import GiftCard from "./GiftCard/GiftCard";
 import Error from "../Website/UI/Feedback/Error/Error";
 import axios from "axios";
+import GiftCardUsedItem from "./GiftCard/GiftCardUsageOverview/GiftCardUsedItem/GiftCardUsedItem";
 
 
 const GiftCards = ({isAdmin, token}) => {
@@ -12,49 +13,56 @@ const GiftCards = ({isAdmin, token}) => {
     const [loading, toggleLoading] = useState(false);
 
     // eslint-disable-next-line
-    useEffect(getGiftCards, []);
+    useEffect(() => {
+        async function getGiftCards() {
 
-    function getGiftCards () {
+            setError(false);
+            toggleLoading(true);
 
-        setError(false);
-        toggleLoading(true);
+            let url = "http://localhost:8080/api/v1";
 
-        let url = "http://localhost:8080/api/v1";
+            if (isAdmin) {
+                url = `${url}/products/type/4/`;
+            } else {
+                //fix!!!
+                let id = 1;
 
-        if (isAdmin) {
-            url = `${url}/products/type/4/`;
-        } else {
-            //fix!!!
-            let customer_id = 1;
-
-            url = `${url}/giftcards/customer/${customer_id}/`;
-        }
-
-        console.log(url);
-
-        axios.get(url, {
-            headers : {
-                "Authorization" : `Bearer ${token}`,
-                'Content-Type': 'application/json',
-                "Access-Control-Allow-Origin": "*",
+                url = `${url}/giftcards/customer/${id}/`;
             }
-        })
-            .then((response) => {
-                const giftCards = response.data;
-                console.log(giftCards);
-                setGiftCardItems(giftCards);
-                toggleLoading(false);
-            })
-            .catch((errorResponse) => {
-                console.error(errorResponse);
+
+            console.log(url);
+
+            try {
+                const result = await axios.get(url, {
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                        "Access-Control-Allow-Origin": "*",
+                    }
+                })
+
+                if (result) {
+                    const giftCards = result.data;
+                    console.log(giftCards);
+                    setGiftCardItems(giftCards);
+                    toggleLoading(false);
+                }
+            } catch {
+                console.error(error);
                 setError("could not reach external source");
-            });
-    }
+            }
+        }
+        getGiftCards()
+        // eslint-disable-next-line
+    },[])
 
     return (
         <>
             <div className="overview">
-                {loading ? <LoadingIndicator /> : <GiftCard giftCardItems={giftCardItems} error={error} setError={setError} />}
+                {loading ? <LoadingIndicator /> :
+                    isAdmin ? <GiftCard giftCardItems={giftCardItems} error={error} setError={setError} />
+                    : <GiftCardUsedItem giftCardItems={giftCardItems} error={error} setError={setError} />
+                }
                 {error && <Error type="message_container" content={error} /> }
             </div>
         </>

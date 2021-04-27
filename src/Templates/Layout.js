@@ -10,7 +10,7 @@ import UserProfileRouting from "./Routing/UserprofileRouting";
 
 const Layout = (props) => {
 
-    const { userLoggedIn } = props;
+    const { userLoggedIn, token } = props;
 
     return(
         <>
@@ -23,7 +23,7 @@ const Layout = (props) => {
 
             <main>
                 <MainRouting />
-                <UserProfileRouting userLoggedIn={userLoggedIn} />
+                <UserProfileRouting token={token} userLoggedIn={userLoggedIn} />
              </main>
 
             <Newsletter />

@@ -17,12 +17,14 @@ const OrderBlock = ({productItem, isAdmin, section}) => {
         });
     }
 
-    function handleChange(evt) {
+    function handleChange(evt, id) {
         const value = evt.currentTarget.value;
 
         setAmountItem({
             ...amountItem,
-            [evt.target.name]: value,
+            [id]:{
+                amount: value
+            }
         });
 
         console.log(amountItem);
@@ -71,7 +73,7 @@ const OrderBlock = ({productItem, isAdmin, section}) => {
         //     console.log("het is "+ value);
         // }
 
-        const productName=`beer_item_${productItem.id}`;
+        const productName=productItem.id;
 
         let image="";
         let title="";
@@ -99,7 +101,7 @@ const OrderBlock = ({productItem, isAdmin, section}) => {
                             placeholder=""
                             maxLength="2"
                             name={productName}
-                            onChange={evt => handleChange(evt)}
+                            onChange={evt => handleChange(evt, productItem.id)}
                             readOnly={read_only}
                             tabIndex={tab_index}
                         />

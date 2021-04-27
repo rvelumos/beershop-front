@@ -5,42 +5,43 @@ import Login from "../../Components/Website/UserProfile/Login/Login";
 import UserOrderPage from "../../Pages/User/UserOrderPage";
 import UserGiftPage from "../../Pages/User/UserGiftPage";
 import UserBonusPage from "../../Pages/User/UserBonusPage";
+import UserSettingsPage from "../../Pages/User/UserSettings";
 
-const UserProfileRouting = ({userLoggedIn}) => {
+const UserProfileRouting = ({userLoggedIn, token}) => {
     return (
         <>
             <Route path="/mijn_account/" exact>
                 {userLoggedIn ?
-                    <UserProfilePage/>
+                    <UserProfilePage />
                     : <Login/>
-                }
-            </Route>
-
-            <Route path="/mijn_account/mijn_orders" exact>
-                {userLoggedIn ?
-                    <UserOrderPage/>
-                    : <Redirect to="/mijn_account/"/>
                 }
             </Route>
 
             <Route path="/mijn_account/orders" exact>
                 {userLoggedIn ?
-                    <UserOrderPage/>
-                    : <Redirect to="/mijn_account/"/>
+                    <UserOrderPage token={token} />
+                    : <Redirect to="/mijn_account/" />
+                }
+            </Route>
+
+            <Route path="/mijn_account/gegevens" exact>
+                {userLoggedIn ?
+                    <UserSettingsPage token={token} />
+                    : <Redirect to="/mijn_account/" />
                 }
             </Route>
 
             <Route path="/mijn_account/cadeaubonnen" exact>
                 {userLoggedIn ?
-                    <UserGiftPage/>
-                    : <Redirect to="/mijn_account/"/>
+                    <UserGiftPage token={token} />
+                    : <Redirect to="/mijn_account/" />
                 }
             </Route>
 
             <Route path="/mijn_account/bonus">
                 {userLoggedIn ?
-                    <UserBonusPage/>
-                    : <Redirect to="/mijn_account/"/>
+                    <UserBonusPage />
+                    : <Redirect to="/mijn_account/" />
                 }
             </Route>
         </>

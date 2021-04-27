@@ -8,9 +8,7 @@ function FilterSelectionMenu (props) {
     //const {tasteArray, setTasteArray} = props;
 
     const [filterItems, setFilterItems] = useState({
-        "category" : null,
-        "taste" : null,
-        "price" : null
+        filtermenu: ''
     });
 
     // useEffect(() => {
@@ -58,9 +56,14 @@ function FilterSelectionMenu (props) {
 
                 <div className="filterTitle">
                     <h3>Type</h3>
-                    {/*<FilterBlockItems valueName="taste" filterItems={filterItems} setFilterItems={setFilterItems} tasteArray={tasteArray} setTasteArray={setTasteArray} />*/}
+                    {/*<FilterBlockItems*/}
+                    {/*    valueName="taste"*/}
+                    {/*    filterItems={filterItems}*/}
+                    {/*    setFilterItems={setFilterItems}*/}
+                    {/*    tasteArray={tasteArray}*/}
+                    {/*    setTasteArray={setTasteArray} />*/}
                 </div>
-
+                {console.log(filterItems)}
                 <div className="filterTitle">
                     <h3>Prijs</h3>
                     <div className="filterPrice">

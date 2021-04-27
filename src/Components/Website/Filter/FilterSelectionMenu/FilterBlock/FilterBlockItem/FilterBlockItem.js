@@ -9,10 +9,11 @@ function FilterBlockItems(props) {
     const [loading, toggleLoading] = useState(true);
 
     const {categoryArray, setCategoryArray} = props;
-    const {setTasteArray, valueName} = props;
+    const {setTasteArray} = props;
 
     useEffect(() => {
-        async function getFilterItem({setFilterItems}) {
+        async function getFilterItem({filterItems, setFilterItems}) {
+            const {valueName} = props;
 
             setError(false);
             toggleLoading(true);
@@ -27,12 +28,17 @@ function FilterBlockItems(props) {
             try {
                 const result = await axios.get(url);
                 if (result.data.length > 0){
-                    setFilterItems({
-                        valueName: result.data
-                    })
+                    setFilterItems(prevState => ({
+                        ...prevState,
+                        filtermenu: {
+                            ...filterItems,
+                            [valueName]: result.data
+                        }
+                    }))
                 } else {
                     setFilterItems({
-                        valueName: ''
+                        ...filterItems,
+                        [valueName]: ''
                     })
                     setError("Geen resultaten");
                 }
@@ -53,26 +59,33 @@ function FilterBlockItems(props) {
         const value = evt.target.value;
         const name = evt.target.name;
 
-        console.log("de valuename is nu " + name);
+        if(name==='category[]') {
 
-        if(name==='category[]')
             setCategoryArray(prev => [...prev, value]);
-        else
+        } else {
             setTasteArray(prev => [...prev, value]);
+        }
 
         let areInputsChecked = [checked];
+
         areInputsChecked.forEach(isInputChecked => {
             if(isInputChecked === value && isInputChecked.name===name){
                 isInputChecked.isChecked = evt.target.checked;
             } else {
                if(!evt.target.checked) {
-                   const catArr = [...categoryArray]
+                   const catArr = [...categoryArray];
+                   const checkedArr = [...checked];
                    console.log("before: "+ catArr);
                    const index = catArr.indexOf(value);
+                   const index_checked = checkedArr.indexOf(value);
 
                    if (index !== -1) {
                        catArr.splice(index, 1);
                        setCategoryArray(catArr);
+                   }
+                   if (index_checked !== -1) {
+                       checkedArr.splice(index_checked, 1);
+                       setChecked(checkedArr);
                    }
                }
             }
@@ -88,10 +101,12 @@ function FilterBlockItems(props) {
     const displayFilterBlockItems = (props) => {
         const {filterItems, valueName} = props;
 
-        if(filterItems.valueName.length  > 0) {
-            filterItems.valueName = filterItems.valueName.filter(e => e.id !== 999);
+        console.log(filterItems)
+        console.log( " met naam : " + valueName);
+        if(filterItems.filtermenu[valueName].length  > 0) {
+            const filteredFilterItems = filterItems.filtermenu[valueName].filter(e => e.id !== 999);
             return (
-                filterItems.valueName.map((filterItem) => {
+                filteredFilterItems.map((filterItem) => {
                         return (
                             <>
                                 <div key={filterItem.id} className="filterItem">
