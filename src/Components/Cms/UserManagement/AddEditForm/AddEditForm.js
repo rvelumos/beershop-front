@@ -20,12 +20,11 @@ export function AddEditForm(props) {
     //const isAddMode = !id;
 
     const [formValues, setFormValues] = useState({
-        user_id: '',
+        userId: '',
         email: '',
         firstname: '',
         lastname: '',
-        address: '',
-        birth_date: '',
+        birthDate: '',
         phone: '',
         newsletter: '',
         sex: ''
@@ -43,23 +42,23 @@ export function AddEditForm(props) {
                     }
                 });
                 const {
-                    user_id,
+                    userId,
                     email,
                     firstname,
                     lastname,
                     address,
-                    birth_date,
+                    birthDate,
                     phone,
                     newsletter,
                     sex,
                 } = result.data;
 
                 setFormValues({
-                    user_id: user_id,
+                    userId: userId,
                     email: email,
                     firstname: firstname,
                     lastname: lastname,
-                    birth_date: birth_date,
+                    birth_date: birthDate,
                     phone: phone,
                     address: address,
                     newsletter: newsletter,
@@ -99,7 +98,7 @@ export function AddEditForm(props) {
                 email: data.email,
                 sex: data.sex,
                 phone: data.phone,
-                birth_date: data.birth_date,
+                birthDate: data.birthDate,
             })
         }
     }
@@ -230,24 +229,9 @@ export function AddEditForm(props) {
                                 <div className="formElement">
                                     <FormElement
                                         type="text"
-                                        name="address"
-                                        label="Adresgegevens"
-                                        formValue={formValues.address}
-                                        onChange={changeHandler}
-                                        fieldRef={register({
-                                            required: "Verplicht veld",
-                                        })
-                                        }
-                                        error={errors.address ? <span className='error-message'>{errors.address.message}</span> : <span>&nbsp;</span>}
-                                    />
-                                </div>
-
-                                <div className="formElement">
-                                    <FormElement
-                                        type="text"
-                                        name="birth_date"
+                                        name="birthDate"
                                         label="Geboortedatum"
-                                        formValue={formValues.birth_date}
+                                        formValue={formValues.birthDate}
                                         onChange={changeHandler}
                                         fieldRef={register({
                                             required: 'Verplicht veld',
@@ -256,7 +240,7 @@ export function AddEditForm(props) {
                                                 message: 'Ongeldige geboortedatum'
                                             }
                                         })}
-                                        error={errors.birth_date ? <span className='error-message'>{errors.birth_date.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.birthDate ? <span className='error-message'>{errors.birthDate.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 

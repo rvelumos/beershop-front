@@ -1,8 +1,9 @@
 import React from 'react';
 import LeftMenu from "../../Components/Website/UserProfile/LeftMenu/LeftMenu";
 import Orders from "../../Components/Orders/Orders";
+import DetailsOrder from "../../Components/Orders/Order/DetailsOrder/DetailsOrder";
 
-const UserOrderPage = ({token}) => {
+const UserOrderPage = ({token, showDetails}) => {
 
     return (
         <>
@@ -10,10 +11,18 @@ const UserOrderPage = ({token}) => {
                 <LeftMenu />
 
                 <div className="textContentContainer" >
-                    <h1>Orders</h1>
-                    <p>Jouw geplaatste orders</p>
+                    {showDetails ?
+                        <>
+                            {<DetailsOrder token={token} />}
+                        </>
+                        :
+                        <>
+                            <h1>Orders</h1>
+                            <p>Jouw geplaatste orders</p>
+                            {<Orders token={token} />}
+                        </>
+                    }
 
-                    <Orders token={token} />
                 </div>
             </div>
         </>

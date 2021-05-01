@@ -2,7 +2,11 @@ import React from 'react';
 
 const Confirmation = (props) => {
 
-    const {email} = props;
+    const {email, currentStep} = props;
+
+    if(currentStep !== 4) {
+        return null;
+    }
 
     return(
 

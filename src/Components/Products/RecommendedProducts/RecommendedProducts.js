@@ -15,7 +15,7 @@ function RecommendedProducts(props) {
             setError(false);
             toggleLoading(true);
 
-            let url = `http://localhost:8080/api/v1/recommended/${category}/`;
+            let url = `/api/v1/recommended/${category}/`;
 
             try {
                 const result = await axios.get(url);
@@ -40,7 +40,7 @@ function RecommendedProducts(props) {
 
     return(
         <>
-        {loading ? <LoadingIndicator /> : <Product product_items={recommendedItems} />}
+        {loading ? <LoadingIndicator /> : <Product productItems={recommendedItems} />}
         {error && <Error type="message_container" content={error} /> }
         </>
     )

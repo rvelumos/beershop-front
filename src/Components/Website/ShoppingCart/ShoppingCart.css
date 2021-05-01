@@ -32,10 +32,6 @@
     float: right;
 }
 
-.shoppingCartPage .button {
-
-}
-
 .shoppingCartContainer {
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
@@ -50,6 +46,8 @@
     padding: 20px;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .productItemContainer div{
@@ -62,4 +60,8 @@
 
 .shoppingCartCheckoutContainer {
     margin: 20px 0;
+}
+
+.productPrice {
+    width: 200px;
 }

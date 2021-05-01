@@ -36,7 +36,7 @@ function BonusProducts() {
 
     return (
         <>
-            {loading ? <LoadingIndicator /> : <Product product_items={productItems} />}
+            {loading ? <LoadingIndicator /> : <Product productItems={productItems} />}
             {error && <Error type="message_container" content={error} /> }
         </>
     )

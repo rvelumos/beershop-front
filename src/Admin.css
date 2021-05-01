@@ -51,12 +51,14 @@ main.cms {
 .tableDetails tr:not(:first-of-type) td:first-of-type {
     background-color: white;
     border: none;
-    text-align: center;
-    width: 40px;
 }
 
 .tableDetails td:last-of-type {
     width: 70px;
+}
+.tableDetails td:first-of-type {
+    width: 35px;
+    text-align: center;
 }
 
 .tableDetails td:first-of-type p {

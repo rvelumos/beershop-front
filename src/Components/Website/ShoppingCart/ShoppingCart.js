@@ -4,11 +4,10 @@ import Error from "../UI/Feedback/Error/Error";
 import LoadingIndicator from "../../Website/UI/LoadingIndicator/LoadingIndicator";
 import './ShoppingCart.css';
 import {Link} from "react-router-dom";
-import Button from "../UI/Button/Button";
 
 const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartItems, setShoppingCartActive}) => {
 
-    const [shoppingCartTotal, setShoppingCartTotal] = useState("");
+    //const [shoppingCartTotal, setShoppingCartTotal] = useState("");
     let [updatedShoppingCartItems, setUpdatedShoppingCartItems] = useState({
         data: ''
     });
@@ -77,33 +76,30 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
     //     localStorage.setItem('shopping_cart', cartString)
     // }
 
-    function handleAmount(itemID, amount) {
-
-        let cartCopy = [...shoppingCartItems]
-        let itemExists = cartCopy.find(item => item.ID === itemID);
-
-        if (!itemExists) return
-        itemExists.quantity += amount;
-
-        if (itemExists.quantity <= 0) {
-            cartCopy = cartCopy.filter(item => item.ID !== itemID)
-        }
-
-        //setShoppingCartItems(cartCopy);
-
-        let cartString = JSON.stringify(cartCopy);
-        localStorage.setItem('shopping_cart', cartString);
-    }
+    // function handleAmount(itemID, amount) {
+    //
+    //     let cartCopy = [...shoppingCartItems]
+    //     let itemExists = cartCopy.find(item => item.ID === itemID);
+    //
+    //     if (!itemExists) return
+    //     itemExists.quantity += amount;
+    //
+    //     if (itemExists.quantity <= 0) {
+    //         cartCopy = cartCopy.filter(item => item.ID !== itemID)
+    //     }
+    //
+    //     //setShoppingCartItems(cartCopy);
+    //
+    //     let cartString = JSON.stringify(cartCopy);
+    //     localStorage.setItem('shopping_cart', cartString);
+    // }
 
     function calculateTotal (price, amount) {
         //const price = amount
     }
 
-    function calculateItemTotal(itemID, price) {
-
-        let product = shoppingCartItems;
-        console.log(product);
-        const priceTotal = product.id * 2;
+    function calculateItemTotal(amount, price) {
+        return(amount * price);
     }
 
     function decreaseAmount(id, name) {
@@ -187,6 +183,8 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
 
             return(
                 newArrayItems.map((cartItem) => {
+                    const itemValue = Object.values(shoppingCartItems);
+
                     let image="";
                     if(cartItem[1].type!==4) {
                         image = <div className="image"><img src={`/product_images/product_${cartItem[1].id}.png`} alt=''/></div>;
@@ -204,14 +202,13 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                                             type="text"
                                             placeholder=""
                                             maxLength="2"
-                                            value={shoppingCartItems.id}
+                                            value={itemValue[0].amount}
                                             name={cartItem[1].name}
-                                            value={shoppingCartItems.id}
                                         />
                                     <div className="productAmount" onClick={(e) => increaseAmount(cartItem[1].id, cartItem.name)}> + </div>
                                 </div>
                                 <div className="productPrice">€{cartItem[1].price}</div>
-                                <div className="productPrice">{calculateItemTotal(cartItem[1].name, cartItem[1].price)}</div>
+                                <div className="productPriceTotal">€{calculateItemTotal(itemValue[0].amount, cartItem[1].price)}</div>
                             </div>
                         </>
                     )
@@ -238,7 +235,10 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                         <div className="shoppingCartCheckoutContainer">
                             {calculateTotal(updatedShoppingCartItems)}
                         </div>
-                        <Link to="/stap2" className="button">Checkout</Link>
+                        <Link
+                            to={{pathname: "/winkelwagen/checkout/stappen", state: {step: 1}}}
+                            className="button"
+                        >Checkout</Link>
                     </>
                 : <p>Er zijn geen items aan je winkelwagen toegevoegd.</p>
                 }

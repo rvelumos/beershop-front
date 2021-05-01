@@ -48,6 +48,12 @@ p {
   margin: 20px;
 }
 
+.notice {
+  margin: 20px auto;
+  padding: 3px;
+  font-style: italic;
+}
+
 .Error {
   color: red;
   font-weight: bold;
@@ -60,11 +66,15 @@ textarea:focus, input:focus{
 .App {
   text-align: center;
 }
+input[type="text"]:disabled {
+    background-color: #eee !important;
+    color: #666;
+    font-style: italic;
+}
 
 .error-message {
   color:red;
   font-size: 0.9em;
-  margin-left: 20px !important;
 }
 
 .errorInput {
@@ -87,6 +97,7 @@ textarea:focus, input:focus{
 .userContentContainer {
   display: flex;
   flex-direction: row;
+  font-family: "Poppins ExtraLight";
 }
 
 .userContentContainer .leftMenuItems {

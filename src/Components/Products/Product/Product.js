@@ -58,8 +58,8 @@ function Product(props) {
                         return(
                             <tr key={productItem.id} className="Order">
                                 <td className="productID">{productItem.id}</td>
-                                <td className="productCategory">{productItem.categoryId}</td>
-                                <td className="productManufacturer">{productItem.manufacturer_id}</td>
+                                <td className="productCategory">({productItem.category.id}) {productItem.category.name}</td>
+                                <td className="productManufacturer">{productItem.manufacturer.name}</td>
                                 <td className="productName">{productItem.name}</td>
                                 <td className="productPrice">€{productItem.price.toFixed(2)}</td>
                                 <td className="productTaste">{productItem.taste}</td>
@@ -92,19 +92,21 @@ function Product(props) {
                         {error && <p> {error} </p>}
                         <Link to="/cms/products/create/" className="button">Product toevoegen</Link><br /><br />
                         <table className="tableDetails">
-                            <tr>
-                                <td>&nbsp;</td>
-                                <td>Categorie</td>
-                                <td>Fabrikant</td>
-                                <td>Naam</td>
-                                <td>Prijs</td>
-                                <td>Smaak</td>
-                                <td>Voorraad</td>
-                                <td>Omschrijving</td>
-                                <td>Type</td>
-                                <td>Acties</td>
-                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>Categorie</td>
+                                    <td>Fabrikant</td>
+                                    <td>Naam</td>
+                                    <td>Prijs</td>
+                                    <td>Smaak</td>
+                                    <td>Voorraad</td>
+                                    <td>Omschrijving</td>
+                                    <td>Type</td>
+                                    <td>Acties</td>
+                                </tr>
                             { displayProductItems(props)}
+                            </tbody>
                         </table></div>
                     </>
                     :

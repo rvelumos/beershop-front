@@ -50,6 +50,7 @@ function NewsletterTemplate ({items, setItems, error, setError}) {
         <>
             <div className="overview">
                 <table className="tableDetails">
+                    <tbody>
                     <tr>
                         <td>ID</td>
                         <td>Titel</td>
@@ -59,6 +60,7 @@ function NewsletterTemplate ({items, setItems, error, setError}) {
                         <td>Actie</td>
                     </tr>
                     {newsletters()}
+                    </tbody>
                 </table>
             </div>
         </>

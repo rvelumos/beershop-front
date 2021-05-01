@@ -1,16 +1,40 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './GiftCard.css';
-import { v4 as uuidv4 } from 'uuid';
 import {Link} from "react-router-dom";
-import  DeleteItem  from "../../Cms/Actions/Delete";
+//import  DeleteItem  from "../../Cms/Actions/DeleteItem";
+import axios from "axios";
+import LoadingIndicator from "../../Website/UI/LoadingIndicator/LoadingIndicator";
 
 function GiftCard(props) {
 
-    function deleteGiftCard(id){
+    const [loading, toggleLoading] = useState(false);
+    const [error, setError] = useState(true);
+    const [message, setMessage] = useState(true);
+
+    async function deleteGiftCard(id){
         const {token} = props;
-        return (
-            <DeleteItem section="giftcards" id={id} token={token} />
-        )
+
+        toggleLoading(true);
+        let url = `/api/v1/admin/product/${id}`;
+
+        try {
+            const result = await axios.delete(url, {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            if(result) {
+                setMessage("Product is verwijderd... moment");
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
+
+            }
+        } catch (e) {
+            console.error(e);
+            setError("Fout bij verwijderen gebruiker.");
+            toggleLoading(false);
+        }
     }
 
     const displayGiftCardItems = (props) => {
@@ -22,8 +46,8 @@ function GiftCard(props) {
                 giftCardItems.map((giftCardItem) => {
                     return (
                         <>
-                            <tr key={uuidv4()} className="Order">
-                                <td><p className="giftCardID">{giftCardItem.id}</p></td>
+                            <tr key={giftCardItem.id} className="Order">
+                                <td><p className="giftCardID">#{giftCardItem.id}</p></td>
                                 <td><p className="giftCardName">{giftCardItem.name}</p></td>
                                 <td><p className="giftCardPrice">{giftCardItem.price}</p></td>
                                 <td><p className="giftCardDescription">{giftCardItem.description}</p></td>
@@ -48,20 +72,26 @@ function GiftCard(props) {
     }
     return(
         <>
-            <div className="itemContainer">
-                <Link to="/cms/giftcards/create/" className="button">Cadeaukaart toevoegen</Link><br /><br />
-                <table className="tableDetails">
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td>Naam</td>
-                        <td>Hoogte</td>
-                        <td>Omschrijving</td>
-                        <td>Gebruikt</td>
-                        <td>Acties</td>
-                    </tr>
-                    {displayGiftCardItems(props)}
-                </table>
-            </div>
+            {message && <p className="notice"> {message} </p>}
+            {loading ? <LoadingIndicator/> :
+                <div className="itemContainer">
+                    {error && <p> {error} </p>}
+                    <Link to="/cms/giftcards/create/" className="button">Cadeaukaart toevoegen</Link><br/><br/>
+                    <table className="tableDetails">
+                        <tbody>
+                        <tr>
+                            <td>ID</td>
+                            <td>Naam</td>
+                            <td>Hoogte</td>
+                            <td>Omschrijving</td>
+                            <td>Gebruikt</td>
+                            <td>Acties</td>
+                        </tr>
+                        {displayGiftCardItems(props)}
+                        </tbody>
+                    </table>
+                </div>
+            }
         </>
     )
 }

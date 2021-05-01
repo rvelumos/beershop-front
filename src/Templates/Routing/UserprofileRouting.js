@@ -24,6 +24,13 @@ const UserProfileRouting = ({userLoggedIn, token}) => {
                 }
             </Route>
 
+            <Route path="/mijn_account/orders/:id" exact>
+                {userLoggedIn ?
+                    <UserOrderPage token={token} showDetails={true} />
+                    : <Redirect to="/mijn_account/" />
+                }
+            </Route>
+
             <Route path="/mijn_account/gegevens" exact>
                 {userLoggedIn ?
                     <UserSettingsPage token={token} />

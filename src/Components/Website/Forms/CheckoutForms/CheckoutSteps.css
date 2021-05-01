@@ -1,0 +1,31 @@
+.userChoiceContainer {
+    display: flex;
+}
+
+.userChoiceContainer .LoginForm {
+    min-height: 300px;
+    padding: 25px;
+}
+
+.userChoiceContainer .LoginForm a {
+    margin: 0 15px;
+    padding: 15px 20px;
+}
+
+.userDetails {
+    display: flex;
+    flex-direction: row;
+}
+
+.addressInfo {
+    margin: 15px 5px;
+}
+
+.firstColumn,
+.secondColumn {
+    width: 600px;
+}
+
+.secondColumn {
+    margin: 0 75px;
+}

@@ -55,7 +55,9 @@ function Modal({handler, section, id, title, token}) {
                 <p>{title}</p>
                 {error && <p>{error}</p>}
                 <table>
+                    <tbody>
                     {loading ? <LoadingIndicator /> : itemRows()}
+                    </tbody>
                 </table>
             </div>
         </div>

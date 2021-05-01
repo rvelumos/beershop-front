@@ -9,7 +9,7 @@ import ContactPage from "../../Pages/ContactPage";
 import GiftPage from "../../Pages/GiftPage";
 import PacketPage from "../../Pages/PacketPage";
 import CheckoutPage from "../../Pages/CheckoutPage";
-import CheckoutForm from "../../Components/Website/Forms/CheckoutForms/CheckoutForm";
+import CheckoutSteps from "../../Components/Website/Forms/CheckoutForms/CheckoutSteps";
 import RegistrationForm from "../../Components/Website/Forms/RegistrationForm/RegistrationForm";
 import InfoRouting from "./InfoRouting";
 
@@ -53,8 +53,8 @@ const MainRouting = () => {
                 <CheckoutPage />
             </Route>
 
-            <Route path="/winkelwagen/checkout/">
-                <CheckoutForm />
+            <Route path="/winkelwagen/checkout/stappen">
+                <CheckoutSteps />
             </Route>
 
             <Route path="/registreren/">

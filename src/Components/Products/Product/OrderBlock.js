@@ -5,16 +5,25 @@ import React, {useState} from "react";
 const OrderBlock = ({productItem, isAdmin, section}) => {
 
     const [amountItem, setAmountItem] = useState('');
+    const [stockMessage, setStockMessage] = useState('');
 
     let history = useHistory();
 
     function AddToCart(e) {
         e.preventDefault();
 
-        history.push({
-            pathname: `/winkelwagen/`,
-            state: { data: amountItem}
-        });
+        if(e.target[0].value < 1) {
+            setStockMessage("Gelieve een correct aantal in te voeren");
+        } else {
+            if (e.target[0].value < productItem.stock) {
+                history.push({
+                    pathname: `/winkelwagen/`,
+                    state: {data: amountItem}
+                });
+            } else {
+                setStockMessage(` Let op: maximaal ${productItem.stock} op voorraad`)
+            }
+        }
     }
 
     function handleChange(evt, id) {
@@ -109,6 +118,7 @@ const OrderBlock = ({productItem, isAdmin, section}) => {
                         {stock_info}
                     </form>
                 </div>
+                {stockMessage && <p className="error-message">&#9888;{stockMessage}</p>}
             </>
         )
     }

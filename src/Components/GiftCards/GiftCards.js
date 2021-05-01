@@ -60,7 +60,7 @@ const GiftCards = ({isAdmin, token}) => {
         <>
             <div className="overview">
                 {loading ? <LoadingIndicator /> :
-                    isAdmin ? <GiftCard giftCardItems={giftCardItems} error={error} setError={setError} />
+                    isAdmin ? <GiftCard token={token} giftCardItems={giftCardItems} error={error} setError={setError} />
                     : <GiftCardUsedItem giftCardItems={giftCardItems} error={error} setError={setError} />
                 }
                 {error && <Error type="message_container" content={error} /> }

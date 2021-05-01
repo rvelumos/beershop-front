@@ -26,6 +26,9 @@ function GiftCardUsedItem(props) {
                     return (
                         <>
                             <tr key={uuidv4()} className={class_gc}>
+                                {isAdmin &&
+                                    <td><p className="giftCardId">{giftCardItem.id}</p></td>
+                                }
                                 <td><p className="giftCardName">{giftCardItem.name}</p></td>
                                 <td><p className="giftCardAmount">€{giftCardItem.amount}</p></td>
                                 <td><p className="giftCardCode">{giftCardItem.code}</p></td>
@@ -46,8 +49,9 @@ function GiftCardUsedItem(props) {
                 {/*<Link to="/cms/giftcards/add/" className="button">Cadeaukaart toevoegen</Link><br /><br />*/}
                 {isAdmin ?
                 <table className="tableDetails">
+                    <tbody>
                     <tr>
-                        <td>&nbsp;</td>
+                        <td>ID</td>
                         <td>Naam</td>
                         <td>Hoogte</td>
                         <td>Code</td>
@@ -55,9 +59,11 @@ function GiftCardUsedItem(props) {
                         <td>Gebruikt</td>
                     </tr>
                     {displayUsageGiftCardItems(props)}
+                    </tbody>
                 </table>
                 :
                 <table className="giftCardUsedItemDetails">
+                    <tbody>
                     <tr>
                         <td>Naam</td>
                         <td>Hoogte</td>
@@ -65,7 +71,8 @@ function GiftCardUsedItem(props) {
                         <td>Geldigheidsduur</td>
                         <td>Gebruikt</td>
                     </tr>
-                {displayUsageGiftCardItems(props)}
+                    {displayUsageGiftCardItems(props)}
+                    </tbody>
                 </table>
                 }
 

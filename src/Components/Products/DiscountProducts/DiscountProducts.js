@@ -19,13 +19,6 @@ function DiscountProducts() {
 
             let url = `http://localhost:8080/api/v1/products/discount/`;
 
-            // if (searchResult !== undefined) {
-            //     const cleanResult = searchResult.replace(/[^\w\s]/gi, "");
-            //     url = `${url}search/${cleanResult}/`;
-            // }
-
-            //console.log(url);
-
             try {
                 const result = await axios.get(url);
                 if (result.data.length > 0){
@@ -51,7 +44,7 @@ function DiscountProducts() {
     return (
         <>
             <div className="ProductOverview" >
-                {loading ? <LoadingIndicator /> : <Product product_items={productItems} />}
+                {loading ? <LoadingIndicator /> : <Product productItems={productItems} />}
                 {error && <Error type="message_container" content={error} /> }
             </div>
         </>

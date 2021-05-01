@@ -5,7 +5,7 @@ const FormElement = (props) => {
     const [valueLabel, setValueLabel] = useState('');
     const [isActiveLabel, setIsActiveLabel] = useState(false);
     const [mode, setMode] = useState("init");
-    const {formValue} = props;
+    const {formValue, name, type, fieldRef, disabled, label, error, form} = props;
 
     if(formValue !== "" && mode === "init") {
         setIsActiveLabel(true);
@@ -24,25 +24,23 @@ const FormElement = (props) => {
     return (
         <>
             <div className="formElementContainer">
-                {/*<div className="productImage">*/}
-
-                {/*</div>*/}
                 <div className="formElementInfo">
-                    {props.error}
-                    {props.form ? <br /> : null }
+                    {error}
+                    {form ? <br /> : null }
                     <div id="float-label">
                         <input
-                            type={props.type}
+                            type={type}
                             placeholder=""
                             // defaultValue=""
-                            name={props.name}
+                            disabled={disabled}
+                            name={name}
                             value={valueLabel ? valueLabel : formValue}
                             onChange={(e) => handleTextChange(e.target.value)}
-                            ref={props.fieldRef}
+                            ref={fieldRef}
                         />
 
-                        <label className={isActiveLabel ? "Active" : ""} htmlFor={props.name}>
-                            {props.label}
+                        <label className={isActiveLabel ? "Active" : ""} htmlFor={name}>
+                            {label}
                         </label>
                     </div>
                 </div>

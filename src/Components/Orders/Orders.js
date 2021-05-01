@@ -45,7 +45,7 @@ const Orders = ({isAdmin, token}) => {
                 }
             } catch (e) {
                 console.error(e);
-                setError("Fout bij ophalen gegevens.");
+                setError("Fout bij ophalen order gegevens.");
                 toggleLoading(false);
             }
         }

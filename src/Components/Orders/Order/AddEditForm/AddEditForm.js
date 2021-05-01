@@ -19,19 +19,19 @@ export function AddEditForm(props) {
     const isAddMode = !id;
 
     const [formValues, setFormValues] = useState({
-        customer_id: '',
-        shipping_id: '',
-        order_date: '',
-        order_sent: '',
-        price_total: '',
-        order_status: '',
-        invoice_status: ''
+        customerId: '',
+        shippingId: '',
+        orderDate: '',
+        orderSent: '',
+        priceTotal: '',
+        orderStatus: '',
+        invoiceStatus: ''
     });
 
     useEffect(() => {
         async function getFormData (){
             try {
-                const url=`http://localhost:8080/api/v1/order/${id}/`
+                const url=`/api/v1/order/${id}/`
                 const result = await axios.get(url, {
                     headers : {
                         "Authorization" : `Bearer ${token}`,
@@ -39,23 +39,23 @@ export function AddEditForm(props) {
                         "Access-Control-Allow-Origin": "*",
                     }
                 });
-                const {customer_id,
-                    shipping_id,
-                    order_date,
-                    order_sent,
-                    price_total,
-                    order_status,
-                    invoice_status,
+                const {customerId,
+                    shippingId,
+                    orderDate,
+                    orderSent,
+                    priceTotal,
+                    orderStatus,
+                    invoiceStatus,
                 } = result.data;
 
                 setFormValues({
-                    customer_id: customer_id,
-                    shipping_id: shipping_id,
-                    order_date: order_date,
-                    order_sent: order_sent,
-                    price_total: price_total,
-                    order_status: order_status,
-                    invoice_status: invoice_status
+                    customerId: customerId,
+                    shippingId: shippingId,
+                    orderDate: orderDate,
+                    orderSent: orderSent,
+                    priceTotal: priceTotal,
+                    orderStatus: orderStatus,
+                    invoiceStatus: invoiceStatus
                 });
 
             } catch (e) {
@@ -74,25 +74,34 @@ export function AddEditForm(props) {
     }
 
     function onSubmitForm(data) {
-        console.table(formValues);
+        console.table(data);
 
-        const { customer_id,
-            shipping_id,
-            order_date,
-            order_sent,
-            price_total,
-            order_status,
-            invoice_status
+        let { customerId,
+            shippingId,
+            orderSent,
+            orderDate,
+            priceTotal,
+            orderStatus,
+            invoiceStatus
         } = data;
 
+        if(isAddMode) {
+            const today = new Date();
+            const dd = today.getDate();
+            const mm = today.getMonth()+1;
+            const yyyy = today.getFullYear();
+
+            orderDate =  dd+'-'+mm+'-'+yyyy;
+        }
+
         setFormValues({
-            customer_id: customer_id,
-            shipping_id: shipping_id,
-            order_date: order_date,
-            order_sent: order_sent,
-            price_total: price_total,
-            order_status: order_status,
-            invoice_status: invoice_status,
+            customerId: customerId,
+            shippingId: shippingId,
+            orderDate: orderDate,
+            orderSent: orderSent,
+            priceTotal: priceTotal,
+            orderStatus: orderStatus,
+            invoiceStatus: invoiceStatus,
         });
 
         setSubmittedForm(true);
@@ -104,10 +113,12 @@ export function AddEditForm(props) {
             mode: "onChange",
         });
 
-        let order_date = formValues.order_date;
-        let order_sent = formValues.order_sent;
-        order_date = order_date.split('T')[0];
-        if(order_sent !== null)order_sent = order_sent.split('T')[0];
+        let orderDate = formValues.orderDate;
+        let orderSent = formValues.orderSent;
+        if(!isAddMode) {
+            if(orderDate !== null) orderDate = orderDate.split('T')[0];
+            if (orderSent !== null) orderSent = orderSent.split('T')[0];
+        }
 
         return(
             <>
@@ -119,11 +130,11 @@ export function AddEditForm(props) {
                                 {!isAddMode &&
                                     <>
                                         <div className="formElement">
-                                            <p>{formValues.customer_id}</p>
+                                            <p>{formValues.customerId}</p>
                                         </div>
 
                                         <div className="formElement">
-                                            <p>Besteldatum: {order_date}</p>
+                                            <p>Besteldatum: {orderDate}</p>
                                         </div>
                                     </>
                                 }
@@ -131,9 +142,9 @@ export function AddEditForm(props) {
                                 <div className="formElement">
                                     <FormElement
                                         type="text"
-                                        name="shipping_id"
+                                        name="shippingId"
                                         label="Zendingsnummer"
-                                        formValue={formValues.shipping_id}
+                                        formValue={formValues.shippingId}
                                         onChange={changeHandler}
                                         fieldRef={register({
                                             required: 'Verplicht veld',
@@ -142,16 +153,16 @@ export function AddEditForm(props) {
                                                 message: 'Ongeldige invoer'
                                             }
                                         })}
-                                        error={errors.shipping_id ? <span className='error-message'>{errors.shipping_id.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.shippingId ? <span className='error-message'>{errors.shippingId.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 
                                 <div className="formElement">
                                     <FormElement
                                         type="text"
-                                        name="customer_id"
+                                        name="customerId"
                                         label="Klant ID"
-                                        formValue={formValues.customer_id}
+                                        formValue={formValues.customerId}
                                         onChange={changeHandler}
                                         fieldRef={register({
                                             required: 'Verplicht veld',
@@ -160,16 +171,16 @@ export function AddEditForm(props) {
                                                 message: 'Ongeldige invoer'
                                             }
                                         })}
-                                        error={errors.customer_id ? <span className='error-message'>{errors.customer_id.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.customerId ? <span className='error-message'>{errors.customerId.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 
                                 <div className="formElement">
                                     <FormElement
                                         type="text"
-                                        name="order_sent"
+                                        name="orderSent"
                                         label="Verzenddatum"
-                                        formValue={formValues.order_sent}
+                                        formValue={formValues.orderSent}
                                         onChange={changeHandler}
                                         fieldRef={register({
                                             required: 'Verplicht veld',
@@ -179,16 +190,37 @@ export function AddEditForm(props) {
                                             }
                                         })}
 
-                                        error={errors.order_sent ? <span className='error-message'>{errors.order_sent.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.orderSent ? <span className='error-message'>{errors.orderSent.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
+
+                                {!isAddMode &&
+                                    <div className="formElement">
+                                        <FormElement
+                                            type="text"
+                                            name="orderDate"
+                                            label="Order besteldatum"
+                                            formValue={formValues.orderDate}
+                                            onChange={changeHandler}
+                                            fieldRef={register({
+                                                required: 'Verplicht veld',
+                                                pattern: {
+                                                    value: /^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[012])-\d{4}$/,
+                                                    message: 'Ongeldige datum'
+                                                }
+                                            })}
+
+                                            error={errors.orderDate ? <span className='error-message'>{errors.orderDate.message}</span> : <span>&nbsp;</span>}
+                                        />
+                                    </div>
+                                }
 
                                 <div className="formElement">
                                     <FormElement
                                         type="text"
-                                        name="price_total"
+                                        name="priceTotal"
                                         label="Totaalprijs"
-                                        formValue={formValues.price_total}
+                                        formValue={formValues.priceTotal}
                                         onChange={changeHandler}
                                         fieldRef={register({
                                             required: 'Verplicht veld',
@@ -198,13 +230,13 @@ export function AddEditForm(props) {
                                             }
                                         })
                                         }
-                                        error={errors.price_total ? <span className='error-message'>{errors.price_total.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.priceTotal ? <span className='error-message'>{errors.priceTotal.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 
                                 <div className="formElement">
-                                        {errors.order_status ? <span className='error-message'>{errors.order_status.message}</span> : <span>&nbsp;</span>}
-                                        <select name="order_status" ref={register({ required: true })}>
+                                        {errors.orderStatus ? <span className='error-message'>{errors.orderStatus.message}</span> : <span>&nbsp;</span>}
+                                        <select name="orderStatus" ref={register({ required: true })}>
                                             <option value="">Order status &laquo; selecteer optie &raquo; </option>
                                             <option value="NEW_ADDED">Nieuw</option>
                                             <option value="PROCESSING">In behandeling</option>
@@ -215,8 +247,8 @@ export function AddEditForm(props) {
                                 </div>
 
                                 <div className="formElement">
-                                    {errors.invoice_status ? <span className='error-message'>{errors.invoice_status.message}</span> : <span>&nbsp;</span>}
-                                    <select name="invoice_status" ref={register({ required: true })}>
+                                    {errors.invoiceStatus ? <span className='error-message'>{errors.invoiceStatus.message}</span> : <span>&nbsp;</span>}
+                                    <select name="invoiceStatus" ref={register({ required: true })}>
                                         <option value="">Factuurstatus &laquo; selecteer optie &raquo; </option>
                                         <option value="PAID">Betaald</option>
                                         <option value="UNPAID">Niet betaald</option>
@@ -239,8 +271,8 @@ export function AddEditForm(props) {
         <>
             <div className="overview">
                 { loading ? <LoadingIndicator /> : <OrderItem /> }
-                { error && <Error type="message_container" content={error} /> }
-                { submittedForm &&  <AddEdit isAddMode={isAddMode} token={token} section="orders" id={id} itemData={formValues}/> }
+                { error ? <Error type="messageContainer" content={error} /> : null }
+                { submittedForm && <AddEdit isAddMode={isAddMode} token={token} section="order" id={id} itemData={formValues}/> }
             </div>
         </>
     )

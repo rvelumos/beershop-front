@@ -88,11 +88,10 @@ function UserInfo(props) {
                                 <td><p className="userSex">{userInfo.sex}</p></td>
                                 <td><p className="userFirstName">{userInfo.firstname}</p></td>
                                 <td><p className="userLastName">{userInfo.lastname}</p></td>
-                                <td><p className="userBirthDate">{userInfo.birth_date}</p></td>
+                                <td><p className="userBirthDate">{userInfo.birthDate}</p></td>
                                 <td><p className="userEmail">{userInfo.email}</p></td>
                                 <td><p className="userPhone">{userInfo.phone}</p></td>
-                                <td><p className="userAddress">{userInfo.address}</p></td>
-                                <td><p className="userCP">{userInfo.customer_points}</p></td>
+                                <td><p className="userCP">{userInfo.customerPoints}</p></td>
                                 <td><p className="userNewsletter">{userInfo.newsletter ? "X" : null}</p></td>
                                 <td><p className="userRoles"></p></td>
                                 <td>
@@ -111,11 +110,10 @@ function UserInfo(props) {
                     <tr><td>Geslacht</td><td>{users.sex}</td></tr>
                     <tr><td>Voornaam:</td><td>{users.firstname}</td></tr>
                     <tr><td>Achternaam:</td><td>{users.lastname}</td></tr>
-                    <tr><td>Geboortedatum:</td><td>{users.birth_date}</td></tr>
+                    <tr><td>Geboortedatum:</td><td>{users.birthDate}</td></tr>
                     <tr><td>E-mailadres:</td><td>{users.email}</td></tr>
                     <tr><td>Telefoonnummer:</td><td>{users.phone}</td></tr>
-                    <tr><td>Adresgegevens:</td><td>{users.address}</td></tr>
-                    <tr><td>Jouw punten</td><td>{users.customer_points}</td></tr>
+                    <tr><td>Jouw punten</td><td>{users.customerPoints}</td></tr>
                     <tr><td>Nieuwsbrief:</td><td>{users.newsletter ? "Ja" : "Nee"}</td></tr>
                 </>
             )
@@ -123,7 +121,7 @@ function UserInfo(props) {
     }
     return(
         <>
-            {message && <p> {message} </p>}
+            {message && <p className="notice"> {message} </p>}
             {loading ? <LoadingIndicator/> :
                 <div className="itemContainer">
                     {error && <p> {error} </p>}
@@ -132,6 +130,7 @@ function UserInfo(props) {
                             <Link to="/cms/users/create/" className="button">Gebruiker toevoegen</Link><br /><br />
 
                             <table className="tableDetails">
+                                <tbody>
                                 <tr>
                                     <td>ID</td>
                                     <td>Geslacht</td>
@@ -140,21 +139,23 @@ function UserInfo(props) {
                                     <td>Geboortedatum</td>
                                     <td>E-mail</td>
                                     <td>Telefoon</td>
-                                    <td>Adres</td>
                                     <td>Punten</td>
                                     <td>Nieuwsbrief</td>
                                     <td>Rollen</td>
                                     <td>Acties</td>
                                 </tr>
                                 {User(props)}
+                                </tbody>
                             </table>
                         </>
                         :
                         <>
                             <table className="tableDetailsUser">
+                                <tbody>
                                 {User(props)}
+                                </tbody>
                             </table>
-                            <Link to="mijn_account/gegevens/edit/" className="button">Aanpassen</Link>
+                            <Link to="/mijn_account/gegevens/edit/" className="button">Aanpassen</Link>
                         </>
                     }
 

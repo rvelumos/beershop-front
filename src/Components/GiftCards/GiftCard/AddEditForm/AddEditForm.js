@@ -13,24 +13,24 @@ export function AddEditForm(props) {
     const [error, setError] = useState(false);
     const [loading, toggleLoading] = useState(false);
     const [submittedForm, setSubmittedForm] = useState(false);
+    const [saved, setSaved] = useState(false);
 
     const { id } = useParams();
     const { token } = props;
     const isAddMode = !id;
-
-    console.log("id "+id);
 
     const [formValues, setFormValues] = useState({
         name: '',
         description: '',
         amount: '',
         categoryId: '999',
-        manufacturer_id: '999'
+        discount: 0,
+        manufacturerId: '999'
     });
 
     useEffect(() => {
             async function getFormData (){
-
+                console.log("getformdata");
                 try {
                     const url=`http://localhost:8080/api/v1/product/${id}/`
                     const result = await axios.get(url, {
@@ -46,10 +46,10 @@ export function AddEditForm(props) {
                         name: name,
                         description: description,
                         price: price,
-                        manufacturer_id: '999',
+                        discount: 0,
+                        manufacturerId: '999',
                         categoryId: '999',
                     });
-                    console.table(formValues);
                 } catch (e) {
                     console.error(e);
                     setError("Fout bij ophalen gegevens.");
@@ -63,19 +63,21 @@ export function AddEditForm(props) {
 
     const changeHandler = e => {
         setFormValues({[e.target.name]: e.target.value})
+        console.log("changehandler");
     }
 
     function onSubmitForm(data) {
-
+        console.log("onsubmitform");
         const { name, description, price} = data;
 
         setFormValues({
             name: name,
             description: description,
             price: price,
-            category_id: 999,
-            manufacturer_id: 999,
+            categoryId: 999,
+            manufacturerId: 999,
             stock: 9999,
+            discount: 0,
             type: 4
         })
 
@@ -83,6 +85,7 @@ export function AddEditForm(props) {
     }
 
     const GiftCardItem = () => {
+        console.log("giftcarditem");
         const { register, errors, handleSubmit } = useForm({
             criteriaMode: "all",
             mode: "onChange",
@@ -160,8 +163,8 @@ export function AddEditForm(props) {
             <div className="overview">
                 { loading ? <LoadingIndicator /> : <GiftCardItem /> }
                 { error && <Error type="message_container" content={error} /> }
-                {/*{ submittedForm && <p className="notify">Bon is toegevoegd</p> }*/}
-                { submittedForm &&  <AddEdit isAddMode={isAddMode} token={token} section="product" id={id} itemData={formValues}/> }
+                { submittedForm &&
+                    !saved && <AddEdit isAddMode={isAddMode} setSaved={setSaved} token={token} section="product" id={id} itemData={formValues}/> }
             </div>
         </>
     )

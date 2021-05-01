@@ -1,4 +1,4 @@
-input:read-only {
+input[type="text"]:read-only {
     pointer-events: none;
     background-color: #eee;
 }

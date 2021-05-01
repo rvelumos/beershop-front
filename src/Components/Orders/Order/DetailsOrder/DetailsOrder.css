@@ -1,0 +1,35 @@
+.detailsOrder {
+    font-family: "Poppins ExtraLight", "Arial";
+    margin-top: 15px;
+    width: 900px;
+}
+
+.detailsOrder h2 {
+    margin-top: 0;
+}
+
+.detailsOrderTop,
+.detailsOrderBottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.detailsOrderBottom {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+}
+
+.orderTotal {
+    padding-top: 20px;
+}
+
+.detailsOrderBottom .orderShipment {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+}
+
+.detailsCost {
+    text-align: right;
+}

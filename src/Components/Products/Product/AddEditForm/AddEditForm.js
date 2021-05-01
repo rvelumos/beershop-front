@@ -21,13 +21,19 @@ export function AddEditForm(props) {
     const { token } = props;
     const isAddMode = !id;
 
+    const [image, setImage] = useState({
+        preview: "",
+        raw: ""
+    });
+
     const [formValues, setFormValues] = useState({
-        manufacturer_id: '',
+        manufacturerId: '',
         name: '',
         price: '',
         taste: '',
         stock: '',
         description: '',
+        image: '',
         type: '',
         discount: ''
     });
@@ -43,7 +49,7 @@ export function AddEditForm(props) {
                         "Access-Control-Allow-Origin": "*",
                     }
                 });
-                const {manufacturer_id,
+                const {manufacturerId,
                     categoryId,
                     name,
                     price,
@@ -54,7 +60,7 @@ export function AddEditForm(props) {
                     discount} = result.data;
 
                 setFormValues({
-                    manufacturer_id: manufacturer_id,
+                    manufacturerId: manufacturerId,
                     categoryId: categoryId,
                     name: name,
                     price: price,
@@ -85,30 +91,55 @@ export function AddEditForm(props) {
         console.table(formValues);
 
         const { categoryId,
-            manufacturer_id,
+            manufacturerId,
             name,
             price,
             taste,
             stock,
             description,
             type,
+            image,
             discount
         } = data;
 
         setFormValues({
             categoryId: categoryId,
-            manufacturer_id: manufacturer_id,
+            manufacturerId: manufacturerId,
             name: name,
             taste: taste,
             price: price,
             stock: stock,
             description: description,
             type: type,
+            image: image.raw,
             discount: discount
         });
 
         setSubmittedForm(true);
     }
+
+    const handleChange = e => {
+        if (e.target.files.length) {
+            setImage({
+                preview: URL.createObjectURL(e.target.files[0]),
+                raw: e.target.files[0]
+            });
+        }
+    };
+
+    const handleUpload = async e => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("image", image.raw);
+
+        await fetch("YOUR_URL", {
+            method: "POST",
+            headers: {
+
+            },
+            body: formData
+        });
+    };
 
     const ProductItem = () => {
         const { register, errors, handleSubmit } = useForm({
@@ -163,9 +194,9 @@ export function AddEditForm(props) {
                                 <div className="formElement">
                                     <FormElement
                                         type="text"
-                                        name="manufacturer_id"
+                                        name="manufacturerId"
                                         label="Fabrikant"
-                                        formValue={formValues.manufacturer_id}
+                                        formValue={formValues.manufacturerId}
                                         onChange={changeHandler}
                                         fieldRef={register({
                                             required: "Verplicht veld",
@@ -175,7 +206,7 @@ export function AddEditForm(props) {
                                             }
                                         })
                                         }
-                                        error={errors.manufacturer_id ? <span className='error-message'>{errors.manufacturer_id.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.manufacturerId ? <span className='error-message'>{errors.manufacturerId.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 
@@ -280,6 +311,17 @@ export function AddEditForm(props) {
                                         error={errors.discount ? <span className='error-message'>{errors.discount.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
+
+                                <div className="formElement">
+                                    <img src={image.preview} alt="dummy" width="300" height="300" />
+                                    <input
+                                        type="file"
+                                        id="upload-button"
+                                        onChange={handleChange}
+                                    />
+                                </div>
+
+
                             </fieldset>
 
                             <Button

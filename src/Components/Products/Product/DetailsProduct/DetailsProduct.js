@@ -13,25 +13,28 @@ function DetailsProduct() {
     const [productItem, setProductItem] = useState(false);
     const [loading, toggleLoading] = useState(false);
 
-    useEffect(getProductByID, [id]);
+    useEffect(() => {
+        async function getProductByID() {
+            setError(false);
+            toggleLoading(true);
 
-    function getProductByID() {
-        setError(false);
-        toggleLoading(true);
+            const url = `/api/v1/product/${id}/`;
 
-        let url = `http://localhost:8080/api/v1/product/${id}/`;
-
-        axios.get(url)
-            .then((response) => {
-                const product = response.data;
-                setProductItem(product);
-                toggleLoading(false);
-            })
-            .catch((errorResponse) => {
-                console.error(errorResponse);
+            try {
+                const result = await axios.get(url);
+                    if(result) {
+                        const product = result.data;
+                        setProductItem(product);
+                        toggleLoading(false);
+                    }
+            }catch{
+                console.error(error);
                 setError("could not reach external source");
-            });
-    }
+            }
+        }
+        getProductByID()
+    // eslint-disable-next-line
+    }, [])
 
     function getItemInfo() {
 
@@ -68,7 +71,7 @@ function DetailsProduct() {
 
                 <h1>Anderen bekeken ook</h1>
                 <div className="recommendedProducts">
-                    <RecommendedProducts category={productItem.categoryId} />
+                    <RecommendedProducts category={productItem.category.id} />
                 </div>
             </section>
         )
