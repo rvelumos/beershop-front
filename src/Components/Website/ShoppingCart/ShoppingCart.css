@@ -1,5 +1,6 @@
 .shoppingCartPage {
     width: 100%;
+    margin: 0 20px;
 }
 
 .productAmountContainer input[type=text] {
@@ -33,9 +34,35 @@
 }
 
 .shoppingCartContainer {
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
+    border-bottom : 1px solid #eee;
     width: 100%;
+}
+
+.shoppingCartContainer .shoppingCartTop {
+    border-bottom: 1px solid #eee;
+    display: flex;
+    font-weight: bold;
+    font-size: 1.1em;
+    padding: 10px 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.shoppingCartContainer .articleTop {
+    margin: 0 270px;
+}
+
+.shoppingCartContainer .amountTop {
+    margin: 0 20px;
+}
+
+.shoppingCartContainer .priceTop {
+    margin: 0 110px;
+}
+
+.shoppingCartContainer .priceTotalTop {
+    margin-left: auto;
 }
 
 .shoppingCartContainer img{
@@ -58,8 +85,57 @@
     margin-right: 75px;
 }
 
+.productItemContainer .productName small{
+    color: red;
+    font-style: italic;
+}
+
+.shoppingCartBottomContainer  {
+    width: 100%;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 .shoppingCartCheckoutContainer {
-    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.shoppingCartCheckoutContainer p {
+    margin: 7px 0;
+    padding: 0;
+}
+
+.shoppingCartCheckoutContainer .summaryTotal,
+.shoppingCartCheckoutContainer .summaryShipping {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.shoppingCartCheckoutContainer span {
+    display: inline-block;
+}
+
+.shoppingCartCheckoutContainer .summary {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    flex-wrap: wrap;
+}
+
+.shoppingCartCheckoutContainer .summaryTotal {
+    display: flex;
+}
+
+.shoppingCartCheckoutContainer span:first-of-type {
+    min-width: 150px;
+}
+
+.shoppingCartCheckoutContainer span:last-of-type {
+    text-align: right;
+    width: 140px;
 }
 
 .productPrice {

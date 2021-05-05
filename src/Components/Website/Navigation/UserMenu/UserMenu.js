@@ -1,14 +1,40 @@
-import React from 'react';
+import React, {useState} from 'react';
 import IconItem from '../../UI/IconItem/IconItem';
 import './UserMenu.css';
 
 const UserMenu = () => {
 
+    const [shoppingCartActive, setShoppingCartActive] = useState(false);
+    const [mode, setMode] = useState('init');
+    const [amountItems, setAmountItems] = useState("");
+
+    let items = "";
+
+    if(mode==='init') {
+        const storedItems = localStorage.getItem("shopping_carts");
+        if(storedItems !== null) {
+            items = Object.keys(JSON.parse(storedItems)).length;
+            if (items !== undefined) {
+                console.log(storedItems);
+                setAmountItems(items);
+                setMode('updateShoppingCart');
+                setShoppingCartActive(true);
+            }
+        }
+    }
+
     return (
         <>
             <div className="UserMenuContainer">
-                <IconItem url="/mijn_account/"  icon_class="iconUser" />
-                <IconItem url="/winkelwagen/" icon_class="iconCart" />
+                <div className="userAccount">
+                    <IconItem url="/mijn_account/"  icon_class="iconUser" />
+                </div>
+                <div className="userCart">
+                    <IconItem url="/winkelwagen/" icon_class="iconCart" />
+                    {shoppingCartActive &&
+                    <div className="amountCircle"><span>{amountItems}</span></div>
+                    }
+                </div>
             </div>
         </>
     )

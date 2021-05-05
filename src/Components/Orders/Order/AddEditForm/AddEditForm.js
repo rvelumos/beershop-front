@@ -20,7 +20,6 @@ export function AddEditForm(props) {
 
     const [formValues, setFormValues] = useState({
         customerId: '',
-        shippingId: '',
         orderDate: '',
         orderSent: '',
         priceTotal: '',
@@ -40,7 +39,6 @@ export function AddEditForm(props) {
                     }
                 });
                 const {customerId,
-                    shippingId,
                     orderDate,
                     orderSent,
                     priceTotal,
@@ -50,7 +48,6 @@ export function AddEditForm(props) {
 
                 setFormValues({
                     customerId: customerId,
-                    shippingId: shippingId,
                     orderDate: orderDate,
                     orderSent: orderSent,
                     priceTotal: priceTotal,
@@ -77,7 +74,6 @@ export function AddEditForm(props) {
         console.table(data);
 
         let { customerId,
-            shippingId,
             orderSent,
             orderDate,
             priceTotal,
@@ -96,7 +92,6 @@ export function AddEditForm(props) {
 
         setFormValues({
             customerId: customerId,
-            shippingId: shippingId,
             orderDate: orderDate,
             orderSent: orderSent,
             priceTotal: priceTotal,
@@ -124,38 +119,16 @@ export function AddEditForm(props) {
             <>
                 <div className="AddEditForm">
                     <div className="RegisterForm" >
-                        <h1>Order {id ? "wijzigen" : "toevoegen"}</h1>
+                        <h1>Order {id ? `#${id} wijzigen` : "toevoegen"}</h1>
                         <form onSubmit={handleSubmit(onSubmitForm)}>
                             <fieldset>
                                 {!isAddMode &&
                                     <>
                                         <div className="formElement">
-                                            <p>{formValues.customerId}</p>
-                                        </div>
-
-                                        <div className="formElement">
                                             <p>Besteldatum: {orderDate}</p>
                                         </div>
                                     </>
                                 }
-
-                                <div className="formElement">
-                                    <FormElement
-                                        type="text"
-                                        name="shippingId"
-                                        label="Zendingsnummer"
-                                        formValue={formValues.shippingId}
-                                        onChange={changeHandler}
-                                        fieldRef={register({
-                                            required: 'Verplicht veld',
-                                            pattern: {
-                                                value: /^[0-9]*$/,
-                                                message: 'Ongeldige invoer'
-                                            }
-                                        })}
-                                        error={errors.shippingId ? <span className='error-message'>{errors.shippingId.message}</span> : <span>&nbsp;</span>}
-                                    />
-                                </div>
 
                                 <div className="formElement">
                                     <FormElement
@@ -171,7 +144,7 @@ export function AddEditForm(props) {
                                                 message: 'Ongeldige invoer'
                                             }
                                         })}
-                                        error={errors.customerId ? <span className='error-message'>{errors.customerId.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.customerId ? <span className='errorMessage'>{errors.customerId.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 
@@ -190,7 +163,7 @@ export function AddEditForm(props) {
                                             }
                                         })}
 
-                                        error={errors.orderSent ? <span className='error-message'>{errors.orderSent.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.orderSent ? <span className='errorMessage'>{errors.orderSent.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 
@@ -210,7 +183,7 @@ export function AddEditForm(props) {
                                                 }
                                             })}
 
-                                            error={errors.orderDate ? <span className='error-message'>{errors.orderDate.message}</span> : <span>&nbsp;</span>}
+                                            error={errors.orderDate ? <span className='errorMessage'>{errors.orderDate.message}</span> : <span>&nbsp;</span>}
                                         />
                                     </div>
                                 }
@@ -230,12 +203,12 @@ export function AddEditForm(props) {
                                             }
                                         })
                                         }
-                                        error={errors.priceTotal ? <span className='error-message'>{errors.priceTotal.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.priceTotal ? <span className='errorMessage'>{errors.priceTotal.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 
                                 <div className="formElement">
-                                        {errors.orderStatus ? <span className='error-message'>{errors.orderStatus.message}</span> : <span>&nbsp;</span>}
+                                        {errors.orderStatus ? <span className='errorMessage'>{errors.orderStatus.message}</span> : <span>&nbsp;</span>}
                                         <select name="orderStatus" ref={register({ required: true })}>
                                             <option value="">Order status &laquo; selecteer optie &raquo; </option>
                                             <option value="NEW_ADDED">Nieuw</option>
@@ -247,7 +220,7 @@ export function AddEditForm(props) {
                                 </div>
 
                                 <div className="formElement">
-                                    {errors.invoiceStatus ? <span className='error-message'>{errors.invoiceStatus.message}</span> : <span>&nbsp;</span>}
+                                    {errors.invoiceStatus ? <span className='errorMessage'>{errors.invoiceStatus.message}</span> : <span>&nbsp;</span>}
                                     <select name="invoiceStatus" ref={register({ required: true })}>
                                         <option value="">Factuurstatus &laquo; selecteer optie &raquo; </option>
                                         <option value="PAID">Betaald</option>

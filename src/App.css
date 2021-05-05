@@ -72,15 +72,19 @@ input[type="text"]:disabled {
     font-style: italic;
 }
 
-.error-message {
+.errorMessage {
   color:red;
   font-size: 0.9em;
+  margin: 0 auto;
 }
 
 .errorInput {
   border: 1px solid red !important;
 }
 
+tr.warning .orderInvoice{
+  color: red;
+}
 
 .textContentContainer {
   display: flex;

@@ -1,12 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './LeftMenu.css';
 import {NavLink} from "react-router-dom";
+import {AuthContext} from "../../../../context/AuthContext";
 
 const LeftMenu = ({isAdmin}) => {
-
-    const handleLogout = () => {
-        localStorage.clear();
-    };
+    const { logout } = useContext(AuthContext);
 
     return (
         <>
@@ -26,7 +24,7 @@ const LeftMenu = ({isAdmin}) => {
                             <NavLink to="/cms/users">Gebruikersbeheer</NavLink>
                         </>
                     }
-                    <NavLink to="/cms/uitloggen" onClick={handleLogout}><p>Uitloggen</p></NavLink>
+                    <NavLink to="/cms/uitloggen" onClick={logout}><p>Uitloggen</p></NavLink>
                 </ul>
             </div>
         </>

@@ -57,7 +57,6 @@ function Step2({currentStep}) {
             }
         });
         window.location.reload();
-
     }
 
     function GetForm() {
@@ -88,7 +87,7 @@ function Step2({currentStep}) {
                                             },
                                         })}
                                         error={errors.firstname &&
-                                        <span className='error-message'>{errors.firstname.message}</span>}
+                                        <span className='errorMessage'>{errors.firstname.message}</span>}
                                     /><br/>
 
                                     <FormElement
@@ -103,7 +102,7 @@ function Step2({currentStep}) {
                                                 message: 'Je dient minimaal 2 tekens te gebruiken',
                                             },
                                         })}
-                                        error={errors.lastname && <span className='error-message'>{errors.lastname.message}</span>}
+                                        error={errors.lastname && <span className='errorMessage'>{errors.lastname.message}</span>}
                                     /><br/>
 
                                     <FormElement
@@ -118,14 +117,14 @@ function Step2({currentStep}) {
                                                 message: "Onjuist e-mail adres ingevoerd",
                                             }
                                         })}
-                                        error={errors.email && <span className='error-message'>{errors.email.message}</span>}
+                                        error={errors.email && <span className='errorMessage'>{errors.email.message}</span>}
                                     /> <br/>
 
                                     <FormElement
                                         type="text"
                                         name="birthDate"
                                         label="Geboortedatum"
-                                        value="birth_date"
+                                        value="birthDate"
                                         fieldRef={register({
                                             required: "Verplicht veld",
                                             pattern: {
@@ -134,7 +133,7 @@ function Step2({currentStep}) {
                                             }
                                         })}
                                         error={errors.birthDate &&
-                                        <span className='error-message'>{errors.birthDate.message}</span>}
+                                        <span className='errorMessage'>{errors.birthDate.message}</span>}
                                     /><br/>
 
                                     <FormElement
@@ -154,13 +153,13 @@ function Step2({currentStep}) {
                                             }
                                         })}
                                         error={errors.phone &&
-                                        <span className='error-message'>{errors.phone.message}</span>}
+                                        <span className='errorMessage'>{errors.phone.message}</span>}
                                     /> <br/>
 
                                     <div className="formElementContainer">
                                         <div className="formElementInfo">
                                             {errors.postalcode &&
-                                            <><span className='error-message'>{errors.postalcode.message}</span><br /></>}
+                                            <><span className='errorMessage'>{errors.postalcode.message}</span><br /></>}
                                             <div id="float-label">
                                                 <input
                                                     type="text"
@@ -207,14 +206,8 @@ function Step2({currentStep}) {
                                             required: "Verplicht veld",
                                         })}
                                         error={errors.number &&
-                                        <span className='error-message'>{errors.number.message}</span>}
-                                    /> <br/>
-
-                                    {/*{!validCombination && <p className="error-message">Ongeldige postcode/huisnummer combinatie, probeer het opnieuw.</p>}*/}
-
-                                    <br/><br/>
-
-
+                                        <span className='errorMessage'>{errors.number.message}</span>}
+                                    /> <br/><br/><br/>
                                 </fieldset>
                         </div>
                     </div>
@@ -223,10 +216,10 @@ function Step2({currentStep}) {
                         <div className="shipmentDetails">
                             <div className="formElement">
                                 <h2>Verzendopties:</h2>
-                                {errors.sendOptions && <p className='error-message'>{errors.sendOptions.message}</p>}
+                                {errors.sendOptions && <p className='errorMessage'>{errors.sendOptions.message}</p>}
                                 <input
                                     type="radio"
-                                    name="send_options"
+                                    name="sendOptions"
                                     value="1"
                                     ref={register({
                                         required: "Verplicht veld",
@@ -247,7 +240,7 @@ function Step2({currentStep}) {
                         <div className="paymentDetails">
                             <div className="formElement">
                                 <h2>Betaalopties:</h2>
-                                {errors.paymentOptions && <p className='error-message'>{errors.paymentOptions.message}</p>}
+                                {errors.paymentOptions && <p className='errorMessage'>{errors.paymentOptions.message}</p>}
                                 <input
                                     type="radio"
                                     name="paymentOptions"
@@ -290,7 +283,6 @@ function Step2({currentStep}) {
                     usage="button"
                     value="Volgende stap"
                 />
-
             </form>
             </>
         )

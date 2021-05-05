@@ -7,16 +7,40 @@ const CheckoutPage = () => {
 
     const [shoppingCartItems, setShoppingCartItems] = useState('');
     const [shoppingCartActive, setShoppingCartActive] = useState(false);
+    const [mode, setMode] = useState('init');
 
+    let savedShoppingCart = localStorage.getItem("shopping_carts");
+    console.log('shoppingcartitems ');
+    console.log(savedShoppingCart);
+    savedShoppingCart = JSON.parse(savedShoppingCart);
+    console.log(savedShoppingCart);
+
+    if (savedShoppingCart !== "" && mode === 'init') {
+        const id = savedShoppingCart.id;
+        const amount = savedShoppingCart.amount;
+
+        //setShoppingCartItems(shoppingCart)
+        setShoppingCartItems(prevState => ({
+            ...prevState,
+            product: {
+                ...shoppingCartItems,
+                id: id,
+                amount: amount
+            }
+        }))
+        setMode('data');
+        //setShoppingCartActive(true);
+    }
 
     if (location.state !== null && shoppingCartItems === '') {
         console.log(location.state.data);
         setShoppingCartItems(location.state.data);
         setShoppingCartActive(true);
 
-        let cartString = JSON.stringify(setShoppingCartItems);
-        localStorage.setItem('shopping_cart', cartString)
+        let cartString = JSON.stringify(shoppingCartItems);
+        localStorage.setItem('shopping_carts', cartString)
     }
+
 
 
     return (

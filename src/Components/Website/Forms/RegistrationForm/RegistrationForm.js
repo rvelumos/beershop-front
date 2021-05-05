@@ -19,10 +19,10 @@ const RegistrationForm = () => {
         lastname: '',
         email: '',
         phone: '',
-        birth_date: '',
+        birthDate: '',
         username: '',
         password: '',
-        password_repeat: ''
+        passwordRepeat: ''
     });
 
     const changeHandler = e => {
@@ -46,7 +46,7 @@ const RegistrationForm = () => {
                 lastname: data.lastname,
                 email: data.email,
                 phone: data.phone,
-                birth_date: data.birth_date,
+                birthDate: data.birthDate,
             })
         }
     }
@@ -130,7 +130,7 @@ const RegistrationForm = () => {
                                             fieldRef={register({
                                                 required: 'Verplicht veld',
                                             })}
-                                            error={errors.firstname ? <span className='error-message'>{errors.firstname.message}</span> : <span>&nbsp;</span>}
+                                            error={errors.firstname ? <span className='errorMessage'>{errors.firstname.message}</span> : <span>&nbsp;</span>}
                                         />
                                     </div>
 
@@ -144,7 +144,7 @@ const RegistrationForm = () => {
                                             fieldRef={register({
                                                 required: 'Verplicht veld',
                                             })}
-                                            error={errors.lastname ? <span className='error-message'>{errors.lastname.message}</span> : <span>&nbsp;</span>}
+                                            error={errors.lastname ? <span className='errorMessage'>{errors.lastname.message}</span> : <span>&nbsp;</span>}
                                         />
                                     </div>
 
@@ -160,7 +160,7 @@ const RegistrationForm = () => {
                                                 pattern: /^\S+@\S+$/i
                                             })
                                             }
-                                            error={errors.email ? <span className='error-message'>{errors.email.message}</span> : <span>&nbsp;</span>}
+                                            error={errors.email ? <span className='errorMessage'>{errors.email.message}</span> : <span>&nbsp;</span>}
                                         />
                                     </div>
 
@@ -183,16 +183,16 @@ const RegistrationForm = () => {
                                                 }
                                             })
                                             }
-                                            error={errors.phone ? <span className='error-message'>{errors.phone.message}</span> : <span>&nbsp;</span>}
+                                            error={errors.phone ? <span className='errorMessage'>{errors.phone.message}</span> : <span>&nbsp;</span>}
                                         />
                                     </div>
 
                                     <div className="formElement">
                                         <FormElement
                                             type="text"
-                                            name="birth_date"
+                                            name="birthDate"
                                             label="Geboortedatum"
-                                            defaultValue={formValues.birth_date}
+                                            defaultValue={formValues.birthDate}
                                             onChange={changeHandler}
                                             form="form"
                                             fieldRef={register({
@@ -202,129 +202,13 @@ const RegistrationForm = () => {
                                                     message: 'Ongeldige geboortedatum'
                                                 }
                                             })}
-                                            error={errors.birth_date ? <span className='error-message'>{errors.birth_date.message}</span> : <span>&nbsp;</span>}
+                                            error={errors.birthDate ? <span className='errorMessage'>{errors.birthDate.message}</span> : <span>&nbsp;</span>}
                                         />
                                     </div>
                                 </fieldset>
 
-                                {/*<h3>Adresgegevens</h3>*/}
-                                {/*<fieldset>*/}
-                                {/*    <div className="formElement">*/}
-                                {/*        <FormElement*/}
-                                {/*            type="text"*/}
-                                {/*            name="postalcode"*/}
-                                {/*            label="Postcode"*/}
-                                {/*            onChange={changeHandler}*/}
-                                {/*            fieldRef={register({*/}
-                                {/*                required: {*/}
-                                {/*                    value: true,*/}
-                                {/*                    message: "Verplicht veld",*/}
-                                {/*                },*/}
-                                {/*                pattern: {*/}
-                                {/*                    value:  /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i,*/}
-                                {/*                    message: "Ongeldige postcode, controleer de input",*/}
-                                {/*                },*/}
-                                {/*            })}*/}
-                                {/*            error={errors.postalcode ? <span className='error-message'>{errors.postalcode.message}</span> : <span>&nbsp;</span>}*/}
-                                {/*        />*/}
-                                {/*    </div>*/}
-
-                                {/*    <div className="formElement">*/}
-                                {/*        <FormElement*/}
-                                {/*            type="text"*/}
-                                {/*            name="street"*/}
-                                {/*            label="Straat"*/}
-                                {/*            onChange={changeHandler}*/}
-                                {/*            fieldRef={register({*/}
-                                {/*                required: 'Verplicht veld',*/}
-                                {/*            })}*/}
-                                {/*            error={errors.street ? <span className='error-message'>{errors.street.message}</span> : <span>&nbsp;</span>}*/}
-                                {/*        />*/}
-                                {/*    </div>*/}
-
-                                {/*    <div className="formElement">*/}
-                                {/*        <span>&nbsp;</span>*/}
-                                {/*        <FormElement*/}
-                                {/*            type="text"*/}
-                                {/*            name="street_add"*/}
-                                {/*            onChange={changeHandler}*/}
-                                {/*            label="Straat (toevoegsel)"*/}
-                                {/*        />*/}
-                                {/*    </div>*/}
-
-                                {/*    <div className="formElement">*/}
-                                {/*        <FormElement*/}
-                                {/*            type="text"*/}
-                                {/*            name="number"*/}
-                                {/*            label="Huisnummer"*/}
-                                {/*            onChange={changeHandler}*/}
-                                {/*            fieldRef={register({*/}
-                                {/*                required: 'Verplicht veld',*/}
-                                {/*            })}*/}
-                                {/*            error={errors.street_add ? <span className='error-message'>{errors.street_add.message}</span> : <span>&nbsp;</span>}*/}
-                                {/*        />*/}
-                                {/*    </div>*/}
-
-                                {/*    <div className="formElement">*/}
-                                {/*        <FormElement*/}
-                                {/*            type="text"*/}
-                                {/*            name="city"*/}
-                                {/*            label="Stad"*/}
-                                {/*            onChange={changeHandler}*/}
-                                {/*            fieldRef={register({*/}
-                                {/*                required: 'Verplicht veld',*/}
-                                {/*            })}*/}
-                                {/*            error={errors.city ? <span className='error-message'>{errors.city.message}</span> : <span>&nbsp;</span>}*/}
-                                {/*        />*/}
-                                {/*    </div>*/}
-
-                                {/*    <div className="formElement">*/}
-                                {/*        <FormElement*/}
-                                {/*            type="text"*/}
-                                {/*            name="province"*/}
-                                {/*            label="Provincie"*/}
-                                {/*            onChange={changeHandler}*/}
-                                {/*            fieldRef={register({*/}
-                                {/*                required: 'Verplicht veld',*/}
-                                {/*            })}*/}
-                                {/*            error={errors.province ? <span className='error-message'>{errors.province.message}</span> : <span>&nbsp;</span>}*/}
-                                {/*        />*/}
-                                {/*    </div>*/}
-
-                                {/*    <div className="formElement">*/}
-                                {/*        <FormElement*/}
-                                {/*            type="text"*/}
-                                {/*            name="country"*/}
-                                {/*            label="Land"*/}
-                                {/*            onChange={changeHandler}*/}
-                                {/*            fieldRef={register({*/}
-                                {/*                required: 'Verplicht veld',*/}
-                                {/*            })}*/}
-                                {/*            error={errors.country ? <span className='error-message'>{errors.country.message}</span> : <span>&nbsp;</span>}*/}
-                                {/*        />*/}
-                                {/*    </div>*/}
-
-                                {/*</fieldset>*/}
-
                                 <h3>Inloggegevens</h3>
                                 <fieldset>
-                                    {/*<div className="formElement">*/}
-                                    {/*    <FormElement*/}
-                                    {/*        type="text"*/}
-                                    {/*        name="username"*/}
-                                    {/*        defaultValue={formValues.username}*/}
-                                    {/*        label="Gebruikersnaam"*/}
-                                    {/*        onChange={changeHandler}*/}
-                                    {/*        fieldRef={register({*/}
-                                    {/*            required: 'Verplicht veld',*/}
-                                    {/*            minLength: {*/}
-                                    {/*                value: 5,*/}
-                                    {/*                message: "Geef tenminste 5 tekens op"*/}
-                                    {/*            }*/}
-                                    {/*        })}*/}
-                                    {/*        error={errors.username ? <span className='error-message'>{errors.username.message}</span> : <span>&nbsp;</span>}*/}
-                                    {/*    />*/}
-                                    {/*</div>*/}
 
                                     <div className="formElement">
                                         <FormElement
@@ -340,7 +224,7 @@ const RegistrationForm = () => {
                                                     message: "Geef tenminste 5 tekens op"
                                                 }
                                             })}
-                                            error={errors.username ? <span className='error-message'>{errors.username.message}</span> : <span>&nbsp;</span>}
+                                            error={errors.username ? <span className='errorMessage'>{errors.username.message}</span> : <span>&nbsp;</span>}
                                         />
                                     </div>
 
@@ -360,15 +244,15 @@ const RegistrationForm = () => {
                                                     message: "Geef tenminste 5 tekens op"
                                                 },
                                             })}
-                                            error={errors.password ? <span className='error-message'>{errors.password.message}</span> : <span>&nbsp;</span>}
+                                            error={errors.password ? <span className='errorMessage'>{errors.password.message}</span> : <span>&nbsp;</span>}
                                         />
                                     </div>
 
                                     <div className="formElement">
                                         <FormElement
                                             type="password"
-                                            name="password_repeat"
-                                            defaultValue={formValues.password_repeat}
+                                            name="passwordRepeat"
+                                            defaultValue={formValues.passwordRepeat}
                                             label="Wachtwoord nogmaals"
                                             onChange={changeHandler}
                                             fieldRef={register({
@@ -376,11 +260,11 @@ const RegistrationForm = () => {
                                                 validate: value =>
                                                     value === password.current || "Wachtwoorden komen niet overeen"
                                             })}
-                                            error = {errors.password_repeat ? <span className='error-message'>{errors.password_repeat.message}</span> : <span>&nbsp;</span>}
+                                            error = {errors.passwordRepeat ? <span className='errorMessage'>{errors.passwordRepeat.message}</span> : <span>&nbsp;</span>}
                                         />
                                     </div>
                                 </fieldset><br />
-                                {errors.conditions && <p className='error-message'>{errors.conditions.message}</p>}
+                                {errors.conditions && <p className='errorMessage'>{errors.conditions.message}</p>}
 
                                 <input
                                     type="checkbox"

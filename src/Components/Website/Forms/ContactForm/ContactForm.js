@@ -59,7 +59,7 @@ const ContactForm = () => {
                                     message: 'Je dient minimaal 2 tekens te gebruiken',
                                 },
                             })}
-                            error={errors.firstname ? <span className='error-message'>{errors.firstname.message}</span> : <span>&nbsp;</span>}
+                            error={errors.firstname ? <span className='errorMessage'>{errors.firstname.message}</span> : <span>&nbsp;</span>}
                         />
 
 
@@ -75,7 +75,7 @@ const ContactForm = () => {
                                     message: 'Je dient minimaal 2 tekens te gebruiken',
                                 },
                             })}
-                            error={errors.lastname ? <span className='error-message'>{errors.lastname.message}</span> : <span>&nbsp;</span>}
+                            error={errors.lastname ? <span className='errorMessage'>{errors.lastname.message}</span> : <span>&nbsp;</span>}
                         />
 
                         <FormElement
@@ -90,11 +90,11 @@ const ContactForm = () => {
                                     message: "Onjuist e-mail adres ingevoerd",
                                 }
                             })}
-                            error={errors.email ? <span className='error-message'>{errors.email.message}</span> : <span>&nbsp;</span>}
+                            error={errors.email ? <span className='errorMessage'>{errors.email.message}</span> : <span>&nbsp;</span>}
                         />
 
 
-                        {errors.message ? <span className='error-message'>{errors.message.message}</span> : <span>&nbsp;</span>}
+                        {errors.message ? <span className='errorMessage'>{errors.message.message}</span> : <span>&nbsp;</span>}
                         <br />
 
                         <textarea
@@ -103,7 +103,7 @@ const ContactForm = () => {
                             placeholder="Vul bericht in"
                             cols="30"
                             rows="10"
-                            fieldRef={register({
+                            ref={register({
                                 required: "Verplicht veld",
                             })}
                         />

@@ -1,0 +1,19 @@
+.giftCardItem .giftCardItemInput {
+    width: 250px !important;
+    border: 1px solid #ddd;
+}
+
+.giftCardItem .buttonCheck {
+    border-radius: 0 3px 3px 0 !important;
+    height: 44px;
+}
+
+.messageSuccess {
+    font-style: italic;
+    font-size: 0.8em;
+    color: green;
+}
+
+.messageSuccess::before {
+    content: "\2713";
+}

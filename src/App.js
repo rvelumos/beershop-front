@@ -10,8 +10,8 @@ import CMSLayout from "./Templates/CMSLayout";
 import Login from "./Components/Website/UserProfile/Login/Login";
 
 function App() {
-    const [isUserAuthenticated, setUserAuthenticated] = useState(true);
-    const [isAdminAuthenticated, setAdminAuthenticated] = useState(true);
+    const [isUserAuthenticated, setUserAuthenticated] = useState(false);
+    const [isAdminAuthenticated, setAdminAuthenticated] = useState(false);
     const [isManufacturerAuthenticated, setManufacturerAuthenticated] = useState(false);
     const [cmsLogin, setCmsLogin] = useState(false);
     const [token, setToken] = useState("");
@@ -21,16 +21,17 @@ function App() {
 
     const getAuthorities = () => {
         setMode("authorizing");
-        if (localStorage.getItem('user') !== null) {
+        if (localStorage.getItem('user_token') !== null) {
             const token = localStorage.getItem('user_token');
-            const role = localStorage.getItem('user_role');
-
-            console.log('de token in getAuthorities is:  ' + token);
             setToken(token);
 
-            if (role === 'ROLE_ADMIN') setAdminAuthenticated(true);
-            if (role === 'ROLE_MANUFACTURER') setManufacturerAuthenticated(true);
-            if (role === 'ROLE_CUSTOMER') setUserAuthenticated(true);
+            let role = localStorage.getItem('user_roles');
+            role = JSON.parse(role);
+            const auth_role = role[0].authority;
+
+            if (auth_role === 'ROLE_ADMIN') setAdminAuthenticated(true);
+            if (auth_role === 'ROLE_MANUFACTURER') setManufacturerAuthenticated(true);
+            if (auth_role === 'ROLE_CUSTOMER') setUserAuthenticated(true);
 
         }
     }
@@ -38,10 +39,8 @@ function App() {
     if(mode==='init')
         getAuthorities();
 
-    if(token==='')
-        setToken("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjIwNTAyOTA3LCJpYXQiOjE2MTk2Mzg5MDd9.xiosF-d9YDXadq0O2uLjlJujoP4-UnuNNGyTfEojBBc");
-
-    console.log(isAdminAuthenticated);
+  //  if(token==='')
+  //      setToken("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbmlzdHJhdG9yIiwiZXhwIjoxNjIwNTAyOTA3LCJpYXQiOjE2MTk2Mzg5MDd9.xiosF-d9YDXadq0O2uLjlJujoP4-UnuNNGyTfEojBBc");
 
     return (
         <>

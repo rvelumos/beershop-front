@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Products from "../Components/Products/Products";
 import FilterSelectionMenu from "../Components/Website/Filter/FilterSelectionMenu/FilterSelectionMenu";
-import FilterLabels from "../Components/Website/Filter/FilterLabels/FilterLabels";
+import FilterLabels from "../Components/Website/Filter/FilterContainer/FilterLabels/FilterLabels";
 
 const BeerPage = () => {
 
@@ -15,14 +15,17 @@ const BeerPage = () => {
             <FilterSelectionMenu
                 categoryArray={categoryArray}
                 tasteArray={tasteArray}
+                filterLabels={filterLabels}
                 setFilterLabels={setFilterLabels}
                 setCategoryArray={setCategoryArray}
                 setTasteArray={setTasteArray}
             />
 
             <FilterLabels
-                setFilterLabels={setFilterLabels}
                 filterLabels={filterLabels}
+                setFilterLabels={setFilterLabels}
+                setCategoryArray={setCategoryArray}
+                categoryArray={categoryArray}
             />
 
             <div className="ProductOverview">

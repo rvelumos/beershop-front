@@ -109,7 +109,7 @@ export function AddEditForm(props) {
                                             fieldRef={register({
                                                 required: 'Verplicht veld',
                                             })}
-                                            error={errors.name ? <span className='error-message'>{errors.name.message}</span> : <span>&nbsp;</span>}
+                                            error={errors.name ? <span className='errorMessage'>{errors.name.message}</span> : <span>&nbsp;</span>}
                                         />
                                     </div>
 
@@ -123,7 +123,7 @@ export function AddEditForm(props) {
                                             fieldRef={register({
                                                 required: 'Verplicht veld',
                                             })}
-                                            error={errors.description ? <span className='error-message'>{errors.description.message}</span> : <span>&nbsp;</span>}
+                                            error={errors.description ? <span className='errorMessage'>{errors.description.message}</span> : <span>&nbsp;</span>}
                                         />
                                     </div>
 
@@ -142,7 +142,7 @@ export function AddEditForm(props) {
                                                 }
                                             })
                                             }
-                                            error={errors.price ? <span className='error-message'>{errors.price.message}</span> : <span>&nbsp;</span>}
+                                            error={errors.price ? <span className='errorMessage'>{errors.price.message}</span> : <span>&nbsp;</span>}
                                         />
                                     </div>
                                 </fieldset>
@@ -164,7 +164,7 @@ export function AddEditForm(props) {
                 { loading ? <LoadingIndicator /> : <GiftCardItem /> }
                 { error && <Error type="message_container" content={error} /> }
                 { submittedForm &&
-                    !saved && <AddEdit isAddMode={isAddMode} setSaved={setSaved} token={token} section="product" id={id} itemData={formValues}/> }
+                    !saved && <AddEdit isAddMode={isAddMode} saved={saved} setSaved={setSaved} token={token} section="product" id={id} itemData={formValues}/> }
             </div>
         </>
     )

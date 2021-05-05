@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import './GiftCard.css';
 import {Link} from "react-router-dom";
-//import  DeleteItem  from "../../Cms/Actions/DeleteItem";
 import axios from "axios";
 import LoadingIndicator from "../../Website/UI/LoadingIndicator/LoadingIndicator";
 

@@ -49,8 +49,8 @@ export function AddEditForm(props) {
                         "Access-Control-Allow-Origin": "*",
                     }
                 });
-                const {manufacturerId,
-                    categoryId,
+                console.log(result);
+                const {
                     name,
                     price,
                     taste,
@@ -60,8 +60,8 @@ export function AddEditForm(props) {
                     discount} = result.data;
 
                 setFormValues({
-                    manufacturerId: manufacturerId,
-                    categoryId: categoryId,
+                    manufacturerId: result.data.manufacturer.id,
+                    categoryId: result.data.category.id,
                     name: name,
                     price: price,
                     taste: taste,
@@ -127,19 +127,19 @@ export function AddEditForm(props) {
         }
     };
 
-    const handleUpload = async e => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append("image", image.raw);
-
-        await fetch("YOUR_URL", {
-            method: "POST",
-            headers: {
-
-            },
-            body: formData
-        });
-    };
+    // const handleUpload = async e => {
+    //     e.preventDefault();
+    //     const formData = new FormData();
+    //     formData.append("image", image.raw);
+    //
+    //     await fetch("YOUR_URL", {
+    //         method: "POST",
+    //         headers: {
+    //
+    //         },
+    //         body: formData
+    //     });
+    // };
 
     const ProductItem = () => {
         const { register, errors, handleSubmit } = useForm({
@@ -169,7 +169,7 @@ export function AddEditForm(props) {
                                             required: "Verplicht veld",
                                         })
                                         }
-                                        error={errors.name ? <span className='error-message'>{errors.name.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.name ? <span className='errorMessage'>{errors.name.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 
@@ -187,7 +187,7 @@ export function AddEditForm(props) {
                                                 message: 'Ongeldige invoer'
                                             }
                                         })}
-                                        error={errors.categoryId ? <span className='error-message'>{errors.categoryId.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.categoryId ? <span className='errorMessage'>{errors.categoryId.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 
@@ -206,7 +206,7 @@ export function AddEditForm(props) {
                                             }
                                         })
                                         }
-                                        error={errors.manufacturerId ? <span className='error-message'>{errors.manufacturerId.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.manufacturerId ? <span className='errorMessage'>{errors.manufacturerId.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 
@@ -221,7 +221,7 @@ export function AddEditForm(props) {
                                             required: "Verplicht veld",
                                         })
                                         }
-                                        error={errors.taste ? <span className='error-message'>{errors.taste.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.taste ? <span className='errorMessage'>{errors.taste.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 
@@ -240,7 +240,7 @@ export function AddEditForm(props) {
                                             }
                                         })
                                         }
-                                        error={errors.price ? <span className='error-message'>{errors.price.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.price ? <span className='errorMessage'>{errors.price.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 
@@ -259,12 +259,12 @@ export function AddEditForm(props) {
                                             }
                                         })
                                         }
-                                        error={errors.stock ? <span className='error-message'>{errors.stock.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.stock ? <span className='errorMessage'>{errors.stock.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 
                                 <div className="formElement">
-                                    {errors.description ? <span className='error-message'>{errors.description.message}</span> : <span>&nbsp;</span>}
+                                    {errors.description ? <span className='errorMessage'>{errors.description.message}</span> : <span>&nbsp;</span>}
                                     <textarea
                                         name="description"
                                         placeholder="Omschrijving"
@@ -289,7 +289,7 @@ export function AddEditForm(props) {
                                             }
                                         })
                                         }
-                                        error={errors.type ? <span className='error-message'>{errors.type.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.type ? <span className='errorMessage'>{errors.type.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 
@@ -308,7 +308,7 @@ export function AddEditForm(props) {
                                             }
                                         })
                                         }
-                                        error={errors.discount ? <span className='error-message'>{errors.discount.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.discount ? <span className='errorMessage'>{errors.discount.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 

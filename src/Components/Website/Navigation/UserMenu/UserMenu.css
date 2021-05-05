@@ -2,3 +2,23 @@
     float: right;
     width: 100px;
 }
+
+.userCart {
+    display: flex;
+    flex-direction: column;
+}
+
+.amountCircle {
+    background-color: yellow;
+    border-radius: 10px 10px 10px 10px;
+    height: 20px;
+    min-width: 10px;
+    padding: 0 5px;
+    margin: -10px 0 0 15px;
+    font-size: 0.8em;
+    font-weight: bold;
+    align-self: center;
+    color: white;
+    position: absolute;
+    background-color: #72ad6e;
+}

@@ -60,7 +60,7 @@ function FilterBlockItems(props) {
         const name = evt.target.name;
 
         if(name==='category[]') {
-
+            //setFilterLabels(prev => [...prev, name]);
             setCategoryArray(prev => [...prev, value]);
         } else {
             setTasteArray(prev => [...prev, value]);
@@ -101,8 +101,6 @@ function FilterBlockItems(props) {
     const displayFilterBlockItems = (props) => {
         const {filterItems, valueName} = props;
 
-        console.log(filterItems)
-        console.log( " met naam : " + valueName);
         if(filterItems.filtermenu[valueName].length  > 0) {
             const filteredFilterItems = filterItems.filtermenu[valueName].filter(e => e.id !== 999);
             return (

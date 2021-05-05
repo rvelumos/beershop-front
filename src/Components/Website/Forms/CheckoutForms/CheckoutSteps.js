@@ -6,6 +6,7 @@ import Step3 from './Steps/Step3';
 import Confirmation from './Confirmation';
 import {useLocation} from "react-router";
 import './CheckoutSteps.css';
+import StepBar from "./Steps/StepBar/StepBar";
 
 const CheckoutSteps = () => {
     const [step, setStep] = useState('');
@@ -18,6 +19,7 @@ const CheckoutSteps = () => {
         setData({
             [name]: value
         })
+        console.log(data);
     }
 
     const location = useLocation();
@@ -36,9 +38,8 @@ const CheckoutSteps = () => {
     return(
         <>
             <div className="textContentContainer">
+                <StepBar currentStep={step} />
                 <h1>Bestellen</h1>
-
-                {/*<StepBar />*/}
 
                     <Step1
                         currentStep={step}

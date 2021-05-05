@@ -14,9 +14,9 @@ function AuthContextProvider({ children }) {
     useEffect(() => {
         const token = localStorage.getItem('user_token');
 
-        if(token !== null && userdata.user === null) {
+        if(token !== null && userdata.user === undefined) {
             fetchUserData(token);
-            console.log('de token is ' + token);
+            console.log('de token bij inlog is ' + token);
         } else {
             setUserdata({
                 user: null,
@@ -27,7 +27,8 @@ function AuthContextProvider({ children }) {
     }, [])
 
     async function loginUser(jwtToken) {
-        console.log("token opgehaald: " + jwtToken);
+        console.log("token opgehaald loginUser: ");
+        console.log(jwtToken);
 
         fetchUserData(jwtToken);
 
@@ -45,6 +46,7 @@ function AuthContextProvider({ children }) {
                 }
             })
             console.log(result);
+            localStorage.setItem('user_roles', JSON.stringify(result.data.authorities));
             setUserdata({
                 user: {
                     username: result.data.username,
@@ -53,7 +55,10 @@ function AuthContextProvider({ children }) {
                 },
                 status: 'done'
             })
-//            history.push('/mijn_account/');
+            // history.push('/mijn_account/');
+            setTimeout(function () {
+                window.location.reload();
+            }, 1000);
 
         } catch(e) {
             console.error(e);
@@ -62,7 +67,14 @@ function AuthContextProvider({ children }) {
 
 
     function logoutUser() {
-        console.log('logout');
+        localStorage.clear();
+        setUserdata({
+            user: null,
+            status: 'done',
+        })
+        setTimeout(function () {
+            window.location.reload();
+        }, 500);
     }
 
     const data = {

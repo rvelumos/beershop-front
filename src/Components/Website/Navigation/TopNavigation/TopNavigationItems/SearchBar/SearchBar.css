@@ -5,11 +5,13 @@
     text-align: center;
 }
 
+.giftCardItemInput,
 .searchBar {
     border-radius: 3px 0 0 3px;
     height: 40px;
     width: 500px;
 }
+
 
 .searchBar,
 .searchBarContainer button {

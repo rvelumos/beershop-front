@@ -26,7 +26,6 @@ function Order(props) {
         const toggleCustomerModal = () => {
             setOpenCustomerModal(!openCustomerModal);
         }
-
             if(orderItems.length > 0) {
                 orderItems = Array.from(orderItems);
                 console.log(orderItems);
@@ -48,15 +47,23 @@ function Order(props) {
                             <tr key={orderItem.id} className="Order">
                                 <td className="orderID">#{orderItem.id}</td>
                                 <td className="orderUser">
+                                    {console.log(orderItem.shipping.address.customer.id)}
                                     {!openCustomerModal ?
-                                        <div onClick={(e) => updateCurrentModal(orderItem.id)} className="details">Details</div>
-                                        : !skip && <Modal token={token} id={orderItem.customerId} title={`Klant ${orderItem.customerId}`}  section="customer" handler={updateCurrentModal} />
+                                        <div onClick={(e) => updateCurrentModal(orderItem.id, "customer")} className="details">Details</div>
+                                        : !skip && <Modal token={token} item={orderItem.shipping.address.customer} title={`Klant #${orderItem.customerId}`}  section="customer" handler={updateCurrentModal} />
                                     }
                                 </td>
                                 <td className="orderPrice">€{orderItem.priceTotal}</td>
                                 <td className="orderDate">{orderDate}</td>
                                 <td className="orderSent">{orderSent}</td>
-                                <td className="orderUser"><Link to={`/cms/shipment/${orderItem.shippingId}`}>Details</Link></td>
+                                <td className="orderShipping">
+                                    <i>
+                                        {orderItem.shipping.address.street}
+                                        {orderItem.shipping.address.number}<br/>
+                                        {orderItem.shipping.address.postalCode} {orderItem.shipping.address.city} <br />
+                                        {orderItem.shipping.address.country}
+                                    </i>
+                                </td>
                                 <td className="orderStatus">{orderItem.orderStatus}</td>
                                 <td className="orderPaidStatus">{orderItem.invoiceStatus}</td>
                                 <td>
@@ -70,9 +77,12 @@ function Order(props) {
                             </tr>
                          )
                     } else {
+                        let warning_class="item";
+                        if(orderItem.invoiceStatus==="UNPAID")
+                            warning_class="warning";
                         return (
                             <>
-                                <tr>
+                                <tr className={warning_class}>
                                     <td className="orderID">#{orderItem.id}</td>
                                     <td className="orderDate">{orderDate}</td>
                                     <td className="orderSent">{orderSent}</td>
@@ -91,7 +101,6 @@ function Order(props) {
         <>
             {isAdmin ?
                 <div className="itemContainer">
-                    <Link to="/cms/orders/create/" className="button">Order toevoegen</Link><br/><br/>
                     <table className="tableDetails">
                         <tbody>
                         <tr>

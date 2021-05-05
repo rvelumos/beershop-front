@@ -4,7 +4,12 @@ import React, {useState} from "react";
 
 const OrderBlock = ({productItem, isAdmin, section}) => {
 
-    const [amountItem, setAmountItem] = useState('');
+    const [amountItem, setAmountItem] = useState({
+        product: {
+            id: '',
+            amount: ''
+        }
+    });
     const [stockMessage, setStockMessage] = useState('');
 
     let history = useHistory();
@@ -12,10 +17,11 @@ const OrderBlock = ({productItem, isAdmin, section}) => {
     function AddToCart(e) {
         e.preventDefault();
 
-        if(e.target[0].value < 1) {
+        const value = e.target[0].value;
+        if(value < 1 || isNaN(value)) {
             setStockMessage("Gelieve een correct aantal in te voeren");
         } else {
-            if (e.target[0].value < productItem.stock) {
+            if (value < productItem.stock) {
                 history.push({
                     pathname: `/winkelwagen/`,
                     state: {data: amountItem}
@@ -31,7 +37,8 @@ const OrderBlock = ({productItem, isAdmin, section}) => {
 
         setAmountItem({
             ...amountItem,
-            [id]:{
+            product:{
+                id: id,
                 amount: value
             }
         });
@@ -39,29 +46,29 @@ const OrderBlock = ({productItem, isAdmin, section}) => {
         console.log(amountItem);
     }
 
-    let final_price = productItem.price;
-    let discount_container="";
+    let finalPrice = parseFloat(productItem.price).toFixed(2);
+    let discountContainer="";
 
     if(productItem.discount > 0) {
-        final_price = productItem.price - ((productItem.price * productItem.discount) / 100) ;
-        final_price = <><span className="disabledPrice"> {productItem.price}!</span> <i>Nu voor slechts: €{final_price.toFixed(2)}!</i></>;
-        discount_container=<div className="discountContainer"> -{productItem.discount}% </div>;
+        finalPrice = productItem.price - ((productItem.price * productItem.discount) / 100) ;
+        finalPrice = <><span className="disabledPrice"> {productItem.price.toFixed(2)}!</span> <i>Nu voor slechts: €{finalPrice.toFixed(2)}!</i></>;
+        discountContainer=<div className="discountContainer"> -{productItem.discount}% </div>;
     }
 
-    let stock_info = "";
-    let button_disabled = "";
-    let read_only = "";
-    let tab_index = "0";
+    let stockInfo = "";
+    let buttonDisabled = "";
+    let readOnly = "";
+    let tabIndex = "0";
 
     if (productItem.stock === 0) {
-        stock_info = <span className="outOfStock"> Uitverkocht</span>;
-        button_disabled="DISABLED";
-        read_only="readonly";
-        tab_index="-1";
+        stockInfo = <span className="outOfStock"> Uitverkocht</span>;
+        buttonDisabled="DISABLED";
+        readOnly="readonly";
+        tabIndex="-1";
     } else if (productItem.stock < 25 && productItem.stock > 0) {
-        stock_info = <span className="stockAlmostEmpty"> Let op: bijna uitverkocht!</span>;
+        stockInfo = <span className="stockAlmostEmpty"> Let op: bijna uitverkocht!</span>;
     } else {
-        stock_info = <span className="stockFull"> Op voorraad!</span>;
+        stockInfo = <span className="stockFull"> Op voorraad!</span>;
     }
 
     if (isAdmin) {
@@ -69,29 +76,22 @@ const OrderBlock = ({productItem, isAdmin, section}) => {
         return (
             <div className="ProductContainer">
                 <div className="productName"><a href={url}>{productItem.name}</a></div>
-                <div className="productPrice">{productItem.price}</div>
+                <div className="productPrice">{productItem.price.toFixed(2)}</div>
                 <div className="productDiscount">{productItem.discount}</div>
                 <div className="productTaste">{productItem.taste}</div>
                 <div className="productStock">{productItem.stock}</div>
             </div>
         )
     } else {
-        // let current_value="";
-        // for (const [key, value] of Object.entries(amountItem)) {
-        //     if (key === productItem.name) current_value=value;
-        //     console.log("het is "+ value);
-        // }
-
         const productName=productItem.id;
 
         let image="";
         let title="";
         if(section==='overview') {
-            if(productItem.type!==4) {
+            if(productItem.type!==4)
                 image = <div className="image"><img src={`/product_images/product_${productItem.id}.png`} alt=''/></div>;
-            } else {
+             else
                 image = <div className="image"><img src={`/product_images/giftcard.png`} alt=''/></div>;
-            }
 
             let url = `/product/${productItem.id}/`;
             title = <h3><a href={url}>{productItem.name}</a></h3>;
@@ -99,11 +99,12 @@ const OrderBlock = ({productItem, isAdmin, section}) => {
 
         return (
             <>
-            {discount_container}
+            {discountContainer}
             {image}
                 {title}
-                <p className="productPrice">€{final_price} </p>
+                <p className="productPrice">€{finalPrice} </p>
                 <div className="orderProduct">
+                    {stockMessage && <p className="errorMessage">&#9888;{stockMessage}</p>}
                     <form onSubmit={AddToCart} method="POST">
                         <input
                             type="text"
@@ -111,14 +112,13 @@ const OrderBlock = ({productItem, isAdmin, section}) => {
                             maxLength="2"
                             name={productName}
                             onChange={evt => handleChange(evt, productItem.id)}
-                            readOnly={read_only}
-                            tabIndex={tab_index}
+                            readOnly={readOnly}
+                            tabIndex={tabIndex}
                         />
-                        <Button value="Bestellen" usage="buttonCheckout" disabled={button_disabled} name="cart" type="cart"/><br/>
-                        {stock_info}
+                        <Button value="Bestellen" usage="buttonCheckout" disabled={buttonDisabled} name="cart" type="cart"/><br/>
+                        {stockInfo}
                     </form>
                 </div>
-                {stockMessage && <p className="error-message">&#9888;{stockMessage}</p>}
             </>
         )
     }

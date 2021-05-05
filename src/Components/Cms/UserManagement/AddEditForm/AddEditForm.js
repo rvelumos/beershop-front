@@ -58,7 +58,7 @@ export function AddEditForm(props) {
                     email: email,
                     firstname: firstname,
                     lastname: lastname,
-                    birth_date: birthDate,
+                    birthDate: birthDate,
                     phone: phone,
                     address: address,
                     newsletter: newsletter,
@@ -173,7 +173,7 @@ export function AddEditForm(props) {
 
                             <fieldset>
                                 <div className="formElement">
-                                    {errors.sex ? <span className='error-message'>{errors.sex.message}</span> : <span>&nbsp;</span>}
+                                    {errors.sex ? <span className='errorMessage'>{errors.sex.message}</span> : <span>&nbsp;</span>}
                                     <select name="sex" ref={register({ required: true })}>
                                         <option value="">Geslacht:</option>
                                         <option value="M">Man</option>
@@ -191,7 +191,7 @@ export function AddEditForm(props) {
                                         fieldRef={register({
                                             required: 'Verplicht veld',
                                         })}
-                                        error={errors.firstname ? <span className='error-message'>{errors.firstname.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.firstname ? <span className='errorMessage'>{errors.firstname.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 
@@ -206,7 +206,7 @@ export function AddEditForm(props) {
                                             required: "Verplicht veld",
                                         })
                                         }
-                                        error={errors.lastname ? <span className='error-message'>{errors.lastname.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.lastname ? <span className='errorMessage'>{errors.lastname.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 
@@ -222,7 +222,7 @@ export function AddEditForm(props) {
                                             pattern: /^\S+@\S+$/i
                                         })
                                         }
-                                        error={errors.email ? <span className='error-message'>{errors.email.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.email ? <span className='errorMessage'>{errors.email.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 
@@ -240,7 +240,7 @@ export function AddEditForm(props) {
                                                 message: 'Ongeldige geboortedatum'
                                             }
                                         })}
-                                        error={errors.birthDate ? <span className='error-message'>{errors.birthDate.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.birthDate ? <span className='errorMessage'>{errors.birthDate.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 
@@ -263,12 +263,12 @@ export function AddEditForm(props) {
                                             }
                                         })
                                         }
-                                        error={errors.phone ? <span className='error-message'>{errors.phone.message}</span> : <span>&nbsp;</span>}
+                                        error={errors.phone ? <span className='errorMessage'>{errors.phone.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 
                                 <div className="formElement">
-                                    {errors.newsletter ? <span className='error-message'>{errors.newsletter.message}</span> : <span>&nbsp;</span>}
+                                    {errors.newsletter ? <span className='errorMessage'>{errors.newsletter.message}</span> : <span>&nbsp;</span>}
                                     <select name="newsletter" ref={register({ required: true })}>
                                         <option value="">Inschrijven nieuwsbrief</option>
                                         <option value="true">Ja</option>
@@ -293,7 +293,7 @@ export function AddEditForm(props) {
                                                     message: "Geef tenminste 5 tekens op"
                                                 }
                                             })}
-                                            error={errors.username ? <span className='error-message'>{errors.username.message}</span> : <span>&nbsp;</span>}
+                                            error={errors.username ? <span className='errorMessage'>{errors.username.message}</span> : <span>&nbsp;</span>}
                                         />
                                     </div>
 
@@ -311,7 +311,7 @@ export function AddEditForm(props) {
                                                     message: "Geef tenminste 5 tekens op"
                                                 },
                                             })}
-                                            error={errors.password ? <span className='error-message'>{errors.password.message}</span> : <span>&nbsp;</span>}
+                                            error={errors.password ? <span className='errorMessage'>{errors.password.message}</span> : <span>&nbsp;</span>}
                                         />
                                     </div>
                             </fieldset>

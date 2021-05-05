@@ -69,13 +69,11 @@ const Newsletter = () => {
                     </div>
                     <div className="newsletterInput">
                         <form onSubmit={handleSubmit(onSubmitForm)}>
-                            {errors.email ? <span className='error-message'>{errors.email.message}</span> : <span>&nbsp;</span>}<br />
                            <FormElement
                                type="text"
                                name="email"
                                label="E-mail"
                                fieldRef={register({
-                                   required: "Verplicht veld",
                                    pattern: {
                                        value: /^\S+@\S+$/i,
                                        message: "Ongeldige e-mail"
@@ -89,6 +87,7 @@ const Newsletter = () => {
                                 usage="button"
                                 type="button"
                             />
+                            {errors.email ? <span className='errorMessage'>{errors.email.message}</span> : <span>&nbsp;</span>}
                             { message && <span>Je bent succesvol aangemeld!</span>}
                         </form>
 

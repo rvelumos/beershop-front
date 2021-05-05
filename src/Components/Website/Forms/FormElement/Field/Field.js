@@ -23,7 +23,7 @@ function Field (props) {
                     fieldRef={register({
                         required: 'Verplicht veld',
                     })}
-                    error={errors.name ? <span className='error-message'>{errors.name.message}</span> : <span>&nbsp;</span>}
+                    error={errors.name ? <span className='errorMessage'>{errors.name.message}</span> : <span>&nbsp;</span>}
                 />
             )
 
@@ -43,7 +43,7 @@ function Field (props) {
                         }
                     })
                     }
-                    error={errors.email ? <span className='error-message'>{errors.email.message}</span> : <span>&nbsp;</span>}
+                    error={errors.email ? <span className='errorMessage'>{errors.email.message}</span> : <span>&nbsp;</span>}
                 />
             )
 
@@ -67,7 +67,7 @@ function Field (props) {
                         }
                     })
                     }
-                    error={errors.phone ? <span className='error-message'>{errors.phone.message}</span> : <span>&nbsp;</span>}
+                    error={errors.phone ? <span className='errorMessage'>{errors.phone.message}</span> : <span>&nbsp;</span>}
                 />
             )
         case "birth_date" :
@@ -86,7 +86,7 @@ function Field (props) {
                             message: 'Ongeldige geboortedatum'
                         }
                     })}
-                    error={errors.birth_date ? <span className='error-message'>{errors.birth_date.message}</span> : <span>&nbsp;</span>}
+                    error={errors.birth_date ? <span className='errorMessage'>{errors.birth_date.message}</span> : <span>&nbsp;</span>}
                 />
             )
         case "username" :
@@ -104,7 +104,7 @@ function Field (props) {
                             message: "Geef tenminste 5 tekens op"
                         }
                     })}
-                    error={errors.username ? <span className='error-message'>{errors.username.message}</span> : <span>&nbsp;</span>}
+                    error={errors.username ? <span className='errorMessage'>{errors.username.message}</span> : <span>&nbsp;</span>}
                 />
             )
         case "password" :
@@ -126,7 +126,7 @@ function Field (props) {
                                 value === name.current || "Wachtwoorden komen niet overeen"
                         }
                     )}
-                    error={errors.name ? <span className='error-message'>{errors.name.message}</span> : <span>&nbsp;</span>}
+                    error={errors.name ? <span className='errorMessage'>{errors.name.message}</span> : <span>&nbsp;</span>}
                 />
             )
     }

@@ -1,0 +1,10 @@
+.progressContainer {
+    width: 100%;
+    margin: 10px auto;
+}
+
+.progressBar {
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+}

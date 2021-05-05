@@ -94,6 +94,29 @@ main.cms {
     background-color: transparent;
 }
 
+.modalContainer {
+    margin: 30px;
+    display: flex;
+    flex-direction: column;
+    font-family: "Poppins ExtraLight";
+}
+
+.modalContainer .modalItem {
+    display: flex;
+    border-bottom: 1px solid #eee;
+    flex-direction: row;
+    padding: 10px 0;
+    width: 100%;
+}
+.modal h2 {
+    margin:30px;
+}
+
+.modalContainer .modalItem div:first-of-type {
+    width: 300px;
+    font-weight: bold;
+}
+
 .cms .formElement {
     width: 98% !important;
 }

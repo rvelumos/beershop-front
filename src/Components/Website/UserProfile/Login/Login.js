@@ -13,7 +13,7 @@ const Login = (props) => {
     const [loading, toggleLoading] = useState(false);
 
     const { cmsLogin } = props;
-    const { loginUser } = useContext(AuthContext);
+    const { login } = useContext(AuthContext);
 
     function OnFormSubmit(data) {
          AuthLogin(data);
@@ -38,11 +38,11 @@ const Login = (props) => {
                     password: password
                 }
             )
-
-            loginUser(result);
-            console.log(result);
+            console.log(result.data.jwt);
+            login(result.data.jwt);
         }catch(e) {
                 console.error(e);
+                toggleLoading(false);
         }
     }
 
@@ -78,7 +78,7 @@ const Login = (props) => {
                                     fieldRef={register({
                                         required: 'Verplicht veld',
                                     })}
-                                    error={errors.username && <span className='error-message'>{errors.username.message}</span>}
+                                    error={errors.username && <span className='errorMessage'>{errors.username.message}</span>}
                                 /><br />
 
                                 <FormElement
@@ -89,7 +89,7 @@ const Login = (props) => {
                                     fieldRef={register({
                                         required: 'Verplicht veld',
                                     })}
-                                    error={errors.password && <span className='error-message'>{errors.password.message}</span>}
+                                    error={errors.password && <span className='errorMessage'>{errors.password.message}</span>}
                                 /><br />
                                 <Button usage="button" value="Inloggen "/><br /><br />
                                 {cmsLogin ? null :<span>Geen account? Klik dan <a href="/registreren">hier</a> om te registreren.</span> }
@@ -107,7 +107,7 @@ const Login = (props) => {
         <>
             <div className="loginContainer">
                 {error && <Error type="message_container" content={error} /> }
-                {loading ? <><LoadingIndicator /> LOGIN</> : <AuthLoginForm /> }
+                {loading ? <><LoadingIndicator /> Je wordt ingelogd...</> : <AuthLoginForm /> }
             </div>
         </>
     )

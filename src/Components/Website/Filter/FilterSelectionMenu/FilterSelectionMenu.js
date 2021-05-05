@@ -4,7 +4,7 @@ import FilterBlockItems from "./FilterBlock/FilterBlockItem/FilterBlockItem";
 
 function FilterSelectionMenu (props) {
 
-    const {categoryArray, setCategoryArray} = props;
+    const {categoryArray, setCategoryArray, setFilterLabels, filterLabels} = props;
     //const {tasteArray, setTasteArray} = props;
 
     const [filterItems, setFilterItems] = useState({
@@ -47,6 +47,8 @@ function FilterSelectionMenu (props) {
                     <FilterBlockItems
                           key={filterItems}
                           valueName="category"
+                          filterLabels={filterLabels}
+                          setFilterLabels={setFilterLabels}
                           filterItems={filterItems}
                           setFilterItems={setFilterItems}
                           categoryArray={categoryArray}
@@ -63,7 +65,7 @@ function FilterSelectionMenu (props) {
                     {/*    tasteArray={tasteArray}*/}
                     {/*    setTasteArray={setTasteArray} />*/}
                 </div>
-                {console.log(filterItems)}
+
                 <div className="filterTitle">
                     <h3>Prijs</h3>
                     <div className="filterPrice">

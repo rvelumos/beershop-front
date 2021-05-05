@@ -25,6 +25,10 @@
     padding-top: 20px;
 }
 
+.detailsOrderProducts {
+    margin: 30px;
+}
+
 .detailsOrderBottom .orderShipment {
     border-bottom: 1px solid #ccc;
     padding-bottom: 20px;

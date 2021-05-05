@@ -1,3 +1,4 @@
+.buttonCheck,
 .buttonCheckout,
 .button {
     background-color: #FFA303;
@@ -13,12 +14,14 @@
     transition: background-color 0.5s ease-in;
 }
 
+.buttonCheck,
 .buttonCheckout,
 .button:hover {
     background-color: #ffb83f;
     transition: background-color 0.5s ease-in;
 }
 
+.buttonCheck,
 .buttonCheckout {
     text-transform: capitalize;
 }

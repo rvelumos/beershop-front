@@ -11,7 +11,7 @@ function DetailsProduct() {
     const { id } = useParams();
     const [error, setError] = useState(false);
     const [productItem, setProductItem] = useState(false);
-    const [loading, toggleLoading] = useState(false);
+    const [loading, toggleLoading] = useState(true);
 
     useEffect(() => {
         async function getProductByID() {
@@ -71,7 +71,9 @@ function DetailsProduct() {
 
                 <h1>Anderen bekeken ook</h1>
                 <div className="recommendedProducts">
-                    <RecommendedProducts category={productItem.category.id} />
+                    {loading ? <LoadingIndicator /> :
+                        <RecommendedProducts category={productItem.category.id}/>
+                    }
                 </div>
             </section>
         )

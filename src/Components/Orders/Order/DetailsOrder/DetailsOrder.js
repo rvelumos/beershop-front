@@ -4,10 +4,6 @@ import {useLocation} from "react-router";
 
 function DetailsOrder(props) {
 
-    function getShippingInfo () {
-
-    }
-
     const OrderItems = (props) => {
 
         const location = useLocation();
@@ -45,7 +41,12 @@ function DetailsOrder(props) {
                                 <div className="detailsOrderBottom">
                                     <div className="detailsShippingInfo">
                                         <h4>Bezorgdadres</h4>
-                                        {getShippingInfo}
+                                        <div className="shippingAddress">
+                                            {orderItem.shipping.address.street}
+                                            {orderItem.shipping.address.number}<br/>
+                                            {orderItem.shipping.address.postalCode} {orderItem.shipping.address.city} <br />
+                                            {orderItem.shipping.address.country}
+                                        </div>
                                     </div>
 
                                     <div className="detailsCost">

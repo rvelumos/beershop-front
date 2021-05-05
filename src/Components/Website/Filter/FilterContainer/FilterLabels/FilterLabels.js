@@ -1,6 +1,6 @@
 import React from 'react';
 
-function FilterLabels({filterLabels, setFilterlabels}) {
+function FilterLabels({filterLabels, setFilterLabels}) {
 
     function handleClick() {
 
@@ -11,6 +11,7 @@ function FilterLabels({filterLabels, setFilterlabels}) {
         if(filterLabels.length > 0) {
             return (
                 filterLabels.map((filterlabel) => {
+                    console.log(filterlabel);
                     return (
                         <div className="filterLabel">
                             {filterlabel.name}
