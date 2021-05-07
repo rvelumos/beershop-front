@@ -6,7 +6,7 @@ import axios from "axios";
 import {useHistory} from "react-router";
 import LoadingIndicator from "../../../UI/LoadingIndicator/LoadingIndicator";
 
-function Step2({currentStep}) {
+function Step2({currentStep, orderData, token}) {
 
     const [error, setError] = useState(false);
     const [loading, toggleLoading] = useState(false);
@@ -21,7 +21,6 @@ function Step2({currentStep}) {
     useEffect(() => {
         const delayDebounceFn = setTimeout(() => {
             async function checkAddress() {
-                toggleLoading(true);
                 try {
                     const code = postalCode.replace(/\s/g, '');
                     let url = `http://geodata.nationaalgeoregister.nl/locatieserver/free?fq=postcode:${code}`;
@@ -52,6 +51,7 @@ function Step2({currentStep}) {
         history.push({
             pathname: `/winkelwagen/checkout/stappen/`,
             state: {
+                orderData: orderData,
                 formData: data,
                 step: 3
             }

@@ -2,11 +2,11 @@
 .GiftCard {
     display: flex;
     flex-direction: row;
-    width: 900px;
+    width: var(--default-width);
 }
 
 .GiftCardTop {
-    color: #FFA303;
+    color: var(--font-color-primary);
 }
 
 .GiftCard p {

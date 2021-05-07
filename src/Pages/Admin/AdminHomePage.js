@@ -1,11 +1,11 @@
 import React from 'react';
 
-const AdminHomePage = ({name}) => {
+const AdminHomePage = ({username}) => {
 
     return (
         <>
             <div className="contentContainer">
-                Welkom terug {name}.
+                Welkom terug, {username}. Kies een optie uit het linkermenu.
             </div>
         </>
     )

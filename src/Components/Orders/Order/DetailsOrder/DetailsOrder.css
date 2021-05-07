@@ -1,7 +1,7 @@
 .detailsOrder {
-    font-family: "Poppins ExtraLight", "Arial";
+    font-family: var(--default-font-light);
     margin-top: 15px;
-    width: 900px;
+    width: var(--default-width);
 }
 
 .detailsOrder h2 {
@@ -10,7 +10,7 @@
 
 .detailsOrderTop,
 .detailsOrderBottom {
-    width: 100%;
+    width: var(--default-container-width);
     display: flex;
     justify-content: space-between;
     flex-direction: row;

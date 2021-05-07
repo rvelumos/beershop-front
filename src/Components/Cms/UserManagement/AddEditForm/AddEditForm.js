@@ -33,7 +33,7 @@ export function AddEditForm(props) {
     useEffect(() => {
         async function getFormData (){
             try {
-                const url=`http://localhost:8080/api/v1/customer/${id}/`
+                const url=`/api/v1/customer/${id}`
                 const result = await axios.get(url, {
                     headers : {
                         "Authorization" : `Bearer ${token}`,
@@ -108,14 +108,14 @@ export function AddEditForm(props) {
         setError(false);
         toggleLoading(true);
 
-        let url = `http://localhost:8080/api/v1/create_user/`;
+        let url = `/api/v1/create_user/`;
 
         try {
             const result = await axios.post(url, userData);
             console.log("User result: "+result);
 
             if(result) {
-                url = `http://localhost:8080/api/v1/create_authority/`;
+                url = `/api/v1/create_authority/`;
                 try {
                     const result = await axios.post(url, {
                         authority: "ROLE_CUSTOMER",

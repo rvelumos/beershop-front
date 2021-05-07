@@ -1,6 +1,6 @@
 .newsletter {
-    width: 100%;
-    background-color: #eeeeee;
+    width: var(--default-container-width);
+    background-color: var(--background-color-light);
     padding: 20px 0;
     margin-top: 50px;
     text-align: left;
@@ -54,9 +54,9 @@
 }
 
 .newsletterText h2 {
-    font-size: 1.1em;
+    font-size: var(--font-size-l);
 }
 
 .newsletterText p {
-    font-size: 0.9em;
+    font-size: var(--font-size-s);
 }

@@ -6,12 +6,13 @@ import './UserInfo.css';
 import { v4 as uuidv4 } from 'uuid';
 import axios from "axios";
 import LoadingIndicator from "../../../Website/UI/LoadingIndicator/LoadingIndicator";
+import Feedback from "../../../Website/UI/Feedback/Feedback";
 
 function UserInfo(props) {
     const [loading, toggleLoading] = useState(false);
     //const [userRoles, setUserRoles] = useState('');
     const [error, setError] = useState(true);
-    const [message, setMessage] = useState(true);
+    const [message, setMessage] = useState("");
 
     const {token, isAdmin} = props;
 
@@ -54,7 +55,7 @@ function UserInfo(props) {
 
     async function deleteUser(id) {
         toggleLoading(true);
-        let url = `/api/v1/admin/customer/${id}`;
+        const url = `/api/v1/admin/customer/${id}`;
 
         try {
             const result = await axios.delete(url, {
@@ -96,8 +97,8 @@ function UserInfo(props) {
                                 <td><p className="userRoles"></p></td>
                                 <td>
                                     <div className="actionContainer">
-                                        <div class="edit"><Link to={`/cms/users/edit/${userInfo.id}`}>&#9999;</Link></div>
-                                        <div class="delete" onClick={(e) => deleteUser(userInfo.id)}>&#10008;</div>
+                                        <div className="edit"><Link to={`/cms/users/edit/${userInfo.id}`}>&#9999;</Link></div>
+                                        <div className="delete" onClick={(e) => deleteUser(userInfo.id)}>&#10008;</div>
                                     </div>
                                 </td>
                             </tr>
@@ -121,7 +122,7 @@ function UserInfo(props) {
     }
     return(
         <>
-            {message && <p className="notice"> {message} </p>}
+            {message && <Feedback type="success" content={message} />}
             {loading ? <LoadingIndicator/> :
                 <div className="itemContainer">
                     {error && <p> {error} </p>}

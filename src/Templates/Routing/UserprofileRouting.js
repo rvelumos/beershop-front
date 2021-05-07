@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Redirect, Route} from "react-router-dom";
 import UserProfilePage from "../../Pages/User/UserProfilePage";
 import Login from "../../Components/Website/UserProfile/Login/Login";
@@ -6,13 +6,17 @@ import UserOrderPage from "../../Pages/User/UserOrderPage";
 import UserGiftPage from "../../Pages/User/UserGiftPage";
 import UserBonusPage from "../../Pages/User/UserBonusPage";
 import UserSettingsPage from "../../Pages/User/UserSettings";
+import {AuthContext} from "../../context/AuthContext";
 
-const UserProfileRouting = ({userLoggedIn, token}) => {
+const UserProfileRouting = ({userLoggedIn}) => {
+
+    const { token, username } = useContext(AuthContext);
+
     return (
         <>
             <Route path="/mijn_account/" exact>
                 {userLoggedIn ?
-                    <UserProfilePage />
+                    <UserProfilePage username={username} />
                     : <Login/>
                 }
             </Route>

@@ -1,5 +1,5 @@
 .tableDetailsUser {
-    width: 100%;
+    width: var(--default-table-width);
     border-collapse: collapse;
 }
 
@@ -9,12 +9,12 @@
 
 .tableDetailsUser td {
     padding: 20px 20px 20px 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: var(--default-border-light);
 }
 
 .itemContainer .button {
     display: inline-block;
     height: 35px;
-    font-size: 0.8em;
+    font-size: var(--font-size-xs);
     margin: 40px 0;
 }

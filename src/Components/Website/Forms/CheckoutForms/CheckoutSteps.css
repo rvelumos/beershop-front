@@ -29,3 +29,8 @@
 .secondColumn {
     margin: 0 75px;
 }
+
+.conditions a{
+    font-weight: bold;
+    text-decoration: underline;
+}

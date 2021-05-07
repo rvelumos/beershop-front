@@ -4,6 +4,6 @@
 }
 
 .FilterSelectionMenu .filterTitle h3 {
-    border-bottom: 1px solid #eee;
+    border-bottom: var(--default-border-light);
     padding-bottom: 10px;
 }

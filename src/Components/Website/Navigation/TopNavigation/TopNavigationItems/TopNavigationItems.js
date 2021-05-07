@@ -3,17 +3,27 @@ import TopNavigationMenuItem from "./TopNavigationMenuItem/TopNavigationMenuItem
 import SearchBar from "./SearchBar/SearchBar";
 import './TopNavigationItems.css';
 import UserMenu from "../../UserMenu/UserMenu";
+import {useHistory} from "react-router";
+
 
 const TopNavigationItems = () => {
 
     const [search, setSearch] = useState("");
 
+    const history = useHistory();
+
+    function goHome(e) {
+        history.push("/");
+    }
+
     return (
         <>
          <div className="TopNavigationItems">
-            <div className="LogoContainer">
+
+            <div className="LogoContainer" onClick={(e)=>goHome(e)}>
 
             </div>
+
              <div className="TopNavigationRightContent">
                  <div className="TopNavigationUpperSection">
                      <div className="TopNavigationSearch" >

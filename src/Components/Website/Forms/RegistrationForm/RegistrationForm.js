@@ -5,10 +5,10 @@ import {useForm} from "react-hook-form";
 import Button from "../../UI/Button/Button";
 import axios from "axios";
 import LoadingIndicator from "../../UI/LoadingIndicator/LoadingIndicator";
-import Error from "../../UI/Feedback/Error/Error";
 import {Link} from "react-router-dom";
+import Feedback from "../../UI/Feedback/Feedback";
 
-const RegistrationForm = () => {
+const RegistrationForm = ({mode}) => {
 
     const [error, setError] = useState(false);
     const [loading, toggleLoading] = useState(false);
@@ -56,21 +56,20 @@ const RegistrationForm = () => {
         setError(false);
         toggleLoading(true);
 
-        let url = `http://localhost:8080/api/v1/create_user/`;
+        let url = `/api/v1/create_user/`;
 
         try {
             const result = await axios.post(url, userData);
             console.log("User result: "+result);
 
             if(result) {
-                url = `http://localhost:8080/api/v1/create_authority/`;
+                url = `/api/v1/create_authority/`;
                 try {
                     const result = await axios.post(url, {
                         authority: "ROLE_CUSTOMER",
                         username: userData.username
                     })
-
-                    console.log("Role result: " + result);
+                    console.log(result);
                 } catch (e) {
                     console.error(e);
                     setError("Fout bij verwerken logingegevens.");
@@ -88,7 +87,7 @@ const RegistrationForm = () => {
         setError(false);
         toggleLoading(true);
 
-        let url = `http://localhost:8080/api/v1/customer/`;
+        const url = `/api/v1/customer/`;
 
         try {
             const result = await axios.post(url, customerData);
@@ -124,7 +123,7 @@ const RegistrationForm = () => {
                                         <FormElement
                                             type="text"
                                             name="firstname"
-                                            defaultValue={formValues.firstname}
+                                            formValue={formValues.firstname}
                                             label="Voornaam"
                                             onChange={changeHandler}
                                             fieldRef={register({
@@ -138,7 +137,7 @@ const RegistrationForm = () => {
                                         <FormElement
                                             type="text"
                                             name="lastname"
-                                            defaultValue={formValues.lastname}
+                                            formValue={formValues.lastname}
                                             label="Achternaam"
                                             onChange={changeHandler}
                                             fieldRef={register({
@@ -152,12 +151,15 @@ const RegistrationForm = () => {
                                         <FormElement
                                             type="text"
                                             name="email"
-                                            defaultValue={formValues.email}
+                                            formValue={formValues.email}
                                             label="E-mailadres"
                                             onChange={changeHandler}
                                             fieldRef={register({
                                                 required: "Verplicht veld",
-                                                pattern: /^\S+@\S+$/i
+                                                pattern:{
+                                                    value: /^\S+@\S+$/i,
+                                                    message: "Ongeldige e-mail"
+                                                }
                                             })
                                             }
                                             error={errors.email ? <span className='errorMessage'>{errors.email.message}</span> : <span>&nbsp;</span>}
@@ -192,7 +194,7 @@ const RegistrationForm = () => {
                                             type="text"
                                             name="birthDate"
                                             label="Geboortedatum"
-                                            defaultValue={formValues.birthDate}
+                                            formValue={formValues.birthDate}
                                             onChange={changeHandler}
                                             form="form"
                                             fieldRef={register({
@@ -214,7 +216,7 @@ const RegistrationForm = () => {
                                         <FormElement
                                             type="text"
                                             name="username"
-                                            defaultValue={formValues.username}
+                                            formValue={formValues.username}
                                             label="Gebruikersnaam"
                                             onChange={changeHandler}
                                             fieldRef={register({
@@ -228,13 +230,13 @@ const RegistrationForm = () => {
                                         />
                                     </div>
 
-                                    <div style={{width: "100%"}}></div>
+                                    <div style={{width: "100%"}}>&nbsp;</div>
 
                                     <div className="formElement">
                                         <FormElement
                                             type="password"
                                             name="password"
-                                            defaultValue={formValues.password}
+                                            formValue={formValues.password}
                                             label="Wachtwoord"
                                             onChange={changeHandler}
                                             fieldRef={register({
@@ -252,7 +254,7 @@ const RegistrationForm = () => {
                                         <FormElement
                                             type="password"
                                             name="passwordRepeat"
-                                            defaultValue={formValues.passwordRepeat}
+                                            formValue={formValues.passwordRepeat}
                                             label="Wachtwoord nogmaals"
                                             onChange={changeHandler}
                                             fieldRef={register({
@@ -305,8 +307,9 @@ const RegistrationForm = () => {
         <>
             <div className="RegistrationOverview">
                 {loading ? <LoadingIndicator /> : null }
-                {sentForm ? confirmRegistration() : <RegistrationFormItems /> }
-                {error && <Error type="message_container" content={error} /> }
+                {sentForm ? confirmRegistration() :
+                    <RegistrationFormItems /> }
+                {error && <Feedback type="error" content={error} /> }
             </div>
         </>
     )

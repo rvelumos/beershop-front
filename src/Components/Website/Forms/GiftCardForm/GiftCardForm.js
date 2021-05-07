@@ -15,7 +15,7 @@ function GiftCardForm({giftCardInfo, setGiftCardInfo}) {
         const code = data.giftCardCode;
         console.log(code);
 
-        let url = `/api/v1/giftcards/${code}`;
+        let url = `/api/v1/products/giftcards/${code}`;
         console.log(url);
 
         try {

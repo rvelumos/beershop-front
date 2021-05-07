@@ -12,20 +12,19 @@ function GiftCardUsedItem(props) {
             giftCardItems = Array.from(giftCardItems);
             return (
                 giftCardItems.map((giftCardItem) => {
-                    console.log(giftCardItem);
                     let used = "Nee";
-                    let class_gc = "Order";
+                    let classGc = "Order";
 
                     let expiration_date = giftCardItem.expiration_date;
                     expiration_date = expiration_date.split('T')[0];
 
                     if(giftCardItem.uses > 0) {
-                        class_gc = "giftCardIsUsed";
+                        classGc = "giftCardIsUsed";
                         used = "Ja";
                     }
                     return (
                         <>
-                            <tr key={uuidv4()} className={class_gc}>
+                            <tr key={uuidv4()} className={classGc}>
                                 {isAdmin &&
                                     <td><p className="giftCardId">{giftCardItem.id}</p></td>
                                 }
@@ -33,7 +32,7 @@ function GiftCardUsedItem(props) {
                                 <td><p className="giftCardAmount">€{giftCardItem.amount}</p></td>
                                 <td><p className="giftCardCode">{giftCardItem.code}</p></td>
                                 <td><p className="giftCardExpirationDate">{expiration_date}</p></td>
-                                <td><p className={class_gc}>{used}</p></td>
+                                <td><p className={classGc}>{used}</p></td>
                             </tr>
                         </>
                     )
@@ -46,7 +45,6 @@ function GiftCardUsedItem(props) {
     return(
         <>
             <div className="itemContainer">
-                {/*<Link to="/cms/giftcards/add/" className="button">Cadeaukaart toevoegen</Link><br /><br />*/}
                 {isAdmin ?
                 <table className="tableDetails">
                     <tbody>
@@ -75,7 +73,6 @@ function GiftCardUsedItem(props) {
                     </tbody>
                 </table>
                 }
-
             </div>
         </>
     )

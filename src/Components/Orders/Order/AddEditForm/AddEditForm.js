@@ -3,16 +3,17 @@ import {useForm} from "react-hook-form";
 import {useParams} from "react-router-dom";
 import AddEdit from "../../../Cms/Actions/AddEdit";
 import LoadingIndicator from "../../../Website/UI/LoadingIndicator/LoadingIndicator";
-import Error from "../../../Website/UI/Feedback/Error/Error";
 import FormElement from "../../../Website/Forms/FormElement/FormElement";
 import Button from "../../../Website/UI/Button/Button";
 import './AddEditForm.css';
 import axios from "axios";
+import Feedback from "../../../Website/UI/Feedback/Feedback";
 
 export function AddEditForm(props) {
-    const [error, setError] = useState(false);
+    const [error, setError] = useState("");
     const [loading, toggleLoading] = useState(false);
     const [submittedForm, setSubmittedForm] = useState(false);
+    const [saved, setSaved] = useState(false);
 
     const { id } = useParams();
     const { token } = props;
@@ -109,10 +110,8 @@ export function AddEditForm(props) {
         });
 
         let orderDate = formValues.orderDate;
-        let orderSent = formValues.orderSent;
         if(!isAddMode) {
             if(orderDate !== null) orderDate = orderDate.split('T')[0];
-            if (orderSent !== null) orderSent = orderSent.split('T')[0];
         }
 
         return(
@@ -244,8 +243,17 @@ export function AddEditForm(props) {
         <>
             <div className="overview">
                 { loading ? <LoadingIndicator /> : <OrderItem /> }
-                { error ? <Error type="messageContainer" content={error} /> : null }
-                { submittedForm && <AddEdit isAddMode={isAddMode} token={token} section="order" id={id} itemData={formValues}/> }
+                { error ? <Feedback type="error" content={error} /> : null }
+                { submittedForm &&
+                    <AddEdit
+                        isAddMode={isAddMode}
+                        token={token}
+                        section="order"
+                        id={id}
+                        itemData={formValues}
+                        saved={saved}
+                        setSaved={setSaved}
+                    /> }
             </div>
         </>
     )

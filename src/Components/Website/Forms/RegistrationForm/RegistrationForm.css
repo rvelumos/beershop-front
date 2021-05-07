@@ -4,8 +4,8 @@
 
 .RegisterForm fieldset {
     background-color: #fcfcfc;
-    border: 1px solid #eee;
-    border-radius: 3px 3px 3px 3px;
+    border: var(--default-border-light);
+    border-radius: var(--default-border-radius);
     display: flex;
     flex-wrap: wrap;
     padding: 20px;
@@ -28,8 +28,8 @@
 
 .RegisterForm select {
     padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 4px 4px 4px 4px;
+    border: var(--default-border-light);
+    border-radius: var(--default-border-radius);
     margin: 10px 5px;
 }
 

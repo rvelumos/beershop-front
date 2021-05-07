@@ -13,6 +13,7 @@ const CheckoutSteps = () => {
     const [choice, setChoice] = useState('');
     const [data, setData] = useState('');
     const [mode, setMode] = useState('init');
+    const [orderItems, setOrderItems] = useState('');
 
     const handleChange = (e) => {
         const {name, value} = e.target
@@ -30,6 +31,7 @@ const CheckoutSteps = () => {
             )
     } else {
         if(mode === 'init') {
+            setOrderItems(location.state.updatedShoppingCartItems);
             setStep(location.state.step);
             setMode('data');
         }
@@ -59,6 +61,7 @@ const CheckoutSteps = () => {
 
                     <Step2
                         currentStep={step}
+                        orderItems={orderItems}
                         handleChange={handleChange}
                         setStep={setStep}
                         // username={username}
@@ -66,9 +69,9 @@ const CheckoutSteps = () => {
 
                     <Step3
                         currentStep={step}
+                        orderItems={orderItems}
                         handleChange={handleChange}
                         setStep={setStep}
-                        // payment={payment}
                     />
 
                     <Confirmation currentStep={step} />

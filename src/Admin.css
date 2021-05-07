@@ -12,15 +12,15 @@ main.cms {
 
 .overview .details {
     cursor: pointer;
-    color: #ffa303;
+    color: var(--font-color-primary);
 }
 
 .modal {
     background-color: white;
-    border: 1px solid #eee;
-    border-radius: 4px 4px 4px 4px;
+    border: var(--default-border-light);
+    border-radius: var(--default-border-radius);
     position: absolute;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
     top: 150px;
     max-width: 1300px;
     min-height: 500px;
@@ -34,10 +34,10 @@ main.cms {
 }
 
 .cms .itemContainer .button {
-    font-size: 0.9em;
+    font-size: var(--font-size-s);
     float: right;
     height: 35px;
-    border-radius: 3px 3px 3px;
+    border-radius: var(--default-border-radius);
 }
 
 .tableDetails {
@@ -74,14 +74,14 @@ main.cms {
 .tableDetails td {
     padding: 10px;
     width: 300px;
-    border-top: 1px solid #eee;
+    border-top: var(--default-border-light);
     background-color: #fafafa;
     transition: background-color 0.5s ease-out;
 }
 
 .tableDetails tr:first-of-type td {
-    background-color: #333 !important;
-    color: white;
+    background-color: var(--background-color-dark) !important;
+    color: var(--font-color-secundary);
     font-weight: bold;
     height: 60px;
 }
@@ -98,15 +98,15 @@ main.cms {
     margin: 30px;
     display: flex;
     flex-direction: column;
-    font-family: "Poppins ExtraLight";
+    font-family: var(--default-font-light);
 }
 
 .modalContainer .modalItem {
     display: flex;
-    border-bottom: 1px solid #eee;
+    border-bottom: var(--default-border-light);
     flex-direction: row;
     padding: 10px 0;
-    width: 100%;
+    width: var(--default-container-width);
 }
 .modal h2 {
     margin:30px;
@@ -127,7 +127,7 @@ main.cms {
 }
 
 .button {
-    background-color: #ffa303;
+    background-color: var(--background-color-primary);
     padding: 10px 20px;
     color: white !important;
 }
@@ -154,5 +154,5 @@ main.cms {
 }
 
 .overview a {
-    color: #ffa303;
+    color: var(--font-color-primary);
 }

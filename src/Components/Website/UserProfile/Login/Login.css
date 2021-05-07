@@ -8,26 +8,26 @@
     display: flex;
     flex-direction: column;
     max-width: 500px;
-    margin: 20px;
+    margin: var(--default-margin-container);
     min-width: 500px;
 }
 
 .register,
 .LoginForm {
     background-color: #fcfcfc;
-    border: 1px solid #eee;
-    border-radius: 3px 3px 3px 3px;
+    border: var(--default-border-light);
+    border-radius: var(--default-border-radius);
     min-height: 250px;
     padding: 20px;
 }
 
 .formContainer a {
-    color: #FFA303;
+    color: var(--link-color-secundary);
     text-decoration: underline;
 }
 
 .formContainer .button {
-    font-size: 0.8em;
+    font-size: var(--font-size-xs);
 }
 
 .formContainer input[type=password],
@@ -37,8 +37,8 @@
 
 .formContainer span,
 .formContainer p {
-    font-family: "Poppins ExtraLight";
-    font-size: 0.9em;
+    font-family: var(--default-font-light);
+    font-size: var(--font-size-s);
     margin: 30px 15px;
 }
 

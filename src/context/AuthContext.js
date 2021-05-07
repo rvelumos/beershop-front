@@ -1,7 +1,8 @@
 import React, {useState, createContext, useEffect} from 'react';
-//import jwt_decode from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
 import axios from "axios";
 import LoadingIndicator from "../Components/Website/UI/LoadingIndicator/LoadingIndicator";
+import {useHistory} from "react-router";
 
 export const AuthContext = createContext({});
 
@@ -11,35 +12,20 @@ function AuthContextProvider({ children }) {
         status: 'pending'
     });
 
-    useEffect(() => {
-        const token = localStorage.getItem('user_token');
-
-        if(token !== null && userdata.user === undefined) {
-            fetchUserData(token);
-            console.log('de token bij inlog is ' + token);
-        } else {
-            setUserdata({
-                user: null,
-                status: 'done'
-            })
-        }
-    // eslint-disable-next-line
-    }, [])
+    const history = useHistory();
 
     async function loginUser(jwtToken) {
-        console.log("token opgehaald loginUser: ");
-        console.log(jwtToken);
-
         fetchUserData(jwtToken);
 
         localStorage.setItem('user_token', jwtToken);
     }
 
     async function fetchUserData(jwtToken) {
-        //const decoded = jwt_decode(jwtToken);
-        //const userId = decoded.sub;
+        const decoded = jwt_decode(jwtToken);
+        const userId = decoded.sub;
+        console.log(jwtToken);
         try {
-            const result = await axios.get(`http://localhost:8080/authenticated/`, {
+            const result = await axios.get(`/api/v1/authenticated/`, {
                 headers: {
                     "Content-type": "application/json",
                     Authorization: `Bearer ${jwtToken}`
@@ -48,22 +34,34 @@ function AuthContextProvider({ children }) {
             console.log(result);
             localStorage.setItem('user_roles', JSON.stringify(result.data.authorities));
             setUserdata({
-                user: {
-                    username: result.data.username,
-                    email: result.data.email,
-                    id: result.data.id
-                },
+                username: result.data.name,
+                token: jwtToken,
+                roles: result.data.authorities,
                 status: 'done'
             })
-            // history.push('/mijn_account/');
-            setTimeout(function () {
-                window.location.reload();
-            }, 1000);
+
+            console.log("fetchUserdata inlog");
+            history.push('/mijn_account');
 
         } catch(e) {
             console.error(e);
         }
     }
+
+    useEffect(() => {
+        const token = localStorage.getItem('user_token');
+
+        if(token !== null && userdata.username === undefined) {
+            fetchUserData(token);
+        }
+
+            setUserdata({
+                status: 'done'
+            })
+
+
+        // eslint-disable-next-line
+    }, [])
 
 
     function logoutUser() {

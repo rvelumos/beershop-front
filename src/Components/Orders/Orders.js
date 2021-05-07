@@ -1,20 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import LoadingIndicator from "../Website/UI/LoadingIndicator/LoadingIndicator";
 import Order from "./Order/Order";
-import Error from "../Website/UI/Feedback/Error/Error";
 import axios from "axios";
 import './Orders.css';
+import Feedback from "../Website/UI/Feedback/Feedback";
 
 const Orders = ({isAdmin, token}) => {
 
-    const [error, setError] = useState(false);
+    const [error, setError] = useState("");
     const [orderItems, setOrderItems] = useState("");
     const [loading, toggleLoading] = useState(true);
 
     useEffect(() => {
         async function getOrders() {
-
-            setError(false);
             toggleLoading(true);
 
             let url = `/api/v1`;
@@ -23,12 +21,11 @@ const Orders = ({isAdmin, token}) => {
                 url = `${url}/admin/orders/`;
             } else {
                 //fix!!!
-                let user_id = 1;
-                url = `${url}/orders/customer/${user_id}/`;
+                let userId = 1;
+                url = `${url}/orders/customer/${userId}/`;
             }
 
             console.log(url);
-                console.log("de JWT token is :" + token + " en de admin is " + isAdmin);
                 try {
                     const result = await axios.get(url, {
                         headers : {
@@ -58,7 +55,7 @@ const Orders = ({isAdmin, token}) => {
         <>
             <div className="overview">
                 {loading ? <LoadingIndicator /> : <Order orderItems={orderItems} token={token} error={error} isAdmin={isAdmin} setError={setError} />}
-                {error && <Error type="message_container" content={error} /> }
+                {error && <Feedback type="error" content={error} /> }
             </div>
         </>
     )

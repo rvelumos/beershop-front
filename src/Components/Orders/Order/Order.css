@@ -15,11 +15,11 @@
 
 .tableOrder td {
     padding: 20px 20px 20px 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: var(--default-border-light);
     width: 150px;
 }
 
 .tableOrder tr:first-of-type {
     font-weight: bold;
-    color:#ffa303;
+    color: var(--font-color-primary);
 }

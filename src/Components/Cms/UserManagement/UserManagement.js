@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import LoadingIndicator from "../../Website/UI/LoadingIndicator/LoadingIndicator";
 import UserInfo from "./UserInfo/UserInfo";
-import Error from "../../Website/UI/Feedback/Error/Error";
 import axios from "axios";
+import Feedback from "../../Website/UI/Feedback/Feedback";
 
 const UserManagement = ({ token, isAdmin }) => {
 
@@ -54,7 +54,7 @@ const UserManagement = ({ token, isAdmin }) => {
         <>
             <div className="overview">
                 {loading ? <LoadingIndicator /> : <UserInfo users={users} error={error} isAdmin={isAdmin} token={token} setError={setError} />}
-                {error && <Error type="message_container" content={error} /> }
+                {error && <Feedback type="error" content={error} /> }
             </div>
         </>
     )

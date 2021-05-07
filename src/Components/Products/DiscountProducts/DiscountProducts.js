@@ -2,35 +2,36 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Product from '../Product/Product';
 import LoadingIndicator from "../../Website/UI/LoadingIndicator/LoadingIndicator";
-import Error from "../../Website/UI/Feedback/Error/Error";
 import './DiscountProducts.css';
+import Feedback from "../../Website/UI/Feedback/Feedback";
 
 function DiscountProducts() {
 
     const [error, setError] = useState(false);
-    const [productItems, setProductItems] = useState(false);
+    const [message, setMessage] = useState("");
+    const [productItems, setProductItems] = useState("");
     const [loading, toggleLoading] = useState(false);
 
     useEffect(() => {
         async function getDiscountProducts() {
-
-            setError(false);
             toggleLoading(true);
+            setError(true);
 
-            let url = `http://localhost:8080/api/v1/products/discount/`;
+            const url = `/api/v1/products/discount/`;
 
             try {
                 const result = await axios.get(url);
                 if (result.data.length > 0){
                     setProductItems(result.data);
+                    setError(false);
                 } else {
                     setProductItems("");
-                    setError("Geen resultaten");
+                    setMessage("Geen resultaten");
                 }
                 toggleLoading(false);
             } catch (e) {
                 console.error(e);
-                setError("Could not reach external datasource");
+                setMessage("Could not reach external datasource");
                 toggleLoading(false);
             }
         }
@@ -45,7 +46,7 @@ function DiscountProducts() {
         <>
             <div className="ProductOverview" >
                 {loading ? <LoadingIndicator /> : <Product productItems={productItems} />}
-                {error && <Error type="message_container" content={error} /> }
+                {error && <Feedback type="error" content={message} /> }
             </div>
         </>
     )

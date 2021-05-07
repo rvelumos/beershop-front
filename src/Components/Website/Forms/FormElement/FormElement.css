@@ -1,4 +1,4 @@
 input[type="text"]:read-only {
     pointer-events: none;
-    background-color: #eee;
+    background-color: var(--background-color-light);
 }

@@ -8,8 +8,8 @@ function DeleteItem(props) {
 
     async function deleteRecord({id, section, token}) {
         toggleLoading(true);
-console.log('hiergfgt')
-        let url = `/api/v1/${section}/${id}`;
+
+        const url = `/api/v1/${section}/${id}`;
 
         try {
             const result = await axios.delete(url, {

@@ -2,26 +2,23 @@ import React, {useState, useEffect} from 'react';
 import './GiftCardUsageOverview.css';
 import axios from "axios";
 import LoadingIndicator from "../../../Website/UI/LoadingIndicator/LoadingIndicator";
-import Error from "../../../Website/UI/Feedback/Error/Error";
 import GiftCardUsedItem from "./GiftCardUsedItem/GiftCardUsedItem";
 import {useParams} from "react-router";
+import Feedback from "../../../Website/UI/Feedback/Feedback";
 
 function GiftCardUsageOverview({isAdmin, token}) {
 
     const { id } = useParams();
 
-    const [error, setError] = useState(false);
+    const [error, setError] = useState("");
     const [giftCardItems, setGiftCardItems] = useState("");
     const [loading, toggleLoading] = useState(true);
 
     useEffect(() => {
         async function getGiftCards() {
-            setError(false);
             toggleLoading(true);
 
-            let url = `/api/v1/admin/giftcards/${id}/`;
-
-            console.log(url);
+            const url = `/api/v1/admin/products/giftcards/${id}/`;
 
             try {
                 const result = await axios.get(url, {
@@ -50,7 +47,7 @@ function GiftCardUsageOverview({isAdmin, token}) {
             <div className="overview">
                 {loading ? <LoadingIndicator/> :
                     <GiftCardUsedItem giftCardItems={giftCardItems} error={error} isAdmin={isAdmin} setError={setError}/>}
-                {error && <Error type="message_container" content={error}/>}
+                {error && <Feedback type="error" content={error} />}
             </div>
         </>
     )

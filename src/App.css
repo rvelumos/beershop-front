@@ -1,15 +1,53 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+:root {
+    --background-color-primary: #FFA303;
+    --background-color-dark: #333;
+    --background-color-light: #eee;
+    --default-border-light: 1px solid #eee;
+    --default-border-radius: 4px;
+    --default-border: 1px solid #ccc;
+    --default-container-width: 100%;
+    --default-table-width: 100%;
+    --font-color-primary: #FFA303;
+    --font-color-secundary: white;
+    --font-color-tertiary: #999;
+    --font-size-xs: 0.8em;
+    --font-size-s: 0.9em;
+    --font-size-m: 1.0em;
+    --font-size-l: 1.1em;
+    --font-size-xl: 1.5em;
+    --font-size-xxl: 2.0em;
+    --default-font-bold: "Poppins SemiBold", Arial;
+    --default-font-light: "Poppins ExtraLight", Arial;
+    --default-font-normal: "Poppins", Arial;
+    --default-margin: 0 20px;
+    --default-margin-container: 20px;
+    --default-width: 900px;
+    --default-width-container: 1200px;
+    --default-min-width: 900px;
+    --default-max-width: 900px;
+    --link-color-primary: #000;
+    --link-color-secundary: #FFA303;
+    --menu-indicator-left: "\27A4";
+    --input-focus-border-color: 1px solid #FFA303;
+    --symbol-checkmark: "\2713";
+    --symbol-warn: "\26A0";
+    --symbol-cross: "\2717";
+    --transition-out: all 300ms ease-out;
+    --transition-in: all 300ms ease-in;
+}
+
 body {
   background-color: white;
-  font-family: Poppins;
+  font-family: var(--default-font-normal);
 }
 
 main {
-  margin: 0px auto 0 auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: row;
-  max-width: 1200px;
+  max-width: var(--default-width-container);
   text-align: left;
   width: 98%;
 }
@@ -21,7 +59,7 @@ main .itemContainer {
 a {
   text-decoration: none;
   cursor: pointer;
-  color: #000;
+  color: var(--link-color-primary);
 }
 
 h1, h2 {
@@ -29,23 +67,23 @@ h1, h2 {
 }
 
 h1 {
-  font-size: 2em;
+  font-size: var(--font-size-xxl);
 }
 
 h2 {
-  font-size: 1.5em;
+  font-size: var(--font-size-xl);
 }
 
 h3 {
-  font-size: 1.0em;
+  font-size: var(--font-size-m);
 }
 
 p {
-  font-family: "Poppins ExtraLight";
+  font-family: var(--default-font-light);
 }
 
 .Info {
-  margin: 20px;
+  margin: var(--default-margin-container);
 }
 
 .notice {
@@ -74,7 +112,7 @@ input[type="text"]:disabled {
 
 .errorMessage {
   color:red;
-  font-size: 0.9em;
+  font-size: var(--font-size-s);
   margin: 0 auto;
 }
 
@@ -89,7 +127,7 @@ tr.warning .orderInvoice{
 .textContentContainer {
   display: flex;
   flex-direction: column;
-  max-width: 900px;
+  max-width: var(--default-width);
 }
 
 .contentContainer {
@@ -101,7 +139,7 @@ tr.warning .orderInvoice{
 .userContentContainer {
   display: flex;
   flex-direction: row;
-  font-family: "Poppins ExtraLight";
+  font-family: var(--default-font-light);
 }
 
 .userContentContainer .leftMenuItems {
@@ -120,18 +158,12 @@ tr.warning .orderInvoice{
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--font-color-secundary);
 }
 
 .App-header-block {
   height:200px;
 }
-
-.App-link {
-  color: #61dafb;
-}
-
-
 
 #float-label {
   display: flex;
@@ -150,27 +182,27 @@ textarea,
   height: 45px;
   padding: 14px 16px 0 10px;
   outline: 0;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  border: var(--default-border);
+  border-radius: var(--default-border-radius);
   background: #fff;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
-  transition: all 300ms ease-out;
-  box-shadow: 0;
+  transition: var(--transition-out);
+  /*box-shadow: 0;*/
 }
 
 textarea:focus,
 #float-label input:focus {
-  border: 1px solid #FFA303;
+  border: var(--input-focus-border-color);
   box-shadow: 1px 1px 20px  #efefef;
   transition: all 300ms ease-in;
 }
 
 #float-label label {
   font-size: 16px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--default-font-normal);
   padding: 0 12px;
-  color: #999;
+  color: var(--font-color-tertiary);
   pointer-events: none;
   position: absolute;
   transform: translate(0, 26px) scale(1);
@@ -187,16 +219,12 @@ textarea:focus,
 }
 
 footer {
-  background-color: #333;
-  color:white;
+  background-color: var(--background-color-dark);
+  color: var(--font-color-secundary);
   min-height: 50px;
   padding: 20px 0;
-  width: 100%;
-}
-
-footer {
-  color: white;
   text-align: left;
+  width: var(--default-container-width);
 }
 
 @keyframes App-logo-spin {

@@ -36,7 +36,7 @@ function Modal({handler, title, item, type}) {
     }
 
     return (
-        <div className="modal_backdrop">
+        <div className="modalBackdrop">
             <div className="modal" >
                 <div className="close" onClick={handler}>&#10008;</div>
                 <h2>{title}</h2>

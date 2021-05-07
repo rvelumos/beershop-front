@@ -1,31 +1,31 @@
 import React, {useState, useContext} from 'react';
 import axios from "axios";
 import LoadingIndicator from "../../UI/LoadingIndicator/LoadingIndicator";
-import Error from "../../UI/Feedback/Error/Error";
 import {useForm} from "react-hook-form";
 import Button from "../../UI/Button/Button";
 import FormElement from "../../Forms/FormElement/FormElement";
 import './Login.css';
 import {AuthContext} from "../../../../context/AuthContext";
+import Feedback from "../../UI/Feedback/Feedback";
 
-const Login = (props) => {
-    const [error, setError] = useState(false);
+const Login = ({cmsLogin}) => {
+    const [error, setError] = useState("");
     const [loading, toggleLoading] = useState(false);
+    const [formValue, setFormvalue] = useState({
+        username: '',
+        password: ''
+    })
 
-    const { cmsLogin } = props;
     const { login } = useContext(AuthContext);
 
     function OnFormSubmit(data) {
          AuthLogin(data);
     }
 
-    async function AuthLogin(props) {
-        setError(false);
+    async function AuthLogin({username, password}) {
         toggleLoading(true);
 
-        const username = props.username;
-        const password = props.password;
-        let url = `http://localhost:8080/authenticate/`;
+        let url = `/api/v1/authenticate`;
 
         try {
             const result = await axios.post(url, {
@@ -38,22 +38,16 @@ const Login = (props) => {
                     password: password
                 }
             )
-            console.log(result.data.jwt);
-            login(result.data.jwt);
+            if(result.data.jwt !== "") {
+                login(result.data.jwt);
+            } else {
+                setError("Ongeldige inloggegevens. Controleer de spelling en probeer het opnieuw.")
+            }
         }catch(e) {
                 console.error(e);
                 toggleLoading(false);
         }
     }
-
-    // function SaveSession(token) {
-    //
-    //     const timer = setTimeout(() => {
-    //    //     window.location.reload(true);
-    //         toggleLoading(false);
-    //     }, 500);
-    //     return () => clearTimeout(timer);
-    // }
 
     const AuthLoginForm = () => {
         const { register, errors, handleSubmit } = useForm({
@@ -74,7 +68,8 @@ const Login = (props) => {
                                     type="text"
                                     name="username"
                                     label="Gebruikersnaam"
-                                    value="username"
+                                    formValue={formValue.username}
+                                    setFormValue={setFormvalue}
                                     fieldRef={register({
                                         required: 'Verplicht veld',
                                     })}
@@ -85,7 +80,8 @@ const Login = (props) => {
                                     type="password"
                                     name="password"
                                     label="Wachtwoord"
-                                    value="lastname"
+                                    formValue={formValue.password}
+                                    setFormValue={setFormvalue}
                                     fieldRef={register({
                                         required: 'Verplicht veld',
                                     })}
@@ -106,7 +102,7 @@ const Login = (props) => {
     return (
         <>
             <div className="loginContainer">
-                {error && <Error type="message_container" content={error} /> }
+                {error && <Feedback type="error" content={error} /> }
                 {loading ? <><LoadingIndicator /> Je wordt ingelogd...</> : <AuthLoginForm /> }
             </div>
         </>

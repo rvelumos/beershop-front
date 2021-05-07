@@ -15,10 +15,10 @@
     min-width: 10px;
     padding: 0 5px;
     margin: -10px 0 0 15px;
-    font-size: 0.8em;
+    font-size: var(--font-size-xs);
     font-weight: bold;
     align-self: center;
-    color: white;
+    color: var(--font-color-secundary);
     position: absolute;
     background-color: #72ad6e;
 }

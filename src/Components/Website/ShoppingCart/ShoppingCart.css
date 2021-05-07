@@ -1,5 +1,5 @@
 .shoppingCartPage {
-    width: 100%;
+    width: var(--default-container-width);
     margin: 0 20px;
 }
 
@@ -12,7 +12,7 @@
 .shoppingCartPage .productAmountContainer {
     display: flex;
     flex-direction: row;
-    font-size: 1.2em;
+    font-size: var(--font-size-l);
     font-weight: bold;
     height: 40px;
     text-align: center;
@@ -21,9 +21,9 @@
 .shoppingCartPage .productAmount {
     width: 25px;
     padding: 10px;
-    background-color: #ffa303;
-    border-radius: 3px 3px 3px 3px;
-    color: white;
+    background-color: var(--background-color-primary);
+    border-radius: var(--default-border-radius);
+    color: var(--font-color-secundary);
     cursor: pointer;
     margin: 0 10px;
 }
@@ -34,19 +34,19 @@
 }
 
 .shoppingCartContainer {
-    border-bottom : 1px solid #eee;
-    width: 100%;
+    border-bottom : var(--default-border-light);
+    width: var(--default-container-width);
 }
 
 .shoppingCartContainer .shoppingCartTop {
-    border-bottom: 1px solid #eee;
+    border-bottom: var(--default-border-light);
     display: flex;
     font-weight: bold;
-    font-size: 1.1em;
+    font-size: var(--font-size-l);
     padding: 10px 0;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 100%;
+    width: var(--default-container-width);
 }
 
 .shoppingCartContainer .articleTop {
@@ -91,7 +91,7 @@
 }
 
 .shoppingCartBottomContainer  {
-    width: 100%;
+    width: var(--default-container-width);
     margin: 50px auto;
     display: flex;
     flex-direction: row;
@@ -110,7 +110,7 @@
 
 .shoppingCartCheckoutContainer .summaryTotal,
 .shoppingCartCheckoutContainer .summaryShipping {
-    border-bottom: 1px solid #eee;
+    border-bottom: var(--default-border-light);
     padding-bottom: 5px;
 }
 

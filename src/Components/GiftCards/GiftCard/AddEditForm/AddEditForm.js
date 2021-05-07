@@ -3,11 +3,11 @@ import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import AddEdit from "../../../Cms/Actions/AddEdit";
 import LoadingIndicator from "../../../Website/UI/LoadingIndicator/LoadingIndicator";
-import Error from "../../../Website/UI/Feedback/Error/Error";
 import FormElement from "../../../Website/Forms/FormElement/FormElement";
 import Button from "../../../Website/UI/Button/Button";
 import './AddEditForm.css';
 import axios from "axios";
+import Feedback from "../../../Website/UI/Feedback/Feedback";
 
 export function AddEditForm(props) {
     const [error, setError] = useState(false);
@@ -23,6 +23,7 @@ export function AddEditForm(props) {
         name: '',
         description: '',
         amount: '',
+        price: '',
         categoryId: '999',
         discount: 0,
         manufacturerId: '999'
@@ -30,9 +31,8 @@ export function AddEditForm(props) {
 
     useEffect(() => {
             async function getFormData (){
-                console.log("getformdata");
                 try {
-                    const url=`http://localhost:8080/api/v1/product/${id}/`
+                    const url=`/api/v1/product/${id}/`
                     const result = await axios.get(url, {
                         headers : {
                             "Authorization" : `Bearer ${token}`,
@@ -85,7 +85,6 @@ export function AddEditForm(props) {
     }
 
     const GiftCardItem = () => {
-        console.log("giftcarditem");
         const { register, errors, handleSubmit } = useForm({
             criteriaMode: "all",
             mode: "onChange",
@@ -162,9 +161,18 @@ export function AddEditForm(props) {
         <>
             <div className="overview">
                 { loading ? <LoadingIndicator /> : <GiftCardItem /> }
-                { error && <Error type="message_container" content={error} /> }
+                { error && <Feedback type="error" content={error} /> }
                 { submittedForm &&
-                    !saved && <AddEdit isAddMode={isAddMode} saved={saved} setSaved={setSaved} token={token} section="product" id={id} itemData={formValues}/> }
+                    <AddEdit
+                        isAddMode={isAddMode}
+                        token={token}
+                        section="product"
+                        id={id}
+                        itemData={formValues}
+                        saved={saved}
+                        setSaved={setSaved}
+                    />
+                }
             </div>
         </>
     )

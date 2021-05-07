@@ -58,7 +58,7 @@ const MainRouting = () => {
             </Route>
 
             <Route path="/registreren/">
-                <RegistrationForm />
+                <RegistrationForm mode="add" />
             </Route>
 
             <Route path="/info/">

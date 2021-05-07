@@ -1,21 +1,20 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import LoadingIndicator from "../../Website/UI/LoadingIndicator/LoadingIndicator";
-import Error from "../../Website/UI/Feedback/Error/Error";
 import Product from "../Product/Product";
+import Feedback from "../../Website/UI/Feedback/Feedback";
 
 function RecommendedProducts(props) {
-    const [error, setError] = useState(false);
-    const [recommendedItems, setRecommendedItems] = useState(false);
+    const [error, setError] = useState('');
+    const [recommendedItems, setRecommendedItems] = useState("");
     const [loading, toggleLoading] = useState(false);
     const {category} = props;
 
     useEffect(() => {
         async function getRecommendedProducts() {
-            setError(false);
             toggleLoading(true);
 
-            let url = `/api/v1/recommended/${category}/`;
+            let url = `/api/v1/products/recommended/${category}/`;
 
             try {
                 const result = await axios.get(url);
@@ -41,7 +40,7 @@ function RecommendedProducts(props) {
     return(
         <>
         {loading ? <LoadingIndicator /> : <Product productItems={recommendedItems} />}
-        {error && <Error type="message_container" content={error} /> }
+        {error && <Feedback type="error" content={error} /> }
         </>
     )
 }

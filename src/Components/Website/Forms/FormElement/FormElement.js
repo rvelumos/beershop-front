@@ -34,7 +34,7 @@ const FormElement = (props) => {
                             // defaultValue=""
                             disabled={disabled}
                             name={name}
-                            value={valueLabel ? valueLabel : formValue}
+                            defaultValue={valueLabel ? valueLabel : formValue}
                             onChange={(e) => handleTextChange(e.target.value)}
                             ref={fieldRef}
                         />

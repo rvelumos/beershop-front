@@ -1,17 +1,17 @@
 .cms .LeftMenuContainer {
-    background-color: #eee;
+    background-color: var(--background-color-light);
     padding : 25px;
     min-height: 100vh;
 }
 
 .LeftMenuContainer a {
-    color: #000;
+    color: var(--link-color-primary);
     padding: 10px;
 }
 
 .LeftMenuContainer a:hover {
     font-weight:bold;
-    color: #ffa303;
+    color: var(--font-color-primary);
 }
 
 .LeftMenuContainer a.active {
@@ -19,7 +19,7 @@
 }
 
 .LeftMenuContainer a.active:before {
-    content: "\27A4";
-    color: #ffa303;
+    content: var(--menu-indicator-left);
+    color: var(--font-color-primary);
     margin-right: 7px;
 }

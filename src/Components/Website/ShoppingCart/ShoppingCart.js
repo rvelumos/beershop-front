@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import Error from "../UI/Feedback/Error/Error";
 import LoadingIndicator from "../../Website/UI/LoadingIndicator/LoadingIndicator";
 import './ShoppingCart.css';
 import {Link} from "react-router-dom";
 import GiftCardForm from "../Forms/GiftCardForm/GiftCardForm";
+import Feedback from "../UI/Feedback/Feedback";
 
 const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartItems, setShoppingCartActive}) => {
 
@@ -252,7 +252,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                                             type="text"
                                             placeholder=""
                                             maxLength="2"
-                                            value={itemValue[0].amount}
+                                            defaultValue={itemValue[0].amount}
                                             name={cartItem[1].name}
                                         />
                                     <div className="productAmount" onClick={(e) => increaseAmount(cartItem[1].id, cartItem.name)}> + </div>
@@ -263,7 +263,6 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                         </>
                     )
                 })
-
             )
     }
 
@@ -271,7 +270,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
         <>
             <div className="home">
                 <h1>Winkelwagen</h1>
-                {error && <Error type="message_container" content={error} />}
+                {error && <Feedback type="error" content={error} />}
                 {loading ? <LoadingIndicator /> :
                     ShoppingCartItems()
                 }
@@ -291,14 +290,19 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                         <div className="shoppingCartBottomContainer">
                             <GiftCardForm giftCardInfo={giftCardInfo} setGiftCardInfo={setGiftCardInfo} />
 
-
                             <div className="shoppingCartCheckoutContainer">
                                 <h2>Totaal:</h2> {calculateSubTotal(updatedShoppingCartItems)}
                             </div>
                         </div>
 
                         <Link
-                            to={{pathname: "/winkelwagen/checkout/stappen", state: {step: 1}}}
+                            to={{
+                                pathname: "/winkelwagen/checkout/stappen",
+                                state: {
+                                    step: 1,
+                                    updatedShoppingCartItems: updatedShoppingCartItems
+                                }
+                            }}
                             className="button"
                         >Checkout</Link>
                     </>

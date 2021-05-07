@@ -5,7 +5,7 @@ const StepBar = ({currentStep}) => {
 
         let stepInfo = Array;
         stepInfo[1] = "Login";
-        stepInfo[2] = "Order details";
+        stepInfo[2] = "Adresgegevens";
         stepInfo[3] = "Overzicht";
 
         let stepCounter = "";
@@ -13,7 +13,7 @@ const StepBar = ({currentStep}) => {
         for(let i=1; i<5; i++) {
             if(i !== currentStep)
                 continue;
-            stepCounter = <div className={classStep}>Stap {i}/4: {stepInfo[i]}</div>
+            stepCounter = <div className={classStep}>Stap {i}/3: {stepInfo[i]}</div>
         }
 
         console.log(stepCounter);

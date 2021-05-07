@@ -7,14 +7,14 @@ import LoadingIndicator from "../../Website/UI/LoadingIndicator/LoadingIndicator
 function GiftCard(props) {
 
     const [loading, toggleLoading] = useState(false);
-    const [error, setError] = useState(true);
-    const [message, setMessage] = useState(true);
+    const [error, setError] = useState("");
+    const [message, setMessage] = useState("");
 
     async function deleteGiftCard(id){
         const {token} = props;
 
         toggleLoading(true);
-        let url = `/api/v1/admin/product/${id}`;
+        const url = `/api/v1/admin/product/${id}`;
 
         try {
             const result = await axios.delete(url, {
@@ -37,14 +37,13 @@ function GiftCard(props) {
     }
 
     const displayGiftCardItems = (props) => {
-        let {giftCardItems, setError} = props;
+        let {giftCardItems} = props;
 
         if(giftCardItems.length  > 0) {
             giftCardItems = Array.from(giftCardItems);
             return (
                 giftCardItems.map((giftCardItem) => {
                     return (
-                        <>
                             <tr key={giftCardItem.id} className="Order">
                                 <td><p className="giftCardID">#{giftCardItem.id}</p></td>
                                 <td><p className="giftCardName">{giftCardItem.name}</p></td>
@@ -61,12 +60,9 @@ function GiftCard(props) {
                                     </div>
                                 </td>
                             </tr>
-                        </>
                     )
                 })
             )
-        } else {
-            setError("Geen cadeaubonnen gevonden");
         }
     }
     return(

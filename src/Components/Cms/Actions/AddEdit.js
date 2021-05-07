@@ -1,30 +1,29 @@
 import React, {useState, useEffect} from 'react';
 import LoadingIndicator from "../../Website/UI/LoadingIndicator/LoadingIndicator";
 import axios from "axios";
+import Feedback from "../../Website/UI/Feedback/Feedback";
 
-function AddEdit({isAddMode, section, action, itemData, id, token, setSaved, saved}) {
+function AddEdit({isAddMode, section, itemData, id, token, setSaved, saved}) {
 
-    const [error, setError] = useState(false);
-    const [message, setMessage] = useState(false);
+    const [error, setError] = useState("");
+    const [message, setMessage] = useState("");
     const [process, setProcess] = useState("pending");
     const [loading, toggleLoading] = useState(true);
 
     useEffect(() =>{
         async function handleData(itemData) {
             setProcess("data");
-            let action = "create";
-            if(!isAddMode)
-                action = "edit";
+            // let action = "create";
+            // if(!isAddMode)
+            //     action = "edit";
 
-            let url = `/api/v1/admin/${section}/${action}`;
+            let url = `/api/v1/admin/${section}/`;
             if(!isAddMode)
                 url = `${url}/${id}`;
 
-            console.log(url);
-
             try {
                 toggleLoading(true);
-                let result="";
+                let result;
                 if(isAddMode) {
                     result = await axios.post(url, itemData, {
                         headers : {
@@ -60,8 +59,8 @@ function AddEdit({isAddMode, section, action, itemData, id, token, setSaved, sav
 
     return(
         <>
-            {error && <p className="error">{error}</p>}
-            {loading ? <LoadingIndicator /> : <p>{message}</p>}
+            {error && <Feedback type="error" content={error} />}
+            {loading ? <LoadingIndicator /> : <Feedback type="success" content={message} />}
         </>
     )
 }

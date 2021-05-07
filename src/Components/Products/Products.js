@@ -3,8 +3,8 @@ import axios from 'axios';
 import './Products.css';
 import Product from './Product/Product';
 import LoadingIndicator from "../Website/UI/LoadingIndicator/LoadingIndicator";
-import Error from "../Website/UI/Feedback/Error/Error";
 import {useParams} from "react-router";
+import Feedback from "../Website/UI/Feedback/Feedback";
 
 function Products(props) {
 
@@ -20,47 +20,40 @@ function Products(props) {
         async function getProducts() {
             const {type, get} = props;
 
-            setError(false);
             toggleLoading(true);
 
-            let base_url = `http://localhost:8080/api/v1/products/`;
+            let baseUrl = `/api/v1/products/`;
             let url = "";
 
-            if(isAdmin)
-                url = `${base_url}all/`;
+             if(isAdmin)
+                 url = `${baseUrl}`;
 
             if (type > 0) {
-                url = `${base_url}type/${type}/`;
+                url = `${baseUrl}type/${type}/`;
             }
 
             if (searchResult !== undefined) {
                 const cleanResult = searchResult.replace(/[^\w\s]/gi, "");
-                url = `${base_url}search/${cleanResult}/`;
+                url = `${baseUrl}search/${cleanResult}/`;
             }
 
             if (get === "latest") {
                 url = `${url}latest/`;
             }
 
-           // let param_config = "";
-
             if(categoryArray !== undefined && categoryArray.length > 0) {
-                console.log("params: ");
-                console.log(categoryArray);
-
                 url = url + "?category_id=" + categoryArray;
             }
 
-            console.log(url);
             try {
                 const result = await axios.get(url)
+
                 if (result.data.length > 0){
                     setProductItems(result.data);
                 } else {
                     setProductItems("");
                     setError("Geen resultaten");
                 }
-                //console.log(productItems);
                 toggleLoading(false);
             } catch (e) {
                 console.error(e);
@@ -78,7 +71,7 @@ function Products(props) {
         <>
             <div className={isAdmin ? "overview" : "ProductOverview"} >
                 {loading ? <LoadingIndicator /> : <Product productItems={productItems} token={token} isAdmin={isAdmin} />}
-                {error && <Error type="message_container" content={error} /> }
+                {error && <Feedback type="error" content={error} /> }
             </div>
         </>
     )

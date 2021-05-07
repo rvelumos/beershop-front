@@ -1,6 +1,6 @@
 .giftCardItem .giftCardItemInput {
     width: 250px !important;
-    border: 1px solid #ddd;
+    border: var(--default-border);
 }
 
 .giftCardItem .buttonCheck {
@@ -10,10 +10,10 @@
 
 .messageSuccess {
     font-style: italic;
-    font-size: 0.8em;
+    font-size: var(--font-size-xs);
     color: green;
 }
 
 .messageSuccess::before {
-    content: "\2713";
+    content: var(--symbol-checkmark);
 }

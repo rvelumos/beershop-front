@@ -1,6 +1,7 @@
 import Button from "../../Website/UI/Button/Button";
 import {useHistory} from "react-router";
 import React, {useState} from "react";
+import {Link} from "react-router-dom";
 
 const OrderBlock = ({productItem, isAdmin, section}) => {
 
@@ -94,7 +95,7 @@ const OrderBlock = ({productItem, isAdmin, section}) => {
                 image = <div className="image"><img src={`/product_images/giftcard.png`} alt=''/></div>;
 
             let url = `/product/${productItem.id}/`;
-            title = <h3><a href={url}>{productItem.name}</a></h3>;
+            title = <h3><Link to={url}>{productItem.name}</Link></h3>;
         }
 
         return (

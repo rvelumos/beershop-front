@@ -2,7 +2,7 @@ import React from 'react';
 import Login from "../../../UserProfile/Login/Login";
 import {Link} from "react-router-dom";
 
-const Step1 = ({currentStep}) => {
+const Step1 = ({currentStep, shoppingCartItems}) => {
 
     if(currentStep !== 1) {
         return null
@@ -21,7 +21,13 @@ const Step1 = ({currentStep}) => {
                         <div className="LoginForm" >
                             <p>Je wilt geen account aanmaken? Klik dan hieronder om verder te gaan</p>
                             <Link
-                                to={{pathname: "/winkelwagen/checkout/stappen", state: {step: 2}}}
+                                to={{
+                                    pathname: "/winkelwagen/checkout/stappen",
+                                    state: {
+                                        step: 2,
+                                        shoppingCartItems: shoppingCartItems
+                                    }
+                                }}
                                 onClick={() => window.location.reload()}
                                 className="button">Checkout
                             </Link>

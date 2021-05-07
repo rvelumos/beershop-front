@@ -15,7 +15,7 @@ const CheckoutPage = () => {
     savedShoppingCart = JSON.parse(savedShoppingCart);
     console.log(savedShoppingCart);
 
-    if (savedShoppingCart !== "" && mode === 'init') {
+    if (savedShoppingCart !== null && mode === 'init') {
         const id = savedShoppingCart.id;
         const amount = savedShoppingCart.amount;
 

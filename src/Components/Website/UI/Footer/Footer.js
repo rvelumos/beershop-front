@@ -29,7 +29,7 @@ const Footer = () => {
                 <div className="FooterColumn social" >
                     <h4>Volg ons op:</h4>
                 </div>
-                <div className="FooterColumn conditions" >
+                <div className="FooterColumn info" >
                     <h4>Informatie:</h4>
                     <Link to="/info/voorwaarden">Algemene voorwaarden</Link><br/>
                     <Link to="/info/privacy">Privacy</Link><br />
@@ -37,6 +37,13 @@ const Footer = () => {
                     <Link to="/info/faq">FAQ</Link>
                 </div>
             </div>
+            <span>
+                 <ul className="BottomInfo">
+                    <li>Voor 17:00 besteld, morgen in huis!</li>
+                    <li>Vanaf €24.95 gratis verzending!</li>
+                    <li>Veilig verpakt</li>
+                 </ul>
+             </span>
         </div>
         </>
     )

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 
 import '../Admin.css';
 import { Route} from "react-router-dom";
@@ -19,8 +19,11 @@ import {AddEditForm as OrderForm} from "../Components/Orders/Order/AddEditForm/A
 import {AddEditForm as UserForm} from "../Components/Cms/UserManagement/AddEditForm/AddEditForm";
 import {AddEditForm as GiftCardForm} from "../Components/GiftCards/GiftCard/AddEditForm/AddEditForm";
 
+import {AuthContext} from "../context/AuthContext";
+
 const CMSLayout = (props) => {
-    const { authorityAdmin, authorityManufacturer, username, token } = props;
+    const { authorityAdmin, authorityManufacturer } = props;
+    const { token, username } = useContext(AuthContext);
 
     return(
         <>

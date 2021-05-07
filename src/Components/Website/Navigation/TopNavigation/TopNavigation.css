@@ -1,10 +1,10 @@
 .TopNavigationContainer {
-    background-color:#333;
+    background-color: var(--background-color-dark);
     height:130px;
     position: fixed;
     padding-bottom: 10px;
     top: 0;
-    width:100%;
+    width: var(--default-container-width);
     z-index: 9999;
 }
 

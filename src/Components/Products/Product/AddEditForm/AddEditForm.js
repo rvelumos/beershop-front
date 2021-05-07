@@ -6,11 +6,11 @@ import axios from "axios";
 import AddEdit from "../../../Cms/Actions/AddEdit";
 
 import LoadingIndicator from "../../../Website/UI/LoadingIndicator/LoadingIndicator";
-import Error from "../../../Website/UI/Feedback/Error/Error";
 import FormElement from "../../../Website/Forms/FormElement/FormElement";
 import Button from "../../../Website/UI/Button/Button";
 
 import './AddEditForm.css';
+import Feedback from "../../../Website/UI/Feedback/Feedback";
 
 export function AddEditForm(props) {
     const [error, setError] = useState(false);
@@ -268,10 +268,11 @@ export function AddEditForm(props) {
                                     <textarea
                                         name="description"
                                         placeholder="Omschrijving"
-                                        fieldRef={register({
+                                        defaultValue={formValues.description}
+                                        ref={register({
                                             required: "Verplicht veld",
                                         })}
-                                    >{formValues.description}</textarea>
+                                    />
                                 </div>
 
                                 <div className="formElement">
@@ -339,7 +340,7 @@ export function AddEditForm(props) {
         <>
             <div className="overview">
                 { loading ? <LoadingIndicator /> : <ProductItem /> }
-                { error && <Error type="message_container" content={error} /> }
+                { error && <Feedback type="error" content={error} /> }
                 { submittedForm &&  <AddEdit isAddMode={isAddMode} token={token} section="product" id={id} itemData={formValues}/> }
             </div>
         </>

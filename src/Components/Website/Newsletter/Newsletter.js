@@ -9,38 +9,37 @@ import {useForm} from "react-hook-form";
 const Newsletter = () => {
 
     const [loading, toggleLoading] = useState(false);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState("");
     const [message, setMessage] = useState(false);
     const [mode, setMode] = useState('init');
+    const [formValue, setFormValue] = useState({
+        email: ''
+    })
     const { register, errors, handleSubmit } = useForm({
         criteriaMode: "all",
         mode: "onChange",
     });
 
     function onSubmitForm (data) {
+        setFormValue({
+            email: data.email
+        })
 
-        const email = data.email;
-
-        SaveEmail(email);
+        SaveEmail(data);
     }
 
-    function SaveEmail(email) {
-        if(mode==="init") {
+    function SaveEmail(data) {
+        if(mode==="init" && data.email !== "") {
             setMode("insert");
             async function addMailAddress() {
-
-                setError(false);
                 toggleLoading(true);
 
-
-                const data = {
-                    email: email
-                }
-
-                let url = `http://localhost:8080/api/v1/newsletter/subscriber/create`;
+                const url = `/api/v1/newsletter/subscriber/create`;
 
                 try {
-                    const result = await axios.post(url, data);
+                    const result = await axios.post(url, {
+                        email: data.email
+                    });
 
                     console.log(result);
                     setMessage(true);
@@ -52,10 +51,7 @@ const Newsletter = () => {
                     toggleLoading(false);
                 }
             }
-
             addMailAddress();
-
-            // eslint-disable-next-line
         }
     }
 
@@ -73,7 +69,12 @@ const Newsletter = () => {
                                type="text"
                                name="email"
                                label="E-mail"
+                               formValue={formValue.email}
                                fieldRef={register({
+                                   minLength: {
+                                       value: 5,
+                                       message: "Ongeldige e-mail"
+                                   },
                                    pattern: {
                                        value: /^\S+@\S+$/i,
                                        message: "Ongeldige e-mail"
@@ -90,7 +91,6 @@ const Newsletter = () => {
                             {errors.email ? <span className='errorMessage'>{errors.email.message}</span> : <span>&nbsp;</span>}
                             { message && <span>Je bent succesvol aangemeld!</span>}
                         </form>
-
                     </div>
                 </div>
             </div>

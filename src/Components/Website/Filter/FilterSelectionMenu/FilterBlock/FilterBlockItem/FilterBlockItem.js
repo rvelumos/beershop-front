@@ -106,7 +106,7 @@ function FilterBlockItems(props) {
             return (
                 filteredFilterItems.map((filterItem) => {
                         return (
-                            <>
+
                                 <div key={filterItem.id} className="filterItem">
                                     <input
                                         type="checkbox"
@@ -119,7 +119,7 @@ function FilterBlockItems(props) {
                                     />
                                     <label htmlFor={filterItem.name}>{filterItem.name}</label>
                                 </div>
-                            </>
+
                         )
                 })
             )

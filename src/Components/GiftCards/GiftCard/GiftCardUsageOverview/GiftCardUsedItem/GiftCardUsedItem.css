@@ -6,19 +6,19 @@
 }
 
 .giftCardUsedItemDetails tr:first-of-type {
-    color: #ffa303;
+    color: var(--font-color-primary);
     font-weight: bold;
 }
 
 .giftCardUsedItemDetails td {
     padding: 20px;
-    border-bottom: 1px solid #eee;
+    border-bottom: var(--default-border-light);
     width: 150px;
 }
 
 .giftCardUsedItemDetails .giftCardIsUsed td {
-    background-color: #eee;
-    color: #999;
+    background-color: var(--background-color-light);
+    color: var(--font-color-tertiary);
 }
 
 .giftCardUsedItemDetails .giftCardIsUsed .giftCardCode {

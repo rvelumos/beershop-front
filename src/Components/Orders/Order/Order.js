@@ -77,12 +77,12 @@ function Order(props) {
                             </tr>
                          )
                     } else {
-                        let warning_class="item";
+                        let warningClass="item";
                         if(orderItem.invoiceStatus==="UNPAID")
-                            warning_class="warning";
+                            warningClass="warning";
                         return (
                             <>
-                                <tr className={warning_class}>
+                                <tr className={warningClass}>
                                     <td className="orderID">#{orderItem.id}</td>
                                     <td className="orderDate">{orderDate}</td>
                                     <td className="orderSent">{orderSent}</td>

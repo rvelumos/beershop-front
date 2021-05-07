@@ -2,20 +2,19 @@ import React, {useEffect, useState} from 'react';
 import { useParams} from "react-router-dom";
 import axios from "axios";
 import LoadingIndicator from "../../../Website/UI/LoadingIndicator/LoadingIndicator";
-import Error from "../../../Website/UI/Feedback/Error/Error";
 import './DetailsProduct.css';
 import OrderBlock from "../OrderBlock";
 import RecommendedProducts from "../../RecommendedProducts/RecommendedProducts";
+import Feedback from "../../../Website/UI/Feedback/Feedback";
 
 function DetailsProduct() {
     const { id } = useParams();
-    const [error, setError] = useState(false);
+    const [error, setError] = useState('');
     const [productItem, setProductItem] = useState(false);
     const [loading, toggleLoading] = useState(true);
 
     useEffect(() => {
         async function getProductByID() {
-            setError(false);
             toggleLoading(true);
 
             const url = `/api/v1/product/${id}/`;
@@ -33,12 +32,12 @@ function DetailsProduct() {
             }
         }
         getProductByID()
-    // eslint-disable-next-line
-    }, [])
+
+    }, [id, error])
 
     function getItemInfo() {
 
-        let image = "";
+        let image;
         if(productItem.type!==4) {
             image = <img src={`/product_images/product_${productItem.id}.png`} alt=''/>;
         } else {
@@ -84,7 +83,7 @@ function DetailsProduct() {
             {loading ? <LoadingIndicator /> :
             getItemInfo()
             }
-            {error && <Error type="message_container" content={error} /> }
+            {error && <Feedback type="error" content={error} /> }
         </>
     )
 }
