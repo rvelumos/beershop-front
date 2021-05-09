@@ -71,6 +71,7 @@ const Newsletter = () => {
                                label="E-mail"
                                formValue={formValue.email}
                                fieldRef={register({
+                                   required:  "Vul e-mail in",
                                    minLength: {
                                        value: 5,
                                        message: "Ongeldige e-mail"

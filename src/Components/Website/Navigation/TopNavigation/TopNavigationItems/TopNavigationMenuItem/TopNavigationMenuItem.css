@@ -26,3 +26,9 @@
         font-size: var(--font-size-m);
     }
 }
+
+@media only screen and (max-width: 600px) {
+    .TopNavigationMenuItem {
+        display: none;
+    }
+}

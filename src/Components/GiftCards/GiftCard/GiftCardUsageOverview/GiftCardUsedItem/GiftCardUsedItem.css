@@ -24,3 +24,10 @@
 .giftCardUsedItemDetails .giftCardIsUsed .giftCardCode {
     background: linear-gradient(to left top, transparent 45.5%, red 47.5%, red 52.5%, transparent 54.5%)
 }
+
+@media only screen and (max-width: 900px) {
+    .giftCardUsedItemDetails td {
+        width: auto;
+        padding: 5px;
+    }
+}

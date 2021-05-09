@@ -67,7 +67,7 @@ function DetailsOrder(props) {
     }
     return(
         <>
-            <div className="detailsOrder">
+            <div className="detailsOrderContainer">
                 {OrderItems(props)}
             </div>
         </>

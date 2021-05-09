@@ -1,0 +1,89 @@
+#hamburgerMenu {
+    position: relative;
+    margin: 15px;
+    display: none;
+    width: 40px;
+    height: 5px;
+}
+
+#hamburgerMenu::before,
+#hamburgerMenu::after,
+#hamburgerMenu div{
+    background-color: white;
+    display: block;
+    content: "";
+    width: 40px;
+    height: 3px;
+    position: absolute;
+    transition: all .2s ease-in-out;
+}
+
+#hamburgerMenu::before {
+    left: 0;
+    top: -12px;
+}
+
+#hamburgerMenu::after {
+    left: 0;
+    top: 12px;
+}
+
+.hamburgerMenuContainer {
+    width:70px;
+    height: 60px;
+}
+
+.hamburgerMenuContainer .open:before {
+    transform: translateY(5px) rotate(45deg);
+}
+
+.hamburgerMenuContainer .open:after{
+    transform: translateY(-20px) rotate(-45deg);
+}
+
+.hamburgerMenuContainer .open div{
+    transform: scale(0);
+}
+
+.hamburgerModal {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    #hamburgerMenu {
+        display: flex;
+    }
+
+    .hamburgerModal {
+        background-color: #333;
+        display: flex;
+        margin-left: -200px;
+        margin-top: 50px;
+        height: 220px;
+        padding-bottom: 30px;
+        width: 500px;
+        animation: slide-in 0.5s;
+    }
+
+    .hamburgerMenuContainer {
+        position: absolute;
+        right: 0;
+        cursor: pointer;
+        z-index: 2;
+    }
+
+    .hamburgerModal .TopNavigationMenuItem {
+        display: flex;
+        padding: 10px 20px;
+        font-size: var(--font-size-l);
+    }
+
+    @keyframes slide-in {
+        0% {
+            margin-top: -150px;
+        }
+        100% {
+            margin-top: 50px;
+        }
+    }
+}

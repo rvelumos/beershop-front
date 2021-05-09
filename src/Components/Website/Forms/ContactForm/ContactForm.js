@@ -11,10 +11,23 @@ const ContactForm = () => {
     const [loading, toggleLoading] = useState(false);
     const [error, setError] = useState("");
     const [sent, isSent] = useState(false);
+    const [formValues, setFormValues] = useState({
+        firstname: '',
+        lastname: '',
+        email: '',
+        message: ''
+    })
 
     function onFormSubmit(data) {
         //e.preventDefault();
         console.log(data);
+
+        setFormValues({
+            firstname: data.firstname,
+            lastname: data.lastname,
+            email: data.email,
+            message: data.message
+        })
 
         sendEmail(data)
     }
@@ -22,7 +35,7 @@ const ContactForm = () => {
     async function sendEmail (data) {
 
         try {
-            const url = "http://localhost:8080/api/v1/contactform/"
+            const url = "/api/v1/contactform/"
             const result = await axios.post(url, data);
             if(result) {
                 isSent(true);
@@ -51,7 +64,7 @@ const ContactForm = () => {
                             type="text"
                             name="firstname"
                             label="Voornaam"
-                            value="firstname"
+                            formValue={formValues.firstname}
                             fieldRef={register({
                                 required: 'Verplicht veld',
                                 minLength: {
@@ -67,7 +80,7 @@ const ContactForm = () => {
                             type="text"
                             name="lastname"
                             label="Achternaam"
-                            value="lastname"
+                            formValue={formValues.lastname}
                             fieldRef={register({
                                 required: 'Verplicht veld',
                                 minLength: {
@@ -82,7 +95,7 @@ const ContactForm = () => {
                             type="text"
                             name="email"
                             label="E-mail"
-                            value="email"
+                            formValue={formValues.email}
                             fieldRef={register({
                                 required: "Verplicht veld",
                                 pattern: {

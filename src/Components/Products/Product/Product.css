@@ -3,6 +3,7 @@
     flex-direction: column;
     justify-content: space-between;
     width: 200px;
+    transition: width 0.5s ease-in;
     border-radius: var(--default-border-radius);
     border: var(--default-border-light);
     margin: 25px;
@@ -107,4 +108,13 @@
 .formElement textarea {
     margin: 0 20px;
     width: 95%;
+}
+
+@media only screen and (max-width: 900px) {
+    .Product {
+        width: 175px;
+        transition: width 0.2s ease-in;
+        margin: 15px;
+        padding: 15px;
+    }
 }

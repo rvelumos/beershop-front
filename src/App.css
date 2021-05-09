@@ -68,14 +68,17 @@ h1, h2 {
 
 h1 {
   font-size: var(--font-size-xxl);
+  transition: font-size 0.3s ease-out;
 }
 
 h2 {
   font-size: var(--font-size-xl);
+  transition: font-size 0.3s ease-out;
 }
 
 h3 {
   font-size: var(--font-size-m);
+  transition: font-size 0.3s ease-out;
 }
 
 p {
@@ -234,4 +237,55 @@ footer {
   to {
     transform: rotate(360deg);
   }
+}
+
+@media only screen and (max-width: 1100px) {
+    .errorMessage {
+        margin: 0;
+    }
+
+    h1 {
+        font-size: var(--font-size-xl);
+        transition: font-size 0.3s ease-out;
+    }
+
+    h2 {
+        font-size: var(--font-size-l);
+        transition: font-size 0.3s ease-out;
+    }
+
+    h3 {
+        font-size: var(--font-size-m);
+        transition: font-size 0.3s ease-out;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    main {
+        width: 92%;
+        padding: 5px;
+    }
+
+    .App-header-block {
+        height: 160px;
+    }
+
+    .contentContainer {
+        margin-top: 40px;
+    }
+
+    .userContentContainer {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .textContentContainer {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    main {
+        margin-top: 35px;
+    }
 }

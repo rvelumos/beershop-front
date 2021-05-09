@@ -10,13 +10,19 @@ const LeftMenu = () => {
     return (
         <>
             <div className="LeftMenuContainer">
-                <ul className="LeftMenuItems">
-                    <NavLink to="/mijn_account/gegevens" >Mijn gegevens</NavLink>
-                    <NavLink to="/mijn_account/orders" >Mijn bestellingen</NavLink>
-                    <NavLink to="/mijn_account/cadeaubonnen" >Mijn cadeaubonnen</NavLink>
-                    <NavLink to="/mijn_account/bonus" >Bonusproducten</NavLink>
-                    <Link to="?logout" onClick={logout}><p>Uitloggen</p></Link>
-                </ul>
+                <div className="LeftMenuItems">
+                    <div className="mainItems">
+                        <NavLink to="/mijn_account/gegevens" >Mijn gegevens</NavLink>
+                        <NavLink to="/mijn_account/orders" >Mijn bestellingen</NavLink>
+                        <NavLink to="/mijn_account/cadeaubonnen" >Mijn cadeaubonnen</NavLink>
+                        <NavLink to="/mijn_account/bonus" >Bonusproducten</NavLink>
+                    </div>
+                    <div className="logout">
+                        <div className="button">
+                            <Link to="?logout" onClick={logout}><p>Uitloggen</p></Link>
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
     )

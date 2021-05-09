@@ -3,10 +3,52 @@
     min-width: 300px;
 }
 
-.logout,
 .LeftMenuItems {
     display: flex;
     flex-direction: column;
     padding-left: 0;
     margin: 20px;
+    justify-content: flex-start;
+}
+
+.LeftMenuItems .mainItems {
+    display: flex;
+    flex-direction: column;
+}
+
+.logout .button {
+    display: flex;
+    align-items: center;
+    border-radius: var(--default-border-radius);
+    padding: 7px;
+}
+
+.logout .button a,
+.logout .button a:hover {
+    color: white;
+}
+
+@media only screen and (max-width: 900px) {
+    .logout,
+    .LeftMenuItems {
+        margin: 0;
+    }
+
+    .LeftMenuItems {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .cms .LeftMenuItems {
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .logout {
+        display: flex;
+        align-items: baseline;
+    }
+
 }

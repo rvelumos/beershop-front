@@ -19,6 +19,9 @@ const Layout = (props) => {
                 <Route path="/" exact>
                     <OfferBanner image="1" text="La Chouffe in de aanbieding!" />
                 </Route>
+                <Route path="/contact/" exact>
+                    <OfferBanner image="3" text="Spaar voor leuke producten!" />
+                </Route>
             </header>
 
             <main>

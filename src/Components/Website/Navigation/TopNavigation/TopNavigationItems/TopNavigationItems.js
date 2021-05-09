@@ -4,6 +4,7 @@ import SearchBar from "./SearchBar/SearchBar";
 import './TopNavigationItems.css';
 import UserMenu from "../../UserMenu/UserMenu";
 import {useHistory} from "react-router";
+import HamburgerMenu from "../../../../../Modal/HamburgerMenu/HamburgerMenu";
 
 
 const TopNavigationItems = () => {
@@ -16,14 +17,16 @@ const TopNavigationItems = () => {
         history.push("/");
     }
 
+    function handler() {
+
+    }
+
     return (
         <>
          <div className="TopNavigationItems">
-
             <div className="LogoContainer" onClick={(e)=>goHome(e)}>
 
             </div>
-
              <div className="TopNavigationRightContent">
                  <div className="TopNavigationUpperSection">
                      <div className="TopNavigationSearch" >
@@ -40,18 +43,23 @@ const TopNavigationItems = () => {
 
                   <div className="TopNavigationBottomSection">
                         <div className="TopNavigationMenu" >
-                        <TopNavigationMenuItem url="/alle-bieren" name="bieren" />
-                        <TopNavigationMenuItem url="/pakketten" name="pakketten" />
-                        <TopNavigationMenuItem url="/cadeaubonnen" name="cadeaubon" />
-                        <TopNavigationMenuItem url="/aanbiedingen" name="aanbiedingen" />
+                        <TopNavigationMenuItem url="/alle-bieren" name="bieren" handler={handler} />
+                        <TopNavigationMenuItem url="/pakketten" name="pakketten" handler={handler}  />
+                        <TopNavigationMenuItem url="/cadeaubonnen" name="cadeaubon" handler={handler}  />
+                        <TopNavigationMenuItem url="/aanbiedingen" name="aanbiedingen" handler={handler}  />
                         </div>
 
-                          <div className="TopNavigationIcon" >
-                              <UserMenu />
-                          </div>
+                        <div className="TopNavigationIcon" >
+                          <UserMenu />
+                        </div>
+
+                        <HamburgerMenu />
                   </div>
              </div>
          </div>
+            <div className="searchMobile">
+                <SearchBar search={search} setSearchHandler={setSearch} />
+            </div>
         </>
     )
 }

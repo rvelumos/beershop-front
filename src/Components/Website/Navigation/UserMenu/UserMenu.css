@@ -22,3 +22,12 @@
     position: absolute;
     background-color: #72ad6e;
 }
+
+@media only screen and (max-width: 600px) {
+    .UserMenuContainer {
+        position: absolute;
+        right: 70px;
+        margin-top: 5px;
+        scale: 1.1;
+    }
+}

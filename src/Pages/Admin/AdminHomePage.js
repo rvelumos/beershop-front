@@ -5,7 +5,7 @@ const AdminHomePage = ({username}) => {
     return (
         <>
             <div className="contentContainer">
-                Welkom terug, {username}. Kies een optie uit het linkermenu.
+                <p>Welkom terug, {username}. Kies een optie uit het linkermenu.</p>
             </div>
         </>
     )

@@ -37,3 +37,17 @@
 .detailsCost {
     text-align: right;
 }
+
+@media only screen and (max-width: 1100px) {
+    .detailsOrder {
+        width: 600px;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .detailsOrder {
+        border-top: var(--default-border);
+        padding-top: 20px;
+        width: 100%;
+    }
+}

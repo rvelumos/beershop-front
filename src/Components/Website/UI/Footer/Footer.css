@@ -20,9 +20,15 @@ Footer ul {
 }
 
 .FooterColumn {
-    margin: 20px 75px 20px 15px;
+    margin: 20px 75px 20px 20px;
 }
 
 .copyright {
     margin: 10px auto;
+}
+
+@media only screen and (max-width: 600px) {
+    .FooterContainer {
+        flex-direction: column;
+    }
 }

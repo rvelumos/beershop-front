@@ -30,4 +30,26 @@ section {
     section {
         width: 98%;
     }
+
+    .recommendedProducts {
+        flex-wrap: wrap;
+    }
+
+    .DetailsProduct .rightUpperContent {
+        flex-direction: column;
+    }
+
+    .DetailsProduct .orderProduct {
+        align-items: flex-start;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .DetailsProduct {
+        flex-direction: column;
+    }
+
+    .DetailsProduct .imageContent img {
+        width: 100%
+    }
 }

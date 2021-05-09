@@ -47,7 +47,7 @@ function GiftCard(props) {
                             <tr key={giftCardItem.id} className="Order">
                                 <td><p className="giftCardID">#{giftCardItem.id}</p></td>
                                 <td><p className="giftCardName">{giftCardItem.name}</p></td>
-                                <td><p className="giftCardPrice">{giftCardItem.price}</p></td>
+                                <td><p className="giftCardPrice">€{giftCardItem.price}</p></td>
                                 <td><p className="giftCardDescription">{giftCardItem.description}</p></td>
                                 <td><p className="giftCardUsed"><Link to={`/cms/giftcard/${giftCardItem.id}`}>Bekijk overzicht</Link></p></td>
                                 <td>

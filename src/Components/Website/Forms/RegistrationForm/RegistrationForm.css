@@ -37,3 +37,24 @@
     margin-left: 25px;
 }
 
+@media only screen and (max-width: 1100px) {
+    .RegisterForm fieldset {
+        width: 95%;
+        flex-direction: column;
+    }
+
+    .RegistrationOverview {
+        width: 98%;
+    }
+
+    .RegistrationOverview .formContainer {
+        margin: 0;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .RegisterForm #float-label {
+        min-width: 250px;
+        margin: 5px;
+    }
+}

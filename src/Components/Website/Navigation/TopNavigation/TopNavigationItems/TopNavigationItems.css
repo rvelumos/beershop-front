@@ -3,7 +3,7 @@
     max-width:1200px;
     min-width: 1200px;
     margin: 0 auto;
-    width:98%;
+    width:100%;
 }
 
 .TopNavigationRightContent {
@@ -12,10 +12,10 @@
     width: var(--default-width);
 }
 
-
 .TopNavigationUpperSection,
-.TopNavigationBottomSection{
+.TopNavigationBottomSection {
     display:flex;
+    flex-wrap: wrap;
     max-width: var(--default-max-width);
     min-width: var(--default-min-width);
     width:98%;
@@ -30,6 +30,8 @@
     background-image: url("../../../../../Assets/images/website_logo.png");
     background-size: cover;
     cursor: pointer;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s ease-in;
 }
 
 .BottomInfo,
@@ -75,6 +77,10 @@
     display: flex;
 }
 
+.searchMobile {
+    display: none;
+}
+
 @media only screen and (max-width: 1100px) {
     .TopNavigationBottomSection {
         min-width: var(--default-width-container);
@@ -92,8 +98,11 @@
 
 @media only screen and (max-width: 900px) {
     .LogoContainer {
-        scale: 0.6;
+        transition: scale 0.2s ease-in;
+        background-size: 75%;
+        background-position: 30px 20px;
         margin: -20px 0 0 -20px;
+        transition: background-size 0.3s ease-in;
     }
 
     .TopNavigationBottomSection {
@@ -104,5 +113,45 @@
 
     .TopNavigationSearch {
         min-width: 0;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .LogoContainer {
+        background-size: 50%;
+        background-position: 40px 30px;
+        margin: -30px 0 0 -40px;
+        transition: background-size 0.3s ease-in;
+    }
+
+    .TopNavigationRightContent {
+        margin-left: 50px;
+        width: 300px;
+    }
+
+    .TopNavigationBottomSection {
+        position: relative;
+        margin: 20px;
+        top: 0;
+        min-width: 0;
+    }
+
+    .TopNavigationUpperSection {
+        display: none;
+    }
+
+    .TopNavigationItems {
+        min-width: 0px;
+    }
+
+    .TopNavigationIcon {
+        z-index: 2;
+    }
+
+    .searchMobile {
+        display: flex;
+        background-color: #ddd;
+        width: 100%;
+        margin: -30px 0 20px 0;
     }
 }

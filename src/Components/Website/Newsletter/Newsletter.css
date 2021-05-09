@@ -60,3 +60,18 @@
 .newsletterText p {
     font-size: var(--font-size-s);
 }
+
+.newsletterInput .errorMessage {
+    margin: 20px;
+}
+
+@media only screen and (max-width: 900px) {
+    .newsletterInput {
+        margin-left: 20px;
+    }
+
+    .newsletterText {
+        align-items: flex-start;
+        margin-bottom: 20px;
+    }
+}

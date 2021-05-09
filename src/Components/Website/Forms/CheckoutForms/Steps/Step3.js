@@ -10,9 +10,9 @@ const Step3 = ({currentStep, shoppingCartItems, shipment, activeGiftCard}) => {
         return null;
     }
     const userInfo = location.state.formData;
-    const order = location.order;
+    const order = location.state.orderData;
 
-    console.log(userInfo);
+    console.log(order);
 
     function currentOrderInfo() {
         if(shoppingCartItems !== "") {

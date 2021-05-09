@@ -1,8 +1,11 @@
 .OfferBannerContainer {
     height: 200px;
     margin-top: 140px;
-    background-image: url('../../../Assets/images/banner2.jpg');
+    display: flex;
+    flex-direction: column;
     background-size: cover;
+    background-position-y: center;
+    align-items: center;
 }
 
 .OfferBannerContainer span {
@@ -10,4 +13,10 @@
     margin-top: 30px;
     font-size: 175%;
     text-shadow: 1px 1px 4px #666 ;
+}
+
+@media only screen and (max-width: 600px) {
+    .OfferBannerContainer {
+        margin-top: 70px;
+    }
 }

@@ -23,3 +23,13 @@
     color: var(--font-color-primary);
     margin-right: 7px;
 }
+
+@media only screen and (max-width: 900px) {
+    .LeftMenuContainer {
+        padding: 5px;
+    }
+
+    .LeftMenuContainer a {
+        padding: 2px;
+    }
+}

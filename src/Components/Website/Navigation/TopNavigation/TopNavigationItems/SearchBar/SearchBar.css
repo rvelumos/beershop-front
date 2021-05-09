@@ -10,8 +10,12 @@
     border-radius: 3px 0 0 3px;
     height: 40px;
     width: 500px;
+    transition: width 0.5s ease-in;
 }
 
+.searchBar {
+    display: inline;
+}
 
 .searchBar,
 .searchBarContainer button {
@@ -33,13 +37,38 @@
 }
 
 @media only screen and (max-width: 1100px) {
+    .TopNavigationSearch {
+        text-align: left;
+    }
+
     .searchBar {
         width: 500px;
     }
 }
 
-@media only screen and (max-width: 1100px) {
+@media only screen and (max-width: 900px) {
     .searchBar {
         width: 400px;
+        transition: width 0.2s ease-in;
     }
+}
+
+@media only screen and (max-width: 600px) {
+    .searchBar {
+        display: none;
+    }
+
+    .searchBarContainer {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        width: 100%;
+    }
+
+    .searchMobile .searchBar {
+        display: flex;
+        width: 80%;
+        margin-left: 15px;
+    }
+
 }

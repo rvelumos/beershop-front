@@ -6,11 +6,23 @@ import axios from "axios";
 import {useHistory} from "react-router";
 import LoadingIndicator from "../../../UI/LoadingIndicator/LoadingIndicator";
 
-function Step2({currentStep, orderData, token}) {
+function Step2({currentStep, orderData}) {
 
     const [error, setError] = useState(false);
     const [loading, toggleLoading] = useState(false);
     const [checkedTerms, toggleCheckedTerms] = useState(false);
+    const [formValues, setFormValues] = useState({
+        firstname: '',
+        lastname: '',
+        email: '',
+        birthDate: '',
+        phone: '',
+        postalcode: '',
+        street: '',
+        number: '',
+        city: '',
+        country: ''
+    })
 
     const [postalCode, setPostalCode] = useState("");
     const [street, setStreet] = useState("");
@@ -48,6 +60,19 @@ function Step2({currentStep, orderData, token}) {
     function OnFormSubmit(data, e) {
         e.preventDefault();
 
+        setFormValues({
+            firstname: data.firstname,
+            lastname: data.lastname,
+            email: data.email,
+            birthDate: data.birthDate,
+            phone: data.phone,
+            postalcode: data.postalcode,
+            street: data.street,
+            number: data.number,
+            city: data.city,
+            country: data.country
+        })
+
         history.push({
             pathname: `/winkelwagen/checkout/stappen/`,
             state: {
@@ -78,7 +103,7 @@ function Step2({currentStep, orderData, token}) {
                                         type="text"
                                         name="firstname"
                                         label="Voornaam"
-                                        value="firstname"
+                                        formValue={formValues.firstname}
                                         fieldRef={register({
                                             required: 'Verplicht veld',
                                             minLength: {
@@ -94,7 +119,7 @@ function Step2({currentStep, orderData, token}) {
                                         type="text"
                                         name="lastname"
                                         label="Achternaam"
-                                        value="lastname"
+                                        formValue={formValues.lastname}
                                         fieldRef={register({
                                             required: 'Verplicht veld',
                                             minLength: {
@@ -109,7 +134,7 @@ function Step2({currentStep, orderData, token}) {
                                         type="text"
                                         name="email"
                                         label="E-mail"
-                                        value="email"
+                                        formValue={formValues.email}
                                         fieldRef={register({
                                             required: "Verplicht veld",
                                             pattern: {
@@ -124,7 +149,7 @@ function Step2({currentStep, orderData, token}) {
                                         type="text"
                                         name="birthDate"
                                         label="Geboortedatum"
-                                        value="birthDate"
+                                        formValue={formValues.birthDate}
                                         fieldRef={register({
                                             required: "Verplicht veld",
                                             pattern: {
@@ -140,7 +165,7 @@ function Step2({currentStep, orderData, token}) {
                                         type="text"
                                         name="phone"
                                         label="Telefoonnummer"
-                                        value="phone"
+                                        formValue={formValues.phone}
                                         fieldRef={register({
                                             required: "Verplicht veld",
                                             minLength: {
@@ -179,7 +204,7 @@ function Step2({currentStep, orderData, token}) {
                                                 </label>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div><br />
 
                                     <FormElement
                                         type="text"
@@ -201,13 +226,27 @@ function Step2({currentStep, orderData, token}) {
                                         type="text"
                                         name="number"
                                         label="Huisnummer"
-                                        value="number"
+                                        formValue={formValues.number}
                                         fieldRef={register({
                                             required: "Verplicht veld",
                                         })}
                                         error={errors.number &&
                                         <span className='errorMessage'>{errors.number.message}</span>}
-                                    /> <br/><br/><br/>
+                                    /><br />
+
+                                    <FormElement
+                                        type="text"
+                                        name="country"
+                                        label="Land"
+                                        formValue={formValues.country}
+                                        fieldRef={register({
+                                            required: "Verplicht veld",
+                                        })}
+                                        error={errors.number &&
+                                        <span className='errorMessage'>{errors.number.message}</span>}
+                                    />
+
+                                    <br/><br/><br/>
                                 </fieldset>
                         </div>
                     </div>

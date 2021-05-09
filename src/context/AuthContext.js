@@ -41,7 +41,7 @@ function AuthContextProvider({ children }) {
             })
 
             console.log("fetchUserdata inlog");
-            history.push('/mijn_account');
+            //history.push('/mijn_account');
 
         } catch(e) {
             console.error(e);
