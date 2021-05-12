@@ -4,7 +4,7 @@
 }
 
 .TopNavigationMenuItem a {
-    color: var(--font-color-secundary);
+    color: var(--font-color-secondary);
     font-weight: bold;
     font-size: var(--font-size-l);
     text-transform: uppercase;

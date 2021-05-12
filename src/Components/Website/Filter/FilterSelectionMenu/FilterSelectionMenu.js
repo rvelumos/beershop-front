@@ -65,20 +65,6 @@ function FilterSelectionMenu (props) {
                     {/*    tasteArray={tasteArray}*/}
                     {/*    setTasteArray={setTasteArray} />*/}
                 </div>
-
-                <div className="filterTitle">
-                    <h3>Prijs</h3>
-                    <div className="filterPrice">
-                        <input
-                            type="text"
-                            name="priceBefore"
-                        /> -
-                        <input
-                            type="text"
-                            name="priceAfter"
-                        />
-                    </div>
-                </div>
             </form>
         </div>
     )

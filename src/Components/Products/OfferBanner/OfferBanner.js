@@ -1,12 +1,13 @@
 import React from 'react';
 import './OfferBanner.css';
-import Button from "../../Website/UI/Button/Button";
+import {Link} from "react-router-dom";
+
 const OfferBanner = ({image, text}) => {
 
     return (
         <div className="OfferBannerContainer" style={{backgroundImage: `url('/banners/banner${image}.jpg')`}}>
             <span>{text}</span>
-            <Button usage="button" value="Meer informatie" />
+            <Link to="/aanbiedingen/" className="button" >Meer informatie</Link>
         </div>
     )
 }

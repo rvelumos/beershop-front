@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Products from "../Components/Products/Products";
 import FilterSelectionMenu from "../Components/Website/Filter/FilterSelectionMenu/FilterSelectionMenu";
 import FilterLabels from "../Components/Website/Filter/FilterContainer/FilterLabels/FilterLabels";
+import FilterModalMenu from "../Modal/FilterModalMenu/FilterModalMenu";
 
 const BeerPage = () => {
 
@@ -12,6 +13,15 @@ const BeerPage = () => {
 
     return (
         <>
+            <FilterModalMenu
+                categoryArray={categoryArray}
+                tasteArray={tasteArray}
+                filterLabels={filterLabels}
+                setFilterLabels={setFilterLabels}
+                setCategoryArray={setCategoryArray}
+                setTasteArray={setTasteArray}
+            />
+
             <FilterSelectionMenu
                 categoryArray={categoryArray}
                 tasteArray={tasteArray}

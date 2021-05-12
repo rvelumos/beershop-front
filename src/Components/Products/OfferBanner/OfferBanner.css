@@ -9,14 +9,22 @@
 }
 
 .OfferBannerContainer span {
-    color: var(--font-color-secundary);
+    color: var(--font-color-secondary);
     margin-top: 30px;
     font-size: 175%;
     text-shadow: 1px 1px 4px #666 ;
 }
 
+.OfferBannerContainer .button {
+    height: 25px;
+}
+
 @media only screen and (max-width: 600px) {
     .OfferBannerContainer {
-        margin-top: 70px;
+        margin-top: 150px;
+    }
+
+    .OfferBannerContainer span {
+        margin-top: 50px;
     }
 }

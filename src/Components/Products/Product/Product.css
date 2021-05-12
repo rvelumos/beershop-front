@@ -7,13 +7,13 @@
     border-radius: var(--default-border-radius);
     border: var(--default-border-light);
     margin: 25px;
-    padding: 30px;
+    padding: 20px;
     position: relative;
     overflow: hidden;
 }
 
 .Product:hover {
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
 }
 
 .Product img {
@@ -106,7 +106,7 @@
 }
 
 .formElement textarea {
-    margin: 0 20px;
+    margin: 0;
     width: 95%;
 }
 
@@ -116,5 +116,22 @@
         transition: width 0.2s ease-in;
         margin: 15px;
         padding: 15px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .Product {
+        width: 150px;
+        transition: width 0.2s ease-in;
+        margin: 12px;
+        padding: 10px;
+    }
+
+    .productPrice {
+        width: 98%;
+    }
+
+    .discountContainer {
+        left: -70px;
     }
 }

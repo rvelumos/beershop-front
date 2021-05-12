@@ -57,7 +57,7 @@ function DetailsProduct() {
                                     <h3 className="productName">{productItem.name}</h3>
                                 </div>
                                 <div className="productTaste">
-                                    {productItem.taste}
+                                    Smaken: {productItem.taste}
                                 </div>
                             </div>
                             <OrderBlock productItem={productItem} section="details" />

@@ -79,10 +79,12 @@ function UserInfo(props) {
 
     const User = (props) => {
         const {users} = props;
+
         console.log(users);
+
         if(isAdmin) {
             return(
-                users.map((userInfo) => {
+                users.data.map((userInfo) => {
                         return (
                             <tr key={uuidv4()} className="Order">
                                 <td><p className="userID">{userInfo.id}</p></td>

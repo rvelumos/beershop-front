@@ -11,7 +11,7 @@
 
 Footer a,
 Footer ul {
-    color: var(--font-color-secundary);
+    color: var(--font-color-secondary);
     font-family: var(--default-font-light);
     padding: 0;
     line-height: 20px;

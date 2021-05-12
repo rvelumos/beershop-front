@@ -120,6 +120,15 @@ const RegistrationForm = ({mode}) => {
                                 <h3>Account informatie</h3>
                                 <fieldset>
                                     <div className="formElement">
+                                        {errors.sex ? <span className='errorMessage'>{errors.sex.message}</span> : <span>&nbsp;</span>}
+                                        <select name="sex" ref={register({ required: true })}>
+                                            <option value="">Geslacht:</option>
+                                            <option value="M">Man</option>
+                                            <option value="F">Vrouw</option>
+                                        </select>
+                                    </div>
+
+                                    <div className="formElement">
                                         <FormElement
                                             type="text"
                                             name="firstname"

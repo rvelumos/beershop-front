@@ -18,7 +18,7 @@
     font-size: var(--font-size-xs);
     font-weight: bold;
     align-self: center;
-    color: var(--font-color-secundary);
+    color: var(--font-color-secondary);
     position: absolute;
     background-color: #72ad6e;
 }

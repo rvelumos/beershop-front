@@ -1,8 +1,6 @@
 import React, {useState, createContext, useEffect} from 'react';
-import jwt_decode from 'jwt-decode';
 import axios from "axios";
 import LoadingIndicator from "../Components/Website/UI/LoadingIndicator/LoadingIndicator";
-import {useHistory} from "react-router";
 
 export const AuthContext = createContext({});
 
@@ -12,8 +10,6 @@ function AuthContextProvider({ children }) {
         status: 'pending'
     });
 
-    const history = useHistory();
-
     async function loginUser(jwtToken) {
         fetchUserData(jwtToken);
 
@@ -21,8 +17,6 @@ function AuthContextProvider({ children }) {
     }
 
     async function fetchUserData(jwtToken) {
-        const decoded = jwt_decode(jwtToken);
-        const userId = decoded.sub;
         console.log(jwtToken);
         try {
             const result = await axios.get(`/api/v1/authenticated/`, {
@@ -31,7 +25,7 @@ function AuthContextProvider({ children }) {
                     Authorization: `Bearer ${jwtToken}`
                 }
             })
-            console.log(result);
+
             localStorage.setItem('user_roles', JSON.stringify(result.data.authorities));
             setUserdata({
                 username: result.data.name,

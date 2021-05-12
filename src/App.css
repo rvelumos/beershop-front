@@ -10,7 +10,7 @@
     --default-container-width: 100%;
     --default-table-width: 100%;
     --font-color-primary: #FFA303;
-    --font-color-secundary: white;
+    --font-color-secondary: white;
     --font-color-tertiary: #999;
     --font-size-xs: 0.8em;
     --font-size-s: 0.9em;
@@ -28,7 +28,7 @@
     --default-min-width: 900px;
     --default-max-width: 900px;
     --link-color-primary: #000;
-    --link-color-secundary: #FFA303;
+    --link-color-secondary: #FFA303;
     --menu-indicator-left: "\27A4";
     --input-focus-border-color: 1px solid #FFA303;
     --symbol-checkmark: "\2713";
@@ -104,9 +104,6 @@ textarea:focus, input:focus{
   outline: none;
 }
 
-.App {
-  text-align: center;
-}
 input[type="text"]:disabled {
     background-color: #eee !important;
     color: #666;
@@ -161,7 +158,7 @@ tr.warning .orderInvoice{
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: var(--font-color-secundary);
+  color: var(--font-color-secondary);
 }
 
 .App-header-block {
@@ -223,7 +220,7 @@ textarea:focus,
 
 footer {
   background-color: var(--background-color-dark);
-  color: var(--font-color-secundary);
+  color: var(--font-color-secondary);
   min-height: 50px;
   padding: 20px 0;
   text-align: left;
@@ -287,5 +284,15 @@ footer {
 @media only screen and (max-width: 600px) {
     main {
         margin-top: 35px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #float-label {
+        min-width: 250px;
+    }
+
+    #float-label input {
+        width: 95%;
     }
 }

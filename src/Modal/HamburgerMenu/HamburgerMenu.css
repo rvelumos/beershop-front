@@ -60,7 +60,7 @@
         margin-left: -200px;
         margin-top: 50px;
         height: 220px;
-        padding-bottom: 30px;
+        padding-bottom: 70px;
         width: 500px;
         animation: slide-in 0.5s;
     }
@@ -76,6 +76,10 @@
         display: flex;
         padding: 10px 20px;
         font-size: var(--font-size-l);
+    }
+
+    .hamburgerModal h1{
+        color: #666;
     }
 
     @keyframes slide-in {

@@ -23,7 +23,7 @@
     padding: 10px;
     background-color: var(--background-color-primary);
     border-radius: var(--default-border-radius);
-    color: var(--font-color-secundary);
+    color: var(--font-color-secondary);
     cursor: pointer;
     margin: 0 10px;
 }
@@ -50,7 +50,7 @@
 }
 
 .shoppingCartContainer .shoppingCartTop .articleTop{
-    margin: 0 0 0 20% !important;
+    margin: 0 0 0 20%;
 }
 
 .shoppingCartContainer .shoppingCartTop div,
@@ -138,10 +138,6 @@
     width: 140px;
 }
 
-.productPrice {
-    width: 200px;
-}
-
 @media only screen and (max-width: 900px) {
     .shoppingCartBottomContainer {
         flex-direction: column;
@@ -154,5 +150,27 @@
     .shoppingCartPage {
         margin: 0;
     }
+}
 
+@media only screen and (max-width: 600px) {
+    .productImage {
+        display: none;
+        margin: 0;
+    }
+
+    .articleTop {
+        margin-left: 0;
+    }
+
+    .shoppingCartPage .button {
+        float: left;
+    }
+
+    .orderProduct {
+        align-items: center;
+    }
+
+    .ProductOverview {
+        padding: 0;
+    }
 }

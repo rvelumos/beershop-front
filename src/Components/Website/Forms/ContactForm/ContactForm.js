@@ -4,13 +4,14 @@ import './ContactForm.css';
 import Button from "../../UI/Button/Button";
 import FormElement from "../FormElement/FormElement";
 import axios from "axios";
-import LoadingIndicator from "../../UI/LoadingIndicator/LoadingIndicator";
+import Feedback from "../../UI/Feedback/Feedback";
+import SmallLoadingIndicator from "../../UI/LoadingIndicator/SmallLoadingIndicator";
 
 const ContactForm = () => {
 
     const [loading, toggleLoading] = useState(false);
     const [error, setError] = useState("");
-    const [sent, isSent] = useState(false);
+    const [message, setMessage] = useState("");
     const [formValues, setFormValues] = useState({
         firstname: '',
         lastname: '',
@@ -33,14 +34,13 @@ const ContactForm = () => {
     }
 
     async function sendEmail (data) {
-
+        toggleLoading(true);
         try {
-            const url = "/api/v1/contactform/"
+            const url = "/api/v1/forms/contactform"
             const result = await axios.post(url, data);
-            if(result) {
-                isSent(true);
-            }
 
+            console.log(result);
+            setMessage("Bericht is verzonden");
         } catch (e) {
             console.error(e);
             setError("Fout bij versturen e-mail.");
@@ -121,8 +121,8 @@ const ContactForm = () => {
                             })}
                         />
                         <br /><br />
-
-                        <Button usage="button" value="Verzenden" />
+                        {message && <Feedback type="success" content={message} />}
+                        <Button usage="button" value={loading ? <SmallLoadingIndicator /> : "Verzenden"} />
                     </fieldset>
                 </form>
             </div>
@@ -132,11 +132,7 @@ const ContactForm = () => {
     return(
         <>
             {error && <p>{error}</p>}
-            {loading ? <LoadingIndicator /> :
-                sent ?
-                    <p className='notify'>Je bericht is succesvol verzonden</p>
-                :
-                    GetForm()}
+            {GetForm()}
         </>
     )
 }

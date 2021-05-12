@@ -1,0 +1,35 @@
+.filterIconContainer {
+    display: none;
+}
+
+.closeIcon,
+.filterModal .FilterSelectionMenu {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .filterIconContainer {
+        display: block;
+        width: 100%;
+    }
+
+    .filterIconContainer img {
+        width: 35px;
+        cursor: pointer;
+        border: var(--default-border-light);
+        padding: 10px;
+    }
+
+    .closeIcon {
+        font-size: 2em;
+        margin: -10px 20px 0 0;
+        float: right;
+        display: block;
+        color: red;
+        cursor: pointer;
+    }
+
+    .filterModal .FilterSelectionMenu {
+        display: block;
+    }
+}

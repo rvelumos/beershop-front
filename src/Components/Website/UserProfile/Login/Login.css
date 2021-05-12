@@ -22,7 +22,7 @@
 }
 
 .formContainer a {
-    color: var(--link-color-secundary);
+    color: var(--link-color-secondary);
     text-decoration: underline;
 }
 

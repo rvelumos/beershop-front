@@ -26,11 +26,12 @@
     font-size: 0.9em !important;
 }
 
+.AddressForm select,
 .RegisterForm select {
     padding: 20px;
     border: var(--default-border-light);
     border-radius: var(--default-border-radius);
-    margin: 10px 5px;
+    margin: 20px -5px;
 }
 
 .RegisterForm select:first-of-type {

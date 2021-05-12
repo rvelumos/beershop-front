@@ -1,5 +1,4 @@
 import React from 'react';
-import {v4 as uuidv4} from "uuid";
 import './GiftCardUsedItem.css';
 
 function GiftCardUsedItem(props) {
@@ -23,8 +22,8 @@ function GiftCardUsedItem(props) {
                         used = "Ja";
                     }
                     return (
-                        <>
-                            <tr key={uuidv4()} className={classGc}>
+                        <React.Fragment key={giftCardItem.id}>
+                            <tr className={classGc}>
                                 {isAdmin &&
                                     <td><p className="giftCardId">{giftCardItem.id}</p></td>
                                 }
@@ -34,7 +33,7 @@ function GiftCardUsedItem(props) {
                                 <td><p className="giftCardExpirationDate">{expiration_date}</p></td>
                                 <td><p className={classGc}>{used}</p></td>
                             </tr>
-                        </>
+                        </React.Fragment>
                     )
                 })
             )

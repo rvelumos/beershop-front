@@ -1,10 +1,10 @@
 .SmallLoadingIndicator {
-    color: #fff;
-    font-size: 90px;
+    color: white;
+    font-size: 20px;
     text-indent: -9999em;
     overflow: hidden;
-    width: 0.25em;
-    height: 0.25em;
+    width: 1em;
+    height: 1em;
     border-radius: 50%;
     margin: 0 auto;
     position: relative;
@@ -14,6 +14,7 @@
     -webkit-animation: load6 1.7s infinite ease, round 1.7s infinite ease;
     animation: load6 1.7s infinite ease, round 1.7s infinite ease;
 }
+
 @-webkit-keyframes load6 {
     0% {
         box-shadow: 0 -0.21em 0 -0.1em, 0 -0.21em 0 -0.1em, 0 -0.21em 0 -0.11em, 0 -0.21em 0 -0.12em, 0 -0.21em 0 -0.12em;

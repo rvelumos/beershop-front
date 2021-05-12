@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import axios from "axios";
 import LoadingIndicator from "../../Website/UI/LoadingIndicator/LoadingIndicator";
 import './ShoppingCart.css';
 import {Link} from "react-router-dom";
 import GiftCardForm from "../Forms/GiftCardForm/GiftCardForm";
 import Feedback from "../UI/Feedback/Feedback";
+import {AuthContext} from "../../../context/AuthContext";
 
 const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartItems, setShoppingCartActive}) => {
 
@@ -17,6 +18,12 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
 
     const [error, setError] = useState("");
     const [loading, toggleLoading] = useState(false);
+
+    const { username } = useContext(AuthContext);
+
+    let step = 1;
+    if(username !== undefined)
+        step = 2;
 
     // useEffect(() =>{
     //     let shoppingCart = localStorage.getItem("shopping_carts");
@@ -121,7 +128,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
         if(giftCardItem !== "" && !setActiveGiftCard) {
             setActiveGiftCard(true);
             discount = giftCardItem.amount;
-            console.log("sads")
+            console.log("giftcarditem bestaat")
         }
 
         const total = shippingCosts + totalPriceItems - discount;
@@ -139,29 +146,31 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
 
     function CalculateItemTotal(amount, price) {
         const itemTotal = amount * price;
+
         useEffect(() => {
             setTotalPriceItems(itemTotal);
         }, [itemTotal])
-        return(itemTotal);
+        return(itemTotal.toFixed(2));
     }
 
     function decreaseAmount(id, name) {
         const value = Object.values(shoppingCartItems);
 
-        console.log("aantal is "+value);
+        console.log("Decrease Shopcartitems: "+value);
         if (shoppingCartItems.id !== 0) {
             setShoppingCartItems({
                 ...shoppingCartItems,
                 id: shoppingCartItems.id - 1
             });
         }
+        console.log("Verlaagde shopcartitems: ");
         console.log(shoppingCartItems);
     }
 
     function increaseAmount(name, id) {
         const value = Object.values(shoppingCartItems);
 
-        console.log("aantal is " +value);
+        console.log("Increase shopcartitems: "+value);
 
         if (shoppingCartItems.id <= 99) {
             setShoppingCartItems({
@@ -169,6 +178,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                 id: shoppingCartItems.id + 1
             });
         }
+        console.log("Verhoogde shopcartitems: ");
         console.log(shoppingCartItems);
     }
 
@@ -180,12 +190,12 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
 
                 console.log(shoppingCartItems);
                 Object.entries(shoppingCartItems.product).forEach(([key, value], i) => {
-                    console.log('items2 : ' + key + value);
+                    console.log('items die geupdate moeten worden : ' + key + value);
 
                     async function getCurrentProductInfo() {
                         if(key!=='id') return;
                         const id = value;
-                        let url = `http://localhost:8080/api/v1/product/${id}`;
+                        let url = `/api/v1/product/${id}`;
 
                         console.log(url);
 
@@ -218,49 +228,58 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
 
     const getShoppingCartTable = () => {
 
-        console.log(updatedShoppingCartItems);
         const newArrayItems = Array.from(Object.entries(updatedShoppingCartItems));
-            return(
+        console.log("Shoppingcart table met updated cart items");
+        console.log(newArrayItems);
+            return (
                 newArrayItems.map((cartItem, key) => {
                     const itemValue = Object.values(shoppingCartItems);
 
-                    let image="";
-                    let discountMessage="";
-                    if(cartItem[1].type!==4)
-                        image = <div className="image"><img src={`/product_images/product_${cartItem[1].id}.png`} alt=''/></div>;
+                    let image = "";
+                    let discountMessage = "";
+                    if (cartItem[1].type !== 4)
+                        image =
+                            <div className="image"><img src={`/product_images/product_${cartItem[1].id}.png`} alt=''/>
+                            </div>;
                     else
                         image = <div className="image"><img src={`/product_images/giftcard.png`} alt=''/></div>;
                     let finalPrice = cartItem[1].price;
-                    if(cartItem[1].discount > 0) {
+                    if (cartItem[1].discount > 0) {
                         discountMessage = ` ${cartItem[1].discount}% korting`;
                         finalPrice = parseFloat(cartItem[1].price - (cartItem[1].price * (cartItem[1].discount / 100))).toFixed(2);
                     }
 
                     return (
-                        <>
-                            <div key={key} className="productItemContainer">
+                        <React.Fragment key={key}>
+                            <div className="productItemContainer">
                                 <div className="productImage">{image}</div>
-                                <div className="productName"><Link to={`/product/${cartItem[1].id}`}>{cartItem[1].name}</Link>
-                                { discountMessage &&
-                                <>
-                                    <br /><small>{discountMessage}</small>
-                                </>
-                                }</div>
+                                <div className="productName"><Link
+                                    to={`/product/${cartItem[1].id}`}>{cartItem[1].name}</Link>
+                                    {discountMessage &&
+                                    <>
+                                        <br/><small>{discountMessage}</small>
+                                    </>
+                                    }</div>
                                 <div className="productAmountContainer">
-                                    <div className="productAmount" onClick={(e) => decreaseAmount(cartItem[1].id, cartItem.name)}> - </div>
-                                        <input
-                                            type="text"
-                                            placeholder=""
-                                            maxLength="2"
-                                            defaultValue={itemValue[0].amount}
-                                            name={cartItem[1].name}
-                                        />
-                                    <div className="productAmount" onClick={(e) => increaseAmount(cartItem[1].id, cartItem.name)}> + </div>
+                                    <div className="productAmount"
+                                         onClick={(e) => decreaseAmount(cartItem[1].id, cartItem.name)}> -
+                                    </div>
+                                    <input
+                                        type="text"
+                                        placeholder=""
+                                        maxLength="2"
+                                        defaultValue={itemValue[0].amount}
+                                        name={cartItem[1].name}
+                                    />
+                                    <div className="productAmount"
+                                         onClick={(e) => increaseAmount(cartItem[1].id, cartItem.name)}> +
+                                    </div>
                                 </div>
                                 <div className="productPrice">€{finalPrice}</div>
-                                <div className="productPriceTotal">€{CalculateItemTotal(itemValue[0].amount, finalPrice)}</div>
+                                <div
+                                    className="productPriceTotal">€{CalculateItemTotal(itemValue[0].amount, finalPrice)}</div>
                             </div>
-                        </>
+                        </React.Fragment>
                     )
                 })
             )
@@ -299,7 +318,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                             to={{
                                 pathname: "/winkelwagen/checkout/stappen",
                                 state: {
-                                    step: 1,
+                                    step: step,
                                     updatedShoppingCartItems: updatedShoppingCartItems
                                 }
                             }}

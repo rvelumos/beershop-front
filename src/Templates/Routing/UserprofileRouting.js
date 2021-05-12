@@ -37,7 +37,7 @@ const UserProfileRouting = ({userLoggedIn}) => {
 
             <Route path="/mijn_account/gegevens" exact>
                 {userLoggedIn ?
-                    <UserSettingsPage token={token} />
+                    <UserSettingsPage token={token} username={username} />
                     : <Redirect to="/mijn_account/" />
                 }
             </Route>

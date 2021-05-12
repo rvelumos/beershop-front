@@ -28,6 +28,7 @@ function HamburgerMenu() {
         <div className="hamburgerModal">
             <div className="modalContainer">
                 <div className="hamburgerMenuItems">
+                    <h1>Navigatie</h1>
                     <TopNavigationMenuItem url="/alle-bieren" name="bieren" handler={toggleHamburgerModal} />
                     <TopNavigationMenuItem url="/pakketten" name="pakketten" handler={toggleHamburgerModal} />
                     <TopNavigationMenuItem url="/cadeaubonnen" name="cadeaubon" handler={toggleHamburgerModal} />

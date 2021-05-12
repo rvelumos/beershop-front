@@ -17,6 +17,7 @@ function Step2({currentStep, orderData}) {
         email: '',
         birthDate: '',
         phone: '',
+        note: '',
         postalcode: '',
         street: '',
         number: '',
@@ -64,6 +65,7 @@ function Step2({currentStep, orderData}) {
             firstname: data.firstname,
             lastname: data.lastname,
             email: data.email,
+            note: data.note,
             birthDate: data.birthDate,
             phone: data.phone,
             postalcode: data.postalcode,
@@ -98,6 +100,15 @@ function Step2({currentStep, orderData}) {
                         <div className="AddressForm">
                                 <fieldset>
                                     <h2>Factuuradres</h2>
+
+                                    <div className="formElement">
+                                        {errors.sex ? <span className='errorMessage'>{errors.sex.message}</span> : <span>&nbsp;</span>}
+                                        <select name="sex" ref={register({ required: true })}>
+                                            <option value="">Geslacht:</option>
+                                            <option value="M">Man</option>
+                                            <option value="F">Vrouw</option>
+                                        </select>
+                                    </div>
 
                                     <FormElement
                                         type="text"
@@ -245,8 +256,28 @@ function Step2({currentStep, orderData}) {
                                         error={errors.number &&
                                         <span className='errorMessage'>{errors.number.message}</span>}
                                     />
+                                    <div className="formElement">
+                                        <h3>Dit adres is:</h3>
+                                        {errors.sendOptions && <p className='errorMessage'>{errors.sendOptions.message}</p>}
+                                        <input
+                                            type="radio"
+                                            name="adressType"
+                                            value="P"
+                                            ref={register({
+                                                required: "Verplicht veld",
+                                            })}
+                                        /> Privé
+                                        <br />
+                                        <input
+                                            type="radio"
+                                            name="adressType"
+                                            value="B"
+                                            ref={register({
+                                                required: "Verplicht veld",
+                                            })}
+                                        /> Zakelijk
+                                    </div>
 
-                                    <br/><br/><br/>
                                 </fieldset>
                         </div>
                     </div>
@@ -276,6 +307,16 @@ function Step2({currentStep, orderData}) {
                             </div>
                         </div>
 
+                        <h3>Extra wensen</h3>
+                        <div className="formElement">
+                            {errors.note ? <span className='errorMessage'>{errors.note.message}</span> : <span>&nbsp;</span>}
+                            <textarea
+                                name="note"
+                                placeholder="Als u de bestelling wilt laten bezorgen bij de buren of als u andere opmerkingen heeft"
+                                defaultValue={formValues.note}
+                            />
+                        </div>
+
                         <div className="paymentDetails">
                             <div className="formElement">
                                 <h2>Betaalopties:</h2>
@@ -287,7 +328,7 @@ function Step2({currentStep, orderData}) {
                                     ref={register({
                                         required: "Verplicht veld",
                                     })}
-                                /> Betaling via overschijving
+                                /> Betaling via overschijving*
                                 <br />
                                 <input
                                     type="radio"
@@ -296,9 +337,11 @@ function Step2({currentStep, orderData}) {
                                     ref={register({
                                         required: "Verplicht veld",
                                     })}
-                                /> Betaling achteraf
+                                /> Betaling achteraf*
                             </div>
-                        </div>
+                        </div><br />
+
+                        <small>(* u ontvangt per e-mail een factuur)</small>
 
                         <div className="conditions">
                             <h3>Privacy</h3>

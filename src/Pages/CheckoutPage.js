@@ -41,8 +41,6 @@ const CheckoutPage = () => {
         localStorage.setItem('shopping_carts', cartString)
     }
 
-
-
     return (
         <div className="shoppingCartPage">
             <ShoppingCart

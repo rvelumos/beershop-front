@@ -81,7 +81,7 @@ main.cms {
 
 .tableDetails tr:first-of-type td {
     background-color: var(--background-color-dark) !important;
-    color: var(--font-color-secundary);
+    color: var(--font-color-secondary);
     font-weight: bold;
     height: 60px;
 }

@@ -47,4 +47,9 @@
     .secondColumn {
         margin: 0;
     }
+
+    .firstColumn,
+    .secondColumn {
+        width: 98%;
+    }
 }

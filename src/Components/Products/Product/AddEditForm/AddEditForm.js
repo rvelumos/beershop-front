@@ -41,7 +41,7 @@ export function AddEditForm(props) {
     useEffect(() => {
         async function getFormData (){
             try {
-                const url=`http://localhost:8080/api/v1/product/${id}/`
+                const url=`/api/v1/product/${id}`
                 const result = await axios.get(url, {
                     headers : {
                         "Authorization" : `Bearer ${token}`,

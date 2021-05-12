@@ -12,6 +12,8 @@ const Layout = (props) => {
 
     const { userLoggedIn, token } = props;
 
+    const randomInt = Math.floor(Math.random() * 4) + 1;
+
     return(
         <>
             <header className="App-header-block">
@@ -19,8 +21,12 @@ const Layout = (props) => {
                 <Route path="/" exact>
                     <OfferBanner image="1" text="La Chouffe in de aanbieding!" />
                 </Route>
-                <Route path="/contact/" exact>
-                    <OfferBanner image="3" text="Spaar voor leuke producten!" />
+                <Route path="/contact" exact>
+                    <OfferBanner image={randomInt} text="Spaar voor leuke producten!" />
+                </Route>
+
+                <Route path="/info">
+                    <OfferBanner image={randomInt} text="Elke week nieuwe aanbiedingen voor jou!" />
                 </Route>
             </header>
 

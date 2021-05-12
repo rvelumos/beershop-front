@@ -67,7 +67,7 @@ const OrderBlock = ({productItem, isAdmin, section}) => {
         readOnly="readonly";
         tabIndex="-1";
     } else if (productItem.stock < 25 && productItem.stock > 0) {
-        stockInfo = <span className="stockAlmostEmpty"> Let op: bijna uitverkocht!</span>;
+        stockInfo = <span className="stockAlmostEmpty"> Bijna uitverkocht!</span>;
     } else {
         stockInfo = <span className="stockFull"> Op voorraad!</span>;
     }

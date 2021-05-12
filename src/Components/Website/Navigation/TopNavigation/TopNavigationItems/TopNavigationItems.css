@@ -31,7 +31,7 @@
     background-size: cover;
     cursor: pointer;
     background-repeat: no-repeat;
-    transition: background-size 0.3s ease-in;
+    transition: background-size 0.1s ease-in;
 }
 
 .BottomInfo,
@@ -98,11 +98,10 @@
 
 @media only screen and (max-width: 900px) {
     .LogoContainer {
-        transition: scale 0.2s ease-in;
         background-size: 75%;
         background-position: 30px 20px;
         margin: -20px 0 0 -20px;
-        transition: background-size 0.3s ease-in;
+        transition: background-size 0.1s ease-in;
     }
 
     .TopNavigationBottomSection {
@@ -121,7 +120,7 @@
         background-size: 50%;
         background-position: 40px 30px;
         margin: -30px 0 0 -40px;
-        transition: background-size 0.3s ease-in;
+        transition: background-size 0.1s ease-in;
     }
 
     .TopNavigationRightContent {

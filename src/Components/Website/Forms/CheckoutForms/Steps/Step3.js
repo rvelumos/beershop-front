@@ -9,7 +9,7 @@ const Step3 = ({currentStep, shoppingCartItems, shipment, activeGiftCard}) => {
     if(currentStep !== 3) {
         return null;
     }
-    const userInfo = location.state.formData;
+    //const userInfo = location.state.formData;
     const order = location.state.orderData;
 
     console.log(order);

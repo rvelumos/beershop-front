@@ -1,48 +1,43 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import LeftMenu from "../../Components/Website/UserProfile/LeftMenu/LeftMenu";
 import UserInfo from "../../Components/Cms/UserManagement/UserInfo/UserInfo";
 import LoadingIndicator from "../../Components/Website/UI/LoadingIndicator/LoadingIndicator";
 import axios from "axios";
 
-function UserSettingsPage ({token}) {
+function UserSettingsPage ({token, username}) {
 
     const [loading, toggleLoading] = useState(true);
     const [error, setError] = useState(true);
     const [user, setUser] = useState(true);
+    const [mode, setMode] = useState('init');
 
-    useEffect(() => {
-        async function getUserDetails(){
-            setError(false);
-            toggleLoading(true);
+    async function getUserDetails(username, token){
+        setError(false);
+        toggleLoading(true);
+        setMode('data');
 
-            //fix!
-            const id = 1;
-            let url = `/api/v1/customer/${id}`;
+        let url = `/api/v1/customer/${username}`;
 
-            console.log(url);
-
-            try {
-                const result = await axios.get(url, {
-                    headers : {
-                        "Authorization" : `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                        "Access-Control-Allow-Origin": "*",
-                    }
-                })
-                if(result.data !== "") {
-                    setUser(result.data);
+        try {
+            const result = await axios.get(url, {
+                headers : {
+                    "Authorization" : `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                    "Access-Control-Allow-Origin": "*",
                 }
-
-            }catch(e) {
-                console.error(e);
-                setError("Fout bij ophalen gegevens.");
+            })
+            if(result.data[0] !== "") {
+                setUser(result.data[0]);
             }
-            toggleLoading(false);
-        }
-        getUserDetails()
-        // eslint-disable-next-line
-    }, [])
 
+        }catch(e) {
+            console.error(e);
+            setError("Fout bij ophalen gegevens.");
+        }
+        toggleLoading(false);
+    }
+    if(username !== undefined && mode === 'init')
+        getUserDetails(username, token)
 
     return (
         <>
