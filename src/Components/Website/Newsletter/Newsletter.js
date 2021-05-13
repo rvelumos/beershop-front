@@ -63,6 +63,7 @@ const Newsletter = () => {
                         <h2>Aanmelden nieuwsbrief</h2>
                         <p>Blijf op de hoogte van leuke aanbiedingen!</p>
                     </div>
+                    {errors.email && <div className="newsletterMobile"><span className='errorMessage'>{errors.email.message}</span></div> }
                     <div className="newsletterInput">
                         <form onSubmit={handleSubmit(onSubmitForm)}>
                            <FormElement
@@ -89,7 +90,7 @@ const Newsletter = () => {
                                 usage="button"
                                 type="button"
                             />
-                            {errors.email ? <span className='errorMessage'>{errors.email.message}</span> : <span>&nbsp;</span>}
+                            {errors.email && <div className="newsletterWeb"><span className='errorMessage'>{errors.email.message}</span></div>}
                             { message && <span>Je bent succesvol aangemeld!</span>}
                         </form>
                     </div>

@@ -33,6 +33,7 @@ const Login = ({cmsLogin}) => {
                     //     manufacturer: !_mf_login_!
                     //     administrator: $_ad_login_$
                     //      customer: %_cu_login_%
+                    //      klanttest: %_cu_login_%
 
                     username: username,
                     password: password

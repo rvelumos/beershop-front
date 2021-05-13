@@ -127,6 +127,7 @@ tr.warning .orderInvoice{
 .textContentContainer {
   display: flex;
   flex-direction: column;
+  margin: 20px;
   max-width: var(--default-width);
 }
 

@@ -65,6 +65,14 @@
     margin: 20px;
 }
 
+.newsletterWeb {
+    display: block;
+}
+
+.newsletterMobile {
+    display: none;
+}
+
 @media only screen and (max-width: 900px) {
     .newsletterInput {
         margin-left: 20px;
@@ -73,5 +81,18 @@
     .newsletterText {
         align-items: flex-start;
         margin-bottom: 20px;
+    }
+
+    .newsletterWeb {
+        display: none;
+    }
+
+    .newsletterMobile {
+        display: block;
+        margin-left: 20px;
+    }
+
+    .newsletterContainer {
+        flex-direction: column;
     }
 }

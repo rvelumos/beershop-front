@@ -35,6 +35,65 @@
     text-decoration: underline;
 }
 
+.buttonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.addressOverview h3,
+.orderOverview h3 {
+    border-bottom: var(--default-border-light);
+    color: var(--font-color-primary);
+    font-size: var(--font-size-l);
+    padding-bottom: 15px;
+}
+
+.orderOverview .summary {
+    border-top: var(--default-border-light);
+    padding-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.addressOverview {
+    border-bottom: var(--default-border-light);
+    padding-bottom: 15px;
+}
+
+.shipmentOverview p,
+.orderOverview .summary p {
+    margin: 5px 0 0 0;
+}
+
+.orderOverview .summary p span:first-of-type {
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.confirmEmail {
+    margin: 25px 0;
+    font-style: italic;
+}
+
+.checkoutContentContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 80px 20px 20px;
+    width: 100%;
+}
+
+.productOverview {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.productOverview div {
+    margin: 20px 5px;
+}
+
 @media only screen and (max-width: 1100px) {
     .userChoiceContainer {
         flex-direction: column;
@@ -51,5 +110,13 @@
     .firstColumn,
     .secondColumn {
         width: 98%;
+    }
+
+    .orderOverview .summary {
+        align-items: flex-start;
+    }
+
+    .checkoutContentContainer {
+        width: 90%;
     }
 }

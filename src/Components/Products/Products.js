@@ -16,6 +16,26 @@ function Products(props) {
     const { isAdmin, token } = props;
     const {categoryArray} = props;
 
+    async function insertKeyword(keyword) {
+        const url = `/api/v1/search/${keyword}`;
+
+        try {
+            const result = await axios.post(url, {
+                keyword: keyword
+            })
+
+            if (result.data.length > 0){
+                setProductItems(result.data);
+            } else {
+                setProductItems("");
+                setError("Geen resultaten");
+            }
+        } catch(e) {
+            console.error(e);
+            setError("Fout bij ophalen gegevens.");
+        }
+    }
+
     useEffect(() => {
         async function getProducts() {
             const {type, get} = props;
@@ -34,6 +54,7 @@ function Products(props) {
 
             if (searchResult !== undefined) {
                 const cleanResult = searchResult.replace(/[^\w\s]/gi, "");
+                insertKeyword(cleanResult);
                 url = `${baseUrl}search/${cleanResult}/`;
             }
 

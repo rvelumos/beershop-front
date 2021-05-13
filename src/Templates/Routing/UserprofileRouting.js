@@ -7,6 +7,7 @@ import UserGiftPage from "../../Pages/User/UserGiftPage";
 import UserBonusPage from "../../Pages/User/UserBonusPage";
 import UserSettingsPage from "../../Pages/User/UserSettings";
 import {AuthContext} from "../../context/AuthContext";
+import EditForm from "../../Components/Website/Forms/EditForm/EditForm";
 
 const UserProfileRouting = ({userLoggedIn}) => {
 
@@ -38,6 +39,13 @@ const UserProfileRouting = ({userLoggedIn}) => {
             <Route path="/mijn_account/gegevens" exact>
                 {userLoggedIn ?
                     <UserSettingsPage token={token} username={username} />
+                    : <Redirect to="/mijn_account/" />
+                }
+            </Route>
+
+            <Route path="/mijn_account/gegevens/edit" exact>
+                {userLoggedIn ?
+                    <EditForm token={token} username={username} />
                     : <Redirect to="/mijn_account/" />
                 }
             </Route>

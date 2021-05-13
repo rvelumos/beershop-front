@@ -8,13 +8,12 @@ import axios from "axios";
 import LoadingIndicator from "../../../Website/UI/LoadingIndicator/LoadingIndicator";
 import Feedback from "../../../Website/UI/Feedback/Feedback";
 
-function UserInfo(props) {
+function UserInfo({users, setUsers, isAdmin, token}) {
     const [loading, toggleLoading] = useState(false);
-    //const [userRoles, setUserRoles] = useState('');
+    //const [userAddressItems, setUserAddressItems] = useState('');
     const [error, setError] = useState(true);
     const [message, setMessage] = useState("");
 
-    const {token, isAdmin} = props;
 
     // function GetRolesUser(id) {
     //
@@ -77,8 +76,7 @@ function UserInfo(props) {
         }
     }
 
-    const User = (props) => {
-        const {users} = props;
+    const User = () => {
 
         console.log(users);
 
@@ -116,7 +114,6 @@ function UserInfo(props) {
                     <tr><td>Geboortedatum:</td><td>{users.birthDate}</td></tr>
                     <tr><td>E-mailadres:</td><td>{users.email}</td></tr>
                     <tr><td>Telefoonnummer:</td><td>{users.phone}</td></tr>
-                    <tr><td>Jouw punten</td><td>{users.customerPoints}</td></tr>
                     <tr><td>Nieuwsbrief:</td><td>{users.newsletter ? "Ja" : "Nee"}</td></tr>
                 </>
             )
@@ -147,7 +144,7 @@ function UserInfo(props) {
                                     <td>Rollen</td>
                                     <td>Acties</td>
                                 </tr>
-                                {User(props)}
+                                {User()}
                                 </tbody>
                             </table>
                         </>
@@ -155,10 +152,14 @@ function UserInfo(props) {
                         <>
                             <table className="tableDetailsUser">
                                 <tbody>
-                                {User(props)}
+                                {User()}
                                 </tbody>
                             </table>
-                            <Link to="/mijn_account/gegevens/edit/" className="button">Aanpassen</Link>
+                            <Link to={{pathname: `/mijn_account/gegevens/edit/`,
+                                state: {
+                                    formValue: users
+                                    }
+                            }} className="button">Aanpassen</Link>
                         </>
                     }
 

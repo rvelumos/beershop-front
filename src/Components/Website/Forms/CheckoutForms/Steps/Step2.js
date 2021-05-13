@@ -6,11 +6,12 @@ import axios from "axios";
 import {useHistory} from "react-router";
 import LoadingIndicator from "../../../UI/LoadingIndicator/LoadingIndicator";
 
-function Step2({currentStep, orderData}) {
+function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
 
     const [error, setError] = useState(false);
     const [loading, toggleLoading] = useState(false);
     const [checkedTerms, toggleCheckedTerms] = useState(false);
+    const [mode, setMode] = useState('init');
     const [formValues, setFormValues] = useState({
         firstname: '',
         lastname: '',
@@ -18,7 +19,8 @@ function Step2({currentStep, orderData}) {
         birthDate: '',
         phone: '',
         note: '',
-        postalcode: '',
+        postalCode: '',
+        addressType: '',
         street: '',
         number: '',
         city: '',
@@ -61,6 +63,10 @@ function Step2({currentStep, orderData}) {
     function OnFormSubmit(data, e) {
         e.preventDefault();
 
+        data.street = street;
+        data.postalCode = postalCode;
+        data.city = city;
+
         setFormValues({
             firstname: data.firstname,
             lastname: data.lastname,
@@ -68,29 +74,49 @@ function Step2({currentStep, orderData}) {
             note: data.note,
             birthDate: data.birthDate,
             phone: data.phone,
-            postalcode: data.postalcode,
-            street: data.street,
+            addressType: data.addressType,
+            postalCode: postalCode,
+            street: street,
             number: data.number,
-            city: data.city,
+            city: city,
             country: data.country
         })
 
         history.push({
             pathname: `/winkelwagen/checkout/stappen/`,
             state: {
-                orderData: orderData,
-                formData: data,
+                orderItems: orderItems,
+                shoppingCartItems: shoppingCartItems,
+                shipmentData: data,
                 step: 3
             }
         });
         window.location.reload();
     }
 
-    function GetForm() {
+    function GetForm(shipmentData) {
         const {register, errors, handleSubmit} = useForm({
             criteriaMode: "all",
             mode: "onChange"
         });
+
+        if(shipmentData !== undefined && mode==='init') {
+            setFormValues({
+                firstname: shipmentData.firstname,
+                lastname: shipmentData.lastname,
+                email: shipmentData.email,
+                note: shipmentData.note,
+                birthDate: shipmentData.birthDate,
+                phone: shipmentData.phone,
+                addressType: shipmentData.addressType,
+                postalCode: shipmentData.postalCode,
+                street: shipmentData.street,
+                number: shipmentData.number,
+                city: shipmentData.city,
+                country: shipmentData.country
+            })
+            setMode('data');
+        }
 
         return (
         <>
@@ -194,12 +220,13 @@ function Step2({currentStep, orderData}) {
 
                                     <div className="formElementContainer">
                                         <div className="formElementInfo">
-                                            {errors.postalcode &&
-                                            <><span className='errorMessage'>{errors.postalcode.message}</span><br /></>}
+                                            {errors.postalCode &&
+                                            <><span className='errorMessage'>{errors.postalCode.message}</span><br /></>}
                                             <div id="float-label">
                                                 <input
                                                     type="text"
-                                                    name="postalcode"
+                                                    name="postalCode"
+                                                    formValue={formValues.postalCode}
                                                     label="Postcode"
                                                     onChange={(e) => setPostalCode(e.target.value)}
                                                     ref={register({
@@ -210,7 +237,7 @@ function Step2({currentStep, orderData}) {
                                                         },
                                                     })}
                                                 />
-                                                <label className="Active" htmlFor="postalcode">
+                                                <label className="Active" htmlFor="postalCode">
                                                     Postcode
                                                 </label>
                                             </div>
@@ -221,16 +248,14 @@ function Step2({currentStep, orderData}) {
                                         type="text"
                                         name="street"
                                         label="Straat"
-                                        formValue={street}
-                                        disabled="disabled"
+                                        formValue={formValues.street ? formValues.street : street}
                                     /> <br/>
 
                                     <FormElement
                                         type="text"
                                         name="city"
                                         label="Plaatsnaam"
-                                        formValue={city}
-                                        disabled="disabled"
+                                        formValue={formValues.city ? formValues.city : city}
                                     /> <br/>
 
                                     <FormElement
@@ -261,7 +286,7 @@ function Step2({currentStep, orderData}) {
                                         {errors.sendOptions && <p className='errorMessage'>{errors.sendOptions.message}</p>}
                                         <input
                                             type="radio"
-                                            name="adressType"
+                                            name="addressType"
                                             value="P"
                                             ref={register({
                                                 required: "Verplicht veld",
@@ -270,7 +295,7 @@ function Step2({currentStep, orderData}) {
                                         <br />
                                         <input
                                             type="radio"
-                                            name="adressType"
+                                            name="addressType"
                                             value="B"
                                             ref={register({
                                                 required: "Verplicht veld",
@@ -303,7 +328,7 @@ function Step2({currentStep, orderData}) {
                                     ref={register({
                                         required: "Verplicht veld",
                                     })}
-                                /> Ophalen (gratis)
+                                /> Verzending via DPD (gratis v.a. €24.95)
                             </div>
                         </div>
 
@@ -377,7 +402,7 @@ function Step2({currentStep, orderData}) {
     return(
         <>
             {error && <p>{error}</p>}
-            {loading ? <LoadingIndicator /> : GetForm()}
+            {loading ? <LoadingIndicator /> : GetForm(shipmentData)}
         </>
     )
 }

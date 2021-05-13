@@ -11,17 +11,11 @@ import StepBar from "./Steps/StepBar/StepBar";
 const CheckoutSteps = () => {
     const [step, setStep] = useState('');
     const [choice, setChoice] = useState('');
-    const [data, setData] = useState('');
     const [mode, setMode] = useState('init');
-    const [orderItems, setOrderItems] = useState('');
 
-    const handleChange = (e) => {
-        const {name, value} = e.target
-        setData({
-            [name]: value
-        })
-        console.log(data);
-    }
+    const [orderItems, setOrderItems] = useState('');
+    const [shipmentData, setShipmentData] = useState('');
+    const [shoppingCartItems, setShoppingCartItems] = useState('');
 
     const location = useLocation();
 
@@ -31,50 +25,60 @@ const CheckoutSteps = () => {
             )
     } else {
         if(mode === 'init') {
-            setOrderItems(location.state.updatedShoppingCartItems);
             setStep(location.state.step);
+            setOrderItems(location.state.orderItems);
+            setShipmentData(location.state.shipmentData);
+            setShoppingCartItems(location.state.shoppingCartItems);
             setMode('data');
         }
     }
 
     return(
         <>
-            <div className="textContentContainer">
+            <div className="checkoutContentContainer">
                 <StepBar currentStep={step} />
                 <h1>Bestellen</h1>
 
                     <Step1
                         currentStep={step}
-                        handleChange={handleChange}
                         setStep={setStep}
                         choice={choice}
                         setChoice={setChoice}
+                        shoppingCartItems={shoppingCartItems}
+                        orderItems={orderItems}
+                        shipmentData={shipmentData}
                     />
 
                     <Step1b
                         currentStep={step}
-                        handleChange={handleChange}
                         setStep={setStep}
-                        // username={username}
-                        // password={password}
+                        shoppingCartItems={shoppingCartItems}
+                        orderItems={orderItems}
+                        shipmentData={shipmentData}
                     />
 
                     <Step2
                         currentStep={step}
-                        orderItems={orderItems}
-                        handleChange={handleChange}
                         setStep={setStep}
-                        // username={username}
+                        shoppingCartItems={shoppingCartItems}
+                        orderItems={orderItems}
+                        shipmentData={shipmentData}
                     />
 
                     <Step3
                         currentStep={step}
-                        orderItems={orderItems}
-                        handleChange={handleChange}
                         setStep={setStep}
+                        shoppingCartItems={shoppingCartItems}
+                        orderItems={orderItems}
+                        shipmentData={shipmentData}
                     />
 
-                    <Confirmation currentStep={step} />
+                    <Confirmation
+                        currentStep={step}
+                        shoppingCartItems={shoppingCartItems}
+                        orderItems={orderItems}
+                        shipmentData={shipmentData}
+                    />
             </div>
         </>
     )

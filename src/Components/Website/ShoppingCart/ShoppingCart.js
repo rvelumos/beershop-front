@@ -9,129 +9,77 @@ import {AuthContext} from "../../../context/AuthContext";
 
 const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartItems, setShoppingCartActive}) => {
 
-    const [totalPriceItems, setTotalPriceItems] = useState(0);
     let [updatedShoppingCartItems, setUpdatedShoppingCartItems] = useState({
         data: ''
     });
     const [giftCardInfo, setGiftCardInfo] = useState("");
+    const [order, setOrder] = useState({
+        totalPriceItems: null,
+        discount: null,
+        vat: null,
+        shippingCosts: null,
+        productId: null,
+        amount: null
+    });
     const [activeGiftCard, setActiveGiftCard] = useState(false);
-
     const [error, setError] = useState("");
+    const [mode, setMode] = useState('init');
     const [loading, toggleLoading] = useState(false);
-
     const { username } = useContext(AuthContext);
 
     let step = 1;
     if(username !== undefined)
         step = 2;
 
-    // useEffect(() =>{
-    //     let shoppingCart = localStorage.getItem("shopping_carts");
-    //     console.log('shoppingcartitems ');
-    //     shoppingCart = JSON.parse(shoppingCart);
-    //     console.log(shoppingCart);
-    //
-    //     if (shoppingCart !== "") {
-    //          const id = shoppingCartItems.id;
-    //          const amount = shoppingCartItems.amount;
-    //
-    //         //setShoppingCartItems(shoppingCart)
-    //         setShoppingCartItems(prevState => ({
-    //             ...prevState,
-    //             product: {
-    //                 ...shoppingCartItems,
-    //                 id: id,
-    //                 amount: amount
-    //             }
-    //         }))
-    //         //setShoppingCartActive(true);
-    //     }
-    // }, [setShoppingCartItems, shoppingCartItems])
+     const removeItem = () => {
+         setShoppingCartItems({
+             product: {
+                 id: null,
+                 amount: null
+             }
+         })
+
+         setUpdatedShoppingCartItems({
+                data: ""
+            }
+         )
+    }
 
 
-    // const addItem = (item) => {
-    //
-    //     let cartCopy = [...shoppingCartItems];
-    //     let {ID} = item;
-    //     let existingItem = cartCopy.find(cartItem => cartItem.ID === ID);
-    //
-    //     if (existingItem) {
-    //         existingItem.quantity += item.quantity
-    //     } else {
-    //         cartCopy.push(item)
-    //     }
-    //
-    //     setShoppingCartItems(cartCopy)
-    //
-    //     let stringCart = JSON.stringify(cartCopy);
-    //     localStorage.setItem("cart", stringCart)
-    // }
-    //
-    // const editItem = (itemID, amount) => {
-    //
-    //     let cartCopy = [...shoppingCartItems]
-    //     let itemExists = cartCopy.find(item => item.ID === itemID);
-    //
-    //     if (!itemExists) return
-    //     itemExists.quantity += amount;
-    //
-    //     if (itemExists.quantity <= 0) {
-    //         cartCopy = cartCopy.filter(item => item.ID !== itemID)
-    //     }
-    //
-    //     setShoppingCartItems(cartCopy);
-    //
-    //     let cartString = JSON.stringify(cartCopy);
-    //     localStorage.setItem('shopping_cart', cartString);
-    // }
-    //
-    // const removeItem = (itemID) => {
-    //
-    //     let cartCopy = [...shoppingCartItems]
-    //     cartCopy = cartCopy.filter(item => item.ID !== itemID);
-    //
-    //     setShoppingCartItems(cartCopy);
-    //
-    //     let cartString = JSON.stringify(cartCopy)
-    //     localStorage.setItem('shopping_cart', cartString)
-    // }
-
-    // function handleAmount(itemID, amount) {
-    //
-    //     let cartCopy = [...shoppingCartItems]
-    //     let itemExists = cartCopy.find(item => item.ID === itemID);
-    //
-    //     if (!itemExists) return
-    //     itemExists.quantity += amount;
-    //
-    //     if (itemExists.quantity <= 0) {
-    //         cartCopy = cartCopy.filter(item => item.ID !== itemID)
-    //     }
-    //
-    //     //setShoppingCartItems(cartCopy);
-    //
-    //     let cartString = JSON.stringify(cartCopy);
-    //     localStorage.setItem('shopping_cart', cartString);
-    // }
-
-    function calculateSubTotal () {
-        let shippingCosts = 0;
+    function calculateSubTotal (amount) {
+        let shippingCosts;
         let discount = 0;
 
+        let price = updatedShoppingCartItems.data.price;
+        let totalPriceItems = amount * price;
         const calculateVat = totalPriceItems * 0.21;
 
         if(totalPriceItems < 24.95) {
             shippingCosts = 4.95;
+        } else {
+            shippingCosts = 0;
         }
 
         let giftCardItem = JSON.parse(localStorage.getItem("giftcard"));
         if(giftCardItem !== "" && !setActiveGiftCard) {
             setActiveGiftCard(true);
             discount = giftCardItem.amount;
-            console.log("giftcarditem bestaat")
         }
 
         const total = shippingCosts + totalPriceItems - discount;
+
+        if((updatedShoppingCartItems.data.id !== undefined && mode==='init') || (mode==='data' && totalPriceItems !== order.totalPriceItems)) {
+            setMode('data');
+            setOrder({
+                totalPriceItems: totalPriceItems,
+                subTotal: total,
+                discount: discount,
+                vat: calculateVat,
+                shippingCosts: shippingCosts,
+                productId: updatedShoppingCartItems.data.id,
+                amount: amount
+            });
+        }
 
         return (
             <div className="summary">
@@ -144,91 +92,73 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
         )
     }
 
-    function CalculateItemTotal(amount, price) {
-        const itemTotal = amount * price;
-
-        useEffect(() => {
-            setTotalPriceItems(itemTotal);
-        }, [itemTotal])
-        return(itemTotal.toFixed(2));
+    function decreaseAmount(amount, id) {
+        if(amount > 1) {
+            amount = parseInt(amount) - 1;
+            setShoppingCartItems({
+                product: {
+                    id: id,
+                    amount: amount
+                }
+            })
+        }
     }
 
-    function decreaseAmount(id, name) {
-        const value = Object.values(shoppingCartItems);
+    function increaseAmount(amount, id, stock) {
 
-        console.log("Decrease Shopcartitems: "+value);
-        if (shoppingCartItems.id !== 0) {
+         console.log("amount "+amount+ " stock:"+ stock)
+        if(amount < 100 && amount < stock) {
+            amount = parseInt(amount) + 1;
             setShoppingCartItems({
-                ...shoppingCartItems,
-                id: shoppingCartItems.id - 1
-            });
+                product: {
+                    id: id,
+                    amount: amount
+                }
+            })
         }
-        console.log("Verlaagde shopcartitems: ");
-        console.log(shoppingCartItems);
-    }
-
-    function increaseAmount(name, id) {
-        const value = Object.values(shoppingCartItems);
-
-        console.log("Increase shopcartitems: "+value);
-
-        if (shoppingCartItems.id <= 99) {
-            setShoppingCartItems({
-                ...shoppingCartItems,
-                id: shoppingCartItems.id + 1
-            });
-        }
-        console.log("Verhoogde shopcartitems: ");
-        console.log(shoppingCartItems);
     }
 
     function ShoppingCartItems () {
 
         useEffect(() => {
-
             if (shoppingCartItems !== "") {
-
-                console.log(shoppingCartItems);
                 Object.entries(shoppingCartItems.product).forEach(([key, value], i) => {
-                    console.log('items die geupdate moeten worden : ' + key + value);
-
                     async function getCurrentProductInfo() {
-                        if(key!=='id') return;
+                        toggleLoading(true);
                         const id = value;
                         let url = `/api/v1/product/${id}`;
 
                         console.log(url);
 
-                        try {
-                            const result = await axios.get(url);
+                        if(id !== undefined && key==="id") {
+                            try {
+                                const result = await axios.get(url);
 
-                            //let cartcopy = [...shoppingCartItems] ;
-                            //cartcopy.push(result.data);
-                            setUpdatedShoppingCartItems({
-                                ...setUpdatedShoppingCartItems,
-                                data: result.data
-                            });
-                            setShoppingCartActive(true);
-                            console.log(updatedShoppingCartItems);
-                            localStorage.setItem("shopping_carts", JSON.stringify(shoppingCartItems));
+                                setUpdatedShoppingCartItems({
+                                    ...setUpdatedShoppingCartItems,
+                                    data: result.data
+                                });
+                                setShoppingCartActive(true);
+                                console.log(updatedShoppingCartItems);
+                                toggleLoading(false);
+                                localStorage.setItem("shopping_carts", JSON.stringify(shoppingCartItems));
 
-                        } catch (e) {
-                            console.error(e);
-                            setError("Fout bij ophalen gegevens.");
+                            } catch (e) {
+                                console.error(e);
+                                setError("Fout bij ophalen gegevens.");
+                            }
                         }
-                        toggleLoading(false);
                     }
-
                     getCurrentProductInfo();
-
                 })
             }
         }, [])
     }
 
-    const getShoppingCartTable = () => {
+    const getShoppingCartTable = (amount) => {
 
         const newArrayItems = Array.from(Object.entries(updatedShoppingCartItems));
+
         console.log("Shoppingcart table met updated cart items");
         console.log(newArrayItems);
             return (
@@ -262,22 +192,22 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                                     }</div>
                                 <div className="productAmountContainer">
                                     <div className="productAmount"
-                                         onClick={(e) => decreaseAmount(cartItem[1].id, cartItem.name)}> -
+                                         onClick={(e) => decreaseAmount(itemValue[0].amount, cartItem.id)}> -
                                     </div>
                                     <input
                                         type="text"
                                         placeholder=""
                                         maxLength="2"
-                                        defaultValue={itemValue[0].amount}
+                                        value={amount}
                                         name={cartItem[1].name}
                                     />
                                     <div className="productAmount"
-                                         onClick={(e) => increaseAmount(cartItem[1].id, cartItem.name)}> +
+                                         onClick={(e) => increaseAmount(itemValue[0].amount, cartItem.id, cartItem[1].stock)}> +
                                     </div>
                                 </div>
                                 <div className="productPrice">€{finalPrice}</div>
                                 <div
-                                    className="productPriceTotal">€{CalculateItemTotal(itemValue[0].amount, finalPrice)}</div>
+                                    className="productPriceTotal">€{(amount * finalPrice).toFixed(2)}</div>
                             </div>
                         </React.Fragment>
                     )
@@ -285,14 +215,17 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
             )
     }
 
+    const amount = shoppingCartItems.product.amount;
+    const price = shoppingCartItems.product.price;
+
     return (
         <>
             <div className="home">
                 <h1>Winkelwagen</h1>
                 {error && <Feedback type="error" content={error} />}
-                {loading ? <LoadingIndicator /> :
-                    ShoppingCartItems()
-                }
+
+                {ShoppingCartItems()}
+
 
                 {shoppingCartActive ?
                     <>
@@ -303,14 +236,14 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                                 <div className="priceTop">Prijs p/s</div>
                                 <div className="priceTotalTop">Prijs totaal</div>
                             </div>
-                            {getShoppingCartTable(updatedShoppingCartItems)}
+                            {getShoppingCartTable(amount)}
                         </div>
 
                         <div className="shoppingCartBottomContainer">
                             <GiftCardForm giftCardInfo={giftCardInfo} setGiftCardInfo={setGiftCardInfo} />
 
                             <div className="shoppingCartCheckoutContainer">
-                                <h2>Totaal:</h2> {calculateSubTotal(updatedShoppingCartItems)}
+                                <h2>Totaal:</h2>{loading ? <LoadingIndicator /> : calculateSubTotal(amount, price)}
                             </div>
                         </div>
 
@@ -319,7 +252,8 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                                 pathname: "/winkelwagen/checkout/stappen",
                                 state: {
                                     step: step,
-                                    updatedShoppingCartItems: updatedShoppingCartItems
+                                    orderItems: order,
+                                    shoppingCartItems: updatedShoppingCartItems
                                 }
                             }}
                             className="button"

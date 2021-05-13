@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import LoadingIndicator from "../../UI/LoadingIndicator/LoadingIndicator";
 import axios from "axios";
+import {AuthContext} from "../../../../context/AuthContext";
 
 const Confirmation = ({email, currentStep, token, orderItems, formData}) => {
 
@@ -8,6 +9,8 @@ const Confirmation = ({email, currentStep, token, orderItems, formData}) => {
     const [loading, toggleLoading] = useState(true);
     const [userDataSaved, setUserDataSaved] = useState(false);
     const [error, setError] = useState('');
+
+    const { username } = useContext(AuthContext);
 
     if(currentStep !== 4) {
         return null;
@@ -42,7 +45,7 @@ const Confirmation = ({email, currentStep, token, orderItems, formData}) => {
                 try {
                     const result = await axios.post(url, addressData);
                     if(result) {
-                        setUserDataSaved(true);
+                        addOrder();
                     }
                 } catch (e) {
                     console.error(e);
@@ -56,13 +59,18 @@ const Confirmation = ({email, currentStep, token, orderItems, formData}) => {
     }
 
     function finishOrder() {
+        console.log('finishorder');
         if (mode === 'init' && orderItems !== "") {
-            if(token === '') {
+            console.log('init');
+            if (token === '') {
                 addCustomer(formData);
+            } else {
+                addOrder();
             }
-            userDataSaved && addOrder();
+
             setMode('data');
         }
+    }
 
         async function addOrder() {
 
@@ -74,7 +82,7 @@ const Confirmation = ({email, currentStep, token, orderItems, formData}) => {
             const orderDate =  dd+'-'+mm+'-'+yyyy;
 
             const itemData = {
-                customerId: formData.customerId,
+                username: username,
                 priceTotal: orderItems.priceTotal,
                 orderDate: orderDate,
                 orderStatus: 'NEW',
@@ -129,11 +137,9 @@ const Confirmation = ({email, currentStep, token, orderItems, formData}) => {
 
             } catch (e) {
                 console.error(e);
-                setError("Fout bij verwerken data.");
+                setError("Fout bij verzenden emailbevestiging.");
             }
         }
-    }
-
 
     return(
         <>
@@ -145,7 +151,6 @@ const Confirmation = ({email, currentStep, token, orderItems, formData}) => {
                             <p>Er zal een bevestiging worden gestuurd naar: {email}. We wensen je alvast veel drinkgenot met
                             jouw aankoop!</p>
                             </div>
-                        }
             }
         </>
     )

@@ -57,11 +57,12 @@
     .hamburgerModal {
         background-color: #333;
         display: flex;
-        margin-left: -200px;
+        position: absolute;
+        left: -270px;
         margin-top: 50px;
         height: 220px;
         padding-bottom: 70px;
-        width: 500px;
+        width: 600px;
         animation: slide-in 0.5s;
     }
 

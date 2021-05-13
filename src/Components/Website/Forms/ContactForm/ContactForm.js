@@ -40,7 +40,7 @@ const ContactForm = () => {
             const result = await axios.post(url, data);
 
             console.log(result);
-            setMessage("Bericht is verzonden");
+            setMessage("Bericht is verzonden, er wordt een kopie naar het opgegeven e-mailadres gestuurd.");
         } catch (e) {
             console.error(e);
             setError("Fout bij versturen e-mail.");

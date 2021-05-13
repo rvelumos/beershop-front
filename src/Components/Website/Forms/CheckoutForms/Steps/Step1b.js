@@ -1,5 +1,5 @@
 import React from 'react';
-import RegistrationFormNew from '../../RegistrationForm/RegistrationFormNew';
+import RegistrationForm from '../../RegistrationForm/RegistrationForm';
 
 const Step1b = ({currentStep}) => {
 
@@ -9,7 +9,7 @@ const Step1b = ({currentStep}) => {
 
     return (
         <>
-            <RegistrationFormNew />
+            <RegistrationForm />
         </>
     )
 }

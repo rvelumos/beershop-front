@@ -2,7 +2,7 @@ import React from 'react';
 import Login from "../../../UserProfile/Login/Login";
 import {Link} from "react-router-dom";
 
-const Step1 = ({currentStep, shoppingCartItems}) => {
+const Step1 = ({currentStep, shipmentData, shoppingCartItems, orderItems}) => {
 
     if(currentStep !== 1) {
         return null
@@ -25,7 +25,9 @@ const Step1 = ({currentStep, shoppingCartItems}) => {
                                     pathname: "/winkelwagen/checkout/stappen",
                                     state: {
                                         step: 2,
-                                        shoppingCartItems: shoppingCartItems
+                                        shipmentData: shipmentData,
+                                        shoppingCartItems: shoppingCartItems,
+                                        orderItems: orderItems
                                     }
                                 }}
                                 onClick={() => window.location.reload()}

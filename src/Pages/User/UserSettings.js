@@ -28,6 +28,7 @@ function UserSettingsPage ({token, username}) {
             })
             if(result.data[0] !== "") {
                 setUser(result.data[0]);
+                //getUserAddress(result.data[0].id);
             }
 
         }catch(e) {
@@ -37,7 +38,8 @@ function UserSettingsPage ({token, username}) {
         toggleLoading(false);
     }
     if(username !== undefined && mode === 'init')
-        getUserDetails(username, token)
+        getUserDetails(username, token);
+
 
     return (
         <>
@@ -48,7 +50,7 @@ function UserSettingsPage ({token, username}) {
                     <h1>Jouw gegevens</h1>
                     <p>Onderstaande gegevens zijn bij ons bekend in het systeem.</p>
                     {error && <p className="errorContainer">{error}</p>}
-                    {loading ? <LoadingIndicator /> : <UserInfo users={user}  />}
+                    {loading ? <LoadingIndicator /> : <UserInfo users={user} setUsers={setUser}  />}
                 </div>
             </div>
         </>

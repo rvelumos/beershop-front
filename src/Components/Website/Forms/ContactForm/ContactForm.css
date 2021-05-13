@@ -9,6 +9,10 @@ fieldset {
     width:98%;
 }
 
+.ContactPage {
+    padding: 20px;
+}
+
 @media only screen and (max-width: 900px) {
     fieldset {
         padding: 0;
@@ -21,6 +25,7 @@ fieldset {
 
     .ContactPage {
         margin-top: 40px;
+        padding: 0;
     }
 }
 
