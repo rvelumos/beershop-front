@@ -15,5 +15,12 @@
 }
 
 .IconContainer .iconUser {
+    display: block;
     background-image: url('../../../../Assets/icons/menu_icon_user.png');
+}
+
+@media only screen and (max-width: 600px) {
+    .IconContainer .iconUser{
+        display: none;
+    }
 }

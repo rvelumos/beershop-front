@@ -13,8 +13,8 @@ function Products(props) {
     const [loading, toggleLoading] = useState(false);
 
     const { searchResult } = useParams();
-    const { isAdmin, token } = props;
-    const {categoryArray} = props;
+    const { isAdmin, token, customerPoints } = props;
+    const {categoryArray, sortResults} = props;
 
     async function insertKeyword(keyword) {
         const url = `/api/v1/search/${keyword}`;
@@ -23,16 +23,13 @@ function Products(props) {
             const result = await axios.post(url, {
                 keyword: keyword
             })
-
-            if (result.data.length > 0){
-                setProductItems(result.data);
-            } else {
-                setProductItems("");
-                setError("Geen resultaten");
+            if(!result){
+                setError("Ongeldige waardes");
             }
+
         } catch(e) {
             console.error(e);
-            setError("Fout bij ophalen gegevens.");
+            setError("Fout bij toevoegen gegevens.");
         }
     }
 
@@ -70,6 +67,15 @@ function Products(props) {
                 const result = await axios.get(url)
 
                 if (result.data.length > 0){
+                    if(sortResults !== undefined) {
+                        const value = sortResults.split('_', 1)[0];
+
+                        let ascending;
+                        if(sortResults.includes("_asc"))
+                            ascending = true;
+
+                        result.data.sort((a, b) => (a[value] < b[value] ? -1 : 1) * (ascending ? 1 : -1));
+                    }
                     setProductItems(result.data);
                 } else {
                     setProductItems("");
@@ -86,12 +92,12 @@ function Products(props) {
         getProducts();
 
         // eslint-disable-next-line
-    }, [searchResult, categoryArray]);
+    }, [searchResult, categoryArray, sortResults]);
 
     return (
         <>
             <div className={isAdmin ? "overview" : "ProductOverview"} >
-                {loading ? <LoadingIndicator /> : <Product productItems={productItems} token={token} isAdmin={isAdmin} />}
+                {loading ? <LoadingIndicator /> : <Product productItems={productItems} sortResults={sortResults} token={token} isAdmin={isAdmin} />}
                 {error && <Feedback type="error" content={error} /> }
             </div>
         </>

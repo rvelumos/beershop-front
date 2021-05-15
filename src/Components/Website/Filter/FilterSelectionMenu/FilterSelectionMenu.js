@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './FilterSelectionMenu.css';
-import FilterBlockItems from "./FilterBlock/FilterBlockItem/FilterBlockItem";
+import FilterBlockItems from "./FilterBlock/FilterBlockItem/FilterBlockItems";
 
 function FilterSelectionMenu (props) {
 
-    const {categoryArray, setCategoryArray, setFilterLabels, filterLabels} = props;
+    const {categoryArray, setCategoryArray, setFilterLabels, filterLabels, filterId} = props;
     //const {tasteArray, setTasteArray} = props;
 
     const [filterItems, setFilterItems] = useState({
@@ -47,6 +47,7 @@ function FilterSelectionMenu (props) {
                     <FilterBlockItems
                           key={filterItems}
                           valueName="category"
+                          filterId={filterId}
                           filterLabels={filterLabels}
                           setFilterLabels={setFilterLabels}
                           filterItems={filterItems}
@@ -56,15 +57,15 @@ function FilterSelectionMenu (props) {
                     />
                 </div>
 
-                <div className="filterTitle">
-                    <h3>Type</h3>
+                {/*<div className="filterTitle">*/}
+                {/*    <h3>Type</h3>*/}
                     {/*<FilterBlockItems*/}
                     {/*    valueName="taste"*/}
                     {/*    filterItems={filterItems}*/}
                     {/*    setFilterItems={setFilterItems}*/}
                     {/*    tasteArray={tasteArray}*/}
                     {/*    setTasteArray={setTasteArray} />*/}
-                </div>
+                {/*</div>*/}
             </form>
         </div>
     )

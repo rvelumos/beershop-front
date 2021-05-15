@@ -4,6 +4,7 @@ import axios from "axios";
 import './GiftCardForm.css';
 import Button from "../../UI/Button/Button";
 import {useForm} from "react-hook-form";
+import SmallLoadingIndicator from "../../UI/LoadingIndicator/SmallLoadingIndicator";
 
 function GiftCardForm({giftCardInfo, setGiftCardInfo}) {
 
@@ -65,7 +66,7 @@ function GiftCardForm({giftCardInfo, setGiftCardInfo}) {
                                 })}
                             />
                             <Button
-                                value="Toevoegen"
+                                value={loading ? <SmallLoadingIndicator /> : "Toevoegen" }
                                 usage="buttonCheck"
                                 name="giftCardCheck"
                                 type="button"

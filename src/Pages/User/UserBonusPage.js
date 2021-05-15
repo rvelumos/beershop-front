@@ -42,7 +42,9 @@ const UserBonusPage = () => {
                     <p>Bij elke order die jij plaatst ontvang je bonuspunten. Hiermee kan je voor onderstaande producten sparen, wanneer je voldoende punt hebt gespaard kan je het item toevoegen aan je winkelwagen.</p>
                     {customerPoints && <p>Jouw spaarsaldo is: <b>{customerPoints}</b></p>}
                     {error && <Feedback type="error" message={error} />}
-                    <BonusProducts customerPoints={customerPoints} />
+                    <div className="bonusContainer">
+                        <BonusProducts customerPoints={customerPoints} />
+                    </div>
 
                 </div>
             </div>

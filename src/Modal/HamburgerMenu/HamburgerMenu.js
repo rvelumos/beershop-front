@@ -30,7 +30,7 @@ function HamburgerMenu() {
                 <div className="hamburgerMenuItems">
                     <h1>Navigatie</h1>
                     <TopNavigationMenuItem url="/alle-bieren" name="bieren" handler={toggleHamburgerModal} />
-                    <TopNavigationMenuItem url="/pakketten" name="pakketten" handler={toggleHamburgerModal} />
+                    <TopNavigationMenuItem url="/alle-pakketten" name="pakketten" handler={toggleHamburgerModal} />
                     <TopNavigationMenuItem url="/cadeaubonnen" name="cadeaubon" handler={toggleHamburgerModal} />
                     <TopNavigationMenuItem url="/aanbiedingen" name="aanbiedingen" handler={toggleHamburgerModal} />
                 </div>

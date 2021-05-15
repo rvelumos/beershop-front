@@ -26,10 +26,6 @@
 
 @media only screen and (max-width: 900px) {
     .LeftMenuContainer {
-        padding: 5px;
-    }
-
-    .LeftMenuContainer a {
-        padding: 2px;
+        display: none;
     }
 }

@@ -44,7 +44,7 @@ const TopNavigationItems = () => {
                   <div className="TopNavigationBottomSection">
                         <div className="TopNavigationMenu" >
                         <TopNavigationMenuItem url="/alle-bieren" name="bieren" handler={handler} />
-                        <TopNavigationMenuItem url="/pakketten" name="pakketten" handler={handler}  />
+                        <TopNavigationMenuItem url="/alle-pakketten" name="pakketten" handler={handler}  />
                         <TopNavigationMenuItem url="/cadeaubonnen" name="cadeaubon" handler={handler}  />
                         <TopNavigationMenuItem url="/aanbiedingen" name="aanbiedingen" handler={handler}  />
                         </div>

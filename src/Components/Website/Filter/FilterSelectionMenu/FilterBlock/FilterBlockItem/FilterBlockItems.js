@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import './FilterBlockItem.css';
+import './FilterBlockItems.css';
 import axios from "axios";
 
 function FilterBlockItems(props) {
@@ -8,7 +8,7 @@ function FilterBlockItems(props) {
     const [error, setError] = useState("");
     const [loading, toggleLoading] = useState(true);
 
-    const {categoryArray, setCategoryArray} = props;
+    const {categoryArray, setCategoryArray, filterId} = props;
     const {setTasteArray} = props;
 
     useEffect(() => {
@@ -60,7 +60,6 @@ function FilterBlockItems(props) {
         const name = evt.target.name;
 
         if(name==='category[]') {
-            //setFilterLabels(prev => [...prev, name]);
             setCategoryArray(prev => [...prev, value]);
         } else {
             setTasteArray(prev => [...prev, value]);
@@ -75,7 +74,7 @@ function FilterBlockItems(props) {
                if(!evt.target.checked) {
                    const catArr = [...categoryArray];
                    const checkedArr = [...checked];
-                   console.log("before: "+ catArr);
+
                    const index = catArr.indexOf(value);
                    const index_checked = checkedArr.indexOf(value);
 
@@ -91,10 +90,6 @@ function FilterBlockItems(props) {
             }
         })
 
-        // setFilterSearch({
-        //     ...filterSearch, value,
-        // });
-
         setChecked(prev => [...prev, value]);
     }
 
@@ -105,6 +100,7 @@ function FilterBlockItems(props) {
             const filteredFilterItems = filterItems.filtermenu[valueName].filter(e => e.id !== 999);
             return (
                 filteredFilterItems.map((filterItem) => {
+                        const id = filterItem.name + filterId;
                         return (
 
                                 <div key={filterItem.id} className="filterItem">
@@ -112,14 +108,13 @@ function FilterBlockItems(props) {
                                         type="checkbox"
                                         placeholder=""
                                         name={valueName + "[]"}
-                                        id={filterItem.name}
+                                        id={id}
                                         className="filterItemInput"
                                         value={filterItem.id}
                                         onClick={(e) => handleClick(e)}
                                     />
-                                    <label htmlFor={filterItem.name}>{filterItem.name}</label>
+                                    <label htmlFor={id}>{filterItem.name}</label>
                                 </div>
-
                         )
                 })
             )

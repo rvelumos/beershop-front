@@ -271,11 +271,15 @@ const EditForm = ({username}) => {
 
     return (
         <>
-            <LeftMenu />
-            <div className="RegistrationOverview">
-                {loading && <LoadingIndicator /> }
-                    <RegistrationFormItems />
-                {error && <Feedback type="error" content={error} /> }
+            <div className="mainTop">
+                <div className="mainContent">
+                <LeftMenu />
+                <div className="RegistrationOverview">
+                    {loading && <LoadingIndicator /> }
+                        <RegistrationFormItems />
+                    {error && <Feedback type="error" content={error} /> }
+                </div>
+                </div>
             </div>
         </>
     )

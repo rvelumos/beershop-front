@@ -19,9 +19,16 @@ const Step3 = ({currentStep, activeGiftCard, shipmentData, shoppingCartItems, or
             const cartItems = Array.from(Object.entries(shoppingCartItems));
             return (
                 cartItems.map((shoppingCartItem) => {
-                    console.log(cartItems);
+                    let image = "";
+                    if (shoppingCartItem[1].type !== 4)
+                        image =
+                            <div className="image"><img src={`/product_images/product_${shoppingCartItem[1].id}.png`} alt=''/>
+                            </div>;
+                    else
+                        image = <div className="image"><img src={`/product_images/giftcard.png`} alt=''/></div>;
                     return(
                         <div className='productOverview'>
+                            <div>{image}</div>
                             <div>{shoppingCartItem[1].name}</div>
                             <div>{orderItems.amount}x</div>
                             <div>€{shoppingCartItem[1].price}</div>

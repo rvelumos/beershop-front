@@ -3,47 +3,62 @@ import Products from "../Components/Products/Products";
 import FilterSelectionMenu from "../Components/Website/Filter/FilterSelectionMenu/FilterSelectionMenu";
 import FilterLabels from "../Components/Website/Filter/FilterContainer/FilterLabels/FilterLabels";
 import FilterModalMenu from "../Modal/FilterModalMenu/FilterModalMenu";
+import BreadCrumbs from "../Components/Website/Navigation/BreadCrumbs/BreadCrumbs";
+import SortResults from "../Components/Website/Filter/FilterContainer/SortResults/SortResults";
 
 const BeerPage = () => {
 
     const [categoryArray, setCategoryArray] = useState('');
     const [filterLabels, setFilterLabels] = useState('');
-    const [tasteArray, setTasteArray] = useState('');
-
+    const [sortResults, setSortResults] = useState('');
 
     return (
         <>
-            <FilterModalMenu
-                categoryArray={categoryArray}
-                tasteArray={tasteArray}
-                filterLabels={filterLabels}
-                setFilterLabels={setFilterLabels}
-                setCategoryArray={setCategoryArray}
-                setTasteArray={setTasteArray}
-            />
+            <div className="mainTop">
+                <BreadCrumbs
+                    activeItem="Alle bieren"
+                />
+            </div>
 
-            <FilterSelectionMenu
-                categoryArray={categoryArray}
-                tasteArray={tasteArray}
-                filterLabels={filterLabels}
-                setFilterLabels={setFilterLabels}
-                setCategoryArray={setCategoryArray}
-                setTasteArray={setTasteArray}
-            />
-
-            <FilterLabels
-                filterLabels={filterLabels}
-                setFilterLabels={setFilterLabels}
-                setCategoryArray={setCategoryArray}
-                categoryArray={categoryArray}
-            />
-
-            <div className="ProductOverview">
-                <Products
-                    type="1"
+            <div className="mainContent">
+                <FilterSelectionMenu
                     categoryArray={categoryArray}
+                    filterLabels={filterLabels}
+                    setFilterLabels={setFilterLabels}
                     setCategoryArray={setCategoryArray}
                 />
+
+                <div className="rightContentContainer">
+                    <div className="filterSection">
+                        <FilterLabels
+                            filterLabels={filterLabels}
+                            setFilterLabels={setFilterLabels}
+                            setCategoryArray={setCategoryArray}
+                            categoryArray={categoryArray}
+                        />
+
+                        <SortResults
+                            sortResults={sortResults}
+                            setSortResults={setSortResults}
+                        />
+
+                        <FilterModalMenu
+                            categoryArray={categoryArray}
+                            filterLabels={filterLabels}
+                            setFilterLabels={setFilterLabels}
+                            setCategoryArray={setCategoryArray}
+                        />
+                    </div>
+
+                    <div className="ProductOverview">
+                        <Products
+                            type="1"
+                            categoryArray={categoryArray}
+                            setCategoryArray={setCategoryArray}
+                            sortResults={sortResults}
+                        />
+                    </div>
+                </div>
             </div>
         </>
     )

@@ -73,6 +73,7 @@
         z-index: 2;
     }
 
+    .profileModal .TopNavigationMenuItem,
     .hamburgerModal .TopNavigationMenuItem {
         display: flex;
         padding: 10px 20px;
@@ -89,6 +90,15 @@
         }
         100% {
             margin-top: 50px;
+        }
+    }
+
+    @keyframes slide-out {
+        0% {
+            margin-top: 50px;
+        }
+        100% {
+            margin-top: -150px;
         }
     }
 }

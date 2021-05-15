@@ -1,0 +1,43 @@
+.breadCrumbsContainer {
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    margin-top: -40px;
+    font-size: var(--font-size-s);
+    color: var(--font-color-secondary);
+}
+
+.breadCrumbsContainer a:first-of-type {
+    margin-left: 0;
+}
+
+.breadCrumbsContainer span,
+.breadCrumbsContainer a {
+    margin-left: 15px;
+}
+
+.breadCrumbsContainer span {
+    color: var(--font-color-tertiary);
+}
+
+.breadCrumbsContainer a:hover {
+    color: var(--font-color-primary);
+}
+
+.breadCrumbsContainer a:after {
+    content: "\27A4";
+    margin-left: 15px;
+    color: var(--font-color-primary);
+}
+
+@media only screen and (max-width: 900px) {
+    .breadCrumbsContainer {
+        margin-top: 0;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .breadCrumbsContainer {
+        margin-top: -40px;
+    }
+}

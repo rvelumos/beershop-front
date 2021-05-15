@@ -45,7 +45,7 @@ const MainRouting = () => {
                 <GiftPage />
             </Route>
 
-            <Route path="/pakketten">
+            <Route path="/alle-pakketten">
                 <PacketPage />
             </Route>
 

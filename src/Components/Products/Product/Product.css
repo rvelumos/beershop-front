@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: space-between;
     width: 200px;
-    transition: width 0.5s ease-in;
+    transition: all 0.2s ease-in;
     border-radius: var(--default-border-radius);
     border: var(--default-border-light);
     margin: 25px;
@@ -13,6 +13,7 @@
 }
 
 .Product:hover {
+    transition: all 0.2s ease-in;
     box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
 }
 

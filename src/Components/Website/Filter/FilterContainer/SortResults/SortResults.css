@@ -1,0 +1,12 @@
+select.sort {
+    padding: 20px;
+    border: var(--default-border-light);
+    border-radius: var(--default-border-radius);
+    margin: 10px 80px;
+}
+
+@media only screen and (max-width: 900px) {
+    select.sort {
+        margin: 12px;
+    }
+}

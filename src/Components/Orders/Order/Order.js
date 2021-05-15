@@ -104,7 +104,7 @@ function Order(props) {
                     <table className="tableDetails">
                         <tbody>
                         <tr>
-                            <td>Order ID</td>
+                            <td>ID</td>
                             <td>Klant</td>
                             <td>Totaalprijs</td>
                             <td>Besteldatum</td>
@@ -123,9 +123,9 @@ function Order(props) {
                     <tbody>
                     <tr><td>Order ID: </td>
                         <td>Besteld op: </td>
-                        <td>Verzonden op: </td>
+                        <td class="mobile">Verzonden op: </td>
                         <td>Totaalprijs: </td>
-                        <td>Factuurstatus: </td>
+                        <td class="mobile">Factuurstatus: </td>
                         <td>&nbsp;</td>
                     </tr>
                     {OrderItems(props)}

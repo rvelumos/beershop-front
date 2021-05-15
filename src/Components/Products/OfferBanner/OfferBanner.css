@@ -1,5 +1,5 @@
 .OfferBannerContainer {
-    height: 200px;
+    height: 160px;
     margin-top: 140px;
     display: flex;
     flex-direction: column;
@@ -25,6 +25,7 @@
     }
 
     .OfferBannerContainer span {
-        margin-top: 50px;
+        margin-top: 40px;
+        font-size: 150%;
     }
 }

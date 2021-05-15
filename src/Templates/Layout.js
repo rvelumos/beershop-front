@@ -26,7 +26,7 @@ const Layout = (props) => {
                 </Route>
 
                 <Route path="/info">
-                    <OfferBanner image={randomInt} text="Elke week nieuwe aanbiedingen voor jou!" />
+                    <OfferBanner image={randomInt} text="Elke week nieuwe aanbiedingen!" />
                 </Route>
             </header>
 

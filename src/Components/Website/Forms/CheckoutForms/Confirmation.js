@@ -7,8 +7,8 @@ const Confirmation = ({email, currentStep, token, orderItems, formData}) => {
 
     const [mode, setMode] = useState('init');
     const [loading, toggleLoading] = useState(true);
-    const [userDataSaved, setUserDataSaved] = useState(false);
     const [error, setError] = useState('');
+    const [orderAdded, setOrderAdded] = useState(false);
 
     const { username } = useContext(AuthContext);
 
@@ -16,7 +16,7 @@ const Confirmation = ({email, currentStep, token, orderItems, formData}) => {
         return null;
     }
 
-    async function addCustomer(data) {
+    async function addCustomer(data, username) {
         const addressData = {
             street: data.street,
             streetAdd: data.streetAdd,
@@ -45,7 +45,9 @@ const Confirmation = ({email, currentStep, token, orderItems, formData}) => {
                 try {
                     const result = await axios.post(url, addressData);
                     if(result) {
-                        addOrder();
+                        if(!orderAdded) {
+                            addOrder(username);
+                        }
                     }
                 } catch (e) {
                     console.error(e);
@@ -58,22 +60,23 @@ const Confirmation = ({email, currentStep, token, orderItems, formData}) => {
         }
     }
 
-    function finishOrder() {
+    function finishOrder(username) {
         console.log('finishorder');
-        if (mode === 'init' && orderItems !== "") {
+        if (mode === 'init' && orderItems !== "" && username !== undefined) {
             console.log('init');
             if (token === '') {
                 addCustomer(formData);
             } else {
-                addOrder();
+                if(!orderAdded) {
+                    addOrder(username);
+                }
             }
 
             setMode('data');
         }
     }
 
-        async function addOrder() {
-
+        async function addOrder(username) {
             const today = new Date();
             const dd = today.getDate();
             const mm = today.getMonth()+1;
@@ -83,17 +86,21 @@ const Confirmation = ({email, currentStep, token, orderItems, formData}) => {
 
             const itemData = {
                 username: username,
-                priceTotal: orderItems.priceTotal,
+                priceTotal: orderItems.subTotal,
                 orderDate: orderDate,
-                orderStatus: 'NEW',
+                orderStatus: 'NEW_ADDED',
                 invoiceStatus: 'UNPAID',
             }
 
             try {
-                const url = '/api/v1/order';
+                const url = '/api/v1/order/create';
                 const result = await axios.post(url, itemData);
-                if(result)
-                    addCustomerPoints()
+                    if(result) {
+                        setOrderAdded(true);
+                        toggleLoading(false);
+                        window.history.replaceState({}, document.title)
+                        //addCustomerPoints()
+                    }
                 } catch (e) {
                     console.error(e);
                     setError("Fout bij verwerken data.");
@@ -102,17 +109,15 @@ const Confirmation = ({email, currentStep, token, orderItems, formData}) => {
         }
 
         async function addCustomerPoints() {
-            const earnedPoints = orderItems.totalPrice * 5;
-            const customerId = orderItems.customerId;
+            const earnedPoints = orderItems.subTotal * 5;
 
             try {
-                const url = `/api/v1/customer/${customerId}`;
+                const url = `/api/v1/customer/${username}`;
                 const result = await axios.put(url, {
                     customerPoints: earnedPoints
                 });
                 if(result) {
                     toggleLoading(false);
-                    sendConfirmationMail();
                 }
 
             } catch (e) {
@@ -130,7 +135,7 @@ const Confirmation = ({email, currentStep, token, orderItems, formData}) => {
 
             try {
                 const url = `/api/v1/customer/confirmation`;
-                const result = await axios.put(url, data);
+                const result = await axios.post(url, data);
                 if(result) {
                     toggleLoading(false);
                 }
@@ -143,7 +148,7 @@ const Confirmation = ({email, currentStep, token, orderItems, formData}) => {
 
     return(
         <>
-            {loading ? <><LoadingIndicator /> {finishOrder()}</>
+            {loading ? <><LoadingIndicator /> {finishOrder(username)}</>
                     :
                     error ? <p className="errorContainer">{error}</p>
                         : <div className="Confirmation">

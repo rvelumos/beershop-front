@@ -23,3 +23,11 @@
     font-weight: bold;
     color: var(--font-color-primary);
 }
+
+@media only screen and (max-width: 600px) {
+    .tableOrder td.orderInvoice,
+    .tableOrder td.orderSent,
+    .tableOrder td.mobile{
+        display: none
+    }
+}

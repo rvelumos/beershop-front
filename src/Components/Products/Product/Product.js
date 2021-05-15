@@ -43,8 +43,8 @@ function Product(props) {
             if(isAdmin) {
                 productItems = productItems.filter(e => e.type !== 4);
             }
-            return (
 
+            return (
                 productItems.map((productItem) => {
                     if(!isAdmin) {
                         return (

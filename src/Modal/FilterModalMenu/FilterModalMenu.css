@@ -10,14 +10,15 @@
 @media only screen and (max-width: 600px) {
     .filterIconContainer {
         display: block;
-        width: 100%;
     }
 
     .filterIconContainer img {
         width: 35px;
         cursor: pointer;
         border: var(--default-border-light);
+        border-radius: var(--default-border-radius);
         padding: 10px;
+        margin: 10px;
     }
 
     .closeIcon {

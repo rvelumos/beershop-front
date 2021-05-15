@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import { useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import axios from "axios";
 import LoadingIndicator from "../../../Website/UI/LoadingIndicator/LoadingIndicator";
 import './DetailsProduct.css';
 import OrderBlock from "../OrderBlock";
 import RecommendedProducts from "../../RecommendedProducts/RecommendedProducts";
 import Feedback from "../../../Website/UI/Feedback/Feedback";
+import BreadCrumbs from "../../../Website/Navigation/BreadCrumbs/BreadCrumbs";
 
 function DetailsProduct() {
     const { id } = useParams();
@@ -38,14 +39,28 @@ function DetailsProduct() {
     function getItemInfo() {
 
         let image;
-        if(productItem.type!==4) {
+        if(productItem.type!==4)
             image = <img src={`/product_images/product_${productItem.id}.png`} alt=''/>;
-        } else {
+        else
             image = <img src={`/product_images/giftcard.png`} alt=''/>;
+
+        let sublink;
+        switch (productItem.type) {
+            case 1: sublink = 'alle-bieren'; break;
+            case 2: sublink = 'alle-pakketten'; break;
+            case 4: sublink = 'cadeaubonnen'; break;
+            default: sublink = 'alle-bieren';
         }
+        console.log(sublink);
 
         return(
+
             <section>
+                <BreadCrumbs
+                    sublink={sublink}
+                    activeItem={productItem.name}
+                 />
+
                 <div className="DetailsProduct">
                     <div className="imageContent">
                         {image}
@@ -57,7 +72,7 @@ function DetailsProduct() {
                                     <h3 className="productName">{productItem.name}</h3>
                                 </div>
                                 <div className="productTaste">
-                                    Smaken: {productItem.taste}
+                                    {productItem.taste}
                                 </div>
                             </div>
                             <OrderBlock productItem={productItem} section="details" />

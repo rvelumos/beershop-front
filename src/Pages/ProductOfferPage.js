@@ -1,16 +1,23 @@
 import React from 'react';
 import DiscountProducts from "../Components/Products/DiscountProducts/DiscountProducts";
+import BreadCrumbs from "../Components/Website/Navigation/BreadCrumbs/BreadCrumbs";
 
 const ProductOfferPage = () => {
 
     return (
-        //<FilterMenu />
+        <>
+            <div className="mainTop">
+                <BreadCrumbs
+                    activeItem="Aanbiedingen"
+                />
+            </div>
 
-        //<AppliedFilters />
-
-        <div className="ProductOverview">
-            <DiscountProducts />
-        </div>
+            <div className="mainContent">
+                <div className="ProductOverview">
+                    <DiscountProducts />
+                </div>
+            </div>
+        </>
 
     )
 }

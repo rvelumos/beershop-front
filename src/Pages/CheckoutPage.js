@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import ShoppingCart from "../Components/Website/ShoppingCart/ShoppingCart";
 import {useLocation} from "react-router";
+import BreadCrumbs from "../Components/Website/Navigation/BreadCrumbs/BreadCrumbs";
 
 const CheckoutPage = () => {
     const location = useLocation();
@@ -42,14 +43,24 @@ const CheckoutPage = () => {
     }
 
     return (
-        <div className="shoppingCartPage">
-            <ShoppingCart
-                shoppingCartItems={shoppingCartItems}
-                setShoppingCartItems={setShoppingCartItems}
-                shoppingCartActive={shoppingCartActive}
-                setShoppingCartActive={setShoppingCartActive}
-            />
-        </div>
+        <>
+            <div className="mainTop">
+                <BreadCrumbs
+                    activeItem="Winkelwagen"
+                />
+            </div>
+
+            <div className="mainContent">
+                <div className="shoppingCartPage">
+                    <ShoppingCart
+                        shoppingCartItems={shoppingCartItems}
+                        setShoppingCartItems={setShoppingCartItems}
+                        shoppingCartActive={shoppingCartActive}
+                        setShoppingCartActive={setShoppingCartActive}
+                    />
+                </div>
+            </div>
+        </>
 
     )
 }

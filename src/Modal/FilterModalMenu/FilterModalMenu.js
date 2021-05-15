@@ -32,6 +32,7 @@ function FilterModalMenu({setCategoryArray, setFilterLabels, setTasteArray, filt
                         <FilterSelectionMenu
                             categoryArray={categoryArray}
                             tasteArray={tasteArray}
+                            filterId="Mobile"
                             filterLabels={filterLabels}
                             setFilterLabels={setFilterLabels}
                             setCategoryArray={setCategoryArray}

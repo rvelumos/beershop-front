@@ -58,4 +58,8 @@
         min-width: 250px;
         margin: 5px;
     }
+
+    .RegistrationOverview {
+        width: 92%;
+    }
 }

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import IconItem from '../../UI/IconItem/IconItem';
 import './UserMenu.css';
+import ProfileMenu from "../../../../Modal/ProfileMenu/ProfileMenu";
 
 const UserMenu = () => {
 
@@ -29,6 +30,7 @@ const UserMenu = () => {
                 <div className="userAccount">
                     <IconItem url="/mijn_account/"  icon_class="iconUser" />
                 </div>
+                <ProfileMenu />
                 <div className="userCart">
                     <IconItem url="/winkelwagen/" icon_class="iconCart" />
                     {shoppingCartActive &&

@@ -94,6 +94,7 @@ main.cms {
     background-color: transparent;
 }
 
+.profileContainer,
 .modalContainer {
     margin: 30px;
     display: flex;
