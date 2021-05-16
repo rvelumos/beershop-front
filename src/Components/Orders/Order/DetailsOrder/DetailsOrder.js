@@ -1,30 +1,35 @@
 import React from 'react';
 import './DetailsOrder.css';
 import {useLocation} from "react-router";
+import Feedback from "react-bootstrap/Feedback";
 
 function DetailsOrder(props) {
 
     const OrderItems = (props) => {
 
+        let orderItem;
         const location = useLocation();
-        const orderItem = location.state.orderItem;
+        if(location.state !== undefined){
+            orderItem = location.state.orderItem;
+        }
 
-        let orderDate = orderItem.orderDate;
-        let orderSent = orderItem.orderSent;
-        orderDate = orderDate.split('T')[0];
-        if (orderSent !== null) orderSent = orderSent.split('T')[0];
+        if (orderItem !== undefined) {
+            let orderDate = orderItem.orderDate;
+            let orderSent = orderItem.orderSent;
+            orderDate = orderDate.split('T')[0];
+            if (orderSent !== null) orderSent = orderSent.split('T')[0];
 
-        let shipmentCost = 4.95;
-        if(orderItem.priceTotal > 24.95)
-            shipmentCost = 0;
+            let shipmentCost = 4.95;
+            if (orderItem.priceTotal > 24.95)
+                shipmentCost = 0;
 
-        const total = shipmentCost + orderItem.priceTotal;
+            const total = shipmentCost + orderItem.priceTotal;
 
-        let paymentStatus = "Onbetaald";
-        if(orderItem.invoiceStatus === "PAID")
-            paymentStatus = "Betaald via overschrijving";
+            let paymentStatus = "Onbetaald";
+            if (orderItem.invoiceStatus === "PAID")
+                paymentStatus = "Betaald via overschrijving";
 
-        if(orderItem !== "") {
+            if (orderItem !== "") {
                 return (
                     <>
                         <div className="textContentContainer">
@@ -35,7 +40,7 @@ function DetailsOrder(props) {
                                 </div>
 
                                 <div className="detailsOrderProducts">
-                                ITEMS
+                                    ITEMS
                                 </div>
 
                                 <div className="detailsOrderBottom">
@@ -44,7 +49,8 @@ function DetailsOrder(props) {
                                         <div className="shippingAddress">
                                             {orderItem.shipping.address.street}
                                             {orderItem.shipping.address.number}<br/>
-                                            {orderItem.shipping.address.postalCode} {orderItem.shipping.address.city} <br />
+                                            {orderItem.shipping.address.postalCode} {orderItem.shipping.address.city}
+                                            <br/>
                                             {orderItem.shipping.address.country}
                                         </div>
                                     </div>
@@ -62,16 +68,21 @@ function DetailsOrder(props) {
                             </div>
                         </div>
                     </>
+                )
+            }
+        } else {
+            return(
+                <Feedback type="error" content="Order is niet gevonden" />
             )
         }
-    }
-    return(
-        <>
-            <div className="detailsOrderContainer">
-                {OrderItems(props)}
-            </div>
-        </>
-    )
+        }
+        return (
+            <>
+                <div className="detailsOrderContainer">
+                    {OrderItems(props)}
+                </div>
+            </>
+        )
 }
 
 export default DetailsOrder;

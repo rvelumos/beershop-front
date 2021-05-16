@@ -19,7 +19,6 @@ function App() {
     const [shoppingCartItems, setShoppingCartItems] = useState("");
     const [mode, setMode] = useState("init");
 
-
     const getAuthorities = () => {
         setMode("authorizing");
         if (localStorage.getItem('user_roles') !== null) {
@@ -34,7 +33,6 @@ function App() {
             if (authRole === 'ROLE_ADMIN') setAdminAuthenticated(true);
             if (authRole === 'ROLE_MANUFACTURER') setManufacturerAuthenticated(true);
             if (authRole === 'ROLE_CUSTOMER') setUserAuthenticated(true);
-
         }
     }
 
@@ -47,7 +45,6 @@ function App() {
             <div className="App">
                 <Switch>
                     <Route path="/cms">
-
                         {isAdminAuthenticated || isManufacturerAuthenticated ?
                             <CMSLayout
                                 authorityAdmin={isAdminAuthenticated}

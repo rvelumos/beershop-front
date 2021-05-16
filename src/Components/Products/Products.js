@@ -88,7 +88,6 @@ function Products(props) {
                 toggleLoading(false);
             }
         }
-
         getProducts();
 
         // eslint-disable-next-line

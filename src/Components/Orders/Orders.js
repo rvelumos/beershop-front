@@ -13,6 +13,7 @@ const Orders = ({isAdmin, token}) => {
 
     useEffect(() => {
         async function getOrders() {
+            console.log(token);
             toggleLoading(true);
 
             let url = `/api/v1`;
@@ -25,7 +26,6 @@ const Orders = ({isAdmin, token}) => {
                 url = `${url}/orders/customer/${userId}/`;
             }
 
-            console.log(url);
                 try {
                     const result = await axios.get(url, {
                         headers : {
@@ -34,10 +34,9 @@ const Orders = ({isAdmin, token}) => {
                             "Access-Control-Allow-Origin": "*",
                         }
                     });
-                console.log(result.data);
                 if (result.data.length > 0) {
+                    result.data.sort((a,b) => b.id-a.id);
                     setOrderItems(result.data);
-                    console.log(orderItems);
                     toggleLoading(false);
                 }
             } catch (e) {

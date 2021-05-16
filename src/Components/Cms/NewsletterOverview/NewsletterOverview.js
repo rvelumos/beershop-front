@@ -3,34 +3,38 @@ import axios from "axios";
 import LoadingIndicator from "../../Website/UI/LoadingIndicator/LoadingIndicator";
 import NewsletterTemplate from "./NewsletterTemplate/NewsletterTemplate";
 
-const NewsletterOverview = ({token}) => {
-    const [loading, toggleLoading] = useState(true);
+function NewsletterOverview ({token}) {
+    const [loading, toggleLoading] = useState(false);
     const [error, setError] = useState(false);
     const [items, setItems] = useState(false);
 
     useEffect(() => {
         async function getNewsletterInfo() {
+            toggleLoading(true);
+
             const url = `/api/v1/admin/newsletters/`;
+
             try {
                 const result = await axios.get(url, {
                     headers: {
                         "Authorization": `Bearer ${token}`,
+                        'Content-Type': 'application/json',
                         "Access-Control-Allow-Origin": "*",
                     }
-                })
+                });
 
-                if (result) {
-                    console.log(result.data);
-                    setItems(result);
-                    toggleLoading(false);
+                if (result.data.length > 0) {
+                    console.log(result);
+                    setItems(result.data);
                 }
-            } catch {
-                console.error(error);
+                toggleLoading(false);
+            } catch(e) {
+                console.error(e);
                 setError("could not reach external source");
             }
-
+            toggleLoading(false);
         }
-        getNewsletterInfo()
+        getNewsletterInfo();
         // eslint-disable-next-line
     }, [])
 

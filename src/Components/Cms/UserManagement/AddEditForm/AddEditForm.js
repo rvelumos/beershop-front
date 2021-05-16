@@ -15,9 +15,8 @@ export function AddEditForm(props) {
     const [loading, toggleLoading] = useState(false);
     const [submittedForm, setSubmittedForm] = useState(false);
 
-    const { id } = useParams();
+    const { username } = useParams();
     const { token } = props;
-    //const isAddMode = !id;
 
     const [formValues, setFormValues] = useState({
         userId: '',
@@ -33,14 +32,8 @@ export function AddEditForm(props) {
     useEffect(() => {
         async function getFormData (){
             try {
-                const url=`/api/v1/customer/${id}`
-                const result = await axios.get(url, {
-                    headers : {
-                        "Authorization" : `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                        "Access-Control-Allow-Origin": "*",
-                    }
-                });
+                const url=`/api/v1/customer/${username}`
+                const result = await axios.get(url);
                 const {
                     userId,
                     email,
@@ -51,7 +44,7 @@ export function AddEditForm(props) {
                     phone,
                     newsletter,
                     sex,
-                } = result.data;
+                } = result.data[0];
 
                 setFormValues({
                     userId: userId,
@@ -71,7 +64,7 @@ export function AddEditForm(props) {
             }
             toggleLoading(false);
         }
-        if(id !== undefined)
+        if(username !== undefined)
             getFormData();
     // eslint-disable-next-line
     },[])
@@ -83,7 +76,6 @@ export function AddEditForm(props) {
     function onSubmitForm(data) {
 
         console.table(data);
-
         if(error === false) {
             createLogin({
                 username: data.username,
@@ -104,7 +96,6 @@ export function AddEditForm(props) {
     }
 
     async function createLogin(userData) {
-
         setError(false);
         toggleLoading(true);
 
@@ -168,9 +159,8 @@ export function AddEditForm(props) {
             <>
                 <div className="AddEditForm">
                     <div className="RegisterForm" >
-                        <h1>Klant {id ? " wijzigen" : "toevoegen"}</h1>
+                        <h1>Klant {username ? " wijzigen" : "toevoegen"}</h1>
                         <form onSubmit={handleSubmit(onSubmitForm)}>
-
                             <fieldset>
                                 <div className="formElement">
                                     {errors.sex ? <span className='errorMessage'>{errors.sex.message}</span> : <span>&nbsp;</span>}

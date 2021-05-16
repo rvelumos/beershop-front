@@ -28,6 +28,11 @@
     color: white;
 }
 
+.leftMenuIcon {
+    width: 25px;
+    margin: 5px 10px;
+}
+
 @media only screen and (max-width: 900px) {
     .logout,
     .LeftMenuItems {

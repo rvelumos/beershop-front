@@ -3,11 +3,9 @@ import './FilterBlockItems.css';
 import axios from "axios";
 
 function FilterBlockItems(props) {
-
     const [checked, setChecked] = useState('');
     const [error, setError] = useState("");
     const [loading, toggleLoading] = useState(true);
-
     const {categoryArray, setCategoryArray, filterId} = props;
     const {setTasteArray} = props;
 
@@ -48,7 +46,6 @@ function FilterBlockItems(props) {
                 setError("Fout bij ophalen gegevens.");
             }
         }
-
         getFilterItem(props);
 
         // eslint-disable-next-line
@@ -64,7 +61,6 @@ function FilterBlockItems(props) {
         } else {
             setTasteArray(prev => [...prev, value]);
         }
-
         let areInputsChecked = [checked];
 
         areInputsChecked.forEach(isInputChecked => {
@@ -89,7 +85,6 @@ function FilterBlockItems(props) {
                }
             }
         })
-
         setChecked(prev => [...prev, value]);
     }
 
@@ -102,19 +97,18 @@ function FilterBlockItems(props) {
                 filteredFilterItems.map((filterItem) => {
                         const id = filterItem.name + filterId;
                         return (
-
-                                <div key={filterItem.id} className="filterItem">
-                                    <input
-                                        type="checkbox"
-                                        placeholder=""
-                                        name={valueName + "[]"}
-                                        id={id}
-                                        className="filterItemInput"
-                                        value={filterItem.id}
-                                        onClick={(e) => handleClick(e)}
-                                    />
-                                    <label htmlFor={id}>{filterItem.name}</label>
-                                </div>
+                            <div key={filterItem.id} className="filterItem">
+                                <input
+                                    type="checkbox"
+                                    placeholder=""
+                                    name={`${valueName}[]`}
+                                    id={id}
+                                    className="filterItemInput"
+                                    value={filterItem.id}
+                                    onClick={(e) => handleClick(e)}
+                                />
+                                <label htmlFor={id}>{filterItem.name}</label>
+                            </div>
                         )
                 })
             )

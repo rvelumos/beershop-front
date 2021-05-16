@@ -1,6 +1,7 @@
 main.cms {
     width: 100% !important;
     max-width: 100% !important;
+    flex-direction: row;
 }
 
 .overview {
@@ -42,15 +43,18 @@ main.cms {
 
 .tableDetails {
     display: table;
-    border-spacing: 0 10px;
+    border-spacing: 0 2px;
     max-width: 1300px;
     width: 100%;
     margin: 20px auto;
 }
 
-.tableDetails tr:not(:first-of-type) td:first-of-type {
-    background-color: white;
-    border: none;
+.tableDetails td:first-of-type {
+    border-radius: 5px 0 0 5px;
+}
+
+.tableDetails td:last-of-type {
+    border-radius: 0 5px 5px 0;
 }
 
 .tableDetails td:last-of-type {
@@ -66,21 +70,23 @@ main.cms {
     width: 50px;
 }
 
-.tableDetails tr:hover:not(:first-of-type) td:not(:first-of-type) {
+.tableDetails tr:hover:not(:first-of-type) td {
     background-color: #f2f6ff;
     transition: background-color 0.5s ease-in;
 }
 
 .tableDetails td {
-    padding: 10px;
+    padding: 20px;
     width: 300px;
-    border-top: var(--default-border-light);
-    background-color: #fafafa;
+    border-bottom: var(--default-border-light);
+    font-family: var(--default-font-light);
+    font-size: var(--font-size-m);
+    background-color: #fcfcfc;
     transition: background-color 0.5s ease-out;
 }
 
 .tableDetails tr:first-of-type td {
-    background-color: var(--background-color-dark) !important;
+    background-color: var(--background-color-blue) !important;
     color: var(--font-color-secondary);
     font-weight: bold;
     height: 60px;

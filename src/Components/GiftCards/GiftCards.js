@@ -38,8 +38,7 @@ const GiftCards = ({isAdmin, token}) => {
                 })
 
                 if (result) {
-                    const giftCards = result.data;
-                    console.log(giftCards);
+                    const giftCards = result.data.sort((a,b) => a.id-b.id);
                     setGiftCardItems(giftCards);
                     toggleLoading(false);
                 }

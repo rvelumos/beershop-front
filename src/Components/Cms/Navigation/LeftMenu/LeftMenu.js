@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import './LeftMenu.css';
 import {NavLink} from "react-router-dom";
 import {AuthContext} from "../../../../context/AuthContext";
+import MenuIcon from "./MenuIcon/MenuIcon";
 
 const LeftMenu = ({isAdmin}) => {
     const { logout } = useContext(AuthContext);
@@ -12,19 +13,33 @@ const LeftMenu = ({isAdmin}) => {
                 <ul className="LeftMenuItems">
                     {isAdmin &&
                         <>
-                            <NavLink to="/cms/orders">Bestellingen</NavLink>
-                            <NavLink to="/cms/giftcards" >Cadeaubonnen</NavLink>
-                            <NavLink to="/cms/products" >Producten</NavLink>
+                            <div className="menuLink">
+                                <NavLink to="/cms/orders"><MenuIcon name="orders" /> Bestellingen</NavLink>
+                            </div>
+                            <div className="menuLink">
+                                <NavLink to="/cms/giftcards" ><MenuIcon name="gifts" /> Cadeaubonnen</NavLink>
+                            </div>
+                            <div className="menuLink">
+                                <NavLink to="/cms/products" ><MenuIcon name="products" /> Producten</NavLink>
+                            </div>
                         </>
                     }
-                    <NavLink to="/cms/statistics" >Statistieken</NavLink>
+                    <div className="menuLink">
+                        <NavLink to="/cms/statistics" ><MenuIcon name="stats" /> Statistieken</NavLink>
+                    </div>
                     {isAdmin &&
                         <>
-                            <NavLink to="/cms/newsletter">Nieuwsbrief</NavLink>
-                            <NavLink to="/cms/users">Gebruikersbeheer</NavLink>
+                            <div className="menuLink">
+                                <NavLink to="/cms/newsletter"><MenuIcon name="email" /> Nieuwsbrief</NavLink>
+                            </div>
+                            <div className="menuLink">
+                                <NavLink to="/cms/users"><MenuIcon name="users" /> Gebruikersbeheer</NavLink>
+                            </div>
                         </>
                     }
-                    <NavLink to="/cms/uitloggen" onClick={logout}><p>Uitloggen</p></NavLink>
+                    <div className="menuLink">
+                        <NavLink to="/cms/uitloggen" onClick={logout}><MenuIcon name="logout" /><p>Uitloggen</p></NavLink>
+                    </div>
                 </ul>
             </div>
         </>

@@ -31,7 +31,6 @@ function RecommendedProducts(props) {
                 toggleLoading(false);
             }
         }
-
         getRecommendedProducts();
 
         // eslint-disable-next-line

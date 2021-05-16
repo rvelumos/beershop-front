@@ -1,37 +1,41 @@
 import axios from "axios";
 import {v4 as uuidv4} from "uuid";
 import {Link} from "react-router-dom";
-import React from "react";
+import React, {useState} from "react";
 
 function NewsletterTemplate ({items, setItems, error, setError}) {
-    async function getSubscribers(id) {
-        const url = `/api/v1/admin/newsletter/${id}`;
-        try {
-            const result = await axios.get(url);
+    const [subscriberItems, setSubscriberItems] = useState("");
+    // async function getSubscribers(id) {
+    //     const url = `/api/v1/admin/newsletter/${id}`;
+    //     try {
+    //         const result = await axios.get(url);
+    //
+    //         if (result) {
+    //             console.log(result);
+    //             setSubscriberItems(result);
+    //             return (result);
+    //         }
+    //     } catch {
+    //         console.error(error);
+    //         setError("could not reach external source");
+    //     }
+    // }
 
-            if (result) {
-                console.log(result);
-                setItems(result);
-                return (result);
-            }
-        } catch {
-            console.error(error);
-            setError("could not reach external source");
-        }
-    }
-
-    const newsletters = () => {
+    const getNewsletters = () => {
        // const newsletterItems = Array.from(items);
         console.log(items);
-        if (items.length > 0) {
+        if (items !== undefined) {
+            console.log("dsadsa");
+            const newsletterItems = Array.from(items);
             return (
-                items.map((item) => {
+                newsletterItems.map((item) => {
+                    console.log("blablablalba "+ item.id)
                     return (
                         <tr key={uuidv4()} className="Order">
                             <td><p className="userID">{item.id}</p></td>
-                            <td><p className="newsTitle">{item.title}</p></td>
-                            <td><p className="newsBody">{item.body}</p></td>
-                            <td><p className="newsSubscribers">{getSubscribers(item.id)}</p></td>
+                            <td><p className="newsTitle">{item.name}</p></td>
+                            <td><p className="newsBody">{item.content}</p></td>
+                            <td><p className="newsSubscribers"><Link to={`/cms/newsletter/${item.id}/emails`}>Overzicht mailadressen</Link></p></td>
                             <td><p className="newsSubscribers"><Link to={`/cms/newsletter/${item.id}/send_bulk`}>Verstuur mails</Link></p></td>
                             <td>
                                 <div className="actionContainer">
@@ -59,7 +63,7 @@ function NewsletterTemplate ({items, setItems, error, setError}) {
                         <td>Bulkmail</td>
                         <td>Actie</td>
                     </tr>
-                    {newsletters()}
+                    {getNewsletters()}
                     </tbody>
                 </table>
             </div>

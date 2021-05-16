@@ -10,47 +10,8 @@ import Feedback from "../../../Website/UI/Feedback/Feedback";
 
 function UserInfo({users, setUsers, isAdmin, token}) {
     const [loading, toggleLoading] = useState(false);
-    //const [userAddressItems, setUserAddressItems] = useState('');
     const [error, setError] = useState(true);
     const [message, setMessage] = useState("");
-
-
-    // function GetRolesUser(id) {
-    //
-    //     useEffect(() => {
-    //         async function getRoles() {
-    //
-    //             toggleLoading(true);
-    //
-    //             let url = `/api/v1/users/${id}`;
-    //
-    //             try {
-    //                 const result = await axios.get(url, {
-    //                     headers : {
-    //                         "Authorization" : `Bearer ${token}`,
-    //                         'Content-Type': 'application/json',
-    //                         "Access-Control-Allow-Origin": "*",
-    //                     }
-    //                 });
-    //                 if (result.data.length > 0){
-    //                     setUserRoles(result.data);
-    //                 } else {
-    //                     setUserRoles("Geen");
-    //                     setError("Geen rollen gedefineerd");
-    //                 }
-    //                 console.log(userRoles);
-    //             } catch (e) {
-    //                 console.error(e);
-    //                 setError("Fout bij ophalen gegevens.");
-    //             }
-    //             toggleLoading(false);
-    //         }
-    //
-    //         getRoles();
-    //
-    //     // eslint-disable-next-line
-    //     }, [userRoles]);
-    // }
 
     async function deleteUser(id) {
         toggleLoading(true);
@@ -79,30 +40,29 @@ function UserInfo({users, setUsers, isAdmin, token}) {
     const User = () => {
 
         console.log(users);
-
         if(isAdmin) {
             return(
-                users.data.map((userInfo) => {
-                        return (
-                            <tr key={uuidv4()} className="Order">
-                                <td><p className="userID">{userInfo.id}</p></td>
-                                <td><p className="userSex">{userInfo.sex}</p></td>
-                                <td><p className="userFirstName">{userInfo.firstname}</p></td>
-                                <td><p className="userLastName">{userInfo.lastname}</p></td>
-                                <td><p className="userBirthDate">{userInfo.birthDate}</p></td>
-                                <td><p className="userEmail">{userInfo.email}</p></td>
-                                <td><p className="userPhone">{userInfo.phone}</p></td>
-                                <td><p className="userCP">{userInfo.customerPoints}</p></td>
-                                <td><p className="userNewsletter">{userInfo.newsletter ? "X" : null}</p></td>
-                                <td><p className="userRoles"></p></td>
-                                <td>
-                                    <div className="actionContainer">
-                                        <div className="edit"><Link to={`/cms/users/edit/${userInfo.id}`}>&#9999;</Link></div>
-                                        <div className="delete" onClick={(e) => deleteUser(userInfo.id)}>&#10008;</div>
-                                    </div>
-                                </td>
-                            </tr>
-                        )
+                users.map((userInfo) => {
+                    return (
+                        <tr key={uuidv4()} className="Order">
+                            <td><p className="userID">{userInfo.id}</p></td>
+                            <td><p className="userSex">{userInfo.sex}</p></td>
+                            <td><p className="userFirstName">{userInfo.firstname}</p></td>
+                            <td><p className="userLastName">{userInfo.lastname}</p></td>
+                            <td><p className="userBirthDate">{userInfo.birthDate}</p></td>
+                            <td><p className="userEmail">{userInfo.email}</p></td>
+                            <td><p className="userPhone">{userInfo.phone}</p></td>
+                            <td><p className="userCP">{userInfo.customerPoints}</p></td>
+                            <td><p className="userNewsletter">{userInfo.newsletter ? "X" : null}</p></td>
+                            <td><p className="userRoles"></p></td>
+                            <td>
+                                <div className="actionContainer">
+                                    <div className="edit"><Link to={`/cms/users/edit/${userInfo.username}`}>&#9999;</Link></div>
+                                    <div className="delete" onClick={(e) => deleteUser(userInfo.id)}>&#10008;</div>
+                                </div>
+                            </td>
+                        </tr>
+                    )
                 })
             )
         }else {
@@ -128,7 +88,6 @@ function UserInfo({users, setUsers, isAdmin, token}) {
                     {isAdmin ?
                         <>
                             <Link to="/cms/users/create/" className="button">Gebruiker toevoegen</Link><br /><br />
-
                             <table className="tableDetails">
                                 <tbody>
                                 <tr>
@@ -162,7 +121,6 @@ function UserInfo({users, setUsers, isAdmin, token}) {
                             }} className="button">Aanpassen</Link>
                         </>
                     }
-
                 </div>
             }
         </>

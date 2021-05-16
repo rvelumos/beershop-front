@@ -4,6 +4,7 @@
     --background-color-primary: #FFA303;
     --background-color-dark: #333;
     --background-color-light: #eee;
+    --background-color-blue: #769dbc;
     --default-border-light: 1px solid #eee;
     --default-border-radius: 4px;
     --default-border: 1px solid #ccc;
@@ -29,6 +30,7 @@
     --default-max-width: 900px;
     --link-color-primary: #000;
     --link-color-secondary: #FFA303;
+    --link-color-tertiary: white;
     --menu-indicator-left: "\27A4";
     --input-focus-border-color: 1px solid #FFA303;
     --symbol-checkmark: "\2713";
@@ -198,7 +200,7 @@ textarea,
   border-radius: var(--default-border-radius);
   background: #fff;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
+  font-size: var(--font-size-m);
   transition: var(--transition-out);
   /*box-shadow: 0;*/
 }
@@ -211,7 +213,7 @@ textarea:focus,
 }
 
 #float-label label {
-  font-size: 16px;
+  font-size: var(--font-size-m);
   font-family: var(--default-font-normal);
   padding: 0 12px;
   color: var(--font-color-tertiary);

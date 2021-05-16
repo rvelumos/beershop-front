@@ -12,12 +12,13 @@ import {AddEditForm as GiftCardForm} from "../../Components/GiftCards/GiftCard/A
 import {AddEditForm as ProductForm} from "../../Components/Products/Product/AddEditForm/AddEditForm";
 import {AddEditForm as OrderForm} from "../../Components/Orders/Order/AddEditForm/AddEditForm";
 import {AddEditForm as UserForm} from "../../Components/Cms/UserManagement/AddEditForm/AddEditForm";
+import {AddEditForm as NewsletterForm} from "../../Components/Cms/NewsletterOverview/AddEditForm/AddEditForm";
 import React, {useContext} from "react";
 import {AuthContext} from "../../context/AuthContext";
 
-const CmsRouting = ({authorityAdmin, authorityManufacturer}) => {
+const CmsRouting = ({authorityAdmin, authorityManufacturer, token}) => {
 
-    const { token, username } = useContext(AuthContext);
+    const { username } = useContext(AuthContext);
 
     return (
         <>
@@ -43,6 +44,10 @@ const CmsRouting = ({authorityAdmin, authorityManufacturer}) => {
 
             <Route path="/cms/newsletter" exact>
                 <NewsletterOverview token={token} isManufacturer={authorityManufacturer} isAdmin={authorityAdmin}/>
+            </Route>
+
+            <Route path="/cms/newsletter/edit/:id" exact>
+                <NewsletterForm token={token} />
             </Route>
 
             <Route path="/cms/statistics" exact>
@@ -90,11 +95,11 @@ const CmsRouting = ({authorityAdmin, authorityManufacturer}) => {
                 <UserForm mode="add" token={token} />
             </Route>
 
-            <Route path="/cms/users/:id">
+            <Route path="/cms/users/:username">
                 {/*<UserDetails token={token}/>*/}
             </Route>
 
-            <Route path="/cms/users/edit/:id">
+            <Route path="/cms/users/edit/:username">
                 <UserForm mode="edit" token={token} />
             </Route>
         </>

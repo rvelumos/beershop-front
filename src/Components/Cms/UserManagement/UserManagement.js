@@ -30,6 +30,7 @@ const UserManagement = ({ token, isAdmin }) => {
                 })
 
                 if (result.data !== ""){
+                    result.data.sort((a,b) => b.id-a.id);
                     setUsers(result.data);
                     toggleLoading(false);
                 } else {
@@ -44,7 +45,6 @@ const UserManagement = ({ token, isAdmin }) => {
                 toggleLoading(false);
             }
         }
-
         getUsers();
 
         // eslint-disable-next-line
