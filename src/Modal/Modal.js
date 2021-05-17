@@ -22,9 +22,6 @@ function Modal({handler, title, item, type}) {
                     <div className="modalItem">
                         <div>Geboortedatum</div><div>{item.birthDate}</div>
                     </div>
-                    <div className="modalItem">
-                        <div>Punten</div><div>{item.customerPoints}</div>
-                    </div>
                 </>
             )
 

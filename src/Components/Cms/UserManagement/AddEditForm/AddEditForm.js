@@ -103,7 +103,6 @@ export function AddEditForm(props) {
 
         try {
             const result = await axios.post(url, userData);
-            console.log("User result: "+result);
 
             if(result) {
                 url = `/api/v1/create_authority/`;
@@ -112,7 +111,6 @@ export function AddEditForm(props) {
                         authority: "ROLE_CUSTOMER",
                         username: userData.username
                     })
-                    console.log(result);
                 } catch (e) {
                     console.error(e);
                     setError("Fout bij verwerken logingegevens.");

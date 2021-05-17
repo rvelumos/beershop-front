@@ -1,4 +1,4 @@
-import {Route} from "react-router-dom";
+import {Redirect, Route} from "react-router-dom";
 import AdminHomePage from "../../Pages/Admin/AdminHomePage";
 import GiftCards from "../../Components/GiftCards/GiftCards";
 import GiftCardUsageOverview from "../../Components/GiftCards/GiftCard/GiftCardUsageOverview/GiftCardUsageOverview";
@@ -15,8 +15,10 @@ import {AddEditForm as UserForm} from "../../Components/Cms/UserManagement/AddEd
 import {AddEditForm as NewsletterForm} from "../../Components/Cms/NewsletterOverview/AddEditForm/AddEditForm";
 import React, {useContext} from "react";
 import {AuthContext} from "../../context/AuthContext";
+import NewsletterSubscriberOverview
+    from "../../Components/Cms/NewsletterOverview/NewsletterSubscribers/NewsletterSubscriberOverview";
 
-const CmsRouting = ({authorityAdmin, authorityManufacturer, token}) => {
+const CmsRouting = ({isAdmin, token}) => {
 
     const { username } = useContext(AuthContext);
 
@@ -27,55 +29,98 @@ const CmsRouting = ({authorityAdmin, authorityManufacturer, token}) => {
             </Route>
 
             <Route path="/cms/giftcards" exact>
-                <GiftCards isAdmin={authorityAdmin} token={token} />
+                {isAdmin ?
+                    <GiftCards isAdmin={isAdmin} token={token} />
+                    : <Redirect to="/cms/" />
+                }
             </Route>
 
             <Route path='/cms/giftcards/create' >
-                <GiftCardForm token={token} />
+                {isAdmin ?
+                    <GiftCardForm token={token} />
+                    : <Redirect to="/cms/" />
+                }
             </Route>
 
             <Route path='/cms/giftcard/:id/' >
-                <GiftCardUsageOverview token={token} isAdmin={authorityAdmin} />
+                {isAdmin ?
+                    <GiftCardUsageOverview token={token} isAdmin={isAdmin} />
+                    : <Redirect to="/cms/" />
+                }
             </Route>
 
             <Route path='/cms/giftcards/edit/:id' >
-                <GiftCardForm token={token} />
+                {isAdmin ?
+                    <GiftCardForm token={token} />
+                    : <Redirect to="/cms/" />
+                }
             </Route>
 
             <Route path="/cms/newsletter" exact>
-                <NewsletterOverview token={token} isManufacturer={authorityManufacturer} isAdmin={authorityAdmin}/>
+                {isAdmin ?
+                    <NewsletterOverview token={token} isAdmin={isAdmin}/>
+                    : <Redirect to="/cms/" />
+                }
             </Route>
 
-            <Route path="/cms/newsletter/edit/:id" exact>
-                <NewsletterForm token={token} />
+            <Route path='/cms/newsletter/create' >
+                {isAdmin ?
+                    <NewsletterForm token={token} />
+                    : <Redirect to="/cms/" />
+                }
+            </Route>
+
+            <Route path='/cms/newsletter/subscribers' >
+                {isAdmin ?
+                    <NewsletterSubscriberOverview token={token} />
+                    : <Redirect to="/cms/" />
+                }
+            </Route>
+
+            <Route path="/cms/newsletter/edit/:id">
+                {isAdmin ?
+                    <NewsletterForm token={token} />
+                    : <Redirect to="/cms/" />
+                }
             </Route>
 
             <Route path="/cms/statistics" exact>
-                <StatisticsPage token={token} isManufacturer={authorityManufacturer} isAdmin={authorityAdmin}/>
+                <StatisticsPage token={token} />
             </Route>
 
             <Route path="/cms/products/" exact>
-                <Products token={token} layout="table" isAdmin={authorityAdmin} />
+                {isAdmin ?
+                    <Products token={token} layout="table" isAdmin={isAdmin} />
+                    : <Redirect to="/cms/" />
+                }
             </Route>
 
             <Route path='/cms/products/create' exact>
-                <ProductForm mode="add" token={token} />
+                {isAdmin ?
+                    <ProductForm mode="add" token={token} />
+                    : <Redirect to="/cms/" />
+                }
             </Route>
 
-            {/*<Route path='/cms/products/:id' exact>*/}
-            {/*<DetailsProduct token={token} isAdmin={authorityAdmin}/>*/}
-            {/*</Route>*/}
-
             <Route path='/cms/products/edit/:id'>
-                <ProductForm mode="edit" token={token} />
+                {isAdmin ?
+                    <ProductForm mode="edit" token={token} />
+                    : <Redirect to="/cms/" />
+                }
             </Route>
 
             <Route  path='/cms/orders/' exact>
-                <Orders isAdmin={authorityAdmin} token={token}/>
+                {isAdmin ?
+                    <Orders isAdmin={isAdmin} token={token}/>
+                    : <Redirect to="/cms/" />
+                }
             </Route>
 
             <Route path='/cms/orders/create' exact>
-                <OrderForm mode="add" token={token} />
+                {isAdmin ?
+                    <OrderForm mode="add" token={token} />
+                    : <Redirect to="/cms/" />
+                }
             </Route>
 
             <Route path='/cms/orders/:id' exact>
@@ -83,16 +128,24 @@ const CmsRouting = ({authorityAdmin, authorityManufacturer, token}) => {
             </Route>
 
             <Route path='/cms/orders/edit/:id' exact>
-                <OrderForm mode="edit" token={token} />
+                {isAdmin ?
+                    <OrderForm mode="edit" token={token} />
+                    : <Redirect to="/cms/" />
+                }
             </Route>
 
-
             <Route path="/cms/users" exact>
-                <UserManagement isAdmin={authorityAdmin} token={token}/>
+                {isAdmin ?
+                    <UserManagement isAdmin={isAdmin} token={token}/>
+                    : <Redirect to="/cms/" />
+                }
             </Route>
 
             <Route path='/cms/users/create'>
-                <UserForm mode="add" token={token} />
+                {isAdmin ?
+                    <UserForm mode="add" token={token} />
+                    : <Redirect to="/cms/" />
+                }
             </Route>
 
             <Route path="/cms/users/:username">
@@ -100,7 +153,10 @@ const CmsRouting = ({authorityAdmin, authorityManufacturer, token}) => {
             </Route>
 
             <Route path="/cms/users/edit/:username">
-                <UserForm mode="edit" token={token} />
+                {isAdmin ?
+                    <UserForm mode="edit" token={token} />
+                    : <Redirect to="/cms/" />
+                }
             </Route>
         </>
     )

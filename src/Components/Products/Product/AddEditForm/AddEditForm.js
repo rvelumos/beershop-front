@@ -88,8 +88,6 @@ export function AddEditForm(props) {
     }
 
     function onSubmitForm(data) {
-        console.table(formValues);
-
         const { categoryId,
             manufacturerId,
             name,
@@ -98,23 +96,26 @@ export function AddEditForm(props) {
             stock,
             description,
             type,
-            image,
             discount
         } = data;
 
         setFormValues({
-            categoryId: categoryId,
-            manufacturerId: manufacturerId,
+            category: {
+                id: categoryId
+            },
+            manufacturer: {
+                id: manufacturerId
+            },
             name: name,
             taste: taste,
             price: price,
             stock: stock,
             description: description,
             type: type,
-            image: image.raw,
             discount: discount
         });
 
+        console.table(data);
         setSubmittedForm(true);
     }
 
@@ -279,7 +280,7 @@ export function AddEditForm(props) {
                                     <FormElement
                                         type="text"
                                         name="type"
-                                        label="Type"
+                                        label="Type (1=Bier los, 2=Pakket, 4=Cadeaubon)"
                                         formValue={formValues.type}
                                         onChange={changeHandler}
                                         fieldRef={register({

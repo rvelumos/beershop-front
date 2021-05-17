@@ -27,7 +27,7 @@ export function AddEditForm(props) {
     useEffect(() => {
         async function getFormData (){
             try {
-                const url=`/api/v1/newsletter/${id}/`
+                const url=`/api/v1/admin/newsletter/${id}/`
                 const result = await axios.get(url, {
                     headers : {
                         "Authorization" : `Bearer ${token}`,
@@ -57,7 +57,6 @@ export function AddEditForm(props) {
     }
 
     function onSubmitForm(data) {
-        console.log("onsubmitform");
         const { name, content } = data;
 
         setFormValues({
@@ -97,16 +96,14 @@ export function AddEditForm(props) {
                                 </div>
 
                                 <div className="formElement">
-                                    <FormElement
-                                        type="text"
+                                    {errors.content ? <span className='errorMessage'>{errors.content.message}</span> : <span>&nbsp;</span>}
+                                    <textarea
                                         name="content"
-                                        label="Content"
-                                        formValue={formValues.content}
-                                        onChange={changeHandler}
-                                        fieldRef={register({
-                                            required: 'Verplicht veld',
+                                        placeholder="Inhoud"
+                                        defaultValue={formValues.content}
+                                        ref={register({
+                                            required: "Verplicht veld",
                                         })}
-                                        error={errors.content ? <span className='errorMessage'>{errors.content.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
                             </fieldset>

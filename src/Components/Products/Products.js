@@ -13,7 +13,7 @@ function Products(props) {
     const [loading, toggleLoading] = useState(false);
 
     const { searchResult } = useParams();
-    const { isAdmin, token, customerPoints } = props;
+    const { isAdmin, token } = props;
     const {categoryArray, sortResults} = props;
 
     async function insertKeyword(keyword) {
@@ -75,6 +75,9 @@ function Products(props) {
                             ascending = true;
 
                         result.data.sort((a, b) => (a[value] < b[value] ? -1 : 1) * (ascending ? 1 : -1));
+                    }
+                    if(isAdmin) {
+                        result.data.sort((a,b) => b.id-a.id);
                     }
                     setProductItems(result.data);
                 } else {

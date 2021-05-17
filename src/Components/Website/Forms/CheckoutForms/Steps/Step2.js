@@ -345,24 +345,7 @@ function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
                         <div className="paymentDetails">
                             <div className="formElement">
                                 <h2>Betaalopties:</h2>
-                                {errors.paymentOptions && <p className='errorMessage'>{errors.paymentOptions.message}</p>}
-                                <input
-                                    type="radio"
-                                    name="paymentOptions"
-                                    value="1"
-                                    ref={register({
-                                        required: "Verplicht veld",
-                                    })}
-                                /> Betaling via overschijving*
-                                <br />
-                                <input
-                                    type="radio"
-                                    name="paymentOptions"
-                                    value="2"
-                                    ref={register({
-                                        required: "Verplicht veld",
-                                    })}
-                                /> Betaling achteraf*
+                                <p>Op dit moment is het alleen mogelijk te betalen via overschrijving. *</p>
                             </div>
                         </div><br />
 

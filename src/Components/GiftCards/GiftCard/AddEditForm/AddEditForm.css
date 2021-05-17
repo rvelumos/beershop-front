@@ -2,3 +2,7 @@
     max-width: 1300px;
     margin: 0 auto;
 }
+
+.AddEditForm textarea {
+    margin: 0 25px;
+}

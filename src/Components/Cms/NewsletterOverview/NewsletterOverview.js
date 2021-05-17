@@ -24,7 +24,6 @@ function NewsletterOverview ({token}) {
                 });
 
                 if (result.data.length > 0) {
-                    console.log(result);
                     setItems(result.data);
                 }
                 toggleLoading(false);
@@ -41,7 +40,7 @@ function NewsletterOverview ({token}) {
     return (
         <>
             <div className="overview">
-                {loading ? <LoadingIndicator /> : <NewsletterTemplate error={error} items={items} setItems={setItems} setError={setError} />}
+                {loading ? <LoadingIndicator /> : <NewsletterTemplate token={token} error={error} items={items} setItems={setItems} setError={setError} />}
             </div>
         </>
     )

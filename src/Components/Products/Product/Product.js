@@ -53,17 +53,26 @@ function Product(props) {
                             </div>
                         )
                     } else {
+                        let classStock = "";
+                        if (productItem.stock === 0) {
+                            classStock = "outOfStockCell";
+                        } else if (productItem.stock < 25 && productItem.stock > 0) {
+                            classStock = "StockAlmostEmptyCell";
+                        } else {
+                            classStock = "stockFullCell";
+                        }
+
                         let shortDescription = <i>Niet ingevuld</i>;
                         if(productItem.description !== null)shortDescription = productItem.description.substr(0,60) + "...";
                         return(
-                            <tr key={productItem.id} className="Order">
+                            <tr key={productItem.id} className={`Order ${classStock}`}>
                                 <td className="productID">{productItem.id}</td>
                                 <td className="productCategory">({productItem.category.id}) {productItem.category.name}</td>
                                 <td className="productManufacturer">{productItem.manufacturer.name}</td>
                                 <td className="productName">{productItem.name}</td>
                                 <td className="productPrice">€{productItem.price.toFixed(2)}</td>
                                 <td className="productTaste">{productItem.taste}</td>
-                                <td className="productStock">{productItem.stock}</td>
+                                <td className="productStock"><span>{productItem.stock}</span></td>
                                 <td className="productDescription">{shortDescription}</td>
                                 <td className="productType">{productItem.type}</td>
                                 <td>
@@ -83,12 +92,13 @@ function Product(props) {
     }
     return(
         <>
-            {message && <p> {message} </p>}
             {loading ? <LoadingIndicator/> :
                 <>
                 {isAdmin ?
                     <>
                     <div className="itemContainer">
+                        <h1>Overzicht producten</h1>
+                        {message && <p> {message} </p>}
                         {error && <p> {error} </p>}
                         <Link to="/cms/products/create/" className="button">Product toevoegen</Link><br /><br />
                         <table className="tableDetails">

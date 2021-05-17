@@ -12,7 +12,6 @@ const Step3 = ({currentStep, activeGiftCard, shipmentData, shoppingCartItems, or
         return input.charAt(0).toUpperCase() + input.slice(1);
     }
 
-    console.log(shoppingCartItems);
     function currentOrderInfo() {
 
         if(shoppingCartItems !== "") {

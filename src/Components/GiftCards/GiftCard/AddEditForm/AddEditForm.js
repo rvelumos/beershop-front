@@ -63,11 +63,9 @@ export function AddEditForm(props) {
 
     const changeHandler = e => {
         setFormValues({[e.target.name]: e.target.value})
-        console.log("changehandler");
     }
 
     function onSubmitForm(data) {
-        console.log("onsubmitform");
         const { name, description, price} = data;
 
         setFormValues({

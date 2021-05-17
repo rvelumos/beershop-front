@@ -3,6 +3,7 @@ import './GiftCard.css';
 import {Link} from "react-router-dom";
 import axios from "axios";
 import LoadingIndicator from "../../Website/UI/LoadingIndicator/LoadingIndicator";
+import Feedback from "react-bootstrap/Feedback";
 
 function GiftCard(props) {
 
@@ -67,10 +68,11 @@ function GiftCard(props) {
     }
     return(
         <>
-            {message && <p className="notice"> {message} </p>}
             {loading ? <LoadingIndicator/> :
                 <div className="itemContainer">
-                    {error && <p> {error} </p>}
+                    <h1>Overzicht producten</h1>
+                    {message && <p className="notice"> {message} </p>}
+                    {error && <Feedback type="error" content={error} />}
                     <Link to="/cms/giftcards/create/" className="button">Cadeaukaart toevoegen</Link><br/><br/>
                     <table className="tableDetails">
                         <tbody>

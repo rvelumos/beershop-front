@@ -84,6 +84,7 @@
     color: green;
 }
 
+.outOfStockCell td.productStock,
 .outOfStock {
     font-style: normal;
     color: red;
@@ -98,8 +99,18 @@
     font-style: italic;
 }
 
+.outOfStockCell td.productStock span::before,
+.StockAlmostEmptyCell td.productStock span::before,
 .stockAlmostEmpty::before {
     content: var(--symbol-warn);
+}
+
+.StockAlmostEmptyCell td.productStock {
+    color: orange;
+}
+
+.outOfStockCell td.productStock {
+    color: red;
 }
 
 .stockFull::before {
@@ -109,6 +120,14 @@
 .formElement textarea {
     margin: 0;
     width: 95%;
+}
+
+.StockAlmostEmptyCell td {
+    background-color: #fffaea !important;
+}
+
+.outOfStockCell td {
+    background-color: #f7caca !important;
 }
 
 @media only screen and (max-width: 900px) {

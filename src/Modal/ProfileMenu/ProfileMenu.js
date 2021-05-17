@@ -43,7 +43,7 @@ function ProfileMenu() {
                         <TopNavigationMenuItem url="/mijn_account/gegevens" name="mijn gegevens" handler={toggleProfileModal} />
                         <TopNavigationMenuItem url="/mijn_account/orders" name="mijn orders" handler={toggleProfileModal} />
                         <TopNavigationMenuItem url="/mijn_account/cadeaubonnen" name="mijn cadeaubonnen" handler={toggleProfileModal} />
-                        <TopNavigationMenuItem url="/mijn_account/bonus" name="bonusproducten" handler={toggleProfileModal} />
+                        {/*<TopNavigationMenuItem url="/mijn_account/bonus" name="bonusproducten" handler={toggleProfileModal} />*/}
                     </div>
                 </div>
             </div>

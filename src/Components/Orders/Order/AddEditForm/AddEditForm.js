@@ -111,7 +111,7 @@ export function AddEditForm(props) {
 
         let orderDate = formValues.orderDate;
         if(!isAddMode) {
-            if(orderDate !== null) orderDate = orderDate.split('T')[0];
+            if(orderDate !== null) orderDate = orderDate.split('.')[0].replace("T", " ");
         }
 
         return(

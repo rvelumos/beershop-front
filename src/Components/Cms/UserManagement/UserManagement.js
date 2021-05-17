@@ -18,8 +18,6 @@ const UserManagement = ({ token, isAdmin }) => {
 
             let url = "/api/v1/admin/customers";
 
-            console.log(url);
-
             try {
                 const result = await axios.get(url, {
                     headers : {

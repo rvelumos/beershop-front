@@ -108,24 +108,6 @@ const Confirmation = ({email, currentStep, token, orderItems, formData}) => {
 
         }
 
-        async function addCustomerPoints() {
-            const earnedPoints = orderItems.subTotal * 5;
-
-            try {
-                const url = `/api/v1/customer/${username}`;
-                const result = await axios.put(url, {
-                    customerPoints: earnedPoints
-                });
-                if(result) {
-                    toggleLoading(false);
-                }
-
-            } catch (e) {
-                console.error(e);
-                setError("Fout bij verwerken data.");
-            }
-        }
-
         async function sendConfirmationMail() {
 
             const data = {

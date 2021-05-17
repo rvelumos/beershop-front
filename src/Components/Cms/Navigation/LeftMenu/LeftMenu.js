@@ -5,11 +5,13 @@ import {AuthContext} from "../../../../context/AuthContext";
 import MenuIcon from "./MenuIcon/MenuIcon";
 
 const LeftMenu = ({isAdmin}) => {
-    const { logout } = useContext(AuthContext);
+    const { logout, username } = useContext(AuthContext);
 
     return (
         <>
+
             <div className="LeftMenuContainer">
+                <div className="authorizedUser">Ingelogd als <span>{username}</span></div>
                 <ul className="LeftMenuItems">
                     {isAdmin &&
                         <>

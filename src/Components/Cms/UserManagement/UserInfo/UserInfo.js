@@ -38,8 +38,6 @@ function UserInfo({users, setUsers, isAdmin, token}) {
     }
 
     const User = () => {
-
-        console.log(users);
         if(isAdmin) {
             return(
                 users.map((userInfo) => {
@@ -52,7 +50,6 @@ function UserInfo({users, setUsers, isAdmin, token}) {
                             <td><p className="userBirthDate">{userInfo.birthDate}</p></td>
                             <td><p className="userEmail">{userInfo.email}</p></td>
                             <td><p className="userPhone">{userInfo.phone}</p></td>
-                            <td><p className="userCP">{userInfo.customerPoints}</p></td>
                             <td><p className="userNewsletter">{userInfo.newsletter ? "X" : null}</p></td>
                             <td><p className="userRoles"></p></td>
                             <td>
@@ -98,7 +95,6 @@ function UserInfo({users, setUsers, isAdmin, token}) {
                                     <td>Geboortedatum</td>
                                     <td>E-mail</td>
                                     <td>Telefoon</td>
-                                    <td>Punten</td>
                                     <td>Nieuwsbrief</td>
                                     <td>Rollen</td>
                                     <td>Acties</td>

@@ -13,7 +13,6 @@ const Orders = ({isAdmin, token}) => {
 
     useEffect(() => {
         async function getOrders() {
-            console.log(token);
             toggleLoading(true);
 
             let url = `/api/v1`;

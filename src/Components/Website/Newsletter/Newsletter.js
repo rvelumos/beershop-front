@@ -47,7 +47,6 @@ const Newsletter = () => {
                 } catch (e) {
                     console.error(e);
                     setError("Fout bij ophalen gegevens.");
-                    console.log(error)
                     toggleLoading(false);
                 }
             }

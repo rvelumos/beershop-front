@@ -90,7 +90,7 @@ const OrderBlock = ({productItem, isAdmin, section}) => {
         let title="";
         if(section==='overview') {
             if(productItem.type!==4)
-                image = <div className="image"><img src={`/product_images/product_${productItem.id}.png`} alt=''/></div>;
+                image = <div className="image"><img src={productItem.imagePath} alt=''/></div>;
              else
                 image = <div className="image"><img src={`/product_images/giftcard.png`} alt=''/></div>;
 

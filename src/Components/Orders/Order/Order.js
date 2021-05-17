@@ -28,7 +28,6 @@ function Order(props) {
         }
             if(orderItems.length > 0) {
                 orderItems = Array.from(orderItems);
-                console.log(orderItems);
                 return (
                     orderItems.map((orderItem) => {
 
@@ -47,7 +46,6 @@ function Order(props) {
                             <tr key={orderItem.id} className="Order">
                                 <td className="orderID">#{orderItem.id}</td>
                                 <td className="orderUser">
-                                    {console.log(orderItem.shipping.address.customer.id)}
                                     {!openCustomerModal ?
                                         <div onClick={(e) => updateCurrentModal(orderItem.id, "customer")} className="details">Details</div>
                                         : !skip && <Modal token={token} item={orderItem.shipping.address.customer} title={`Klant #${orderItem.customerId}`}  section="customer" handler={updateCurrentModal} />
@@ -101,6 +99,7 @@ function Order(props) {
         <>
             {isAdmin ?
                 <div className="itemContainer">
+                    <h1>Overzicht producten</h1>
                     <table className="tableDetails">
                         <tbody>
                         <tr>

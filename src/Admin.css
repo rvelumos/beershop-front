@@ -29,6 +29,16 @@ main.cms {
     z-index: 9999;
 }
 
+.cms .cmsMainMessage {
+    margin: 30px auto;
+    font-size: var(--font-size-l);
+}
+
+.cms textarea,
+.cms #float-label input {
+    border: var(--default-border-light);
+}
+
 .cms .itemContainer {
     max-width: 1300px;
     margin: 10px auto;
@@ -41,6 +51,7 @@ main.cms {
     border-radius: var(--default-border-radius);
 }
 
+.tableDetailsSmall,
 .tableDetails {
     display: table;
     border-spacing: 0 2px;
@@ -49,32 +60,31 @@ main.cms {
     margin: 20px auto;
 }
 
+.tableDetailsSmall td:first-of-type,
 .tableDetails td:first-of-type {
     border-radius: 5px 0 0 5px;
-}
-
-.tableDetails td:last-of-type {
-    border-radius: 0 5px 5px 0;
-}
-
-.tableDetails td:last-of-type {
-    width: 70px;
-}
-.tableDetails td:first-of-type {
     width: 35px;
     text-align: center;
 }
 
-.tableDetails td:first-of-type p {
-    padding: 5px;
-    width: 50px;
+.tableDetailsSmall td:last-of-type,
+.tableDetails td:last-of-type {
+    border-radius: 0 5px 5px 0;
+    width: 70px;
 }
 
+.tableDetailsSmall td:first-of-type p,
+.tableDetails td:first-of-type p {
+    padding: 5px;
+}
+
+.tableDetailsSmall tr:hover:not(:first-of-type) td,
 .tableDetails tr:hover:not(:first-of-type) td {
     background-color: #f2f6ff;
     transition: background-color 0.5s ease-in;
 }
 
+.tableDetailsSmall td,
 .tableDetails td {
     padding: 20px;
     width: 300px;
@@ -85,6 +95,11 @@ main.cms {
     transition: background-color 0.5s ease-out;
 }
 
+.tableDetailsSmall td {
+    padding: 12px 17px;
+}
+
+.tableDetailsSmall tr:first-of-type td,
 .tableDetails tr:first-of-type td {
     background-color: var(--background-color-blue) !important;
     color: var(--font-color-secondary);
@@ -92,13 +107,11 @@ main.cms {
     height: 60px;
 }
 
+.tableDetailsSmall tr:first-of-type td:first-of-type,
 .tableDetails tr:first-of-type td:first-of-type {
     text-align: center;
 }
 
-.tableDetails tr:first-of-type td:not(:first-of-type){
-    background-color: transparent;
-}
 
 .profileContainer,
 .modalContainer {

@@ -4,7 +4,6 @@ import UserProfilePage from "../../Pages/User/UserProfilePage";
 import Login from "../../Components/Website/UserProfile/Login/Login";
 import UserOrderPage from "../../Pages/User/UserOrderPage";
 import UserGiftPage from "../../Pages/User/UserGiftPage";
-import UserBonusPage from "../../Pages/User/UserBonusPage";
 import UserSettingsPage from "../../Pages/User/UserSettings";
 import {AuthContext} from "../../context/AuthContext";
 import EditForm from "../../Components/Website/Forms/EditForm/EditForm";
@@ -57,12 +56,12 @@ const UserProfileRouting = ({userLoggedIn}) => {
                 }
             </Route>
 
-            <Route path="/mijn_account/bonus">
-                {userLoggedIn ?
-                    <UserBonusPage />
-                    : <Redirect to="/mijn_account/" />
-                }
-            </Route>
+            {/*<Route path="/mijn_account/bonus">*/}
+            {/*    {userLoggedIn ?*/}
+            {/*        <UserBonusPage />*/}
+            {/*        : <Redirect to="/mijn_account/" />*/}
+            {/*    }*/}
+            {/*</Route>*/}
         </>
     )
 }

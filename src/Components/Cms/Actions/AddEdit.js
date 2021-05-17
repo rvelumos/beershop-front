@@ -13,11 +13,8 @@ function AddEdit({isAddMode, section, itemData, id, token, setSaved, saved}) {
     useEffect(() =>{
         async function handleData(itemData) {
             setProcess("data");
-            // let action = "create";
-            // if(!isAddMode)
-            //     action = "edit";
 
-            let url = `/api/v1/admin/${section}/`;
+            let url = `/api/v1/admin/${section}`;
             if(!isAddMode)
                 url = `${url}/${id}`;
 
@@ -55,7 +52,6 @@ function AddEdit({isAddMode, section, itemData, id, token, setSaved, saved}) {
             handleData(itemData);
     // eslint-disable-next-line
     }, [])
-
 
     return(
         <>

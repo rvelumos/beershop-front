@@ -31,6 +31,7 @@ function GiftCardUsedItem(props) {
                                 <td><p className="giftCardAmount">€{giftCardItem.amount}</p></td>
                                 <td><p className="giftCardCode">{giftCardItem.code}</p></td>
                                 <td><p className="giftCardExpirationDate">{expiration_date}</p></td>
+                                <td><p className="giftCardUser">{giftCardItem.username}</p></td>
                                 <td><p className={classGc}>{used}</p></td>
                             </tr>
                         </React.Fragment>
@@ -44,6 +45,7 @@ function GiftCardUsedItem(props) {
     return(
         <>
             <div className="itemContainer">
+                <h1>Overzicht gekochte cadeaubonnen</h1>
                 {isAdmin ?
                 <table className="tableDetails">
                     <tbody>
@@ -53,6 +55,7 @@ function GiftCardUsedItem(props) {
                         <td>Hoogte</td>
                         <td>Code</td>
                         <td>Geldigheidsduur</td>
+                        <td>Klant</td>
                         <td>Gebruikt</td>
                     </tr>
                     {displayUsageGiftCardItems(props)}
