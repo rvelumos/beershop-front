@@ -1,0 +1,20 @@
+.statisticsOverview {
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.statisticsSearch,
+.statisticsBestSoldOverall,
+.statisticsBestSoldBrand {
+    background-color: var(--background-color-extra-light);
+    padding: 20px;
+    min-height: 300px;
+    margin: 10px 50px;
+    max-width: 300px;
+    width: 98%;
+    border-radius: var(--default-border-radius);
+    border: var(--default-border-light);
+}

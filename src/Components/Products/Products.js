@@ -73,7 +73,6 @@ function Products(props) {
                         let ascending;
                         if(sortResults.includes("_asc"))
                             ascending = true;
-
                         result.data.sort((a, b) => (a[value] < b[value] ? -1 : 1) * (ascending ? 1 : -1));
                     }
                     if(isAdmin) {

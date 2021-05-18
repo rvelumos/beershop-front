@@ -19,9 +19,9 @@ function FilterBlockItems(props) {
             let url = `/api/v1/products/`;
 
             if(valueName==="category")
-                url=`${url}categories/`;
+                url=`${url}categories`;
             else
-                url=`${url}tastes/`;
+                url=`${url}tastes`;
 
             try {
                 const result = await axios.get(url);

@@ -80,7 +80,7 @@ main.cms {
 
 .tableDetailsSmall tr:hover:not(:first-of-type) td,
 .tableDetails tr:hover:not(:first-of-type) td {
-    background-color: #f2f6ff;
+    background-color: var(--background-color-extra-light);
     transition: background-color 0.5s ease-in;
 }
 

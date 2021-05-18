@@ -25,6 +25,7 @@ export function AddEditForm(props) {
         preview: "",
         raw: ""
     });
+    const[categoryOptions, setCategoryOptions] = useState("");
 
     const [formValues, setFormValues] = useState({
         manufacturerId: '',
@@ -87,6 +88,29 @@ export function AddEditForm(props) {
         setFormValues({[e.target.name]: e.target.value})
     }
 
+    useEffect(() => {
+        async function getCategoryItems() {
+            try {
+                const url = `/api/v1/products/categories`;
+                const result = await axios.get(url, {
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                        "Access-Control-Allow-Origin": "*",
+                    }
+                });
+                if (result) {
+                    setCategoryOptions(result.data);
+                }
+            } catch (e) {
+                console.error(e);
+                setError("Fout bij ophalen gegevens.");
+            }
+        }
+
+        getCategoryItems();
+    }, [])
+
     function onSubmitForm(data) {
         const { categoryId,
             manufacturerId,
@@ -148,6 +172,14 @@ export function AddEditForm(props) {
             mode: "onChange",
         });
 
+        let categoryItems;
+        if(categoryOptions !== "") {
+            console.log(categoryOptions)
+            categoryItems = categoryOptions.map((categoryItem) =>
+                <option key={categoryItem.name} value={categoryItem.id}>{categoryItem.name}</option>
+            );
+        }
+
         return(
             <>
                 <div className="AddEditForm">
@@ -175,21 +207,11 @@ export function AddEditForm(props) {
                                 </div>
 
                                 <div className="formElement">
-                                    <FormElement
-                                        type="text"
-                                        name="categoryId"
-                                        label="Categorie"
-                                        formValue={formValues.categoryId}
-                                        onChange={changeHandler}
-                                        fieldRef={register({
-                                            required: 'Verplicht veld',
-                                            pattern: {
-                                                value: /^[0-9]*$/,
-                                                message: 'Ongeldige invoer'
-                                            }
-                                        })}
-                                        error={errors.categoryId ? <span className='errorMessage'>{errors.categoryId.message}</span> : <span>&nbsp;</span>}
-                                    />
+                                    {errors.type ? <span className='errorMessage'>{errors.type.message}</span> : <span>&nbsp;</span>}
+                                    <select name="categoryId" ref={register({ required: true })}>
+                                        <option value="">Kies de categorie:</option>
+                                        {categoryItems}
+                                    </select>
                                 </div>
 
                                 <div className="formElement">
@@ -277,22 +299,13 @@ export function AddEditForm(props) {
                                 </div>
 
                                 <div className="formElement">
-                                    <FormElement
-                                        type="text"
-                                        name="type"
-                                        label="Type (1=Bier los, 2=Pakket, 4=Cadeaubon)"
-                                        formValue={formValues.type}
-                                        onChange={changeHandler}
-                                        fieldRef={register({
-                                            required: "Verplicht veld",
-                                            pattern: {
-                                                value: /^[0-9]*$/,
-                                                message: 'Ongeldige invoer'
-                                            }
-                                        })
-                                        }
-                                        error={errors.type ? <span className='errorMessage'>{errors.type.message}</span> : <span>&nbsp;</span>}
-                                    />
+                                    {errors.type ? <span className='errorMessage'>{errors.type.message}</span> : <span>&nbsp;</span>}
+                                    <select name="type" ref={register({ required: true })}>
+                                        <option value="">Kies het type product:</option>
+                                        <option value="1">Los bier</option>
+                                        <option value="3">Bierpakket</option>
+                                        <option value="4">Cadeaubon</option>
+                                    </select>
                                 </div>
 
                                 <div className="formElement">
@@ -305,8 +318,8 @@ export function AddEditForm(props) {
                                         fieldRef={register({
                                             required: "Verplicht veld",
                                             pattern: {
-                                                value: /^[1-9]\d*(\.\d+)?$/,
-                                                message: 'Ongeldige invoer'
+                                                value: /^[1-9][0-9]?$|^100$/,
+                                                message: 'Voer een geldige waarde tussen 1-100 in'
                                             }
                                         })
                                         }
@@ -314,14 +327,14 @@ export function AddEditForm(props) {
                                     />
                                 </div>
 
-                                <div className="formElement">
-                                    <img src={image.preview} alt="dummy" width="300" height="300" />
-                                    <input
-                                        type="file"
-                                        id="upload-button"
-                                        onChange={handleChange}
-                                    />
-                                </div>
+                                {/*<div className="formElement">*/}
+                                {/*    <img src={image.preview} alt="dummy" width="300" height="300" />*/}
+                                {/*    <input*/}
+                                {/*        type="file"*/}
+                                {/*        id="upload-button"*/}
+                                {/*        onChange={handleChange}*/}
+                                {/*    />*/}
+                                {/*</div>*/}
 
 
                             </fieldset>

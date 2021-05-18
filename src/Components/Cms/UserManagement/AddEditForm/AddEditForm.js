@@ -2,9 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {useForm} from "react-hook-form";
 import {useParams} from "react-router-dom";
 import axios from "axios";
-
-//import AddEdit from "../../Actions/AddEdit";
-
 import LoadingIndicator from "../../../Website/UI/LoadingIndicator/LoadingIndicator";
 import FormElement from "../../../Website/Forms/FormElement/FormElement";
 import Button from "../../../Website/UI/Button/Button";
@@ -16,9 +13,9 @@ export function AddEditForm(props) {
     const [submittedForm, setSubmittedForm] = useState(false);
 
     const { username } = useParams();
-    const { token } = props;
+    const { token, isAddMode } = props;
 
-    const [formValues, setFormValues] = useState({
+    const [customerValues, setCustomerValues] = useState({
         userId: '',
         email: '',
         firstname: '',
@@ -26,72 +23,108 @@ export function AddEditForm(props) {
         birthDate: '',
         phone: '',
         newsletter: '',
-        sex: ''
+        sex: '',
+        street: '',
+        streetAdd: '',
+        postalCode: '',
+        city: '',
+        number: '',
+        province: '',
+        country: ''
     });
 
     useEffect(() => {
-        async function getFormData (){
+        async function getCustomerData (){
             try {
-                const url=`/api/v1/customer/${username}`
+                const url=`/api/v1/address/customer/${username}`
                 const result = await axios.get(url);
+                const {
+                    street,
+                    streetAdd,
+                    number,
+                    postalCode,
+                    city,
+                    province,
+                    country
+                } = result.data[0];
+
                 const {
                     userId,
                     email,
                     firstname,
                     lastname,
-                    address,
                     birthDate,
                     phone,
                     newsletter,
-                    sex,
-                } = result.data[0];
+                    sex
+                } = result.data[0].customer;
 
-                setFormValues({
+                setCustomerValues({
                     userId: userId,
                     email: email,
                     firstname: firstname,
                     lastname: lastname,
                     birthDate: birthDate,
                     phone: phone,
-                    address: address,
                     newsletter: newsletter,
-                    sex: sex
+                    sex: sex,
+                    street: street,
+                    streetAdd: streetAdd,
+                    number: number,
+                    postalCode: postalCode,
+                    city: city,
+                    province: province,
+                    country: country
                 });
 
             } catch (e) {
                 console.error(e);
-                setError("Fout bij ophalen gegevens.");
+                setError("Fout bij ophalen klantgegevens.");
             }
             toggleLoading(false);
         }
         if(username !== undefined)
-            getFormData();
+            getCustomerData();
     // eslint-disable-next-line
     },[])
 
     const changeHandler = e => {
-        setFormValues({[e.target.name]: e.target.value})
+        setCustomerValues({[e.target.name]: e.target.value})
     }
 
     function onSubmitForm(data) {
 
         console.table(data);
         if(error === false) {
-            createLogin({
-                username: data.username,
-                password: data.password,
-                email: data.email,
-            })
+            if(isAddMode) {
+                createLogin({
+                    username: data.username,
+                    password: data.password,
+                    email: data.email,
+                })
 
-            createRegistration({
-                firstname: data.firstname,
-                username: data.username,
-                lastname: data.lastname,
-                email: data.email,
-                sex: data.sex,
-                phone: data.phone,
-                birthDate: data.birthDate,
-            })
+                handleRegistrationData({
+                    firstname: data.firstname,
+                    username: data.username,
+                    lastname: data.lastname,
+                    email: data.email,
+                    sex: data.sex,
+                    phone: data.phone,
+                    birthDate: data.birthDate,
+                })
+
+                handleAddressData({
+                    street: data.street,
+                    streetAdd: data.streetAdd,
+                    postalCode: data.postalCode,
+                    city: data.city,
+                    number: data.number,
+                    province: data.province,
+                    country: data.country
+                })
+            } else {
+                
+            }
         }
     }
 
@@ -125,26 +158,58 @@ export function AddEditForm(props) {
         }
     }
 
-    async function createRegistration(customerData) {
+    async function handleRegistrationData(customerData, isAddmode) {
         setError(false);
         toggleLoading(true);
 
         let url = `/api/v1/admin/customer/`;
 
         try {
-            const result = await axios.post(url, customerData, {
-                headers: {
-                    "Content-type": "application/json",
-                    Authorization: `Bearer ${token}`
-                }
-            });
-            if(result)
-                console.log(result);
+            if(isAddmode) {
+                const result = await axios.post(url, customerData, {
+                    headers: {
+                        "Content-type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+            } else {
+                const result = await axios.put(url, customerData, {
+                    headers: {
+                        "Content-type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+            }
         } catch (e) {
             console.error(e);
             setError("Fout bij verwerken registratiegegevens.");
         }
         toggleLoading(false);
+    }
+
+    async function handleAddressData(addressData, isAddmode) {
+        let url = `/api/v1/admin/address/`;
+
+        try {
+            if(isAddmode) {
+                const result = await axios.post(url, addressData, {
+                    headers: {
+                        "Content-type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+            } else {
+                const result = await axios.put(url, addressData, {
+                    headers: {
+                        "Content-type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+            }
+        } catch (e) {
+            console.error(e);
+            setError("Fout bij verwerken adresgegevens.");
+        }
     }
 
     const UserItem = () => {
@@ -174,7 +239,7 @@ export function AddEditForm(props) {
                                         type="text"
                                         name="firstname"
                                         label="Voornaam"
-                                        formValue={formValues.firstname}
+                                        formValue={customerValues.firstname}
                                         onChange={changeHandler}
                                         fieldRef={register({
                                             required: 'Verplicht veld',
@@ -188,7 +253,7 @@ export function AddEditForm(props) {
                                         type="text"
                                         name="lastname"
                                         label="Achternaam"
-                                        formValue={formValues.lastname}
+                                        formValue={customerValues.lastname}
                                         onChange={changeHandler}
                                         fieldRef={register({
                                             required: "Verplicht veld",
@@ -202,7 +267,7 @@ export function AddEditForm(props) {
                                     <FormElement
                                         type="text"
                                         name="email"
-                                        defaultValue={formValues.email}
+                                        formValue={customerValues.email}
                                         label="E-mailadres"
                                         onChange={changeHandler}
                                         fieldRef={register({
@@ -219,7 +284,7 @@ export function AddEditForm(props) {
                                         type="text"
                                         name="birthDate"
                                         label="Geboortedatum"
-                                        formValue={formValues.birthDate}
+                                        formValue={customerValues.birthDate}
                                         onChange={changeHandler}
                                         fieldRef={register({
                                             required: 'Verplicht veld',
@@ -237,7 +302,7 @@ export function AddEditForm(props) {
                                         type="text"
                                         name="phone"
                                         label="Telefoon"
-                                        formValue={formValues.phone}
+                                        formValue={customerValues.phone}
                                         onChange={changeHandler}
                                         fieldRef={register({
                                             required: "Verplicht veld",
@@ -265,13 +330,97 @@ export function AddEditForm(props) {
                                 </div>
                             </fieldset>
 
+                            <h1>Adresgegevens</h1>
+                            <fieldset>
+                                    <div className="formElement">
+                                            <FormElement
+                                                type="text"
+                                                name="postalCode"
+                                                formValue={customerValues.postalCode}
+                                                label="Postcode"
+                                                onChange={changeHandler}
+                                                ref={register({
+                                                    required: "Verplicht veld",
+                                                    pattern: {
+                                                        value: /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i,
+                                                        message: "Ongeldige postcode, controleer de input",
+                                                    },
+                                                })}
+                                            />
+                                    </div>
+                                <br />
+
+                                <div className="formElement">
+                                    <FormElement
+                                        type="text"
+                                        name="street"
+                                        label="Straat"
+                                        formValue={customerValues.street}
+                                        onChange={changeHandler}
+                                        fieldRef={register({
+                                            required: 'Verplicht veld',
+                                        })}
+                                        error={errors.street ? <span className='errorMessage'>{errors.street.message}</span> : <span>&nbsp;</span>}
+                                    />
+                                </div>
+
+                                <div className="formElement">
+                                    <FormElement
+                                        type="text"
+                                        name="streetAdd"
+                                        label="Straat (toevoeging)"
+                                        formValue={customerValues.streetAdd}
+                                        onChange={changeHandler}
+                                        fieldRef={register({
+                                            required: "Verplicht veld",
+                                        })
+                                        }
+                                        error={errors.streetAdd ? <span className='errorMessage'>{errors.streetAdd.message}</span> : <span>&nbsp;</span>}
+                                    />
+                                </div>
+
+                                <div className="formElement">
+                                    <FormElement
+                                        type="text"
+                                        name="city"
+                                        label="Stad"
+                                        formValue={customerValues.city}
+                                        onChange={changeHandler}
+                                        fieldRef={register({
+                                            required: 'Verplicht veld',
+                                        })}
+                                        error={errors.city ? <span className='errorMessage'>{errors.city.message}</span> : <span>&nbsp;</span>}
+                                    />
+                                </div>
+
+                                <div className="formElement">
+                                    <FormElement
+                                        type="text"
+                                        name="province"
+                                        label="Provincie"
+                                        formValue={customerValues.province}
+                                        onChange={changeHandler}
+                                    />
+                                </div>
+
+                                <div className="formElement">
+                                    <FormElement
+                                        type="text"
+                                        name="country"
+                                        label="Land"
+                                        formValue={customerValues.country}
+                                        onChange={changeHandler}
+                                    />
+                                </div>
+                            </fieldset>
+
                             <h2>Inloggegevens</h2>
                             <fieldset>
                                     <div className="formElement">
                                         <FormElement
                                             type="text"
                                             name="username"
-                                            defaultValue={formValues.username}
+                                            defaultValue={customerValues.username}
                                             label="Gebruikersnaam"
                                             onChange={changeHandler}
                                             fieldRef={register({
@@ -289,7 +438,7 @@ export function AddEditForm(props) {
                                         <FormElement
                                             type="password"
                                             name="password"
-                                            defaultValue={formValues.password}
+                                            defaultValue={customerValues.password}
                                             label="Wachtwoord"
                                             onChange={changeHandler}
                                             fieldRef={register({

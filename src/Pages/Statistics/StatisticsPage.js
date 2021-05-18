@@ -1,9 +1,10 @@
 import React from 'react';
+import Statistics from "../../Components/Cms/Statistics/Statistics";
 
-const StatisticsPage = () => {
+const StatisticsPage = ({token}) => {
 
     return(
-        <p>statistieken</p>
+        <Statistics token={token} />
     )
 }
 
