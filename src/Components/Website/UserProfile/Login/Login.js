@@ -45,8 +45,8 @@ const Login = ({cmsLogin}) => {
                 setError("Ongeldige inloggegevens. Controleer de spelling en probeer het opnieuw.")
             }
         }catch(e) {
-                console.error(e);
-                toggleLoading(false);
+            console.error(e);
+            toggleLoading(false);
         }
     }
 

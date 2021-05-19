@@ -5,6 +5,7 @@ import Button from "../UI/Button/Button";
 import SmallLoadingIndicator from "../UI/LoadingIndicator/SmallLoadingIndicator";
 import axios from "axios";
 import {useForm} from "react-hook-form";
+import Feedback from "../UI/Feedback/Feedback";
 
 const Newsletter = () => {
 
@@ -59,6 +60,7 @@ const Newsletter = () => {
             <div className="newsletter">
                 <div className="newsletterContainer">
                     <div className="newsletterText">
+                        {error && <Feedback type="error" content={error} />}
                         <h2>Aanmelden nieuwsbrief</h2>
                         <p>Blijf op de hoogte van leuke aanbiedingen!</p>
                     </div>

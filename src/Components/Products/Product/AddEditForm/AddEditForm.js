@@ -34,7 +34,7 @@ export function AddEditForm(props) {
         taste: '',
         stock: '',
         description: '',
-        image: '',
+        imagePath: '',
         type: '',
         discount: ''
     });
@@ -56,6 +56,7 @@ export function AddEditForm(props) {
                     price,
                     taste,
                     stock,
+                    imagePath,
                     description,
                     type,
                     discount} = result.data;
@@ -67,6 +68,7 @@ export function AddEditForm(props) {
                     price: price,
                     taste: taste,
                     stock: stock,
+                    imagePath: imagePath,
                     description: description,
                     type: type,
                     discount:discount
@@ -109,6 +111,7 @@ export function AddEditForm(props) {
         }
 
         getCategoryItems();
+        // eslint-disable-next-line
     }, [])
 
     function onSubmitForm(data) {
@@ -132,6 +135,7 @@ export function AddEditForm(props) {
             },
             name: name,
             taste: taste,
+            imagePath: `/images/upload/${image.raw.name}`,
             price: price,
             stock: stock,
             description: description,
@@ -144,13 +148,51 @@ export function AddEditForm(props) {
     }
 
     const handleChange = e => {
-        if (e.target.files.length) {
-            setImage({
-                preview: URL.createObjectURL(e.target.files[0]),
-                raw: e.target.files[0]
-            });
+        const uploadFile = e.target.files[0];
+
+        console.log(uploadFile.type);
+        if (uploadFile !== "") {
+            if (uploadFile.type === "image/jpeg" || uploadFile.type === "image/jpg" || uploadFile.type === "image/png") {
+                console.log("IMAGE")
+                console.log(e.target.files)
+                setImage({
+                    preview: URL.createObjectURL(e.target.files[0]),
+                    raw: e.target.files[0]
+                });
+                uploadImage();
+            } else {
+                setError("Ongeldig bestand: alleen .png en .jpg toegestaan");
+            }
         }
     };
+
+    async function uploadImage() {
+        const imageData = image.raw;
+        console.log("IMAGE DATA uploadimage");
+        console.log(imageData);
+        console.log(token);
+        //const FormData = require('form-data');
+
+        let formData = new FormData();
+        formData.append("file", imageData);
+
+        try {
+            const url = `/api/v1/admin/forms/upload`;
+            const result = await axios.post(url, formData,{
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "multipart/form-data",
+                    "Access-Control-Allow-Origin": "*",
+                }
+            });
+            if (result) {
+                console.log("Image opgeslagen")
+            }
+        } catch (e) {
+            console.error(e);
+            setError("Fout bij ophalen gegevens.");
+        }
+    }
 
     // const handleUpload = async e => {
     //     e.preventDefault();
@@ -316,7 +358,6 @@ export function AddEditForm(props) {
                                         formValue={formValues.discount}
                                         onChange={changeHandler}
                                         fieldRef={register({
-                                            required: "Verplicht veld",
                                             pattern: {
                                                 value: /^[1-9][0-9]?$|^100$/,
                                                 message: 'Voer een geldige waarde tussen 1-100 in'
@@ -327,14 +368,14 @@ export function AddEditForm(props) {
                                     />
                                 </div>
 
-                                {/*<div className="formElement">*/}
-                                {/*    <img src={image.preview} alt="dummy" width="300" height="300" />*/}
-                                {/*    <input*/}
-                                {/*        type="file"*/}
-                                {/*        id="upload-button"*/}
-                                {/*        onChange={handleChange}*/}
-                                {/*    />*/}
-                                {/*</div>*/}
+                                <div className="formElement">
+                                    <img src={image.preview} alt="dummy" width="300" height="300" />
+                                    <input
+                                        type="file"
+                                        id="upload-button"
+                                        onChange={handleChange}
+                                    />
+                                </div>
 
 
                             </fieldset>
@@ -353,8 +394,8 @@ export function AddEditForm(props) {
     return (
         <>
             <div className="overview">
-                { loading ? <LoadingIndicator /> : <ProductItem /> }
                 { error && <Feedback type="error" content={error} /> }
+                { loading ? <LoadingIndicator /> : <ProductItem /> }
                 { submittedForm &&  <AddEdit isAddMode={isAddMode} token={token} section="product" id={id} itemData={formValues}/> }
             </div>
         </>

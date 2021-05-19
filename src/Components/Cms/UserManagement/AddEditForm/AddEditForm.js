@@ -111,7 +111,7 @@ export function AddEditForm(props) {
                     sex: data.sex,
                     phone: data.phone,
                     birthDate: data.birthDate,
-                })
+                }, isAddMode)
 
                 handleAddressData({
                     street: data.street,
@@ -121,7 +121,7 @@ export function AddEditForm(props) {
                     number: data.number,
                     province: data.province,
                     country: data.country
-                })
+                }, isAddMode)
             } else {
                 
             }
@@ -144,6 +144,8 @@ export function AddEditForm(props) {
                         authority: "ROLE_CUSTOMER",
                         username: userData.username
                     })
+                    if (result)
+                        return("");
                 } catch (e) {
                     console.error(e);
                     setError("Fout bij verwerken logingegevens.");
@@ -172,6 +174,8 @@ export function AddEditForm(props) {
                         Authorization: `Bearer ${token}`
                     }
                 });
+                if (result)
+                    return("");
             } else {
                 const result = await axios.put(url, customerData, {
                     headers: {
@@ -179,6 +183,8 @@ export function AddEditForm(props) {
                         Authorization: `Bearer ${token}`
                     }
                 });
+                if (result)
+                    return("");
             }
         } catch (e) {
             console.error(e);
@@ -198,6 +204,8 @@ export function AddEditForm(props) {
                         Authorization: `Bearer ${token}`
                     }
                 });
+                if (result)
+                    return("");
             } else {
                 const result = await axios.put(url, addressData, {
                     headers: {
@@ -205,6 +213,8 @@ export function AddEditForm(props) {
                         Authorization: `Bearer ${token}`
                     }
                 });
+                if (result)
+                    return("");
             }
         } catch (e) {
             console.error(e);

@@ -7,8 +7,23 @@ import GiftCardForm from "../Forms/GiftCardForm/GiftCardForm";
 import Feedback from "../UI/Feedback/Feedback";
 import {AuthContext} from "../../../context/AuthContext";
 
-const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartItems, setShoppingCartActive}) => {
+export function calculateVat(totalPriceItems) {
+    if(totalPriceItems > 0)
+        return totalPriceItems * 0.21;
+    return 0;
+}
 
+export function determineShippingCosts(totalPriceItems) {
+    let shippingCosts;
+    if(totalPriceItems < 24.95) {
+        shippingCosts = 4.95;
+    } else {
+        shippingCosts = 0;
+    }
+    return shippingCosts;
+}
+
+const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartItems, setShoppingCartActive}) => {
     let [updatedShoppingCartItems, setUpdatedShoppingCartItems] = useState({
         data: ''
     });
@@ -31,7 +46,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
     if(username !== undefined)
         step = 2;
 
-     const removeItem = () => {
+     const deleteItem = () => {
          setShoppingCartItems({
              product: {
                  id: null,
@@ -45,20 +60,13 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
          )
     }
 
-
     function calculateSubTotal (amount) {
-        let shippingCosts;
         let discount = 0;
 
         let price = updatedShoppingCartItems.data.price;
         let totalPriceItems = amount * price;
-        const calculateVat = totalPriceItems * 0.21;
-
-        if(totalPriceItems < 24.95) {
-            shippingCosts = 4.95;
-        } else {
-            shippingCosts = 0;
-        }
+        let shippingCosts = determineShippingCosts(totalPriceItems);
+        let calculateVatPrice = calculateVat(totalPriceItems);
 
         let giftCardItem = JSON.parse(localStorage.getItem("giftcard"));
         if(giftCardItem !== "" && !setActiveGiftCard) {
@@ -74,7 +82,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                 totalPriceItems: totalPriceItems,
                 subTotal: total,
                 discount: discount,
-                vat: calculateVat,
+                vat: calculateVatPrice,
                 shippingCosts: shippingCosts,
                 productId: updatedShoppingCartItems.data.id,
                 amount: amount
@@ -85,8 +93,8 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
             <div className="summary">
                 <p className="summaryTotal"><span>Totaal producten:</span><span>€{totalPriceItems.toFixed(2)}</span></p>
                 {activeGiftCard && <p className="summaryGift"><span>Jouw korting:</span><span>-€{giftCardItem.amount}</span></p>}
-                <p className="summaryVat"><span>BTW (21%):</span><span> €{calculateVat.toFixed(2)}</span></p>
-                <p className="summaryShipping"><span>Verzending:</span><span> €{shippingCosts.toFixed(2)}</span></p>
+                <p className="summaryVat"><span>BTW (21%):</span><span> €{calculateVatPrice.toFixed(2)}</span></p>
+                <p className="summaryShipping"><span>Verzending:</span><span> €{shippingCosts}</span></p>
                 <p className="summarySubTotal"><span>Subtotaal:</span><span> €{total.toFixed(2)}</span></p>
             </div>
         )
@@ -105,8 +113,6 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
     }
 
     function increaseAmount(amount, id, stock) {
-
-         console.log("amount "+amount+ " stock:"+ stock)
         if(amount < 100 && amount < stock) {
             amount = parseInt(amount) + 1;
             setShoppingCartItems({
@@ -156,10 +162,8 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
     }
 
     const getShoppingCartTable = (amount) => {
-
         const newArrayItems = Array.from(Object.entries(updatedShoppingCartItems));
 
-        console.log("Shoppingcart table met updated cart items");
         console.log(newArrayItems);
             return (
                 newArrayItems.map((cartItem, key) => {
@@ -206,8 +210,8 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                                     </div>
                                 </div>
                                 <div className="productPrice">€{finalPrice}</div>
-                                <div
-                                    className="productPriceTotal">€{(amount * finalPrice).toFixed(2)}</div>
+                                <div className="productPriceTotal">€{(amount * finalPrice).toFixed(2)}</div>
+                                <div className="delete" onClick={(e) => deleteItem()}>&#10008;</div>
                             </div>
                         </React.Fragment>
                     )

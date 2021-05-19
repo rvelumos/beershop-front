@@ -32,7 +32,7 @@ function GiftCard(props) {
             }
         } catch (e) {
             console.error(e);
-            setError("Fout bij verwijderen gebruiker.");
+            setError("Fout bij verwijderen cadeaubon.");
             toggleLoading(false);
         }
     }

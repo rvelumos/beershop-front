@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import LoadingIndicator from "../Website/UI/LoadingIndicator/LoadingIndicator";
 import Order from "./Order/Order";
 import axios from "axios";
 import './Orders.css';
 import Feedback from "../Website/UI/Feedback/Feedback";
+import {AuthContext} from "../../context/AuthContext";
 
 const Orders = ({isAdmin, token}) => {
 
@@ -11,8 +12,10 @@ const Orders = ({isAdmin, token}) => {
     const [orderItems, setOrderItems] = useState("");
     const [loading, toggleLoading] = useState(true);
 
+    const { username } = useContext(AuthContext);
+
     useEffect(() => {
-        async function getOrders() {
+        async function getOrders(username) {
             toggleLoading(true);
 
             let url = `/api/v1`;
@@ -20,12 +23,10 @@ const Orders = ({isAdmin, token}) => {
             if (isAdmin) {
                 url = `${url}/admin/orders/`;
             } else {
-                //fix!!!
-                let userId = 1;
-                url = `${url}/orders/customer/${userId}/`;
+                url = `${url}/orders/customer/${username}/`;
             }
 
-                try {
+            try {
                     const result = await axios.get(url, {
                         headers : {
                             "Authorization" : `Bearer ${token}`,
@@ -33,21 +34,22 @@ const Orders = ({isAdmin, token}) => {
                             "Access-Control-Allow-Origin": "*",
                         }
                     });
+                    console.log(result.data)
                 if (result.data.length > 0) {
                     result.data.sort((a,b) => b.id-a.id);
                     setOrderItems(result.data);
-                    toggleLoading(false);
                 }
             } catch (e) {
                 console.error(e);
-                setError("Fout bij ophalen order gegevens.");
-                toggleLoading(false);
+                setError("Fout bij ophalen ordergegevens.");
             }
+            toggleLoading(false);
         }
 
-        getOrders();
+        if(username!==undefined)
+            getOrders(username);
     // eslint-disable-next-line
-    },[]);
+    },[username]);
 
     return (
         <>

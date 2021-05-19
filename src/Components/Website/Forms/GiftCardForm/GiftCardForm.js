@@ -78,7 +78,6 @@ function GiftCardForm({giftCardInfo, setGiftCardInfo}) {
         )
     }
 
-
     return(
         <>
             {loading ? <LoadingIndicator /> : GiftForm()}

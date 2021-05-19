@@ -2,6 +2,10 @@ import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import './BreadCrumbs.css';
 
+export function niceFormat(input) {
+    return input.charAt(0).toUpperCase() + input.slice(1);
+}
+
 function BreadCrumbs({sublink, sublink2, sublink3, activeItem}) {
     const [firstLevel, setFirstLevel] = useState(false);
     const [secondLevel, setSecondLevel] = useState(false);
@@ -26,10 +30,6 @@ function BreadCrumbs({sublink, sublink2, sublink3, activeItem}) {
             setActive(true);
         }
         setMode('data');
-    }
-
-    function niceFormat(input) {
-        return input.charAt(0).toUpperCase() + input.slice(1);
     }
 
     return(

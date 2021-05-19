@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import LoadingIndicator from "../Website/UI/LoadingIndicator/LoadingIndicator";
 import GiftCard from "./GiftCard/GiftCard";
 import axios from "axios";
 import GiftCardUsedItem from "./GiftCard/GiftCardUsageOverview/GiftCardUsedItem/GiftCardUsedItem";
 import Feedback from "../Website/UI/Feedback/Feedback";
+import {AuthContext} from "../../context/AuthContext";
 
 
 const GiftCards = ({isAdmin, token}) => {
@@ -12,21 +13,18 @@ const GiftCards = ({isAdmin, token}) => {
     const [giftCardItems, setGiftCardItems] = useState("");
     const [loading, toggleLoading] = useState(false);
 
+    const { username } = useContext(AuthContext);
     // eslint-disable-next-line
     useEffect(() => {
-        async function getGiftCards() {
+        async function getGiftCards(username) {
             toggleLoading(true);
 
             let url = "/api/v1/products";
 
-            if (isAdmin) {
+            if (isAdmin)
                 url = `${url}/type/4/`;
-            } else {
-                //fix!!!
-                let id = 1;
-
-                url = `${url}/giftcards/customer/${id}/`;
-            }
+            else
+                url = `${url}/giftcards/customer/${username}`;
 
             try {
                 const result = await axios.get(url, {
@@ -47,9 +45,10 @@ const GiftCards = ({isAdmin, token}) => {
                 setError("could not reach external source");
             }
         }
-        getGiftCards()
+        if(username !== undefined)
+            getGiftCards(username)
         // eslint-disable-next-line
-    },[])
+    },[username])
 
     return (
         <>

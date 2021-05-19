@@ -98,8 +98,8 @@ const Confirmation = ({email, currentStep, token, orderItems, formData}) => {
                     if(result) {
                         setOrderAdded(true);
                         toggleLoading(false);
+                        await sendConfirmationMail(formData);
                         window.history.replaceState({}, document.title)
-                        //addCustomerPoints()
                     }
                 } catch (e) {
                     console.error(e);
@@ -108,8 +108,7 @@ const Confirmation = ({email, currentStep, token, orderItems, formData}) => {
 
         }
 
-        async function sendConfirmationMail() {
-
+        async function sendConfirmationMail(formData) {
             const data = {
                 email: formData.email,
                 lastname: formData.lastname

@@ -39,7 +39,6 @@ function AddEdit({isAddMode, section, itemData, id, token, setSaved, saved}) {
                     });
                 }
                 if(result) {
-                    setSaved(true);
                     setMessage("Data succesvol opgeslagen");
                 }
             } catch (e) {
@@ -48,7 +47,7 @@ function AddEdit({isAddMode, section, itemData, id, token, setSaved, saved}) {
             }
             toggleLoading(false);
         }
-        if (process==="pending" && !saved)
+        if (process==="pending")
             handleData(itemData);
     // eslint-disable-next-line
     }, [])

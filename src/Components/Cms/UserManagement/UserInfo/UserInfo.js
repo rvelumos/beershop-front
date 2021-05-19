@@ -8,7 +8,7 @@ import axios from "axios";
 import LoadingIndicator from "../../../Website/UI/LoadingIndicator/LoadingIndicator";
 import Feedback from "../../../Website/UI/Feedback/Feedback";
 
-function UserInfo({users, setUsers, isAdmin, token}) {
+function UserInfo({users, isAdmin, token}) {
     const [loading, toggleLoading] = useState(false);
     const [error, setError] = useState(true);
     const [message, setMessage] = useState("");

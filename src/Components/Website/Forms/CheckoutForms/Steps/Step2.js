@@ -125,7 +125,7 @@ function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
                     <div className="firstColumn">
                         <div className="AddressForm">
                                 <fieldset>
-                                    <h2>Factuuradres</h2>
+                                    <h2>Persoonsgegevens</h2>
 
                                     <div className="formElement">
                                         {errors.sex ? <span className='errorMessage'>{errors.sex.message}</span> : <span>&nbsp;</span>}
@@ -217,7 +217,10 @@ function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
                                         error={errors.phone &&
                                         <span className='errorMessage'>{errors.phone.message}</span>}
                                     /> <br/>
+                                </fieldset>
 
+                                <fieldset>
+                                    <h2>Factuuradres</h2>
                                     <div className="formElementContainer">
                                         <div className="formElementInfo">
                                             {errors.postalCode &&
@@ -302,7 +305,6 @@ function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
                                             })}
                                         /> Zakelijk
                                     </div>
-
                                 </fieldset>
                         </div>
                     </div>

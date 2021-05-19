@@ -81,7 +81,6 @@ function AuthContextProvider({ children }) {
                 ?   children
                 :  <LoadingIndicator />
             }
-
         </AuthContext.Provider>
     )
 }

@@ -1,15 +1,14 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 
+export function upperCaseFirst(input) {
+    return input.charAt(0).toUpperCase() + input.slice(1);
+}
 
 const Step3 = ({currentStep, activeGiftCard, shipmentData, shoppingCartItems, orderItems}) => {
 
     if(currentStep !== 3) {
         return null;
-    }
-
-    function upperCaseFirst(input) {
-        return input.charAt(0).toUpperCase() + input.slice(1);
     }
 
     function currentOrderInfo() {
