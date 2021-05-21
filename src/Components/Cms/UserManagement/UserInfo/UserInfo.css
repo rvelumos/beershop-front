@@ -8,8 +8,7 @@
 }
 
 .tableDetailsUser td {
-    padding: 20px 20px 20px 0;
-    border-bottom: var(--default-border-light);
+    padding: 5px 20px 5px 0;
 }
 
 .itemContainer .button {

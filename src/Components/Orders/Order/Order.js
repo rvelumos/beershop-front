@@ -79,7 +79,7 @@ function Order(props) {
                         if(orderItem.invoiceStatus==="UNPAID")
                             warningClass="warning";
                         return (
-                            <>
+                            <React.Fragment key={orderItem.id}>
                                 <tr className={warningClass}>
                                     <td className="orderID">#{orderItem.id}</td>
                                     <td className="orderDate">{orderDate}</td>
@@ -88,7 +88,7 @@ function Order(props) {
                                     <td className="orderInvoice">{orderItem.invoiceStatus}</td>
                                     <td className="orderCode"><Link to={{pathname: `/mijn_account/orders/${orderItem.id}`, state: {orderItem: orderItem}}}>Details</Link></td>
                                 </tr>
-                            </>
+                            </React.Fragment>
                         )
                     }
                 }
@@ -99,7 +99,7 @@ function Order(props) {
         <>
             {isAdmin ?
                 <div className="itemContainer">
-                    <h1>Overzicht producten</h1>
+                    <h1>Overzicht orders</h1>
                     <table className="tableDetails">
                         <tbody>
                         <tr>
@@ -122,9 +122,9 @@ function Order(props) {
                     <tbody>
                     <tr><td>Order ID: </td>
                         <td>Besteld op: </td>
-                        <td class="mobile">Verzonden op: </td>
+                        <td className="mobile">Verzonden op: </td>
                         <td>Totaalprijs: </td>
-                        <td class="mobile">Factuurstatus: </td>
+                        <td className="mobile">Factuurstatus: </td>
                         <td>&nbsp;</td>
                     </tr>
                     {OrderItems(props)}

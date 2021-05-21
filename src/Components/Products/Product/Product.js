@@ -76,11 +76,13 @@ function Product(props) {
                                 <td className="productDescription">{shortDescription}</td>
                                 <td className="productType">{productItem.type}</td>
                                 <td>
-                                    <div className="edit">
-                                        <Link to={`/cms/products/edit/${productItem.id}`}>&#9999;</Link>
-                                    </div>
-                                    <div className="delete" onClick={(e) => deleteProduct(productItem.id)}>
-                                        &#10008;
+                                    <div className="actionContainer">
+                                        <div className="edit">
+                                            <Link to={`/cms/products/edit/${productItem.id}`}>&#9999;</Link>
+                                        </div>
+                                        <div className="delete" onClick={(e) => deleteProduct(productItem.id)}>
+                                            &#10008;
+                                        </div>
                                     </div>
                                 </td>
                             </tr>

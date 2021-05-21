@@ -25,6 +25,10 @@ function DetailsOrder(props) {
 
             const total = shipmentCost + orderItem.priceTotal;
 
+            let orderStatus = "In behandeling";
+            if (orderItem.orderStatus === "SENT" || orderItem.orderStatus === "RECEIVED")
+                orderStatus = "Verzonden";
+
             let paymentStatus = "Onbetaald";
             if (orderItem.invoiceStatus === "PAID")
                 paymentStatus = "Betaald via overschrijving";
@@ -45,7 +49,7 @@ function DetailsOrder(props) {
 
                                 <div className="detailsOrderBottom">
                                     <div className="detailsShippingInfo">
-                                        <h4>Bezorgdadres</h4>
+                                        <h4>Bezorgadres</h4>
                                         <div className="shippingAddress">
                                             {orderItem.shipping.address.street}
                                             {orderItem.shipping.address.number}<br/>
@@ -61,7 +65,8 @@ function DetailsOrder(props) {
                                         <div className="orderShipment">Verzending: €{shipmentCost}</div>
 
                                         <div className="orderTotal">Totaal: €{total}</div>
-                                        <div className="orderInvoice">Status: {paymentStatus}</div>
+                                        <div className="orderInvoice"><b>Factuurstatus</b>: {paymentStatus}</div>
+                                        <div className="orderInvoice"><b>Verzendstatus</b>: {orderStatus}</div>
                                     </div>
                                 </div>
 

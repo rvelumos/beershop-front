@@ -8,15 +8,15 @@ function UserSettingsPage ({token, username}) {
 
     const [loading, toggleLoading] = useState(true);
     const [error, setError] = useState(true);
-    const [user, setUser] = useState(true);
+    const [userAddress, setUserAddress] = useState(true);
     const [mode, setMode] = useState('init');
 
-    async function getUserDetails(username, token){
+    async function getCustomerAddressDetails(username, token){
         setError(false);
         toggleLoading(true);
         setMode('data');
 
-        let url = `/api/v1/customer/${username}`;
+        let url = `/api/v1/address/customer/${username}`;
 
         try {
             const result = await axios.get(url, {
@@ -27,19 +27,19 @@ function UserSettingsPage ({token, username}) {
                 }
             })
             if(result.data[0] !== "") {
-                setUser(result.data[0]);
-                //getUserAddress(result.data[0].id);
+                setUserAddress(result.data[0]);
             }
 
         }catch(e) {
             console.error(e);
-            setError("Fout bij ophalen gegevens.");
+            setError("Fout bij ophalen adresgegevens.");
         }
         toggleLoading(false);
     }
-    if(username !== undefined && mode === 'init')
-        getUserDetails(username, token);
 
+    if(username !== undefined && mode === 'init') {
+        getCustomerAddressDetails(username, token);
+    }
 
     return (
         <>
@@ -50,7 +50,7 @@ function UserSettingsPage ({token, username}) {
                     <h1>Jouw gegevens</h1>
                     <p>Onderstaande gegevens zijn bij ons bekend in het systeem.</p>
                     {error && <p className="errorContainer">{error}</p>}
-                    {loading ? <LoadingIndicator /> : <UserInfo users={user} setUsers={setUser}  />}
+                    {loading ? <LoadingIndicator /> : <UserInfo users={userAddress} setUserAddress={setUserAddress} />}
                 </div>
             </div>
         </>

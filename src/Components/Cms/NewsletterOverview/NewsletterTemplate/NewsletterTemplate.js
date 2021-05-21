@@ -71,6 +71,7 @@ function NewsletterTemplate (props) {
             {message && <p className="notice"> {message} </p>}
             {loading ? <LoadingIndicator/> :
                 <div className="itemContainer">
+                    <h1>Overzicht nieuwsbrieven</h1>
                     {error && <p> {error} </p>}
                     <Link to="/cms/newsletter/create/" className="button">Nieuwsbrief toevoegen</Link><br/><br/>
                     <table className="tableDetails">

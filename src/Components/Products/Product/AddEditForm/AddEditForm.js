@@ -34,7 +34,7 @@ export function AddEditForm(props) {
         taste: '',
         stock: '',
         description: '',
-        imagePath: '',
+        image: '',
         type: '',
         discount: ''
     });
@@ -56,7 +56,7 @@ export function AddEditForm(props) {
                     price,
                     taste,
                     stock,
-                    imagePath,
+                    image,
                     description,
                     type,
                     discount} = result.data;
@@ -68,7 +68,7 @@ export function AddEditForm(props) {
                     price: price,
                     taste: taste,
                     stock: stock,
-                    imagePath: imagePath,
+                    image: image,
                     description: description,
                     type: type,
                     discount:discount
@@ -135,7 +135,7 @@ export function AddEditForm(props) {
             },
             name: name,
             taste: taste,
-            imagePath: `/images/upload/${image.raw.name}`,
+            image: image.raw,
             price: price,
             stock: stock,
             description: description,

@@ -34,11 +34,10 @@ const Orders = ({isAdmin, token}) => {
                             "Access-Control-Allow-Origin": "*",
                         }
                     });
-                    console.log(result.data)
-                if (result.data.length > 0) {
-                    result.data.sort((a,b) => b.id-a.id);
-                    setOrderItems(result.data);
-                }
+                    if (result.data.length > 0) {
+                        result.data.sort((a,b) => b.id-a.id);
+                        setOrderItems(result.data);
+                    }
             } catch (e) {
                 console.error(e);
                 setError("Fout bij ophalen ordergegevens.");

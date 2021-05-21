@@ -70,7 +70,7 @@ function GiftCard(props) {
         <>
             {loading ? <LoadingIndicator/> :
                 <div className="itemContainer">
-                    <h1>Overzicht producten</h1>
+                    <h1>Overzicht cadeaubonnen</h1>
                     {message && <p className="notice"> {message} </p>}
                     {error && <Feedback type="error" content={error} />}
                     <Link to="/cms/giftcards/create/" className="button">Cadeaukaart toevoegen</Link><br/><br/>

@@ -65,13 +65,21 @@ function UserInfo({users, isAdmin, token}) {
         }else {
             return(
                 <>
-                    <tr><td>Geslacht</td><td>{users.sex}</td></tr>
-                    <tr><td>Voornaam:</td><td>{users.firstname}</td></tr>
-                    <tr><td>Achternaam:</td><td>{users.lastname}</td></tr>
-                    <tr><td>Geboortedatum:</td><td>{users.birthDate}</td></tr>
-                    <tr><td>E-mailadres:</td><td>{users.email}</td></tr>
-                    <tr><td>Telefoonnummer:</td><td>{users.phone}</td></tr>
-                    <tr><td>Nieuwsbrief:</td><td>{users.newsletter ? "Ja" : "Nee"}</td></tr>
+                    <tr><td>Geslacht</td><td>{users.customer.sex}</td></tr>
+                    <tr><td>Voornaam:</td><td>{users.customer.firstname}</td></tr>
+                    <tr><td>Achternaam:</td><td>{users.customer.lastname}</td></tr>
+                    <tr><td>Geboortedatum:</td><td>{users.customer.birthDate}</td></tr>
+                    <tr><td>E-mailadres:</td><td>{users.customer.email}</td></tr>
+                    <tr><td>Telefoonnummer:</td><td>{users.customer.phone}</td></tr>
+                    <tr><td>Nieuwsbrief:</td><td>{users.customer.newsletter ? "Ja" : "Nee"}</td></tr>
+                    <tr><td><h2>Adresgegevens</h2></td></tr>
+                    <tr><td>Straat</td><td>{users.street}</td></tr>
+                    <tr><td>Straat (toevoeging):</td><td>{users.streetAdd}</td></tr>
+                    <tr><td>Postcode:</td><td>{users.postalCode}</td></tr>
+                    <tr><td>Huisnummer:</td><td>{users.number}</td></tr>
+                    <tr><td>Stad:</td><td>{users.city}</td></tr>
+                    <tr><td>Provincie:</td><td>{users.province}</td></tr>
+                    <tr><td>Land:</td><td>{users.country}</td></tr>
                 </>
             )
         }
@@ -81,6 +89,7 @@ function UserInfo({users, isAdmin, token}) {
             {message && <Feedback type="success" content={message} />}
             {loading ? <LoadingIndicator/> :
                 <div className="itemContainer">
+                    {isAdmin && <h1>Overzicht gebruikers</h1>}
                     {error && <p> {error} </p>}
                     {isAdmin ?
                         <>
@@ -112,7 +121,7 @@ function UserInfo({users, isAdmin, token}) {
                             </table>
                             <Link to={{pathname: `/mijn_account/gegevens/edit/`,
                                 state: {
-                                    formValue: users
+                                    formValue: users,
                                     }
                             }} className="button">Aanpassen</Link>
                         </>

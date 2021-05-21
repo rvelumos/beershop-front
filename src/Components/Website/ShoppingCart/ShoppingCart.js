@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import axios from "axios";
 import LoadingIndicator from "../../Website/UI/LoadingIndicator/LoadingIndicator";
 import './ShoppingCart.css';
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import GiftCardForm from "../Forms/GiftCardForm/GiftCardForm";
 import Feedback from "../UI/Feedback/Feedback";
 import {AuthContext} from "../../../context/AuthContext";
@@ -24,6 +24,9 @@ export function determineShippingCosts(totalPriceItems) {
 }
 
 const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartItems, setShoppingCartActive}) => {
+
+    const history = useHistory();
+
     let [updatedShoppingCartItems, setUpdatedShoppingCartItems] = useState({
         data: ''
     });
@@ -58,10 +61,19 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                 data: ""
             }
          )
+         history.push({
+             pathname: `/winkelwagen/`,
+             state: {
+                 data: '',
+                 deleted: true
+             }
+         });
+
     }
 
     function calculateSubTotal (amount) {
         let discount = 0;
+        let giftcardId;
 
         let price = updatedShoppingCartItems.data.price;
         let totalPriceItems = amount * price;
@@ -69,18 +81,30 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
         let calculateVatPrice = calculateVat(totalPriceItems);
 
         let giftCardItem = JSON.parse(localStorage.getItem("giftcard"));
-        if(giftCardItem !== "" && !setActiveGiftCard) {
-            setActiveGiftCard(true);
-            discount = giftCardItem.amount;
+        //console.log(giftCardItem);
+        if(giftCardItem !== null && activeGiftCard === false && totalPriceItems > 0) {
+            console.log(giftCardItem);
+            discount = giftCardItem[0].amount;
+            giftcardId = giftCardItem[0].id;
+            setGiftCardInfo(giftCardItem);
+            setActiveGiftCard("used");
+            console.log(discount);
         }
 
-        const total = shippingCosts + totalPriceItems - discount;
+        if(giftCardInfo[0] !== undefined) {
+            discount = giftCardInfo[0].amount;
+            giftcardId = giftCardInfo[0].id;
+        }
+
+        let total = shippingCosts + totalPriceItems - discount;
+        if(total < 1) total = 0 + shippingCosts;
 
         if((updatedShoppingCartItems.data.id !== undefined && mode==='init') || (mode==='data' && totalPriceItems !== order.totalPriceItems)) {
             setMode('data');
             setOrder({
                 totalPriceItems: totalPriceItems,
                 subTotal: total,
+                giftcardId: giftcardId,
                 discount: discount,
                 vat: calculateVatPrice,
                 shippingCosts: shippingCosts,
@@ -92,7 +116,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
         return (
             <div className="summary">
                 <p className="summaryTotal"><span>Totaal producten:</span><span>€{totalPriceItems.toFixed(2)}</span></p>
-                {activeGiftCard && <p className="summaryGift"><span>Jouw korting:</span><span>-€{giftCardItem.amount}</span></p>}
+                {activeGiftCard && <p className="summaryGift"><span>Jouw korting:</span><span>-€{giftCardItem[0].amount}</span></p>}
                 <p className="summaryVat"><span>BTW (21%):</span><span> €{calculateVatPrice.toFixed(2)}</span></p>
                 <p className="summaryShipping"><span>Verzending:</span><span> €{shippingCosts}</span></p>
                 <p className="summarySubTotal"><span>Subtotaal:</span><span> €{total.toFixed(2)}</span></p>
@@ -140,14 +164,16 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                             try {
                                 const result = await axios.get(url);
 
-                                setUpdatedShoppingCartItems({
-                                    ...setUpdatedShoppingCartItems,
-                                    data: result.data
-                                });
-                                setShoppingCartActive(true);
-                                console.log(updatedShoppingCartItems);
-                                toggleLoading(false);
-                                localStorage.setItem("shopping_carts", JSON.stringify(shoppingCartItems));
+                                if(result.data !== "") {
+                                    setUpdatedShoppingCartItems({
+                                        ...setUpdatedShoppingCartItems,
+                                        data: result.data
+                                    });
+                                    //setShoppingCartActive(true);
+                                    console.log(updatedShoppingCartItems);
+                                    toggleLoading(false);
+                                    localStorage.setItem("shopping_carts", JSON.stringify(shoppingCartItems));
+                                }
 
                             } catch (e) {
                                 console.error(e);
@@ -203,6 +229,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                                         placeholder=""
                                         maxLength="2"
                                         value={amount}
+                                        readOnly="readOnly"
                                         name={cartItem[1].name}
                                     />
                                     <div className="productAmount"

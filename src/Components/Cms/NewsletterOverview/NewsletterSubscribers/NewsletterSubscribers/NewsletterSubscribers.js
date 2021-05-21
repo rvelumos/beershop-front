@@ -68,6 +68,7 @@ function NewsletterSubscribers(props) {
                 <>
                     {message && <p className="notice"> {message} </p>}
                     <div className="itemContainer">
+                        <h1>Inschrijvingen nieuwsbrief</h1>
                         {error && <Feedback type="error" content={error} />}
                         <table className="tableDetailsSmall">
                             <tbody>

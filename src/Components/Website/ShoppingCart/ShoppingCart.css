@@ -9,6 +9,11 @@
     margin: 0;
 }
 
+.summaryGift {
+    color: green;
+    font-style: italic;
+}
+
 .shoppingCartPage .productAmountContainer {
     display: flex;
     flex-direction: row;
@@ -58,6 +63,11 @@
 {
     width: 20%;
     margin: 0;
+}
+
+.shoppingCartContainer .productItemContainer div.delete {
+    width: 40px;
+    margin-left: 20px;
 }
 
 .shoppingCartContainer .productItemContainer .productPriceTotal,

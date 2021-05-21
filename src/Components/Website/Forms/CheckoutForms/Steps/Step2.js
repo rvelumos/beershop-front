@@ -21,6 +21,7 @@ function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
         note: '',
         postalCode: '',
         addressType: '',
+        shipmentCarrier: '',
         street: '',
         number: '',
         city: '',
@@ -75,6 +76,7 @@ function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
             birthDate: data.birthDate,
             phone: data.phone,
             addressType: data.addressType,
+            shipmentCarrier: data.shipmentCarrier,
             postalCode: postalCode,
             street: street,
             number: data.number,
@@ -229,7 +231,8 @@ function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
                                                 <input
                                                     type="text"
                                                     name="postalCode"
-                                                    formValue={formValues.postalCode}
+                                                    // value={formValues.postalCode}
+                                                    defaultValue={formValues.postalCode}
                                                     label="Postcode"
                                                     onChange={(e) => setPostalCode(e.target.value)}
                                                     ref={register({
@@ -286,7 +289,7 @@ function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
                                     />
                                     <div className="formElement">
                                         <h3>Dit adres is:</h3>
-                                        {errors.sendOptions && <p className='errorMessage'>{errors.sendOptions.message}</p>}
+                                        {errors.shipmentCarrier && <p className='errorMessage'>{errors.shipmentCarrier.message}</p>}
                                         <input
                                             type="radio"
                                             name="addressType"
@@ -313,10 +316,10 @@ function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
                         <div className="shipmentDetails">
                             <div className="formElement">
                                 <h2>Verzendopties:</h2>
-                                {errors.sendOptions && <p className='errorMessage'>{errors.sendOptions.message}</p>}
+                                {errors.shipmentCarrier && <p className='errorMessage'>{errors.shipmentCarrier.message}</p>}
                                 <input
                                     type="radio"
-                                    name="sendOptions"
+                                    name="shipmentCarrier"
                                     value="1"
                                     ref={register({
                                         required: "Verplicht veld",
@@ -325,7 +328,7 @@ function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
                                 <br />
                                 <input
                                     type="radio"
-                                    name="sendOptions"
+                                    name="shipmentCarrier"
                                     value="2"
                                     ref={register({
                                         required: "Verplicht veld",

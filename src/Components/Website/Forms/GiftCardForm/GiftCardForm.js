@@ -14,21 +14,31 @@ function GiftCardForm({giftCardInfo, setGiftCardInfo}) {
 
     async function validateGiftCard(data) {
         const code = data.giftCardCode;
-        console.log(code);
 
         let url = `/api/v1/products/giftcards/${code}`;
-        console.log(url);
 
         try {
             const result = await axios.get(url);
             if(result.data.length > 0) {
-               setGiftCardInfo(result.data);
-               localStorage.setItem(`giftcard`, JSON.stringify(result.data));
 
                const name = result.data[0].name;
                const amount = result.data[0].amount;
 
-               setMessage(`${name} t.w.v. €${amount} is succesvol toegevoegd aan je order!`)
+                const today = new Date();
+                const expirationDate = today.getTime();
+
+                console.log(expirationDate);
+                const rowExpirationDate = result.data[0].expiration_date.split('T')[0];
+                const date1 = new Date(rowExpirationDate).getTime();
+                console.log(date1);
+
+               if(date1 > expirationDate && result.data[0].uses === 0) {
+                   setGiftCardInfo(result.data);
+                   localStorage.setItem(`giftcard`, JSON.stringify(result.data));
+                   setMessage(`${name} t.w.v. €${amount} is succesvol toegevoegd aan je order!`);
+               } else {
+                   setError("De cadeaubon is ongeldig");
+               }
             } else {
                 setError("Ongeldige code");
             }
@@ -49,6 +59,7 @@ function GiftCardForm({giftCardInfo, setGiftCardInfo}) {
                 <div className="giftCardContainer">
                     <form onSubmit={handleSubmit(validateGiftCard)}>
                         <h2>Cadeaubon:</h2>
+                        <small>Let op: een cadeaubon is eenmaal geldig en niet inwisselbaar voor geld. <br />Het restant saldo kan helaas niet worden gebruikt.</small><br /><br />
                         {error && <span className="errorMessage">{error}</span>}
                         {message && <span className="messageSuccess">{message}</span>}
                         {errors.giftCardCode ? <span className='errorMessage'>{errors.giftCardCode.message}</span> : <span>&nbsp;</span>}

@@ -16,16 +16,26 @@ const EditForm = ({username}) => {
     const [loading, toggleLoading] = useState(false);
     const [message, setMessage] = useState("");
     const [checked, toggleChecked] = useState(false);
+    const [mode, setMode] = useState('init');
 
     const [formValues, setFormValues] = useState({
-        firstname: '',
-        lastname: '',
-        email: '',
-        phone: '',
-        birthDate: '',
-        password: '',
-        id: '',
-        passwordRepeat: ''
+        customer: {
+            firstname: '',
+            lastname: '',
+            email: '',
+            phone: '',
+            birthDate: '',
+            password: '',
+            id: '',
+            passwordRepeat: '',
+        },
+        street: '',
+        streetAdd: '',
+        number: '',
+        postalCode: '',
+        city: '',
+        province: '',
+        country: ''
     });
 
     const changeHandler = e => {
@@ -49,7 +59,17 @@ const EditForm = ({username}) => {
                 lastname: data.lastname,
                 email: data.email,
                 phone: data.phone,
-                birthDate: data.birthDate,
+                birthDate: data.birthDate
+            })
+
+            updateAddress({
+                street: data.street,
+                streetAdd: data.streetAdd,
+                postalCode: data.postalCode,
+                number: data.number,
+                city: data.city,
+                province: data.province,
+                country: data.country
             })
         }
     }
@@ -93,9 +113,32 @@ const EditForm = ({username}) => {
         toggleLoading(false);
     }
 
-    const RegistrationFormItems = () => {
+    async function updateAddress(addressData) {
+        const id = addressData.id;
+        console.log("update address");
+        console.log(addressData);
+
+        const url = `/api/v1/address/${id}`;
+
+        try {
+            const result = await axios.put(url, addressData);
+            if(result) {
+                setMessage("Data succesvol opgeslagen")
+            }
+        } catch (e) {
+            console.error(e);
+            setError("Fout bij verwerken registratiegegevens.");
+        }
+        toggleLoading(false);
+    }
+
+    function RegistrationFormItems () {
         const location = useLocation();
-        setFormValues(location.state.formValue);
+
+        if(mode === 'init' && location.state.formValue !== undefined) {
+            setFormValues(location.state.formValue);
+            setMode('data');
+        }
 
         console.log(formValues);
 
@@ -129,7 +172,7 @@ const EditForm = ({username}) => {
                                         <FormElement
                                             type="text"
                                             name="firstname"
-                                            formValue={formValues.firstname}
+                                            formValue={formValues.customer.firstname}
                                             label="Voornaam"
                                             onChange={changeHandler}
                                             fieldRef={register({
@@ -143,7 +186,7 @@ const EditForm = ({username}) => {
                                         <FormElement
                                             type="text"
                                             name="lastname"
-                                            formValue={formValues.lastname}
+                                            formValue={formValues.customer.lastname}
                                             label="Achternaam"
                                             onChange={changeHandler}
                                             fieldRef={register({
@@ -157,7 +200,7 @@ const EditForm = ({username}) => {
                                         <FormElement
                                             type="text"
                                             name="email"
-                                            formValue={formValues.email}
+                                            formValue={formValues.customer.email}
                                             label="E-mailadres"
                                             onChange={changeHandler}
                                             fieldRef={register({
@@ -177,7 +220,7 @@ const EditForm = ({username}) => {
                                             type="text"
                                             name="phone"
                                             label="Telefoon"
-                                            formValue={formValues.phone}
+                                            formValue={formValues.customer.phone}
                                             onChange={changeHandler}
                                             fieldRef={register({
                                                 required: "Verplicht veld",
@@ -200,7 +243,7 @@ const EditForm = ({username}) => {
                                             type="text"
                                             name="birthDate"
                                             label="Geboortedatum"
-                                            formValue={formValues.birthDate}
+                                            formValue={formValues.customer.birthDate}
                                             onChange={changeHandler}
                                             form="form"
                                             fieldRef={register({
@@ -221,6 +264,101 @@ const EditForm = ({username}) => {
                                                 onChange={() => toggleChecked(!checked)}
                                             />
                                             <label htmlFor="newsletter">Nieuwsbrief</label><br /><br />
+                                    </div>
+                                </fieldset>
+
+                                <h3>Adresgegevens</h3>
+                                <fieldset>
+                                    <div className="formElement">
+                                        <FormElement
+                                            type="text"
+                                            name="postalCode"
+                                            formValue={formValues.postalCode}
+                                            label="Postcode"
+                                            onChange={changeHandler}
+                                            fieldRef={register({
+                                                required: "Verplicht veld",
+                                                pattern: {
+                                                    value: /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i,
+                                                    message: "Ongeldige postcode, controleer de input",
+                                                },
+                                            })}
+                                            error={errors.postalCode ? <span className='errorMessage'>{errors.postalCode.message}</span> : <span>&nbsp;</span>}
+                                        />
+                                    </div>
+
+                                    <div className="formElement">
+                                        <FormElement
+                                            type="text"
+                                            name="street"
+                                            label="Straat"
+                                            formValue={formValues.street}
+                                            onChange={changeHandler}
+                                            fieldRef={register({
+                                                required: 'Verplicht veld',
+                                            })}
+                                            error={errors.street ? <span className='errorMessage'>{errors.street.message}</span> : <span>&nbsp;</span>}
+                                        />
+                                    </div>
+
+                                    <div className="formElement">
+                                        <FormElement
+                                            type="text"
+                                            name="streetAdd"
+                                            label="Straat (toevoeging)"
+                                            formValue={formValues.streetAdd}
+                                            onChange={changeHandler}
+                                            error={<span>&nbsp;</span>}
+                                        />
+                                    </div>
+
+                                    <div className="formElement">
+                                        <FormElement
+                                            type="text"
+                                            name="number"
+                                            label="Huisnummer"
+                                            formValue={formValues.number}
+                                            onChange={changeHandler}
+                                            fieldRef={register({
+                                                required: 'Verplicht veld',
+                                            })}
+                                            error={errors.number ? <span className='errorMessage'>{errors.number.message}</span> : <span>&nbsp;</span>}
+                                        />
+                                    </div>
+
+                                    <div className="formElement">
+                                        <FormElement
+                                            type="text"
+                                            name="city"
+                                            label="Stad"
+                                            formValue={formValues.city}
+                                            onChange={changeHandler}
+                                            fieldRef={register({
+                                                required: 'Verplicht veld',
+                                            })}
+                                            error={errors.city ? <span className='errorMessage'>{errors.city.message}</span> : <span>&nbsp;</span>}
+                                        />
+                                    </div>
+
+                                    <div className="formElement">
+                                        <FormElement
+                                            type="text"
+                                            name="province"
+                                            label="Provincie"
+                                            formValue={formValues.province}
+                                            onChange={changeHandler}
+                                            error={<span>&nbsp;</span>}
+                                        />
+                                    </div>
+
+                                    <div className="formElement">
+                                        <FormElement
+                                            type="text"
+                                            name="country"
+                                            label="Land"
+                                            formValue={formValues.country}
+                                            onChange={changeHandler}
+                                        />
                                     </div>
                                 </fieldset>
 
@@ -276,7 +414,7 @@ const EditForm = ({username}) => {
                 <LeftMenu />
                 <div className="RegistrationOverview">
                     {loading && <LoadingIndicator /> }
-                        <RegistrationFormItems />
+                    {RegistrationFormItems()}
                     {error && <Feedback type="error" content={error} /> }
                 </div>
                 </div>

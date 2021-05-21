@@ -194,7 +194,7 @@ export function AddEditForm(props) {
     }
 
     async function handleAddressData(addressData, isAddmode) {
-        let url = `/api/v1/admin/address/`;
+        let url = `/api/v1/address/`;
 
         try {
             if(isAddmode) {
@@ -232,7 +232,7 @@ export function AddEditForm(props) {
             <>
                 <div className="AddEditForm">
                     <div className="RegisterForm" >
-                        <h1>Klant {username ? " wijzigen" : "toevoegen"}</h1>
+                        <h1>Gebruiker {username ? " wijzigen" : "toevoegen"}</h1>
                         <form onSubmit={handleSubmit(onSubmitForm)}>
                             <fieldset>
                                 <div className="formElement">
@@ -386,6 +386,20 @@ export function AddEditForm(props) {
                                         })
                                         }
                                         error={errors.streetAdd ? <span className='errorMessage'>{errors.streetAdd.message}</span> : <span>&nbsp;</span>}
+                                    />
+                                </div>
+
+                                <div className="formElement">
+                                    <FormElement
+                                        type="text"
+                                        name="number"
+                                        label="Huisnummer"
+                                        formValue={customerValues.number}
+                                        onChange={changeHandler}
+                                        fieldRef={register({
+                                            required: 'Verplicht veld',
+                                        })}
+                                        error={errors.number ? <span className='errorMessage'>{errors.number.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
 

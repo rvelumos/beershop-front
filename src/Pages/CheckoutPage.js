@@ -11,10 +11,10 @@ const CheckoutPage = () => {
     const [mode, setMode] = useState('init');
 
     let savedShoppingCart = localStorage.getItem("shopping_carts");
-    console.log('shoppingcartitems ');
-    console.log(savedShoppingCart);
+    // console.log('shoppingcartitems ');
+    // console.log(savedShoppingCart);
     savedShoppingCart = JSON.parse(savedShoppingCart);
-    console.log(savedShoppingCart);
+    //console.log(savedShoppingCart);
 
     if (savedShoppingCart !== null && mode === 'init') {
         const id = savedShoppingCart.id;
@@ -33,8 +33,8 @@ const CheckoutPage = () => {
         //setShoppingCartActive(true);
     }
 
-    if (location.state !== null && shoppingCartItems === '') {
-        console.log(location.state.data);
+    if (location.state !== null && location.state.deleted !== true  && shoppingCartItems === '') {
+        //console.log(location.state.data);
         setShoppingCartItems(location.state.data);
         setShoppingCartActive(true);
 

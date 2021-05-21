@@ -1,19 +1,24 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 
 export function upperCaseFirst(input) {
     return input.charAt(0).toUpperCase() + input.slice(1);
 }
 
-const Step3 = ({currentStep, activeGiftCard, shipmentData, shoppingCartItems, orderItems}) => {
+const Step3 = ({currentStep, shipmentData, shoppingCartItems, orderItems}) => {
+    const [activeGiftCard, setActiveGiftCard] = useState(false);
+    const [mode, setMode] = useState("init");
 
     if(currentStep !== 3) {
         return null;
     }
 
     function currentOrderInfo() {
-
         if(shoppingCartItems !== "") {
+            if(orderItems.discount > 0 && mode === 'init') {
+                setActiveGiftCard(true);
+                setMode("data");
+            }
             const cartItems = Array.from(Object.entries(shoppingCartItems));
             return (
                 cartItems.map((shoppingCartItem) => {
@@ -25,10 +30,11 @@ const Step3 = ({currentStep, activeGiftCard, shipmentData, shoppingCartItems, or
                     else
                         image = <div className="image"><img src={`/product_images/giftcard.png`} alt=''/></div>;
                     return(
-                        <div className='productOverview'>
+                        <div className='productOverview' key={shoppingCartItem[1].name}>
                             <div>{image}</div>
                             <div>{shoppingCartItem[1].name}</div>
                             <div>{orderItems.amount}x</div>
+                            {activeGiftCard && <div className="summaryGift"><span>Jouw korting:</span><span>-€{orderItems.discount}</span></div>}
                             <div>€{shoppingCartItem[1].price}</div>
                             <div>€{orderItems.totalPriceItems.toFixed(2)}</div>
                         </div>
@@ -52,7 +58,7 @@ const Step3 = ({currentStep, activeGiftCard, shipmentData, shoppingCartItems, or
                         {currentOrderInfo()}
                         <div className="summary">
                             <p className="summaryTotal"><span>Totaal producten:</span><span>€{orderItems.totalPriceItems.toFixed(2)}</span></p>
-                            {activeGiftCard && <p className="summaryGift"><span>Jouw korting:</span><span>-€{orderItems.amount}</span></p>}
+                            {activeGiftCard && <p className="summaryGift"><span>Jouw korting:</span><span>-€{orderItems.discount}</span></p>}
                             <p className="summaryVat"><span>BTW (21%):</span><span> €{orderItems.vat.toFixed(2)}</span></p>
                             <p className="summaryShipping"><span>Verzending:</span><span> €{orderItems.shippingCosts.toFixed(2)}</span></p>
                             <p className="summarySubTotal"><span>Subtotaal:</span><span> €{orderItems.subTotal.toFixed(2)}</span></p>

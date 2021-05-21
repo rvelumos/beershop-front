@@ -3,7 +3,7 @@ import LoadingIndicator from "../../UI/LoadingIndicator/LoadingIndicator";
 import axios from "axios";
 import {AuthContext} from "../../../../context/AuthContext";
 
-const Confirmation = ({email, currentStep, token, orderItems, formData}) => {
+const Confirmation = ({email, currentStep, token, orderItems, shipmentData}) => {
 
     const [mode, setMode] = useState('init');
     const [loading, toggleLoading] = useState(true);
@@ -46,7 +46,7 @@ const Confirmation = ({email, currentStep, token, orderItems, formData}) => {
                     const result = await axios.post(url, addressData);
                     if(result) {
                         if(!orderAdded) {
-                            addOrder(username);
+                            await addOrder(username);
                         }
                     }
                 } catch (e) {
@@ -65,7 +65,7 @@ const Confirmation = ({email, currentStep, token, orderItems, formData}) => {
         if (mode === 'init' && orderItems !== "" && username !== undefined) {
             console.log('init');
             if (token === '') {
-                addCustomer(formData);
+                addCustomer(shipmentData, username);
             } else {
                 if(!orderAdded) {
                     addOrder(username);
@@ -76,56 +76,70 @@ const Confirmation = ({email, currentStep, token, orderItems, formData}) => {
         }
     }
 
-        async function addOrder(username) {
-            const today = new Date();
-            const dd = today.getDate();
-            const mm = today.getMonth()+1;
-            const yyyy = today.getFullYear();
+    async function addOrder(username) {
+        const today = new Date();
+        const dd = today.getDate();
+        const mm = today.getMonth()+1;
+        const yyyy = today.getFullYear();
 
-            const orderDate =  dd+'-'+mm+'-'+yyyy;
+        const orderDate =  dd+'-'+mm+'-'+yyyy;
 
-            const itemData = {
-                username: username,
-                priceTotal: orderItems.subTotal,
-                orderDate: orderDate,
-                orderStatus: 'NEW_ADDED',
-                invoiceStatus: 'UNPAID',
-            }
-
-            try {
-                const url = '/api/v1/order/create';
-                const result = await axios.post(url, itemData);
-                    if(result) {
-                        setOrderAdded(true);
-                        toggleLoading(false);
-                        await sendConfirmationMail(formData);
-                        window.history.replaceState({}, document.title)
-                    }
-                } catch (e) {
-                    console.error(e);
-                    setError("Fout bij verwerken data.");
-                }
-
+        const itemData = {
+            username: username,
+            priceTotal: orderItems.subTotal,
+            orderDate: orderDate,
+            orderStatus: 'NEW_ADDED',
+            invoiceStatus: 'UNPAID',
         }
 
-        async function sendConfirmationMail(formData) {
-            const data = {
-                email: formData.email,
-                lastname: formData.lastname
-            }
-
-            try {
-                const url = `/api/v1/customer/confirmation`;
-                const result = await axios.post(url, data);
+        try {
+            const url = '/api/v1/order/create';
+            const result = await axios.post(url, itemData);
                 if(result) {
+                    setOrderAdded(true);
                     toggleLoading(false);
+                    await updateGiftCard();
+                    await sendConfirmationMail(shipmentData);
+                    window.history.replaceState({}, document.title)
                 }
-
             } catch (e) {
                 console.error(e);
-                setError("Fout bij verzenden emailbevestiging.");
+                setError("Fout bij verwerken data.");
             }
+    }
+
+    async function updateGiftCard() {
+        try {
+            const url = `/api/v1/admin/products/discounts/usage/${orderItems.giftcardId}`;
+            const result = await axios.post(url, {
+                uses: 1
+            });
+
+            console.log(result);
+        } catch (e) {
+            console.error(e);
+            setError("Fout bij verwerken data.");
         }
+    }
+
+    async function sendConfirmationMail(shipmentData) {
+        const data = {
+            email: shipmentData.email,
+            lastname: shipmentData.lastname
+        }
+
+        try {
+            const url = `/api/v1/customer/confirmation`;
+            const result = await axios.post(url, data);
+            if(result) {
+                toggleLoading(false);
+            }
+
+        } catch (e) {
+            console.error(e);
+            setError("Fout bij verzenden emailbevestiging.");
+        }
+    }
 
     return(
         <>
