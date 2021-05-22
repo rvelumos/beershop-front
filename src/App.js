@@ -51,7 +51,11 @@ function App() {
                                 authorityManufacturer={isManufacturerAuthenticated}
                                 token={token}
                             />
-                         : <Login cmsLogin={cmsLogin} setCmsLogin={setCmsLogin} redirectUrl="/cms" />  }
+                         : <Login
+                                cmsLogin={cmsLogin}
+                                setCmsLogin={setCmsLogin}
+                                loginDefaultLandingPage="cmsProfile"
+                                redirectUrl="/cms" />  }
                     </Route>
 
                     <Route path="/">

@@ -208,7 +208,7 @@ export function AddEditForm(props) {
 
                                 <div className="formElement">
                                         {errors.orderStatus ? <span className='errorMessage'>{errors.orderStatus.message}</span> : <span>&nbsp;</span>}
-                                        <select name="orderStatus" ref={register({ required: true })}>
+                                        <select name="orderStatus" defaultValue={formValues.orderStatus} ref={register({ required: true })}>
                                             <option value="">Order status &laquo; selecteer optie &raquo; </option>
                                             <option value="NEW_ADDED">Nieuw</option>
                                             <option value="PROCESSING">In behandeling</option>
@@ -220,7 +220,7 @@ export function AddEditForm(props) {
 
                                 <div className="formElement">
                                     {errors.invoiceStatus ? <span className='errorMessage'>{errors.invoiceStatus.message}</span> : <span>&nbsp;</span>}
-                                    <select name="invoiceStatus" ref={register({ required: true })}>
+                                    <select name="invoiceStatus" defaultValue={formValues.invoiceStatus} ref={register({ required: true })}>
                                         <option value="">Factuurstatus &laquo; selecteer optie &raquo; </option>
                                         <option value="PAID">Betaald</option>
                                         <option value="UNPAID">Niet betaald</option>

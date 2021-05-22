@@ -22,7 +22,14 @@ const RegistrationForm = ({mode}) => {
         birthDate: '',
         username: '',
         password: '',
-        passwordRepeat: ''
+        passwordRepeat: '',
+        street: '',
+        streetAdd: '',
+        number: '',
+        postalCode: '',
+        city: '',
+        province: '',
+        country: ''
     });
 
     const changeHandler = e => {
@@ -48,6 +55,16 @@ const RegistrationForm = ({mode}) => {
                 phone: data.phone,
                 birthDate: data.birthDate,
             })
+
+            createAddress({
+                street: data.street,
+                streetAdd: data.streetAdd,
+                postalCode: data.postalCode,
+                number: data.number,
+                city: data.city,
+                province: data.province,
+                country: data.country
+            })
         }
     }
 
@@ -69,7 +86,8 @@ const RegistrationForm = ({mode}) => {
                         authority: "ROLE_CUSTOMER",
                         username: userData.username
                     })
-                    console.log(result);
+                    if(!result)
+                        setError("Fout bij opslaan authority");
                 } catch (e) {
                     console.error(e);
                     setError("Fout bij verwerken logingegevens.");
@@ -91,11 +109,25 @@ const RegistrationForm = ({mode}) => {
 
         try {
             const result = await axios.post(url, customerData);
+            if(!result)
+                setError("Fout bij opslaan registratie");
+        } catch (e) {
+            console.error(e);
+            setError("Fout bij verwerken registratiegegevens.");
+        }
+        toggleLoading(false);
+    }
+
+    async function createAddress(addressData) {
+        const url = `/api/v1/address`;
+
+        try {
+            const result = await axios.post(url, addressData);
             if(result)
                 setSentForm(true);
         } catch (e) {
             console.error(e);
-            setError("Fout bij verwerken registratiegegevens.");
+            setError("Fout bij verwerken adresgegevens.");
         }
         toggleLoading(false);
     }
@@ -121,7 +153,7 @@ const RegistrationForm = ({mode}) => {
                                 <fieldset>
                                     <div className="formElement">
                                         {errors.sex ? <span className='errorMessage'>{errors.sex.message}</span> : <span>&nbsp;</span>}
-                                        <select name="sex" ref={register({ required: true })}>
+                                        <select name="sex" defaultValue={formValues.sex} ref={register({ required: 'Verplicht veld' })}>
                                             <option value="">Geslacht:</option>
                                             <option value="M">Man</option>
                                             <option value="F">Vrouw</option>
@@ -214,6 +246,101 @@ const RegistrationForm = ({mode}) => {
                                                 }
                                             })}
                                             error={errors.birthDate ? <span className='errorMessage'>{errors.birthDate.message}</span> : <span>&nbsp;</span>}
+                                        />
+                                    </div>
+                                </fieldset>
+
+                                <h3>Adresgegevens</h3>
+                                <fieldset>
+                                    <div className="formElement">
+                                        <FormElement
+                                            type="text"
+                                            name="postalCode"
+                                            formValue={formValues.postalCode}
+                                            label="Postcode"
+                                            onChange={changeHandler}
+                                            fieldRef={register({
+                                                required: "Verplicht veld",
+                                                pattern: {
+                                                    value: /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i,
+                                                    message: "Ongeldige postcode, controleer de input",
+                                                },
+                                            })}
+                                            error={errors.postalCode ? <span className='errorMessage'>{errors.postalCode.message}</span> : <span>&nbsp;</span>}
+                                        />
+                                    </div>
+
+                                    <div className="formElement">
+                                        <FormElement
+                                            type="text"
+                                            name="street"
+                                            label="Straat"
+                                            formValue={formValues.street}
+                                            onChange={changeHandler}
+                                            fieldRef={register({
+                                                required: 'Verplicht veld',
+                                            })}
+                                            error={errors.street ? <span className='errorMessage'>{errors.street.message}</span> : <span>&nbsp;</span>}
+                                        />
+                                    </div>
+
+                                    <div className="formElement">
+                                        <FormElement
+                                            type="text"
+                                            name="streetAdd"
+                                            label="Straat (toevoeging)"
+                                            formValue={formValues.streetAdd}
+                                            onChange={changeHandler}
+                                            error={<span>&nbsp;</span>}
+                                        />
+                                    </div>
+
+                                    <div className="formElement">
+                                        <FormElement
+                                            type="text"
+                                            name="number"
+                                            label="Huisnummer"
+                                            formValue={formValues.number}
+                                            onChange={changeHandler}
+                                            fieldRef={register({
+                                                required: 'Verplicht veld',
+                                            })}
+                                            error={errors.number ? <span className='errorMessage'>{errors.number.message}</span> : <span>&nbsp;</span>}
+                                        />
+                                    </div>
+
+                                    <div className="formElement">
+                                        <FormElement
+                                            type="text"
+                                            name="city"
+                                            label="Stad"
+                                            formValue={formValues.city}
+                                            onChange={changeHandler}
+                                            fieldRef={register({
+                                                required: 'Verplicht veld',
+                                            })}
+                                            error={errors.city ? <span className='errorMessage'>{errors.city.message}</span> : <span>&nbsp;</span>}
+                                        />
+                                    </div>
+
+                                    <div className="formElement">
+                                        <FormElement
+                                            type="text"
+                                            name="province"
+                                            label="Provincie"
+                                            formValue={formValues.province}
+                                            onChange={changeHandler}
+                                            error={<span>&nbsp;</span>}
+                                        />
+                                    </div>
+
+                                    <div className="formElement">
+                                        <FormElement
+                                            type="text"
+                                            name="country"
+                                            label="Land"
+                                            formValue={formValues.country}
+                                            onChange={changeHandler}
                                         />
                                     </div>
                                 </fieldset>

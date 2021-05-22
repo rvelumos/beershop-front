@@ -131,7 +131,7 @@ function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
 
                                     <div className="formElement">
                                         {errors.sex ? <span className='errorMessage'>{errors.sex.message}</span> : <span>&nbsp;</span>}
-                                        <select name="sex" ref={register({ required: true })}>
+                                        <select name="sex" defaultValue={formValues.sex} ref={register({ required: true })}>
                                             <option value="">Geslacht:</option>
                                             <option value="M">Man</option>
                                             <option value="F">Vrouw</option>

@@ -16,9 +16,9 @@ const CheckoutPage = () => {
     savedShoppingCart = JSON.parse(savedShoppingCart);
     //console.log(savedShoppingCart);
 
-    if (savedShoppingCart !== null && mode === 'init') {
-        const id = savedShoppingCart.id;
-        const amount = savedShoppingCart.amount;
+    if (savedShoppingCart !== undefined && savedShoppingCart.product !== undefined && mode === 'init') {
+        const id = savedShoppingCart.product.id;
+        const amount = savedShoppingCart.product.amount;
 
         //setShoppingCartItems(shoppingCart)
         setShoppingCartItems(prevState => ({
@@ -32,6 +32,8 @@ const CheckoutPage = () => {
         setMode('data');
         //setShoppingCartActive(true);
     }
+
+    console.log(shoppingCartItems);
 
     if (location.state !== null && location.state.deleted !== true  && shoppingCartItems === '') {
         //console.log(location.state.data);

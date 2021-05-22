@@ -6,9 +6,9 @@ import Button from "../../UI/Button/Button";
 import FormElement from "../../Forms/FormElement/FormElement";
 import './Login.css';
 import {AuthContext} from "../../../../context/AuthContext";
-import Feedback from "../../UI/Feedback/Feedback";
 
-const Login = ({cmsLogin}) => {
+
+const Login = ({cmsLogin, shoppingCartItems, loginDefaultLandingPage, orderItems}) => {
     const [error, setError] = useState("");
     const [loading, toggleLoading] = useState(false);
     const [formValue, setFormvalue] = useState({
@@ -27,6 +27,9 @@ const Login = ({cmsLogin}) => {
 
         let url = `/api/v1/authenticate`;
 
+        console.log(shoppingCartItems);
+        console.log(loginDefaultLandingPage);
+
         try {
             const result = await axios.post(url, {
 
@@ -40,11 +43,10 @@ const Login = ({cmsLogin}) => {
                 }
             )
             if(result.data.jwt !== "") {
-                login(result.data.jwt);
-            } else {
-                setError("Ongeldige inloggegevens. Controleer de spelling en probeer het opnieuw.")
+                login(result.data.jwt, loginDefaultLandingPage, shoppingCartItems, orderItems);
             }
         }catch(e) {
+            setError("Ongeldige inloggegevens.")
             console.error(e);
             toggleLoading(false);
         }
@@ -88,6 +90,7 @@ const Login = ({cmsLogin}) => {
                                     })}
                                     error={errors.password && <span className='errorMessage'>{errors.password.message}</span>}
                                 /><br />
+                                {error && <p className="errorMessage">{error}</p> }
                                 <Button usage="button" value="Inloggen "/><br /><br />
                                 {cmsLogin ? null :<span>Geen account? Klik dan <a href="/registreren">hier</a> om te registreren.</span> }
 
@@ -103,7 +106,6 @@ const Login = ({cmsLogin}) => {
     return (
         <>
             <div className="loginContainer">
-                {error && <Feedback type="error" content={error} /> }
                 {loading ? <><LoadingIndicator /> Je wordt ingelogd...</> : <AuthLoginForm /> }
             </div>
         </>

@@ -17,7 +17,7 @@ const UserProfileRouting = ({userLoggedIn}) => {
             <Route path="/mijn_account/" exact>
                 {userLoggedIn ?
                     <UserProfilePage username={username} />
-                    : <Login/>
+                    : <Login loginDefaultLandingPage="userProfile" />
                 }
             </Route>
 

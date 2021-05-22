@@ -12,7 +12,12 @@ const Step1 = ({currentStep, shipmentData, shoppingCartItems, orderItems}) => {
         <>
             <div className="userChoiceContainer" >
                 <div className="blockContentContainer" >
-                    <Login />
+                    <Login
+                        step="step2"
+                        shoppingCartItems={shoppingCartItems}
+                        orderItems={orderItems}
+                        loginDefaultLandingPage="checkout"
+                    />
                 </div>
 
                 <div className="blockContentContainer" >

@@ -98,9 +98,9 @@ function Product(props) {
                 <>
                 {isAdmin ?
                     <>
+                    {message && <p className="notice"> {message} </p>}
                     <div className="itemContainer">
                         <h1>Overzicht producten</h1>
-                        {message && <p> {message} </p>}
                         {error && <p> {error} </p>}
                         <Link to="/cms/products/create/" className="button">Product toevoegen</Link><br /><br />
                         <table className="tableDetails">

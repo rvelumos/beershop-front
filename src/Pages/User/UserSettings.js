@@ -11,12 +11,12 @@ function UserSettingsPage ({token, username}) {
     const [userAddress, setUserAddress] = useState(true);
     const [mode, setMode] = useState('init');
 
-    async function getCustomerAddressDetails(username, token){
+    async function getCustomerDetails(username, token){
         setError(false);
         toggleLoading(true);
         setMode('data');
 
-        let url = `/api/v1/address/customer/${username}`;
+        let url = `/api/v1/customer/${username}`;
 
         try {
             const result = await axios.get(url, {
@@ -29,16 +29,14 @@ function UserSettingsPage ({token, username}) {
             if(result.data[0] !== "") {
                 setUserAddress(result.data[0]);
             }
-
         }catch(e) {
             console.error(e);
             setError("Fout bij ophalen adresgegevens.");
         }
         toggleLoading(false);
     }
-
     if(username !== undefined && mode === 'init') {
-        getCustomerAddressDetails(username, token);
+        getCustomerDetails(username, token);
     }
 
     return (

@@ -33,6 +33,7 @@ const BeerPage = () => {
                         <FilterLabels
                             filterLabels={filterLabels}
                             setFilterLabels={setFilterLabels}
+                            filterItems
                             setCategoryArray={setCategoryArray}
                             categoryArray={categoryArray}
                         />

@@ -1,26 +1,30 @@
 import React from 'react';
+import FilterBlockItems from "../../FilterSelectionMenu/FilterBlock/FilterBlockItem/FilterBlockItems";
 
-function FilterLabels({filterLabels, setFilterLabels}) {
+function FilterLabels({filterItems, setFilterItems}) {
 
     function handleClick() {
 
     }
 
-    function getFilterLabelItems() {
+    function replaceNumberToName() {
 
-        if(filterLabels.length > 0) {
-            return (
-                filterLabels.map((filterlabel) => {
-                    console.log(filterlabel);
-                    return (
-                        <div className="filterLabel">
-                            {filterlabel.name}
-                            <div className="removeFilterLabel" onClick={(e) => handleClick(e.target.name)}></div>
-                        </div>
-                    )
-                })
-            )
-        }
+    }
+
+    function getFilterLabelItems() {
+        // if(filterItems.length > 0) {
+        //     return (
+        //         filterItems.map((filterlabel) => {
+        //             console.log("het is "+filterlabel);
+        //             return (
+        //                 <div className="filterLabel">
+        //                     {filterlabel}
+        //                     <div className="removeFilterLabel" onClick={(e) => handleClick(e.target.name)}></div>
+        //                 </div>
+        //             )
+        //         })
+        //     )
+        // }
     }
 
     return(

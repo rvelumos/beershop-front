@@ -1,6 +1,7 @@
 import React, {useState, createContext, useEffect} from 'react';
 import axios from "axios";
 import LoadingIndicator from "../Components/Website/UI/LoadingIndicator/LoadingIndicator";
+import {useHistory} from "react-router";
 
 export const AuthContext = createContext({});
 
@@ -9,15 +10,15 @@ function AuthContextProvider({ children }) {
         user: null,
         status: 'pending'
     });
+    let history = useHistory();
 
-    async function loginUser(jwtToken) {
-        fetchUserData(jwtToken);
+    async function loginUser(jwtToken, loginDefaultLandingPage, orderItems, shoppingCartItems) {
+        await FetchUserData(jwtToken, loginDefaultLandingPage, orderItems, shoppingCartItems);
 
         localStorage.setItem('user_token', jwtToken);
     }
 
-    async function fetchUserData(jwtToken) {
-        console.log(jwtToken);
+    async function FetchUserData(jwtToken, loginDefaultLandingPage, orderItems, shoppingCartItems) {
         try {
             const result = await axios.get(`/api/v1/authenticated/`, {
                 headers: {
@@ -35,7 +36,23 @@ function AuthContextProvider({ children }) {
             })
 
             console.log("fetchUserdata inlog");
-            //history.push('/mijn_account');
+            if(loginDefaultLandingPage==='userProfile') {
+                history.push('/mijn_account');
+                window.location.reload();
+            } else if(loginDefaultLandingPage==='cmsProfile') {
+                history.push('/cms');
+                window.location.reload();
+            } else if(loginDefaultLandingPage==='checkout') {
+                history.push({
+                    pathname: `/winkelwagen/checkout/stappen/`,
+                    state: {
+                        shoppingCartItems: shoppingCartItems,
+                        orderItems: orderItems,
+                        step: 2
+                    }
+                });
+                window.location.reload();
+            }
 
         } catch(e) {
             console.error(e);
@@ -46,7 +63,7 @@ function AuthContextProvider({ children }) {
         const token = localStorage.getItem('user_token');
 
         if(token !== null && userdata.username === undefined) {
-            fetchUserData(token);
+            FetchUserData(token);
         }
 
             setUserdata({

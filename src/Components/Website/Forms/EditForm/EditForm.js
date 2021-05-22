@@ -160,9 +160,10 @@ const EditForm = ({username}) => {
                                 <fieldset>
                                     <input type="hidden" name="id" value={formValues.id} />
                                     <div className="formElement">
+                                        <p>Geslacht</p>
                                         {errors.sex ? <span className='errorMessage'>{errors.sex.message}</span> : <span>&nbsp;</span>}
-                                        <select name="sex" ref={register({ required: true })}>
-                                            <option value="">Geslacht:</option>
+                                        <select name="sex" defaultValue={formValues.customer.sex} ref={register({ required: true })}>
+                                            <option value="">Maak een keuze:</option>
                                             <option value="M">Man</option>
                                             <option value="F">Vrouw</option>
                                         </select>

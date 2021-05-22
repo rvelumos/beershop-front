@@ -24,7 +24,8 @@ export function determineShippingCosts(totalPriceItems) {
 }
 
 const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartItems, setShoppingCartActive}) => {
-
+    console.log("FUNCTIE TOP")
+    console.log(shoppingCartItems);
     const history = useHistory();
 
     let [updatedShoppingCartItems, setUpdatedShoppingCartItems] = useState({
@@ -149,7 +150,6 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
     }
 
     function ShoppingCartItems () {
-
         useEffect(() => {
             if (shoppingCartItems !== "") {
                 Object.entries(shoppingCartItems.product).forEach(([key, value], i) => {
@@ -157,8 +157,6 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                         toggleLoading(true);
                         const id = value;
                         let url = `/api/v1/product/${id}`;
-
-                        console.log(url);
 
                         if(id !== undefined && key==="id") {
                             try {
@@ -169,8 +167,8 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                                         ...setUpdatedShoppingCartItems,
                                         data: result.data
                                     });
-                                    //setShoppingCartActive(true);
-                                    console.log(updatedShoppingCartItems);
+
+                                    setShoppingCartActive(true);
                                     toggleLoading(false);
                                     localStorage.setItem("shopping_carts", JSON.stringify(shoppingCartItems));
                                 }
@@ -189,8 +187,6 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
 
     const getShoppingCartTable = (amount) => {
         const newArrayItems = Array.from(Object.entries(updatedShoppingCartItems));
-
-        console.log(newArrayItems);
             return (
                 newArrayItems.map((cartItem, key) => {
                     const itemValue = Object.values(shoppingCartItems);

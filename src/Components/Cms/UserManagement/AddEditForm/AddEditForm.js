@@ -36,7 +36,7 @@ export function AddEditForm(props) {
     useEffect(() => {
         async function getCustomerData (){
             try {
-                const url=`/api/v1/address/customer/${username}`
+                const url=`/api/v1/customer/${username}`
                 const result = await axios.get(url);
                 const {
                     street,
@@ -57,7 +57,7 @@ export function AddEditForm(props) {
                     phone,
                     newsletter,
                     sex
-                } = result.data[0].customer;
+                } = result.data[0];
 
                 setCustomerValues({
                     userId: userId,
@@ -236,9 +236,10 @@ export function AddEditForm(props) {
                         <form onSubmit={handleSubmit(onSubmitForm)}>
                             <fieldset>
                                 <div className="formElement">
-                                    {errors.sex ? <span className='errorMessage'>{errors.sex.message}</span> : <span>&nbsp;</span>}
-                                    <select name="sex" ref={register({ required: true })}>
-                                        <option value="">Geslacht:</option>
+                                    <p>Geslacht</p>
+                                    {errors.sex && <span className='errorMessage'>{errors.sex.message}</span>}
+                                    <select name="sex" defaultValue={customerValues.sex} ref={register({ required: true })}>
+                                        <option value="">Maak een keuze:</option>
                                         <option value="M">Man</option>
                                         <option value="F">Vrouw</option>
                                     </select>
@@ -331,16 +332,17 @@ export function AddEditForm(props) {
                                 </div>
 
                                 <div className="formElement">
-                                    {errors.newsletter ? <span className='errorMessage'>{errors.newsletter.message}</span> : <span>&nbsp;</span>}
+                                    <p>Nieuwsbrief</p>
+                                    {errors.newsletter && <span className='errorMessage'>{errors.newsletter.message}</span>}
                                     <select name="newsletter" ref={register({ required: true })}>
-                                        <option value="">Inschrijven nieuwsbrief</option>
+                                        <option value="">Maak een keuze:</option>
                                         <option value="true">Ja</option>
                                         <option value="false">Nee</option>
                                     </select>
                                 </div>
                             </fieldset>
 
-                            <h1>Adresgegevens</h1>
+                            <h2>Adresgegevens</h2>
                             <fieldset>
                                     <div className="formElement">
                                             <FormElement

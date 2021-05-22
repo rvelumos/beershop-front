@@ -7,7 +7,6 @@ function FilterBlockItems(props) {
     const [error, setError] = useState("");
     const [loading, toggleLoading] = useState(true);
     const {categoryArray, setCategoryArray, filterId} = props;
-    const {setTasteArray} = props;
 
     useEffect(() => {
         async function getFilterItem({filterItems, setFilterItems}) {
@@ -16,12 +15,7 @@ function FilterBlockItems(props) {
             setError(false);
             toggleLoading(true);
 
-            let url = `/api/v1/products/`;
-
-            if(valueName==="category")
-                url=`${url}categories`;
-            else
-                url=`${url}tastes`;
+            let url = `/api/v1/products/categories`;
 
             try {
                 const result = await axios.get(url);
@@ -52,15 +46,11 @@ function FilterBlockItems(props) {
     }, []);
 
     const handleClick = (evt) => {
-
         const value = evt.target.value;
         const name = evt.target.name;
+console.log(name);
+        setCategoryArray(prev => [...prev, value]);
 
-        if(name==='category[]') {
-            setCategoryArray(prev => [...prev, value]);
-        } else {
-            setTasteArray(prev => [...prev, value]);
-        }
         let areInputsChecked = [checked];
 
         areInputsChecked.forEach(isInputChecked => {
@@ -95,21 +85,21 @@ function FilterBlockItems(props) {
             const filteredFilterItems = filterItems.filtermenu[valueName].filter(e => e.id !== 999);
             return (
                 filteredFilterItems.map((filterItem) => {
-                        const id = filterItem.name + filterId;
-                        return (
-                            <div key={filterItem.id} className="filterItem">
-                                <input
-                                    type="checkbox"
-                                    placeholder=""
-                                    name={`${valueName}[]`}
-                                    id={id}
-                                    className="filterItemInput"
-                                    value={filterItem.id}
-                                    onClick={(e) => handleClick(e)}
-                                />
-                                <label htmlFor={id}>{filterItem.name}</label>
-                            </div>
-                        )
+                    const id = filterItem.name + filterId;
+                    return (
+                        <div key={id} className="filterItem">
+                            <input
+                                type="checkbox"
+                                placeholder=""
+                                name={`${valueName}[]`}
+                                id={id}
+                                className="filterItemInput"
+                                value={filterItem.id}
+                                onClick={(e) => handleClick(e)}
+                            />
+                            <label htmlFor={id}>{filterItem.name}</label>
+                        </div>
+                    )
                 })
             )
         }

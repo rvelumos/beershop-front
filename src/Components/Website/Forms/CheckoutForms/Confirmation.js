@@ -98,7 +98,8 @@ const Confirmation = ({email, currentStep, token, orderItems, shipmentData}) => 
                 if(result) {
                     setOrderAdded(true);
                     toggleLoading(false);
-                    await updateGiftCard();
+                    if(orderItems.giftcardId !== undefined)
+                        await updateGiftCard();
                     await sendConfirmationMail(shipmentData);
                     window.history.replaceState({}, document.title)
                 }
@@ -132,6 +133,7 @@ const Confirmation = ({email, currentStep, token, orderItems, shipmentData}) => 
             const url = `/api/v1/customer/confirmation`;
             const result = await axios.post(url, data);
             if(result) {
+                localStorage.removeItem('shopping_carts');
                 toggleLoading(false);
             }
 
