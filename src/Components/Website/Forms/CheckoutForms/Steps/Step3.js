@@ -25,7 +25,7 @@ const Step3 = ({currentStep, shipmentData, shoppingCartItems, orderItems}) => {
                     let image = "";
                     if (shoppingCartItem[1].type !== 4)
                         image =
-                            <div className="image"><img src={`/product_images/product_${shoppingCartItem[1].id}.png`} alt=''/>
+                            <div className="image"><img src={`/product_images/${shoppingCartItem.image}`} alt=''/>
                             </div>;
                     else
                         image = <div className="image"><img src={`/product_images/giftcard.png`} alt=''/></div>;

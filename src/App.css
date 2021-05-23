@@ -122,7 +122,6 @@ input[type="text"]:disabled {
 .errorMessage {
   color:red;
   font-size: var(--font-size-s);
-  margin: 0 auto;
 }
 
 .errorInput {

@@ -44,7 +44,7 @@ function DetailsProduct() {
         if(productItem !== null && productItem.type !== 3) {
             let image;
             if (productItem.type !== 4)
-                image = <img src={`/product_images/product_${productItem.id}.png`} alt=''/>;
+                image = <img src={`/product_images/${productItem.image}`} alt=''/>;
             else
                 image = <img src={`/product_images/giftcard.png`} alt=''/>;
 

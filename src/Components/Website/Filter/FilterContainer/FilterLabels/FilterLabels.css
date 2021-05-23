@@ -1,0 +1,27 @@
+.filterLabelOverview {
+    width: 98%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 500px;
+}
+
+.filterLabelOverview .filterLabel {
+    background-color: var(--background-color-extra-light);
+    border: var(--default-border-light);
+    border-radius: var(--default-border-radius);
+    font-size: var(--font-size-s);
+    color: #ccc;
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    height: 30px;
+    padding: 10px;
+}
+
+.removeFilterLabel {
+    padding: 10px;
+    font-size: var(--font-size-l);
+    font-weight: bold;
+    cursor: pointer;
+}

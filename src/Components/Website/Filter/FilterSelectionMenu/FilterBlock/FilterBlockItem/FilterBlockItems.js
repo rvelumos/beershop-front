@@ -48,7 +48,7 @@ function FilterBlockItems(props) {
     const handleClick = (evt) => {
         const value = evt.target.value;
         const name = evt.target.name;
-console.log(name);
+
         setCategoryArray(prev => [...prev, value]);
 
         let areInputsChecked = [checked];

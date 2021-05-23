@@ -24,8 +24,6 @@ export function determineShippingCosts(totalPriceItems) {
 }
 
 const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartItems, setShoppingCartActive}) => {
-    console.log("FUNCTIE TOP")
-    console.log(shoppingCartItems);
     const history = useHistory();
 
     let [updatedShoppingCartItems, setUpdatedShoppingCartItems] = useState({
@@ -51,6 +49,8 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
         step = 2;
 
      const deleteItem = () => {
+         setShoppingCartActive(false);
+         localStorage.removeItem('shopping_carts');
          setShoppingCartItems({
              product: {
                  id: null,
@@ -69,6 +69,8 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                  deleted: true
              }
          });
+
+         window.location.reload();
 
     }
 
@@ -195,7 +197,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                     let discountMessage = "";
                     if (cartItem[1].type !== 4)
                         image =
-                            <div className="image"><img src={`/product_images/product_${cartItem[1].id}.png`} alt=''/>
+                            <div className="image"><img src={`/product_images/${cartItem[1].image}`} alt=''/>
                             </div>;
                     else
                         image = <div className="image"><img src={`/product_images/giftcard.png`} alt=''/></div>;
@@ -242,8 +244,12 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
             )
     }
 
-    const amount = shoppingCartItems.product.amount;
-    const price = shoppingCartItems.product.price;
+    let amount;
+     let price;
+    if(shoppingCartActive) {
+        amount = shoppingCartItems.product.amount;
+        price = shoppingCartItems.product.price;
+    }
 
     return (
         <>

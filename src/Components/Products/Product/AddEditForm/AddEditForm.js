@@ -3,8 +3,6 @@ import {useForm} from "react-hook-form";
 import {useParams} from "react-router-dom";
 import axios from "axios";
 
-import AddEdit from "../../../Cms/Actions/AddEdit";
-
 import LoadingIndicator from "../../../Website/UI/LoadingIndicator/LoadingIndicator";
 import FormElement from "../../../Website/Forms/FormElement/FormElement";
 import Button from "../../../Website/UI/Button/Button";
@@ -15,7 +13,8 @@ import Feedback from "../../../Website/UI/Feedback/Feedback";
 export function AddEditForm(props) {
     const [error, setError] = useState(false);
     const [loading, toggleLoading] = useState(false);
-    const [submittedForm, setSubmittedForm] = useState(false);
+    const [message, setMessage] = useState("");
+    const [process, setProcess] = useState("pending");
 
     const { id } = useParams();
     const { token } = props;
@@ -144,9 +143,13 @@ export function AddEditForm(props) {
             taste,
             stock,
             description,
+            image,
             type,
             discount
         } = data;
+
+        console.log("image");
+        console.log(image)
 
         setFormValues({
             category: {
@@ -157,7 +160,7 @@ export function AddEditForm(props) {
             },
             name: name,
             taste: taste,
-            image: image.raw,
+            image: image,
             price: price,
             stock: stock,
             description: description,
@@ -166,55 +169,81 @@ export function AddEditForm(props) {
         });
 
         console.table(data);
-        setSubmittedForm(true);
+        saveData(data);
     }
 
-    const handleChange = e => {
-        const uploadFile = e.target.files[0];
+    function saveData(data) {
 
-        console.log(uploadFile.type);
-        if (uploadFile !== "") {
-            if (uploadFile.type === "image/jpeg" || uploadFile.type === "image/jpg" || uploadFile.type === "image/png") {
-                console.log("IMAGE")
-                console.log(e.target.files)
-                setImage({
-                    preview: URL.createObjectURL(e.target.files[0]),
-                    raw: e.target.files[0]
-                });
-                uploadImage();
-            } else {
-                setError("Ongeldig bestand: alleen .png en .jpg toegestaan");
-            }
-        }
-    };
-
-    async function uploadImage() {
-        const imageData = image.raw;
-        console.log("IMAGE DATA uploadimage");
-        console.log(imageData);
-        console.log(token);
-        //const FormData = require('form-data');
-
+        console.log(data);
         let formData = new FormData();
-        formData.append("file", imageData);
 
-        try {
-            const url = `/api/v1/admin/forms/upload`;
-            const result = await axios.post(url, formData,{
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "Content-Type": "multipart/form-data",
-                    "Access-Control-Allow-Origin": "*",
+        formData.append("name", data.name);
+        formData.append("taste", data.taste);
+        formData.append("description", data.description);
+        formData.append("type", data.type);
+        formData.append("discount", data.discount);
+        formData.append("category.id", data.categoryId);
+        formData.append("manufacturer.id", data.manufacturerId);
+        formData.append("stock", data.stock);
+        formData.append("documents", data.image[0]);
+        formData.append("price", data.price);
+
+        async function handleData(formData) {
+            setProcess("data");
+
+            let url = `/api/v1/admin/product`;
+            if(!isAddMode)
+                url = `${url}/${id}`;
+
+            try {
+                toggleLoading(true);
+                let result;
+                if(isAddMode) {
+                    result = await axios.post(url, formData, {
+                        headers : {
+                            "Authorization" : `Bearer ${token}`,
+                            'Content-Type': 'multipart/form-data',
+                            "Access-Control-Allow-Origin": "*",
+                        }
+                    });
+                } else {
+                    result = await axios.put(url, formData, {
+                        headers : {
+                            "Authorization" : `Bearer ${token}`,
+                            'Content-Type': 'multipart/form-data',
+                            "Access-Control-Allow-Origin": "*",
+                        }
+                    });
                 }
-            });
-            if (result) {
-                console.log("Image opgeslagen")
+                if(result) {
+                    setMessage("Data succesvol opgeslagen");
+                }
+            } catch (e) {
+                console.error(e);
+                setError("Fout bij verwerken data.");
             }
-        } catch (e) {
-            console.error(e);
-            setError("Fout bij ophalen gegevens.");
+            toggleLoading(false);
         }
+        if (process==="pending")
+            handleData(formData);
     }
+
+    // const handleImageChange = e => {
+    //
+    //     const uploadFile = e.target.files[0];
+    //
+    //     if (uploadFile !== "") {
+    //         if (uploadFile.type === "image/jpeg" || uploadFile.type === "image/jpg" || uploadFile.type === "image/png") {
+    //             // setImage({
+    //             //     preview: URL.createObjectURL(e.target.files[0]),
+    //             //     raw: e.target.files[0]
+    //             // });
+    //             //uploadImage();
+    //         } else {
+    //             setError("Ongeldig bestand: alleen .png en .jpg toegestaan");
+    //         }
+    //     }
+    // };
 
     const ProductItem = () => {
         const { register, errors, handleSubmit } = useForm({
@@ -264,7 +293,7 @@ export function AddEditForm(props) {
 
                                 <div className="formElement">
                                     {errors.categoryId ? <span className='errorMessage'>{errors.categoryId.message}</span> : <span>&nbsp;</span>}
-                                    <select name="categoryId" defaultValue={formValues.categoryId} ref={register({ required: true })}>
+                                    <select name="categoryId" defaultValue={formValues.categoryId} ref={register({ required: "Verplicht veld" })}>
                                         <option value="">Kies de categorie:</option>
                                         {categoryItems}
                                     </select>
@@ -272,7 +301,7 @@ export function AddEditForm(props) {
 
                                 <div className="formElement">
                                     {errors.manufacturerId ? <span className='errorMessage'>{errors.manufacturerId.message}</span> : <span>&nbsp;</span>}
-                                    <select name="manufacturerId" defaultValue={formValues.manufacturerId} ref={register({ required: true })}>
+                                    <select name="manufacturerId" defaultValue={formValues.manufacturerId} ref={register({ required: "Verplicht veld" })}>
                                         <option value="">Kies de fabrikant:</option>
                                         {manufacturerItems}
                                     </select>
@@ -345,7 +374,7 @@ export function AddEditForm(props) {
 
                                 <div className="formElement">
                                     {errors.type ? <span className='errorMessage'>{errors.type.message}</span> : <span>&nbsp;</span>}
-                                    <select name="type" defaultValue={formValues.type} ref={register({ required: true })}>
+                                    <select name="type" defaultValue={formValues.type} ref={register({ required: "Verplicht veld" })}>
                                         <option value="">Kies het type product:</option>
                                         <option value="1">Los bier</option>
                                         <option value="3">Bierpakket</option>
@@ -371,14 +400,17 @@ export function AddEditForm(props) {
                                     />
                                 </div>
 
-                                {/*<div className="formElement">*/}
-                                {/*    <img src={image.preview} alt="dummy" width="300" height="300" />*/}
-                                {/*    <input*/}
-                                {/*        type="file"*/}
-                                {/*        id="upload-button"*/}
-                                {/*        onChange={handleChange}*/}
-                                {/*    />*/}
-                                {/*</div>*/}
+                                <div className="formElement">
+                                    Afbeelding:
+                                    {/*<img src={image.preview} alt="dummy" width="300" height="300" />*/}
+                                    <input
+                                        type="file"
+                                        id="upload-button"
+                                        ref={register}
+                                        name="image"
+                                       // onChange={handleImageChange}
+                                    />
+                                </div>
                             </fieldset>
 
                             <Button
@@ -397,7 +429,8 @@ export function AddEditForm(props) {
             <div className="overview">
                 { error && <Feedback type="error" content={error} /> }
                 { loading ? <LoadingIndicator /> : <ProductItem /> }
-                { submittedForm &&  <AddEdit isAddMode={isAddMode} token={token} section="product" id={id} itemData={formValues}/> }
+                { message && <Feedback type="notice" content={message} />}
+                {/*{ submittedForm &&  <AddEdit isAddMode={isAddMode} token={token} section="product" id={id} itemData={formValues}/> }*/}
             </div>
         </>
     )

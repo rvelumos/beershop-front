@@ -16,7 +16,7 @@ const CheckoutPage = () => {
     savedShoppingCart = JSON.parse(savedShoppingCart);
     //console.log(savedShoppingCart);
 
-    if (savedShoppingCart !== undefined && savedShoppingCart.product !== undefined && mode === 'init') {
+    if (savedShoppingCart !== undefined && savedShoppingCart !== null && savedShoppingCart.product !== undefined && mode === 'init') {
         const id = savedShoppingCart.product.id;
         const amount = savedShoppingCart.product.amount;
 
@@ -35,10 +35,10 @@ const CheckoutPage = () => {
 
     console.log(shoppingCartItems);
 
-    if (location.state !== null && location.state.deleted !== true  && shoppingCartItems === '') {
+    if (location.state !== null && location.state !== undefined && location.state.deleted !== true  && shoppingCartItems === '') {
         //console.log(location.state.data);
         setShoppingCartItems(location.state.data);
-        setShoppingCartActive(true);
+        //setShoppingCartActive(true);
 
         let cartString = JSON.stringify(shoppingCartItems);
         localStorage.setItem('shopping_carts', cartString)
