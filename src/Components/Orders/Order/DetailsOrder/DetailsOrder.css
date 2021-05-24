@@ -4,8 +4,17 @@
     width: var(--default-width);
 }
 
+.detailsOrder .downloadPDF img {
+    width: 20px;
+    margin: 10px 10px 0 10px;
+}
+
 .detailsOrder h2 {
     margin-top: 0;
+}
+
+.detailsCost .bad {
+    color: red;
 }
 
 .detailsOrderTop,

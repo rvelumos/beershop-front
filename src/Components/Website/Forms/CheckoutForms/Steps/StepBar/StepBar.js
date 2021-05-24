@@ -1,6 +1,11 @@
 import React from 'react';
 
 const StepBar = ({currentStep}) => {
+
+    if(currentStep===4) {
+        return null;
+    }
+
     function getSteps() {
 
         let stepInfo = Array;
@@ -10,13 +15,11 @@ const StepBar = ({currentStep}) => {
 
         let stepCounter = "";
         let classStep = "";
-        for(let i=1; i<5; i++) {
+        for(let i=1; i<4; i++) {
             if(i !== currentStep)
                 continue;
             stepCounter = <div className={classStep}>Stap {i}/3: {stepInfo[i]}</div>
         }
-
-        console.log(stepCounter);
 
         return(
             <div className="progressContainer">

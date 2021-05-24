@@ -21,47 +21,34 @@ const UserProfileRouting = ({userLoggedIn}) => {
                 }
             </Route>
 
-            <Route path="/mijn_account/orders" exact>
-                {userLoggedIn ?
+            {userLoggedIn ?
+                <>
+                <Route path="/mijn_account/orders" exact>
                     <UserOrderPage token={token} />
-                    : <Redirect to="/mijn_account/" />
-                }
-            </Route>
+                </Route>
 
-            <Route path="/mijn_account/orders/:id" exact>
-                {userLoggedIn ?
+                <Route path="/mijn_account/orders/:id" exact>
                     <UserOrderPage token={token} showDetails={true} />
-                    : <Redirect to="/mijn_account/" />
-                }
-            </Route>
+                </Route>
 
-            <Route path="/mijn_account/gegevens" exact>
-                {userLoggedIn ?
+                <Route path="/mijn_account/orders/generate_pdf/:id" exact>
+                    {/*<PDFCreator section="orders" />*/}
+                </Route>
+
+                <Route path="/mijn_account/gegevens" exact>
                     <UserSettingsPage token={token} username={username} />
-                    : <Redirect to="/mijn_account/" />
-                }
-            </Route>
+                </Route>
 
-            <Route path="/mijn_account/gegevens/edit" exact>
-                {userLoggedIn ?
+                <Route path="/mijn_account/gegevens/edit" exact>
                     <EditForm token={token} username={username} />
-                    : <Redirect to="/mijn_account/" />
-                }
-            </Route>
+                </Route>
 
-            <Route path="/mijn_account/cadeaubonnen" exact>
-                {userLoggedIn ?
+                <Route path="/mijn_account/cadeaubonnen" exact>
                     <UserGiftPage token={token} />
-                    : <Redirect to="/mijn_account/" />
-                }
-            </Route>
+                </Route>
+                </>
+            : <Redirect to="/mijn_account/" />}
 
-            {/*<Route path="/mijn_account/bonus">*/}
-            {/*    {userLoggedIn ?*/}
-            {/*        <UserBonusPage />*/}
-            {/*        : <Redirect to="/mijn_account/" />*/}
-            {/*    }*/}
-            {/*</Route>*/}
         </>
     )
 }

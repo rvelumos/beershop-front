@@ -16,7 +16,6 @@ const UserMenu = () => {
         if(storedItems !== null) {
             items = Object.keys(JSON.parse(storedItems)).length;
             if (items !== undefined) {
-                console.log(storedItems);
                 setAmountItems(items);
                 setMode('updateShoppingCart');
                 setShoppingCartActive(true);

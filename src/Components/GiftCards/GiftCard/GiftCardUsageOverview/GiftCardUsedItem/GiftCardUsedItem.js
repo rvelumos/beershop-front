@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import './GiftCardUsedItem.css';
-import Feedback from "react-bootstrap/Feedback";
 
 function GiftCardUsedItem(props) {
     const {isAdmin} = props;

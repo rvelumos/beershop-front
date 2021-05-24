@@ -9,14 +9,19 @@
     display: flex;
 }
 
-Footer a,
-Footer ul {
+.Footer a,
+.Footer ul {
     color: var(--font-color-secondary);
     font-family: var(--default-font-light);
     padding: 0;
     line-height: 20px;
     font-size: var(--font-size-s);
     list-style: none;
+}
+
+.Footer .contactInfo img,
+.Footer .social img {
+    margin: 3px 10px;
 }
 
 .FooterColumn {

@@ -35,7 +35,6 @@ function AuthContextProvider({ children }) {
                 status: 'done'
             })
 
-            console.log("fetchUserdata inlog");
             if(loginDefaultLandingPage==='userProfile') {
                 history.push('/mijn_account');
                 window.location.reload();
@@ -53,7 +52,6 @@ function AuthContextProvider({ children }) {
                 });
                 window.location.reload();
             }
-
         } catch(e) {
             console.error(e);
         }
@@ -65,12 +63,9 @@ function AuthContextProvider({ children }) {
         if(token !== null && userdata.username === undefined) {
             FetchUserData(token);
         }
-
-            setUserdata({
-                status: 'done'
-            })
-
-
+        setUserdata({
+            status: 'done'
+        })
         // eslint-disable-next-line
     }, [])
 

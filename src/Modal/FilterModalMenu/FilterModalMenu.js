@@ -1,6 +1,5 @@
 import React,{useState} from 'react';
 import './FilterModalMenu.css';
-import iconFilter from '../../Assets/icons/icon_filter.png';
 import FilterSelectionMenu from "../../Components/Website/Filter/FilterSelectionMenu/FilterSelectionMenu";
 
 function FilterModalMenu({setCategoryArray, setFilterLabels, setTasteArray, filterLabels, categoryArray, tasteArray}) {
@@ -20,7 +19,7 @@ function FilterModalMenu({setCategoryArray, setFilterLabels, setTasteArray, filt
         <>
             <div className="filterIconContainer">
                 <div className={className} onClick={(e) => toggleFilterMenuModal()}>
-                    <img src={iconFilter} alt='' />
+                    <img src="/images/icons/icon_filter.png" alt='' />
                 </div>
             </div>
 

@@ -19,23 +19,23 @@ const EditForm = ({username}) => {
     const [mode, setMode] = useState('init');
 
     const [formValues, setFormValues] = useState({
-        customer: {
-            firstname: '',
-            lastname: '',
-            email: '',
-            phone: '',
-            birthDate: '',
-            password: '',
-            id: '',
-            passwordRepeat: '',
-        },
-        street: '',
-        streetAdd: '',
-        number: '',
-        postalCode: '',
-        city: '',
-        province: '',
-        country: ''
+        firstname: '',
+        lastname: '',
+        email: '',
+        phone: '',
+        birthDate: '',
+        password: '',
+        id: '',
+        passwordRepeat: '',
+        address : {
+            street: '',
+            streetAdd: '',
+            number: '',
+            postalCode: '',
+            city: '',
+            province: '',
+            country: ''
+        }
     });
 
     const changeHandler = e => {
@@ -162,7 +162,7 @@ const EditForm = ({username}) => {
                                     <div className="formElement">
                                         <p>Geslacht</p>
                                         {errors.sex ? <span className='errorMessage'>{errors.sex.message}</span> : <span>&nbsp;</span>}
-                                        <select name="sex" defaultValue={formValues.customer.sex} ref={register({ required: true })}>
+                                        <select name="sex" defaultValue={formValues.sex} ref={register({ required: true })}>
                                             <option value="">Maak een keuze:</option>
                                             <option value="M">Man</option>
                                             <option value="F">Vrouw</option>
@@ -173,7 +173,7 @@ const EditForm = ({username}) => {
                                         <FormElement
                                             type="text"
                                             name="firstname"
-                                            formValue={formValues.customer.firstname}
+                                            formValue={formValues.firstname}
                                             label="Voornaam"
                                             onChange={changeHandler}
                                             fieldRef={register({
@@ -187,7 +187,7 @@ const EditForm = ({username}) => {
                                         <FormElement
                                             type="text"
                                             name="lastname"
-                                            formValue={formValues.customer.lastname}
+                                            formValue={formValues.lastname}
                                             label="Achternaam"
                                             onChange={changeHandler}
                                             fieldRef={register({
@@ -201,7 +201,7 @@ const EditForm = ({username}) => {
                                         <FormElement
                                             type="text"
                                             name="email"
-                                            formValue={formValues.customer.email}
+                                            formValue={formValues.email}
                                             label="E-mailadres"
                                             onChange={changeHandler}
                                             fieldRef={register({
@@ -221,7 +221,7 @@ const EditForm = ({username}) => {
                                             type="text"
                                             name="phone"
                                             label="Telefoon"
-                                            formValue={formValues.customer.phone}
+                                            formValue={formValues.phone}
                                             onChange={changeHandler}
                                             fieldRef={register({
                                                 required: "Verplicht veld",
@@ -244,7 +244,7 @@ const EditForm = ({username}) => {
                                             type="text"
                                             name="birthDate"
                                             label="Geboortedatum"
-                                            formValue={formValues.customer.birthDate}
+                                            formValue={formValues.birthDate}
                                             onChange={changeHandler}
                                             form="form"
                                             fieldRef={register({
@@ -274,7 +274,7 @@ const EditForm = ({username}) => {
                                         <FormElement
                                             type="text"
                                             name="postalCode"
-                                            formValue={formValues.postalCode}
+                                            formValue={formValues.address.postalCode}
                                             label="Postcode"
                                             onChange={changeHandler}
                                             fieldRef={register({
@@ -293,7 +293,7 @@ const EditForm = ({username}) => {
                                             type="text"
                                             name="street"
                                             label="Straat"
-                                            formValue={formValues.street}
+                                            formValue={formValues.address.street}
                                             onChange={changeHandler}
                                             fieldRef={register({
                                                 required: 'Verplicht veld',
@@ -307,7 +307,7 @@ const EditForm = ({username}) => {
                                             type="text"
                                             name="streetAdd"
                                             label="Straat (toevoeging)"
-                                            formValue={formValues.streetAdd}
+                                            formValue={formValues.address.streetAdd}
                                             onChange={changeHandler}
                                             error={<span>&nbsp;</span>}
                                         />
@@ -332,7 +332,7 @@ const EditForm = ({username}) => {
                                             type="text"
                                             name="city"
                                             label="Stad"
-                                            formValue={formValues.city}
+                                            formValue={formValues.address.city}
                                             onChange={changeHandler}
                                             fieldRef={register({
                                                 required: 'Verplicht veld',
@@ -346,7 +346,7 @@ const EditForm = ({username}) => {
                                             type="text"
                                             name="province"
                                             label="Provincie"
-                                            formValue={formValues.province}
+                                            formValue={formValues.address.province}
                                             onChange={changeHandler}
                                             error={<span>&nbsp;</span>}
                                         />
@@ -357,7 +357,7 @@ const EditForm = ({username}) => {
                                             type="text"
                                             name="country"
                                             label="Land"
-                                            formValue={formValues.country}
+                                            formValue={formValues.address.country}
                                             onChange={changeHandler}
                                         />
                                     </div>

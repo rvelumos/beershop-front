@@ -1,6 +1,26 @@
 import React, {useState} from 'react';
 import './FilterLabels.css'
 
+export function substituteNumberToName(value) {
+    switch (value) {
+        case "1": return "Pale Ale";
+        case "2": return "Blond";
+        case "3": return "Tripel";
+        case "4": return "Abdij/trappist";
+        case "5": return "Amber";
+        case "6": return "Bruin";
+        case "7": return "IPA";
+        case "8": return "Lager";
+        case "9": return "Pilsener";
+        case "10": return "Quadrupel";
+        case "11": return "Stout";
+        case "12": return "Winterbier";
+        case "13": return "Wit";
+        case "14": return "Herfstbock";
+        default: return "";
+    }
+}
+
 function FilterLabels({categoryArray, setCategoryArray, setFilterItems}) {
     const [checked, setChecked] = useState('');
 
@@ -22,25 +42,6 @@ function FilterLabels({categoryArray, setCategoryArray, setFilterItems}) {
             setChecked(checkedArr);
         }
         setChecked(prev => [...prev, value]);
-    }
-
-    function substituteNumberToName(value) {
-        switch (value) {
-            case "1": return "Pale Ale";
-            case "2": return "Blond";
-            case "3": return "Tripel";
-            case "4": return "Abdij/trappist";
-            case "5": return "Amber";
-            case "6": return "Bruin";
-            case "7": return "IPA";
-            case "8": return "Lager";
-            case "9": return "Pilsener";
-            case "10": return "Quadrupel";
-            case "11": return "Stout";
-            case "12": return "Winterbier";
-            case "13": return "Wit";
-            case "14": return "Herfstbock";
-        }
     }
 
     function getFilterLabelItems() {

@@ -57,7 +57,6 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                  amount: null
              }
          })
-
          setUpdatedShoppingCartItems({
                 data: ""
             }
@@ -69,9 +68,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                  deleted: true
              }
          });
-
          window.location.reload();
-
     }
 
     function calculateSubTotal (amount) {
@@ -84,14 +81,11 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
         let calculateVatPrice = calculateVat(totalPriceItems);
 
         let giftCardItem = JSON.parse(localStorage.getItem("giftcard"));
-        //console.log(giftCardItem);
         if(giftCardItem !== null && activeGiftCard === false && totalPriceItems > 0) {
-            console.log(giftCardItem);
             discount = giftCardItem[0].amount;
             giftcardId = giftCardItem[0].id;
             setGiftCardInfo(giftCardItem);
             setActiveGiftCard("used");
-            console.log(discount);
         }
 
         if(giftCardInfo[0] !== undefined) {
@@ -100,7 +94,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
         }
 
         let total = shippingCosts + totalPriceItems - discount;
-        if(total < 1) total = 0 + shippingCosts;
+        if(total < 0.01) total = 0 + shippingCosts;
 
         if((updatedShoppingCartItems.data.id !== undefined && mode==='init') || (mode==='data' && totalPriceItems !== order.totalPriceItems)) {
             setMode('data');
@@ -174,7 +168,6 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                                     toggleLoading(false);
                                     localStorage.setItem("shopping_carts", JSON.stringify(shoppingCartItems));
                                 }
-
                             } catch (e) {
                                 console.error(e);
                                 setError("Fout bij ophalen gegevens.");
@@ -196,9 +189,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                     let image = "";
                     let discountMessage = "";
                     if (cartItem[1].type !== 4)
-                        image =
-                            <div className="image"><img src={`/product_images/${cartItem[1].image}`} alt=''/>
-                            </div>;
+                        image = <div className="image"><img src={`/product_images/${cartItem[1].image}`} alt=''/></div>;
                     else
                         image = <div className="image"><img src={`/product_images/giftcard.png`} alt=''/></div>;
                     let finalPrice = cartItem[1].price;
@@ -245,7 +236,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
     }
 
     let amount;
-     let price;
+    let price;
     if(shoppingCartActive) {
         amount = shoppingCartItems.product.amount;
         price = shoppingCartItems.product.price;
@@ -256,10 +247,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
             <div className="home">
                 <h1>Winkelwagen</h1>
                 {error && <Feedback type="error" content={error} />}
-
                 {ShoppingCartItems()}
-
-
                 {shoppingCartActive ?
                     <>
                         <div className="shoppingCartContainer">
@@ -274,7 +262,6 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
 
                         <div className="shoppingCartBottomContainer">
                             <GiftCardForm giftCardInfo={giftCardInfo} setGiftCardInfo={setGiftCardInfo} />
-
                             <div className="shoppingCartCheckoutContainer">
                                 <h2>Totaal:</h2>{loading ? <LoadingIndicator /> : calculateSubTotal(amount, price)}
                             </div>

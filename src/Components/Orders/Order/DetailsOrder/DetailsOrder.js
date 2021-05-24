@@ -2,6 +2,7 @@ import React from 'react';
 import './DetailsOrder.css';
 import {useLocation} from "react-router";
 import Feedback from "react-bootstrap/Feedback";
+import {Link} from "react-router-dom";
 
 function DetailsOrder(props) {
 
@@ -26,12 +27,18 @@ function DetailsOrder(props) {
             const total = shipmentCost + orderItem.priceTotal;
 
             let orderStatus = "In behandeling";
+            let orderStatusClass;
             if (orderItem.orderStatus === "SENT" || orderItem.orderStatus === "RECEIVED")
                 orderStatus = "Verzonden";
+            else if (orderItem.orderStatus === "CANCELLED")
+                orderStatusClass = "bad";
 
             let paymentStatus = "Onbetaald";
-            if (orderItem.invoiceStatus === "PAID")
+            let paymentStatusClass = "bad";
+            if (orderItem.invoiceStatus === "PAID") {
+                paymentStatusClass = "";
                 paymentStatus = "Betaald via overschrijving";
+            }
 
             if (orderItem !== "") {
                 return (
@@ -65,10 +72,11 @@ function DetailsOrder(props) {
                                         <div className="orderShipment">Verzending: €{shipmentCost}</div>
 
                                         <div className="orderTotal">Totaal: €{total}</div>
-                                        <div className="orderInvoice"><b>Factuurstatus</b>: {paymentStatus}</div>
-                                        <div className="orderInvoice"><b>Verzendstatus</b>: {orderStatus}</div>
+                                        <div className="orderInvoice"><b>Factuurstatus</b>: <span className={paymentStatusClass}>{paymentStatus}</span></div>
+                                        <div className="orderStatus"><b>Verzendstatus</b>:  <span className={orderStatusClass}>{orderStatus}</span></div>
                                     </div>
                                 </div>
+                                <div className="downloadPDF"><Link to={`/mijn_account/orders/generate_pdf/${orderItem.id}`}><img src="/icons/pdf.png" alt="Download factuur"/>Download factuur</Link></div>
 
                             </div>
                         </div>

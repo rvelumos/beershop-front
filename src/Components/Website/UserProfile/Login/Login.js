@@ -7,7 +7,6 @@ import FormElement from "../../Forms/FormElement/FormElement";
 import './Login.css';
 import {AuthContext} from "../../../../context/AuthContext";
 
-
 const Login = ({cmsLogin, shoppingCartItems, loginDefaultLandingPage, orderItems}) => {
     const [error, setError] = useState("");
     const [loading, toggleLoading] = useState(false);
@@ -26,9 +25,6 @@ const Login = ({cmsLogin, shoppingCartItems, loginDefaultLandingPage, orderItems
         toggleLoading(true);
 
         let url = `/api/v1/authenticate`;
-
-        console.log(shoppingCartItems);
-        console.log(loginDefaultLandingPage);
 
         try {
             const result = await axios.post(url, {
@@ -66,7 +62,6 @@ const Login = ({cmsLogin, shoppingCartItems, loginDefaultLandingPage, orderItems
                     <div className="LoginForm" >
                         <form onSubmit={handleSubmit(OnFormSubmit)}>
                             <fieldset>
-
                                 <FormElement
                                     type="text"
                                     name="username"
@@ -93,7 +88,6 @@ const Login = ({cmsLogin, shoppingCartItems, loginDefaultLandingPage, orderItems
                                 {error && <p className="errorMessage">{error}</p> }
                                 <Button usage="button" value="Inloggen "/><br /><br />
                                 {cmsLogin ? null :<span>Geen account? Klik dan <a href="/registreren">hier</a> om te registreren.</span> }
-
                             </fieldset>
                         </form>
                     </div>

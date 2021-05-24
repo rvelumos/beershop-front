@@ -1,6 +1,5 @@
 import React from 'react';
 import './Footer.css';
-import  '../../../../Assets/icons/icon_mail.png';
 import {Link} from "react-router-dom";
 
 const Footer = () => {
@@ -17,9 +16,9 @@ const Footer = () => {
                         <li>0000 AA Stad</li>
                     </ul>
                     <ul className="icons">
-                        <li className="email">info@beershop.nl</li>
-                        <li className="phone">0612345678</li>
-                        <li className="whatsapp">0612345678</li>
+                        <li className="email"><img src="/icons/icon_mail.png" alt='Mail' /> info@beershop.nl</li>
+                        <li className="phone"><img src="/icons/icon_phone.png" alt='Telefoon' />0612345678</li>
+                        <li className="whatsapp"><img src="/icons/icon_wa.png" alt='Whatsapp' />0612345678</li>
                     </ul>
                     <ul>
                         <li><Link to="/contact">Contactformulier</Link></li>
@@ -28,6 +27,9 @@ const Footer = () => {
                 </div>
                 <div className="FooterColumn social" >
                     <h4>Volg ons op:</h4>
+                    <a href="https://www.facebook.com/"><img src="/icons/social_icon_fb.png" alt='Facebook' /></a>
+                    <a href="https://www.instagram.com/"><img src="/icons/social_icon_ig.png" alt='Instagram' /></a>
+                    <a href="https://www.twitter.com/"><img src="/icons/social_icon_tw.png" alt='Twitter' /></a>
                 </div>
                 <div className="FooterColumn info" >
                     <h4>Informatie:</h4>

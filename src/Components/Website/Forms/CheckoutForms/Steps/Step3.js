@@ -24,9 +24,7 @@ const Step3 = ({currentStep, shipmentData, shoppingCartItems, orderItems}) => {
                 cartItems.map((shoppingCartItem) => {
                     let image = "";
                     if (shoppingCartItem[1].type !== 4)
-                        image =
-                            <div className="image"><img src={`/product_images/${shoppingCartItem.image}`} alt=''/>
-                            </div>;
+                        image = <div className="image"><img src={`/product_images/${shoppingCartItem[1].image}`} alt=''/></div>;
                     else
                         image = <div className="image"><img src={`/product_images/giftcard.png`} alt=''/></div>;
                     return(
@@ -34,7 +32,6 @@ const Step3 = ({currentStep, shipmentData, shoppingCartItems, orderItems}) => {
                             <div>{image}</div>
                             <div>{shoppingCartItem[1].name}</div>
                             <div>{orderItems.amount}x</div>
-                            {activeGiftCard && <div className="summaryGift"><span>Jouw korting:</span><span>-€{orderItems.discount}</span></div>}
                             <div>€{shoppingCartItem[1].price}</div>
                             <div>€{orderItems.totalPriceItems.toFixed(2)}</div>
                         </div>

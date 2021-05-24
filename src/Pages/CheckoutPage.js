@@ -11,16 +11,12 @@ const CheckoutPage = () => {
     const [mode, setMode] = useState('init');
 
     let savedShoppingCart = localStorage.getItem("shopping_carts");
-    // console.log('shoppingcartitems ');
-    // console.log(savedShoppingCart);
     savedShoppingCart = JSON.parse(savedShoppingCart);
-    //console.log(savedShoppingCart);
 
     if (savedShoppingCart !== undefined && savedShoppingCart !== null && savedShoppingCart.product !== undefined && mode === 'init') {
         const id = savedShoppingCart.product.id;
         const amount = savedShoppingCart.product.amount;
 
-        //setShoppingCartItems(shoppingCart)
         setShoppingCartItems(prevState => ({
             ...prevState,
             product: {
@@ -30,15 +26,10 @@ const CheckoutPage = () => {
             }
         }))
         setMode('data');
-        //setShoppingCartActive(true);
     }
 
-    console.log(shoppingCartItems);
-
     if (location.state !== null && location.state !== undefined && location.state.deleted !== true  && shoppingCartItems === '') {
-        //console.log(location.state.data);
         setShoppingCartItems(location.state.data);
-        //setShoppingCartActive(true);
 
         let cartString = JSON.stringify(shoppingCartItems);
         localStorage.setItem('shopping_carts', cartString)
@@ -63,7 +54,6 @@ const CheckoutPage = () => {
                 </div>
             </div>
         </>
-
     )
 }
 

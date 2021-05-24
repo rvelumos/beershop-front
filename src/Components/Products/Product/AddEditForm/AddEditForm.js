@@ -20,10 +20,10 @@ export function AddEditForm(props) {
     const { token } = props;
     const isAddMode = !id;
 
-    const [image, setImage] = useState({
-        preview: "",
-        raw: ""
-    });
+    // const [image, setImage] = useState({
+    //     preview: "",
+    //     raw: ""
+    // });
     const[options, setOptions] = useState({
         categories: '',
         manufacturers: ''
@@ -265,6 +265,10 @@ export function AddEditForm(props) {
             );
         }
 
+        let image;
+        if(formValues.image !== "")
+            image = <div className="imageContent"><img src={`/product_images/${formValues.image}`} alt={formValues.name} /></div>;
+
         return(
             <>
                 <div className="AddEditForm">
@@ -402,7 +406,7 @@ export function AddEditForm(props) {
 
                                 <div className="formElement">
                                     Afbeelding:
-                                    {/*<img src={image.preview} alt="dummy" width="300" height="300" />*/}
+                                    {image}
                                     <input
                                         type="file"
                                         id="upload-button"
