@@ -21,14 +21,16 @@ const UserProfileRouting = ({userLoggedIn}) => {
                 }
             </Route>
 
-            {userLoggedIn ?
-                <>
-                <Route path="/mijn_account/orders" exact>
+            <Route path="/mijn_account/orders" exact>
+                {userLoggedIn ?
                     <UserOrderPage token={token} />
+                : <Redirect to="/mijn_account/" />}
                 </Route>
 
                 <Route path="/mijn_account/orders/:id" exact>
+                    {userLoggedIn ?
                     <UserOrderPage token={token} showDetails={true} />
+                    : <Redirect to="/mijn_account/" />}
                 </Route>
 
                 <Route path="/mijn_account/orders/generate_pdf/:id" exact>
@@ -36,19 +38,22 @@ const UserProfileRouting = ({userLoggedIn}) => {
                 </Route>
 
                 <Route path="/mijn_account/gegevens" exact>
+                    {userLoggedIn ?
                     <UserSettingsPage token={token} username={username} />
+                    : <Redirect to="/mijn_account/" />}
                 </Route>
 
                 <Route path="/mijn_account/gegevens/edit" exact>
+                    {userLoggedIn ?
                     <EditForm token={token} username={username} />
+                    : <Redirect to="/mijn_account/" />}
                 </Route>
 
                 <Route path="/mijn_account/cadeaubonnen" exact>
+                    {userLoggedIn ?
                     <UserGiftPage token={token} />
+                    : <Redirect to="/mijn_account/" />}
                 </Route>
-                </>
-            : <Redirect to="/mijn_account/" />}
-
         </>
     )
 }

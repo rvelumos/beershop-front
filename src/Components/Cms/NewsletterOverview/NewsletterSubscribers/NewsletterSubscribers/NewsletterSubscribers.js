@@ -63,10 +63,10 @@ function NewsletterSubscribers(props) {
     }
     return(
         <>
+            {message && <Feedback type="success" content={message} />}
             {loading ? <LoadingIndicator/>
                 :
                 <>
-                    {message && <p className="notice"> {message} </p>}
                     <div className="itemContainer">
                         <h1>Inschrijvingen nieuwsbrief</h1>
                         {error && <Feedback type="error" content={error} />}

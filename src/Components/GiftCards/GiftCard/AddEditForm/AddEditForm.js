@@ -164,7 +164,7 @@ export function AddEditForm(props) {
                     <AddEdit
                         isAddMode={isAddMode}
                         token={token}
-                        section="product"
+                        section="product/giftcard"
                         id={id}
                         itemData={formValues}
                         saved={saved}

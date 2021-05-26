@@ -405,8 +405,12 @@ export function AddEditForm(props) {
                                 </div>
 
                                 <div className="formElement">
-                                    Afbeelding:
+                                    <div className="formImage">
+
                                     {image}
+                                    <label htmlFor="upload-button" className="custom-file-upload">
+                                        Afbeelding {id ? "vervangen" : "toevoegen"}
+                                    </label>
                                     <input
                                         type="file"
                                         id="upload-button"
@@ -414,6 +418,7 @@ export function AddEditForm(props) {
                                         name="image"
                                        // onChange={handleImageChange}
                                     />
+                                    </div>
                                 </div>
                             </fieldset>
 
@@ -433,8 +438,7 @@ export function AddEditForm(props) {
             <div className="overview">
                 { error && <Feedback type="error" content={error} /> }
                 { loading ? <LoadingIndicator /> : <ProductItem /> }
-                { message && <Feedback type="notice" content={message} />}
-                {/*{ submittedForm &&  <AddEdit isAddMode={isAddMode} token={token} section="product" id={id} itemData={formValues}/> }*/}
+                { message && <Feedback type="success" content={message} />}
             </div>
         </>
     )

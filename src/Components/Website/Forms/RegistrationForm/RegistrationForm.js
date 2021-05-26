@@ -18,6 +18,7 @@ const RegistrationForm = ({mode}) => {
         firstname: '',
         lastname: '',
         email: '',
+        sex: '',
         phone: '',
         birthDate: '',
         username: '',
@@ -25,6 +26,7 @@ const RegistrationForm = ({mode}) => {
         passwordRepeat: '',
         street: '',
         streetAdd: '',
+        addressType: '',
         number: '',
         postalCode: '',
         city: '',
@@ -48,6 +50,7 @@ const RegistrationForm = ({mode}) => {
             })
 
             createRegistration({
+                sex: data.sex,
                 firstname: data.firstname,
                 username: data.username,
                 lastname: data.lastname,
@@ -59,11 +62,13 @@ const RegistrationForm = ({mode}) => {
             createAddress({
                 street: data.street,
                 streetAdd: data.streetAdd,
+                addressType: data.addressType,
                 postalCode: data.postalCode,
                 number: data.number,
                 city: data.city,
                 province: data.province,
-                country: data.country
+                country: data.country,
+                username: data.username
             })
         }
     }
@@ -120,7 +125,7 @@ const RegistrationForm = ({mode}) => {
 
     async function createAddress(addressData) {
         const url = `/api/v1/address`;
-
+console.log(addressData);
         try {
             const result = await axios.post(url, addressData);
             if(result)
@@ -252,6 +257,16 @@ const RegistrationForm = ({mode}) => {
 
                                 <h3>Adresgegevens</h3>
                                 <fieldset>
+
+                                    <div className="formElement">
+                                        {errors.addressType ? <span className='errorMessage'>{errors.addressType.message}</span> : <span>&nbsp;</span>}
+                                        <select name="addressType" defaultValue={formValues.addressType} ref={register({ required: 'Verplicht veld' })}>
+                                            <option value="">Adres type:</option>
+                                            <option value="B">Zakelijk</option>
+                                            <option value="P">Privé</option>
+                                        </select>
+                                    </div>
+
                                     <div className="formElement">
                                         <FormElement
                                             type="text"
@@ -291,6 +306,7 @@ const RegistrationForm = ({mode}) => {
                                             label="Straat (toevoeging)"
                                             formValue={formValues.streetAdd}
                                             onChange={changeHandler}
+                                            fieldRef={register}
                                             error={<span>&nbsp;</span>}
                                         />
                                     </div>
@@ -330,7 +346,10 @@ const RegistrationForm = ({mode}) => {
                                             label="Provincie"
                                             formValue={formValues.province}
                                             onChange={changeHandler}
-                                            error={<span>&nbsp;</span>}
+                                            fieldRef={register({
+                                                required: 'Verplicht veld',
+                                            })}
+                                            error={errors.province ? <span className='errorMessage'>{errors.province.message}</span> : <span>&nbsp;</span>}
                                         />
                                     </div>
 
@@ -341,6 +360,10 @@ const RegistrationForm = ({mode}) => {
                                             label="Land"
                                             formValue={formValues.country}
                                             onChange={changeHandler}
+                                            fieldRef={register({
+                                                required: 'Verplicht veld',
+                                            })}
+                                            error={errors.country ? <span className='errorMessage'>{errors.country.message}</span> : <span>&nbsp;</span>}
                                         />
                                     </div>
                                 </fieldset>

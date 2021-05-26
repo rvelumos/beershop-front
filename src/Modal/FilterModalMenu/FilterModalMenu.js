@@ -19,7 +19,7 @@ function FilterModalMenu({setCategoryArray, setFilterLabels, setTasteArray, filt
         <>
             <div className="filterIconContainer">
                 <div className={className} onClick={(e) => toggleFilterMenuModal()}>
-                    <img src="/images/icons/icon_filter.png" alt='' />
+                    <img src="/icons/icon_filter.png" alt='' />
                 </div>
             </div>
 

@@ -87,7 +87,7 @@ const Login = ({cmsLogin, shoppingCartItems, loginDefaultLandingPage, orderItems
                                 /><br />
                                 {error && <p className="errorMessage">{error}</p> }
                                 <Button usage="button" value="Inloggen "/><br /><br />
-                                {cmsLogin ? null :<span>Geen account? Klik dan <a href="/registreren">hier</a> om te registreren.</span> }
+                                {loginDefaultLandingPage!=="cmsProfile" && <span>Geen account? Klik dan <a href="/registreren">hier</a> om te registreren.</span> }
                             </fieldset>
                         </form>
                     </div>

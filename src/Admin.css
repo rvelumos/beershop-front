@@ -86,7 +86,7 @@ main.cms {
 
 .tableDetailsSmall td,
 .tableDetails td {
-    padding: 20px;
+    padding: 10px 20px;
     width: 300px;
     border-bottom: var(--default-border-light);
     font-family: var(--default-font-light);

@@ -17,9 +17,38 @@
     flex-direction: column;
 }
 
+.RegisterForm .formElement .formImage{
+    margin: 30px 20px;
+}
+
+.RegisterForm .formElement .formImage input{
+    display: none;
+}
+
+.RegisterForm .formElement .formImage .custom-file-upload {
+    padding: 30px;
+    border: var(--default-border-light);
+    background-color: var(--background-color-light);
+    background-image: url('/src/Assets/icons/upload_image_arrow.png');
+    background-repeat: repeat-y;
+    background-position: 20px center;
+    display: flex;
+    justify-content: flex-end;
+    width: 250px;
+    border-radius: var(--default-border-radius);
+    transition: all 1s ease-out;
+}
+
+.RegisterForm .formElement .formImage .custom-file-upload:hover {
+    background-color: var(--background-color-blue);
+    color: var(--font-color-secondary);
+    background-position: 20px -100px;
+    transition: all 0.3s ease-in;
+}
+
 .RegisterForm #float-label {
     min-width: 425px;
-    margin: 10px 25px ;
+    margin: 10px 25px;
 }
 
 .RegisterForm label {
