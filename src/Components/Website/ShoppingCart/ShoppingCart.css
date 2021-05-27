@@ -163,12 +163,31 @@
 }
 
 @media only screen and (max-width: 600px) {
+    .shoppingCartContainer .shoppingCartTop div,
+    .shoppingCartContainer .productItemContainer div
+    {
+        width: 100px;
+        margin: 0;
+    }
+
     .productImage {
         display: none;
         margin: 0;
     }
 
+    .productAmountContainer {
+        margin-right: 25px;
+    }
+
     .articleTop {
+        margin-right: 10px !important;
+    }
+
+    .productName {
+        margin-right: 10px !important;
+    }
+
+    .shoppingCartContainer .shoppingCartTop .articleTop{
         margin-left: 0;
     }
 
@@ -182,5 +201,9 @@
 
     .ProductOverview {
         padding: 0;
+    }
+
+    .productPrice {
+        text-align: center;
     }
 }

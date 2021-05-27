@@ -63,12 +63,12 @@
         flex-direction: row;
         flex-wrap: nowrap;
         width: 100%;
+        justify-content: center;
     }
 
     .searchMobile .searchBar {
         display: flex;
-        width: 80%;
-        margin-left: 15px;
+        width: 75%;
     }
 
 }

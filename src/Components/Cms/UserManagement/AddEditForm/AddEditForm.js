@@ -24,13 +24,15 @@ export function AddEditForm(props) {
         phone: '',
         newsletter: '',
         sex: '',
-        street: '',
-        streetAdd: '',
-        postalCode: '',
-        city: '',
-        number: '',
-        province: '',
-        country: ''
+        address : {
+            street: '',
+            streetAdd: '',
+            number: '',
+            postalCode: '',
+            city: '',
+            province: '',
+            country: ''
+        }
     });
 
     useEffect(() => {
@@ -38,18 +40,9 @@ export function AddEditForm(props) {
             try {
                 const url=`/api/v1/customer/${username}`
                 const result = await axios.get(url);
+                console.log(result);
                 const {
-                    street,
-                    streetAdd,
-                    number,
-                    postalCode,
-                    city,
-                    province,
-                    country
-                } = result.data[0];
-
-                const {
-                    userId,
+                    id,
                     email,
                     firstname,
                     lastname,
@@ -59,22 +52,28 @@ export function AddEditForm(props) {
                     sex
                 } = result.data[0];
 
+                const address = result.data[0].address;
+
                 setCustomerValues({
-                    userId: userId,
+                    id: id,
                     email: email,
                     firstname: firstname,
                     lastname: lastname,
                     birthDate: birthDate,
+                    username: username,
                     phone: phone,
                     newsletter: newsletter,
                     sex: sex,
-                    street: street,
-                    streetAdd: streetAdd,
-                    number: number,
-                    postalCode: postalCode,
-                    city: city,
-                    province: province,
-                    country: country
+                    address: {
+                        id: address.id,
+                        street: address.street,
+                        streetAdd: address.streetAdd,
+                        number: address.number,
+                        postalCode: address.postalCode,
+                        city: address.city,
+                        province: address.province,
+                        country: address.country
+                    }
                 });
 
             } catch (e) {
@@ -95,40 +94,37 @@ export function AddEditForm(props) {
     function onSubmitForm(data) {
 
         console.table(data);
-        if(error === false) {
-            if(isAddMode) {
-                createLogin({
-                    username: data.username,
-                    password: data.password,
-                    email: data.email,
-                })
 
-                handleRegistrationData({
-                    firstname: data.firstname,
-                    username: data.username,
-                    lastname: data.lastname,
-                    email: data.email,
-                    sex: data.sex,
-                    phone: data.phone,
-                    birthDate: data.birthDate,
-                }, isAddMode)
+        handleLogin({
+            username: data.username,
+            password: data.password,
+            email: data.email,
+        })
 
-                handleAddressData({
-                    street: data.street,
-                    streetAdd: data.streetAdd,
-                    postalCode: data.postalCode,
-                    city: data.city,
-                    number: data.number,
-                    province: data.province,
-                    country: data.country
-                }, isAddMode)
-            } else {
-                
-            }
-        }
+        handleRegistrationData({
+            userId: data.userId,
+            firstname: data.firstname,
+            username: data.username,
+            lastname: data.lastname,
+            email: data.email,
+            sex: data.sex,
+            phone: data.phone,
+            birthDate: data.birthDate,
+        }, isAddMode)
+
+        handleAddressData({
+            addressId: data.addressId,
+            street: data.street,
+            streetAdd: data.streetAdd,
+            postalCode: data.postalCode,
+            city: data.city,
+            number: data.number,
+            province: data.province,
+            country: data.country
+        }, isAddMode)
     }
 
-    async function createLogin(userData) {
+    async function handleLogin(userData) {
         setError(false);
         toggleLoading(true);
 
@@ -140,12 +136,23 @@ export function AddEditForm(props) {
             if(result) {
                 url = `/api/v1/create_authority/`;
                 try {
-                    const result = await axios.post(url, {
-                        authority: "ROLE_CUSTOMER",
-                        username: userData.username
-                    })
-                    if (result)
-                        return("");
+                    if(isAddMode) {
+                        const result = await axios.post(url, {
+                            authority: "ROLE_CUSTOMER",
+                            username: userData.username,
+                            password: userData.password
+                        })
+                        if (result)
+                            return("");
+                    } else {
+                        const result = await axios.put(url, {
+                            authority: "ROLE_CUSTOMER",
+                            username: userData.username,
+                            password: userData.password
+                        })
+                        if (result)
+                            return("");
+                    }
                 } catch (e) {
                     console.error(e);
                     setError("Fout bij verwerken logingegevens.");
@@ -167,7 +174,7 @@ export function AddEditForm(props) {
         let url = `/api/v1/admin/customer/`;
 
         try {
-            if(isAddmode) {
+            if(customerData.userId === null) {
                 const result = await axios.post(url, customerData, {
                     headers: {
                         "Content-type": "application/json",
@@ -177,6 +184,7 @@ export function AddEditForm(props) {
                 if (result)
                     return("");
             } else {
+                url = `${url}/${customerData.userId}`
                 const result = await axios.put(url, customerData, {
                     headers: {
                         "Content-type": "application/json",
@@ -197,7 +205,7 @@ export function AddEditForm(props) {
         let url = `/api/v1/address/`;
 
         try {
-            if(isAddmode) {
+            if(addressData.addressId === null) {
                 const result = await axios.post(url, addressData, {
                     headers: {
                         "Content-type": "application/json",
@@ -207,6 +215,7 @@ export function AddEditForm(props) {
                 if (result)
                     return("");
             } else {
+                url = `${url}/${addressData.addressId}`
                 const result = await axios.put(url, addressData, {
                     headers: {
                         "Content-type": "application/json",
@@ -232,8 +241,10 @@ export function AddEditForm(props) {
             <>
                 <div className="AddEditForm">
                     <div className="RegisterForm" >
-                        <h1>Gebruiker {username ? " wijzigen" : "toevoegen"}</h1>
+                        <h1>Gebruiker {customerValues.username !== undefined ? ` ${customerValues.username} wijzigen` : "toevoegen"}</h1>
                         <form onSubmit={handleSubmit(onSubmitForm)}>
+                            <input type="hidden" name="addressId" value={customerValues.address.id} ref={register} />
+                            <input type="hidden" name="userId" value={customerValues.id} ref={register} />
                             <fieldset>
                                 <div className="formElement">
                                     <p>Geslacht</p>
@@ -348,10 +359,10 @@ export function AddEditForm(props) {
                                             <FormElement
                                                 type="text"
                                                 name="postalCode"
-                                                formValue={customerValues.postalCode}
+                                                formValue={customerValues.address.postalCode}
                                                 label="Postcode"
                                                 onChange={changeHandler}
-                                                ref={register({
+                                                fieldRef={register({
                                                     required: "Verplicht veld",
                                                     pattern: {
                                                         value: /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i,
@@ -367,7 +378,7 @@ export function AddEditForm(props) {
                                         type="text"
                                         name="street"
                                         label="Straat"
-                                        formValue={customerValues.street}
+                                        formValue={customerValues.address.street}
                                         onChange={changeHandler}
                                         fieldRef={register({
                                             required: 'Verplicht veld',
@@ -381,12 +392,9 @@ export function AddEditForm(props) {
                                         type="text"
                                         name="streetAdd"
                                         label="Straat (toevoeging)"
-                                        formValue={customerValues.streetAdd}
+                                        formValue={customerValues.address.streetAdd}
                                         onChange={changeHandler}
-                                        fieldRef={register({
-                                            required: "Verplicht veld",
-                                        })
-                                        }
+                                        fieldRef={register}
                                         error={errors.streetAdd ? <span className='errorMessage'>{errors.streetAdd.message}</span> : <span>&nbsp;</span>}
                                     />
                                 </div>
@@ -396,7 +404,7 @@ export function AddEditForm(props) {
                                         type="text"
                                         name="number"
                                         label="Huisnummer"
-                                        formValue={customerValues.number}
+                                        formValue={customerValues.address.number}
                                         onChange={changeHandler}
                                         fieldRef={register({
                                             required: 'Verplicht veld',
@@ -410,7 +418,7 @@ export function AddEditForm(props) {
                                         type="text"
                                         name="city"
                                         label="Stad"
-                                        formValue={customerValues.city}
+                                        formValue={customerValues.address.city}
                                         onChange={changeHandler}
                                         fieldRef={register({
                                             required: 'Verplicht veld',
@@ -424,8 +432,9 @@ export function AddEditForm(props) {
                                         type="text"
                                         name="province"
                                         label="Provincie"
-                                        formValue={customerValues.province}
+                                        formValue={customerValues.address.province}
                                         onChange={changeHandler}
+                                        fieldRef={register}
                                     />
                                 </div>
 
@@ -434,8 +443,9 @@ export function AddEditForm(props) {
                                         type="text"
                                         name="country"
                                         label="Land"
-                                        formValue={customerValues.country}
+                                        formValue={customerValues.address.country}
                                         onChange={changeHandler}
+                                        fieldRef={register}
                                     />
                                 </div>
                             </fieldset>
@@ -493,7 +503,7 @@ export function AddEditForm(props) {
     return (
         <>
             <div className="overview">
-                { submittedForm && <p className="notify">Gebruiker is toegevoegd</p> }
+                { submittedForm && <p className="notify">Gebruiker is opgeslagen</p> }
                 { loading ? <LoadingIndicator /> : <UserItem /> }
                 { error && <p>{error}</p>}
             </div>

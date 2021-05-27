@@ -102,10 +102,6 @@ const CmsRouting = ({isAdmin, token}) => {
                         <UserForm mode="add" token={token} />
                     </Route>
 
-                    <Route path="/cms/users/:username">
-                        {/*<UserDetails token={token}/>*/}
-                    </Route>
-
                     <Route path="/cms/users/edit/:username">
                         <UserForm mode="edit" token={token} />
                     </Route>

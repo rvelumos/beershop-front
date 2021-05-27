@@ -28,6 +28,7 @@ const EditForm = ({username}) => {
         id: '',
         passwordRepeat: '',
         address : {
+            id: '',
             street: '',
             streetAdd: '',
             number: '',
@@ -63,6 +64,7 @@ const EditForm = ({username}) => {
             })
 
             updateAddress({
+                id: data.id,
                 street: data.street,
                 streetAdd: data.streetAdd,
                 postalCode: data.postalCode,
@@ -114,11 +116,10 @@ const EditForm = ({username}) => {
     }
 
     async function updateAddress(addressData) {
-        const id = addressData.id;
         console.log("update address");
         console.log(addressData);
 
-        const url = `/api/v1/address/${id}`;
+        const url = `/api/v1/address/${addressData.id}`;
 
         try {
             const result = await axios.put(url, addressData);
@@ -158,12 +159,11 @@ const EditForm = ({username}) => {
                             <form onSubmit={handleSubmit(onSubmitForm)}>
 
                                 <fieldset>
-                                    <input type="hidden" name="id" value={formValues.id} />
+                                    <input type="hidden" name="id" value={formValues.id} ref={register} />
                                     <div className="formElement">
-                                        <p>Geslacht</p>
                                         {errors.sex ? <span className='errorMessage'>{errors.sex.message}</span> : <span>&nbsp;</span>}
                                         <select name="sex" defaultValue={formValues.sex} ref={register({ required: true })}>
-                                            <option value="">Maak een keuze:</option>
+                                            <option value="">Geslacht:</option>
                                             <option value="M">Man</option>
                                             <option value="F">Vrouw</option>
                                         </select>
@@ -308,6 +308,7 @@ const EditForm = ({username}) => {
                                             name="streetAdd"
                                             label="Straat (toevoeging)"
                                             formValue={formValues.address.streetAdd}
+                                            fieldRef={register}
                                             onChange={changeHandler}
                                             error={<span>&nbsp;</span>}
                                         />
@@ -348,6 +349,7 @@ const EditForm = ({username}) => {
                                             label="Provincie"
                                             formValue={formValues.address.province}
                                             onChange={changeHandler}
+                                            fieldRef={register}
                                             error={<span>&nbsp;</span>}
                                         />
                                     </div>
@@ -357,6 +359,7 @@ const EditForm = ({username}) => {
                                             type="text"
                                             name="country"
                                             label="Land"
+                                            fieldRef={register}
                                             formValue={formValues.address.country}
                                             onChange={changeHandler}
                                         />

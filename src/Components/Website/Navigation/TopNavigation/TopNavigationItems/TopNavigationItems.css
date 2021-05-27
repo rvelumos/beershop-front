@@ -130,7 +130,7 @@
 
     .TopNavigationBottomSection {
         position: relative;
-        margin: 20px;
+        margin: 20px 40px;
         top: 0;
         min-width: 0;
     }

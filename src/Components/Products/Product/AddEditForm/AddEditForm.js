@@ -185,7 +185,8 @@ export function AddEditForm(props) {
         formData.append("category.id", data.categoryId);
         formData.append("manufacturer.id", data.manufacturerId);
         formData.append("stock", data.stock);
-        formData.append("documents", data.image[0]);
+        if(data.image[0] !== undefined)
+            formData.append("documents", data.image[0]);
         formData.append("price", data.price);
 
         async function handleData(formData) {

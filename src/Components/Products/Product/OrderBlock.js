@@ -22,7 +22,7 @@ const OrderBlock = ({productItem, isAdmin, section}) => {
         if(value < 1 || isNaN(value)) {
             setStockMessage("Gelieve een correct aantal in te voeren");
         } else {
-            if (value < productItem.stock) {
+            if (value <= productItem.stock) {
                 history.push({
                     pathname: `/winkelwagen/`,
                     state: {data: amountItem}
@@ -43,8 +43,6 @@ const OrderBlock = ({productItem, isAdmin, section}) => {
                 amount: value
             }
         });
-
-        console.log(amountItem);
     }
 
     let finalPrice = parseFloat(productItem.price).toFixed(2);
@@ -56,7 +54,7 @@ const OrderBlock = ({productItem, isAdmin, section}) => {
         discountContainer=<div className="discountContainer"> -{productItem.discount}% </div>;
     }
 
-    let stockInfo = "";
+    let stockInfo;
     let buttonDisabled = "";
     let readOnly = "";
     let tabIndex = "0";

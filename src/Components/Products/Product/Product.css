@@ -147,6 +147,11 @@
         padding: 10px;
     }
 
+    .priceTotalTop,
+    .productPriceTotal {
+        display: none;
+    }
+
     .productPrice {
         width: 98%;
     }
