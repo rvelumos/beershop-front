@@ -58,11 +58,11 @@ function DetailsOrder(props) {
                                     <div className="detailsShippingInfo">
                                         <h4>Bezorgadres</h4>
                                         <div className="shippingAddress">
-                                            {orderItem.shipping.address.street}
-                                            {orderItem.shipping.address.number}<br/>
-                                            {orderItem.shipping.address.postalCode} {orderItem.shipping.address.city}
-                                            <br/>
-                                            {orderItem.shipping.address.country}
+                                            {/*{orderItem.shipping.address.street}*/}
+                                            {/*{orderItem.shipping.address.number}<br/>*/}
+                                            {/*{orderItem.shipping.address.postalCode} {orderItem.shipping.address.city}*/}
+                                            {/*<br/>*/}
+                                            {/*{orderItem.shipping.address.country}*/}
                                         </div>
                                     </div>
 

@@ -8,7 +8,7 @@ const Confirmation = ({email, currentStep, token, orderItems, shipmentData}) => 
     const [mode, setMode] = useState('init');
     const [loading, toggleLoading] = useState(true);
     const [error, setError] = useState('');
-    const [orderAdded, setOrderAdded] = useState(false);
+    //const [orderAdded, setOrderAdded] = useState(false);
 
     const { username } = useContext(AuthContext);
 
@@ -16,17 +16,7 @@ const Confirmation = ({email, currentStep, token, orderItems, shipmentData}) => 
         return null;
     }
 
-    async function addCustomer(data, username) {
-        const addressData = {
-            street: data.street,
-            streetAdd: data.streetAdd,
-            number: data.number,
-            postalCode: data.postalCode,
-            city: data.city,
-            province: data.province,
-            country: data.country
-        }
-
+    async function addCustomer(data) {
         const customerData = {
             sex: data.sex,
             firstname: data.firstname,
@@ -40,19 +30,8 @@ const Confirmation = ({email, currentStep, token, orderItems, shipmentData}) => 
 
         try {
             const result = await axios.post(url, customerData);
-            if(result) {
-                url = `/api/v1/address/`;
-                try {
-                    const result = await axios.post(url, addressData);
-                    if(result) {
-                        if(!orderAdded) {
-                            await addOrder(username);
-                        }
-                    }
-                } catch (e) {
-                    console.error(e);
-                    setError("Fout bij verwerken adresdata.");
-                }
+            if(!result) {
+                setError("Fout opslaan gegevens")
             }
         } catch (e) {
             console.error(e);
@@ -65,18 +44,17 @@ const Confirmation = ({email, currentStep, token, orderItems, shipmentData}) => 
         if (mode === 'init' && orderItems !== "" && username !== undefined) {
             console.log('init');
             if (token === '') {
-                addCustomer(shipmentData, username);
+                addCustomer(username);
             } else {
-                if(!orderAdded) {
-                    addOrder(username);
-                }
+                console.log(shipmentData);
+                addOrder(shipmentData, username);
             }
 
             setMode('data');
         }
     }
 
-    async function addOrder(username) {
+    async function addOrder(shipmentData, username) {
         const today = new Date();
         const dd = today.getDate();
         const mm = today.getMonth()+1;
@@ -93,20 +71,29 @@ const Confirmation = ({email, currentStep, token, orderItems, shipmentData}) => 
         }
 
         try {
-            const url = '/api/v1/order/create';
-            const result = await axios.post(url, itemData);
-                if(result) {
-                    setOrderAdded(true);
-                    toggleLoading(false);
-                    if(orderItems.giftcardId !== undefined)
-                        await updateGiftCard();
-                    await sendConfirmationMail(shipmentData);
-                    window.history.replaceState({}, document.title)
+            let url = `/api/v1/shipping/`;
+            const result = await axios.post(url, shipmentData);
+            if(result) {
+                try {
+                    url = '/api/v1/order/create';
+                    const result = await axios.post(url, itemData);
+                    if (result) {
+                        //setOrderAdded(true);
+                        toggleLoading(false);
+                        if (orderItems.giftcardId !== undefined)
+                            await updateGiftCard();
+                        await sendConfirmationMail(shipmentData);
+                        window.history.replaceState({}, document.title)
+                    }
+                } catch (e) {
+                    console.error(e);
+                    setError("Fout bij verwerken data.");
                 }
-            } catch (e) {
-                console.error(e);
-                setError("Fout bij verwerken data.");
             }
+        } catch (e) {
+            console.error(e);
+            setError("Fout bij verwerken data.");
+        }
     }
 
     async function updateGiftCard() {
@@ -146,13 +133,13 @@ const Confirmation = ({email, currentStep, token, orderItems, shipmentData}) => 
     return(
         <>
             {loading ? <><LoadingIndicator /> {finishOrder(username)}</>
-                    :
-                    error ? <p className="errorContainer">{error}</p>
-                        : <div className="Confirmation">
-                            <h1>Je bestelling is gelukt!</h1>
-                            <p>Er zal een bevestiging worden gestuurd naar: {email}. We wensen je alvast veel drinkgenot met
+                :
+                error ? <p className="errorContainer">{error}</p>
+                    : <div className="Confirmation">
+                        <h1>Je bestelling is gelukt!</h1>
+                        <p>Er zal een bevestiging worden gestuurd naar: {email}. We wensen je alvast veel drinkgenot met
                             jouw aankoop!</p>
-                            </div>
+                    </div>
             }
         </>
     )

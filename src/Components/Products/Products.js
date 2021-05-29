@@ -65,7 +65,6 @@ function Products(props) {
 
             try {
                 const result = await axios.get(url)
-
                 if (result.data.length > 0){
                     if(sortResults !== undefined) {
                         const value = sortResults.split('_', 1)[0];

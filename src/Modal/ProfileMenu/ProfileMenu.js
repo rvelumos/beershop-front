@@ -4,11 +4,13 @@ import TopNavigationMenuItem
     from "../../Components/Website/Navigation/TopNavigation/TopNavigationItems/TopNavigationMenuItem/TopNavigationMenuItem";
 import {AuthContext} from "../../context/AuthContext";
 import IconItem from "../../Components/Website/UI/IconItem/IconItem";
+import {Link} from "react-router-dom";
+import MenuIcon from "../../Components/Cms/Navigation/LeftMenu/MenuIcon/MenuIcon";
 
 function ProfileMenu() {
     const [openProfileModal, setOpenProfileModal] = useState(false);
 
-    const { username } = useContext(AuthContext);
+    const { username, logout } = useContext(AuthContext);
 
     const toggleProfileModal = () => {
         setOpenProfileModal(!openProfileModal);
@@ -43,7 +45,10 @@ function ProfileMenu() {
                         <TopNavigationMenuItem url="/mijn_account/gegevens" name="mijn gegevens" handler={toggleProfileModal} />
                         <TopNavigationMenuItem url="/mijn_account/orders" name="mijn orders" handler={toggleProfileModal} />
                         <TopNavigationMenuItem url="/mijn_account/cadeaubonnen" name="mijn cadeaubonnen" handler={toggleProfileModal} />
-                        {/*<TopNavigationMenuItem url="/mijn_account/bonus" name="bonusproducten" handler={toggleProfileModal} />*/}
+
+                        <Link to="?logout" onClick={logout}><MenuIcon name="logout" /><p>Uitloggen</p></Link>
+
+
                     </div>
                 </div>
             </div>

@@ -65,6 +65,17 @@
         margin-left: 130px;
     }
 
+    .profileMenuItems a {
+        color: white;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    .profileMenuItems img {
+        height: 25px;
+        margin: 15px 10px;
+    }
+
     @keyframes slide-in {
         0% {
             margin-top: -150px;

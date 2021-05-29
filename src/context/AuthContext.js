@@ -47,9 +47,11 @@ function AuthContextProvider({ children }) {
                     state: {
                         shoppingCartItems: shoppingCartItems,
                         orderItems: orderItems,
+                        username: result.data.name,
                         step: 2
                     }
                 });
+
                 window.location.reload();
             }
         } catch(e) {

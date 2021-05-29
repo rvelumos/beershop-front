@@ -141,10 +141,10 @@
 
 @media only screen and (max-width: 600px) {
     .Product {
-        width: 150px;
+        width: 145px;
         transition: width 0.2s ease-in;
-        margin: 12px;
-        padding: 10px;
+        margin: 5px;
+        padding: 7px;
     }
 
     .priceTotalTop,

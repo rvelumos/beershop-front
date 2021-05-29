@@ -1,7 +1,7 @@
 .SmallLoadingIndicator {
     color: white;
     font-size: 5px;
-    margin: 100px auto;
+    margin: 0 auto;
     width: 1em;
     height: 1em;
     border-radius: 50%;

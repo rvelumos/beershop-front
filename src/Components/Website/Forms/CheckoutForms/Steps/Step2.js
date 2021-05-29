@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { useForm } from 'react-hook-form';
 import Button from "../../../UI/Button/Button";
 import FormElement from "../../FormElement/FormElement";
 import axios from "axios";
 import {useHistory} from "react-router";
 import LoadingIndicator from "../../../UI/LoadingIndicator/LoadingIndicator";
+import {AuthContext} from "../../../../../context/AuthContext";
 
 function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
 
     const [error, setError] = useState(false);
     const [loading, toggleLoading] = useState(false);
     const [checkedTerms, toggleCheckedTerms] = useState(false);
-    const [mode, setMode] = useState('init');
     const [formValues, setFormValues] = useState({
         firstname: '',
         lastname: '',
@@ -27,12 +27,43 @@ function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
         city: '',
         country: ''
     })
-
+    const [shipment, setShipment] = useState("");
     const [postalCode, setPostalCode] = useState("");
     const [street, setStreet] = useState("");
     const [city, setCity] = useState("");
 
     let history = useHistory();
+
+    const { username } = useContext(AuthContext);
+
+    useEffect(() => {
+        async function getAddressData() {
+            try {
+                const result = await axios.get(`/api/v1/customer/${username}`)
+
+                if(username!== undefined) {
+                    setShipment({
+                        firstname: result.data[0].firstname,
+                        lastname: result.data[0].lastname,
+                        email: result.data[0].email,
+                        birthDate: result.data[0].birthDate,
+                        phone: result.data[0].phone,
+                        postalCode: result.data[0].address.postalCode,
+                        addressType: result.data[0].address.addressType,
+                        street: result.data[0].address.street,
+                        number: result.data[0].address.number,
+                        city: result.data[0].address.city,
+                        country: result.data[0].address.country
+                    });
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        getAddressData();
+    },[username])
+
 
     useEffect(() => {
         const delayDebounceFn = setTimeout(() => {
@@ -64,9 +95,9 @@ function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
     function OnFormSubmit(data, e) {
         e.preventDefault();
 
-        data.street = street;
-        data.postalCode = postalCode;
-        data.city = city;
+        if(street !== "")data.street = street;
+        if(postalCode !== "")data.postalCode = postalCode;
+        if(city !== "")data.city = city;
 
         setFormValues({
             firstname: data.firstname,
@@ -77,10 +108,10 @@ function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
             phone: data.phone,
             addressType: data.addressType,
             shipmentCarrier: data.shipmentCarrier,
-            postalCode: postalCode,
-            street: street,
+            postalCode: data.postalCode,
+            street: data.street,
             number: data.number,
-            city: city,
+            city: data.city,
             country: data.country
         })
 
@@ -102,23 +133,25 @@ function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
             mode: "onChange"
         });
 
-        if(shipmentData !== undefined && mode==='init') {
-            setFormValues({
-                firstname: shipmentData.firstname,
-                lastname: shipmentData.lastname,
-                email: shipmentData.email,
-                note: shipmentData.note,
-                birthDate: shipmentData.birthDate,
-                phone: shipmentData.phone,
-                addressType: shipmentData.addressType,
-                postalCode: shipmentData.postalCode,
-                street: shipmentData.street,
-                number: shipmentData.number,
-                city: shipmentData.city,
-                country: shipmentData.country
-            })
-            setMode('data');
-        }
+        useEffect(() => {
+            if (shipmentData !== undefined) {
+                console.log(shipmentData);
+                setFormValues({
+                    firstname: shipmentData.firstname,
+                    lastname: shipmentData.lastname,
+                    email: shipmentData.email,
+                    note: shipmentData.note,
+                    birthDate: shipmentData.birthDate,
+                    phone: shipmentData.phone,
+                    addressType: shipmentData.addressType,
+                    postalCode: shipmentData.postalCode,
+                    street: shipmentData.street,
+                    number: shipmentData.number,
+                    city: shipmentData.city,
+                    country: shipmentData.country
+                })
+            }
+        }, [shipmentData])
 
         return (
         <>
@@ -254,6 +287,7 @@ function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
                                         type="text"
                                         name="street"
                                         label="Straat"
+                                        fieldRef={register}
                                         formValue={formValues.street ? formValues.street : street}
                                     /> <br/>
 
@@ -261,6 +295,7 @@ function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
                                         type="text"
                                         name="city"
                                         label="Plaatsnaam"
+                                        fieldRef={register}
                                         formValue={formValues.city ? formValues.city : city}
                                     /> <br/>
 
@@ -342,6 +377,7 @@ function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
                             {errors.note ? <span className='errorMessage'>{errors.note.message}</span> : <span>&nbsp;</span>}
                             <textarea
                                 name="note"
+                                ref={register}
                                 placeholder="Als u de bestelling wilt laten bezorgen bij de buren of als u andere opmerkingen heeft"
                                 defaultValue={formValues.note}
                             />
@@ -385,6 +421,11 @@ function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
 
     if(currentStep !== 2){
         return (null)
+    }
+
+    if(username !== "") {
+        shipmentData = shipment;
+        console.log(shipment);
     }
 
     return(

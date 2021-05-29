@@ -22,6 +22,7 @@ const RegistrationForm = ({mode}) => {
         phone: '',
         birthDate: '',
         username: '',
+        company: '',
         password: '',
         passwordRepeat: '',
         street: '',
@@ -54,6 +55,7 @@ const RegistrationForm = ({mode}) => {
                 firstname: data.firstname,
                 username: data.username,
                 lastname: data.lastname,
+                company: data.company,
                 email: data.email,
                 phone: data.phone,
                 birthDate: data.birthDate,
@@ -190,6 +192,18 @@ console.log(addressData);
                                                 required: 'Verplicht veld',
                                             })}
                                             error={errors.lastname ? <span className='errorMessage'>{errors.lastname.message}</span> : <span>&nbsp;</span>}
+                                        />
+                                    </div>
+
+                                    <div className="formElement">
+                                        <FormElement
+                                            type="text"
+                                            name="company"
+                                            formValue={formValues.company}
+                                            label="Bedrijf (optioneel)"
+                                            onChange={changeHandler}
+                                            fieldRef={register}
+                                            error={<span>&nbsp;</span>}
                                         />
                                     </div>
 
