@@ -118,11 +118,34 @@ const RegistrationForm = ({mode}) => {
             const result = await axios.post(url, customerData);
             if(!result)
                 setError("Fout bij opslaan registratie");
+            else
+                sendAccountConfirmationMail(customerData);
         } catch (e) {
             console.error(e);
             setError("Fout bij verwerken registratiegegevens.");
         }
         toggleLoading(false);
+    }
+
+    async function sendAccountConfirmationMail(customerData) {
+        const data = {
+            email: customerData.email,
+            firstname: customerData.firstname,
+            lastname: customerData.lastname
+        }
+
+        try {
+            const url = `/api/v1/customer/account_confirmation`;
+            const result = await axios.post(url, data);
+            if(result) {
+                localStorage.removeItem('shopping_carts');
+                toggleLoading(false);
+            }
+
+        } catch (e) {
+            console.error(e);
+            setError("Fout bij verzenden emailbevestiging.");
+        }
     }
 
     async function createAddress(addressData) {

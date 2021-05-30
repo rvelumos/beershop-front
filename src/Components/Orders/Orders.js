@@ -36,6 +36,7 @@ const Orders = ({isAdmin, token}) => {
                     });
                     if (result.data.length > 0) {
                         result.data.sort((a,b) => b.id-a.id);
+                        console.log(result.data)
                         setOrderItems(result.data);
                     }
             } catch (e) {

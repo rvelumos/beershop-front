@@ -383,7 +383,6 @@ export function AddEditForm(props) {
                                         <option value="">Kies het type product:</option>
                                         <option value="1">Los bier</option>
                                         <option value="3">Bierpakket</option>
-                                        <option value="4">Cadeaubon</option>
                                     </select>
                                 </div>
 

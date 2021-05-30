@@ -55,12 +55,12 @@ function Order(props) {
                                 <td className="orderDate">{orderDate}</td>
                                 <td className="orderSent">{orderSent}</td>
                                 <td className="orderShipping">
-                                    {orderItem.shipping.address !== undefined ?
+                                    {orderItem.shipping !== undefined ?
                                         <i>
-                                            {orderItem.shipping.address.street}
-                                            {orderItem.shipping.address.number}<br/>
-                                            {orderItem.shipping.address.postalCode} {orderItem.shipping.address.city} <br/>
-                                            {orderItem.shipping.address.country}
+                                            {orderItem.shipping.street}
+                                            {orderItem.shipping.number}<br/>
+                                            {orderItem.shipping.postalCode} {orderItem.shipping.city} <br/>
+                                            {orderItem.shipping.country}
                                         </i>
                                         :
                                         <p className="errorMessage">Geen info bekend</p>
