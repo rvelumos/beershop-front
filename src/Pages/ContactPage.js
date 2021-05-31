@@ -3,7 +3,6 @@ import ContactForm from "../Components/Website/Forms/ContactForm/ContactForm";
 import BreadCrumbs from "../Components/Website/Navigation/BreadCrumbs/BreadCrumbs";
 
 const ContactPage = () => {
-
     return (
         <>
             <div className="mainTop">
@@ -11,7 +10,6 @@ const ContactPage = () => {
                     activeItem="Contact"
                 />
             </div>
-
             <div className="mainContent">
                 <div className="ContactPage">
                     <h1>Contact</h1>

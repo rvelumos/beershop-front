@@ -12,7 +12,6 @@ const CheckoutSteps = () => {
     const [step, setStep] = useState('');
     const [choice, setChoice] = useState('');
     const [mode, setMode] = useState('init');
-
     const [orderItems, setOrderItems] = useState('');
     const [shipmentData, setShipmentData] = useState('');
     const [shoppingCartItems, setShoppingCartItems] = useState('');

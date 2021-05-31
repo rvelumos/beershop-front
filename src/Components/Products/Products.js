@@ -7,7 +7,6 @@ import {useParams} from "react-router";
 import Feedback from "../Website/UI/Feedback/Feedback";
 
 function Products(props) {
-
     const [error, setError] = useState("");
     const [productItems, setProductItems] = useState("");
     const [loading, toggleLoading] = useState(false);
@@ -36,7 +35,6 @@ function Products(props) {
     useEffect(() => {
         async function getProducts() {
             const {type, get} = props;
-
             toggleLoading(true);
 
             let baseUrl = `/api/v1/products/`;
@@ -45,23 +43,20 @@ function Products(props) {
              if(isAdmin)
                  url = `${baseUrl}`;
 
-            if (type > 0) {
+            if (type > 0)
                 url = `${baseUrl}type/${type}/`;
-            }
 
             if (searchResult !== undefined) {
                 const cleanResult = searchResult.replace(/[^\w\s]/gi, "");
-                insertKeyword(cleanResult);
+                await insertKeyword(cleanResult);
                 url = `${baseUrl}search/${cleanResult}/`;
             }
 
-            if (get === "latest") {
+            if (get === "latest")
                 url = `${url}latest/`;
-            }
 
-            if(categoryArray !== undefined && categoryArray.length > 0) {
+            if(categoryArray !== undefined && categoryArray.length > 0)
                 url = url + "?category_id=" + categoryArray;
-            }
 
             try {
                 const result = await axios.get(url)

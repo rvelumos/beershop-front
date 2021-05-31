@@ -10,7 +10,7 @@ import Feedback from "../../../Website/UI/Feedback/Feedback";
 
 function UserInfo({users, isAdmin, token}) {
     const [loading, toggleLoading] = useState(false);
-    const [error, setError] = useState(true);
+    const [error, setError] = useState("");
     const [message, setMessage] = useState("");
 
     async function deleteUser(id) {
@@ -51,7 +51,6 @@ function UserInfo({users, isAdmin, token}) {
                             <td><p className="userEmail">{userInfo.email}</p></td>
                             <td><p className="userPhone">{userInfo.phone}</p></td>
                             <td><p className="userNewsletter">{userInfo.newsletter ? "X" : null}</p></td>
-                            <td><p className="userRoles"></p></td>
                             <td>
                                 <div className="actionContainer">
                                     <div className="edit"><Link to={`/cms/users/edit/${userInfo.username}`}>&#9999;</Link></div>
@@ -105,7 +104,6 @@ function UserInfo({users, isAdmin, token}) {
                                     <td>E-mail</td>
                                     <td>Telefoon</td>
                                     <td>Nieuwsbrief</td>
-                                    <td>Rollen</td>
                                     <td>Acties</td>
                                 </tr>
                                 {User()}

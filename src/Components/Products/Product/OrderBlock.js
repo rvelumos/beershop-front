@@ -4,7 +4,6 @@ import React, {useState} from "react";
 import {Link} from "react-router-dom";
 
 const OrderBlock = ({productItem, isAdmin, section}) => {
-
     const [amountItem, setAmountItem] = useState({
         product: {
             id: '',
@@ -35,7 +34,6 @@ const OrderBlock = ({productItem, isAdmin, section}) => {
 
     function handleChange(evt, id) {
         const value = evt.currentTarget.value;
-
         setAmountItem({
             ...amountItem,
             product:{

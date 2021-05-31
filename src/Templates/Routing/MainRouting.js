@@ -14,7 +14,6 @@ import RegistrationForm from "../../Components/Website/Forms/RegistrationForm/Re
 import InfoRouting from "./InfoRouting";
 
 const MainRouting = () => {
-
     return (
         <>
             <Route path="/" exact>

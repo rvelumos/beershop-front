@@ -5,8 +5,7 @@ import Feedback from "react-bootstrap/Feedback";
 import {Link} from "react-router-dom";
 
 function DetailsOrder(props) {
-
-    const OrderItems = (props) => {
+    const OrderItems = () => {
 
         let orderItem;
         const location = useLocation();
@@ -77,7 +76,6 @@ function DetailsOrder(props) {
                                     </div>
                                 </div>
                                 <div className="downloadPDF"><Link to={`/mijn_account/orders/generate_pdf/${orderItem.id}`}><img src="/icons/pdf.png" alt="Download factuur"/>Download factuur</Link></div>
-
                             </div>
                         </div>
                     </>

@@ -7,7 +7,6 @@ import Feedback from "../Website/UI/Feedback/Feedback";
 import {AuthContext} from "../../context/AuthContext";
 
 const Orders = ({isAdmin, token}) => {
-
     const [error, setError] = useState("");
     const [orderItems, setOrderItems] = useState("");
     const [loading, toggleLoading] = useState(true);
@@ -36,7 +35,6 @@ const Orders = ({isAdmin, token}) => {
                     });
                     if (result.data.length > 0) {
                         result.data.sort((a,b) => b.id-a.id);
-                        console.log(result.data)
                         setOrderItems(result.data);
                     }
             } catch (e) {

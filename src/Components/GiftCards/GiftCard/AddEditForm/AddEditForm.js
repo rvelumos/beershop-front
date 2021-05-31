@@ -10,7 +10,7 @@ import axios from "axios";
 import Feedback from "../../../Website/UI/Feedback/Feedback";
 
 export function AddEditForm(props) {
-    const [error, setError] = useState(false);
+    const [error, setError] = useState("");
     const [loading, toggleLoading] = useState(false);
     const [submittedForm, setSubmittedForm] = useState(false);
     const [saved, setSaved] = useState(false);
@@ -78,7 +78,6 @@ export function AddEditForm(props) {
             discount: 0,
             type: 4
         })
-
         setSubmittedForm(true);
     }
 
@@ -91,65 +90,65 @@ export function AddEditForm(props) {
         return(
             <>
                 <div className="AddEditForm">
-                        <div className="RegisterForm" >
-                            <h1>Cadeaubon {id ? "wijzigen" : "toevoegen"}</h1>
-                            <form onSubmit={handleSubmit(onSubmitForm)}>
+                    <div className="RegisterForm" >
+                        <h1>Cadeaubon {id ? "wijzigen" : "toevoegen"}</h1>
+                        <form onSubmit={handleSubmit(onSubmitForm)}>
 
-                                <fieldset>
-                                    <div className="formElement">
-                                        <FormElement
-                                            type="text"
-                                            name="name"
-                                            label="Naam"
-                                            formValue={formValues.name}
-                                            onChange={changeHandler}
-                                            fieldRef={register({
-                                                required: 'Verplicht veld',
-                                            })}
-                                            error={errors.name ? <span className='errorMessage'>{errors.name.message}</span> : <span>&nbsp;</span>}
-                                        />
-                                    </div>
+                            <fieldset>
+                                <div className="formElement">
+                                    <FormElement
+                                        type="text"
+                                        name="name"
+                                        label="Naam"
+                                        formValue={formValues.name}
+                                        onChange={changeHandler}
+                                        fieldRef={register({
+                                            required: 'Verplicht veld',
+                                        })}
+                                        error={errors.name ? <span className='errorMessage'>{errors.name.message}</span> : <span>&nbsp;</span>}
+                                    />
+                                </div>
 
-                                    <div className="formElement">
-                                        <FormElement
-                                            type="text"
-                                            name="description"
-                                            label="Omschrijving"
-                                            formValue={formValues.description}
-                                            onChange={changeHandler}
-                                            fieldRef={register({
-                                                required: 'Verplicht veld',
-                                            })}
-                                            error={errors.description ? <span className='errorMessage'>{errors.description.message}</span> : <span>&nbsp;</span>}
-                                        />
-                                    </div>
+                                <div className="formElement">
+                                    <FormElement
+                                        type="text"
+                                        name="description"
+                                        label="Omschrijving"
+                                        formValue={formValues.description}
+                                        onChange={changeHandler}
+                                        fieldRef={register({
+                                            required: 'Verplicht veld',
+                                        })}
+                                        error={errors.description ? <span className='errorMessage'>{errors.description.message}</span> : <span>&nbsp;</span>}
+                                    />
+                                </div>
 
-                                    <div className="formElement">
-                                        <FormElement
-                                            type="text"
-                                            name="price"
-                                            label="Aanschafprijs"
-                                            formValue={formValues.price}
-                                            onChange={changeHandler}
-                                            fieldRef={register({
-                                                required: "Verplicht veld",
-                                                pattern: {
-                                                    value: /^[1-9]\d*(\.\d+)?$/,
-                                                    message: 'Ongeldige invoer'
-                                                }
-                                            })
+                                <div className="formElement">
+                                    <FormElement
+                                        type="text"
+                                        name="price"
+                                        label="Aanschafprijs"
+                                        formValue={formValues.price}
+                                        onChange={changeHandler}
+                                        fieldRef={register({
+                                            required: "Verplicht veld",
+                                            pattern: {
+                                                value: /^[1-9]\d*(\.\d+)?$/,
+                                                message: 'Ongeldige invoer'
                                             }
-                                            error={errors.price ? <span className='errorMessage'>{errors.price.message}</span> : <span>&nbsp;</span>}
-                                        />
-                                    </div>
-                                </fieldset>
+                                        })
+                                        }
+                                        error={errors.price ? <span className='errorMessage'>{errors.price.message}</span> : <span>&nbsp;</span>}
+                                    />
+                                </div>
+                            </fieldset>
 
-                                <Button
-                                    usage="button"
-                                    value="Versturen "
-                                /><br /><br />
-                            </form>
-                        </div>
+                            <Button
+                                usage="button"
+                                value="Versturen "
+                            /><br /><br />
+                        </form>
+                    </div>
                 </div>
             </>
         )

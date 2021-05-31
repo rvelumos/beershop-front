@@ -5,19 +5,16 @@ import LoadingIndicator from "../../Components/Website/UI/LoadingIndicator/Loadi
 import axios from "axios";
 
 function UserSettingsPage ({token, username}) {
-
     const [loading, toggleLoading] = useState(true);
-    const [error, setError] = useState(true);
+    const [error, setError] = useState("");
     const [userAddress, setUserAddress] = useState(true);
     const [mode, setMode] = useState('init');
 
     async function getCustomerDetails(username, token){
-        setError(false);
         toggleLoading(true);
         setMode('data');
 
         let url = `/api/v1/customer/${username}`;
-
         try {
             const result = await axios.get(url, {
                 headers : {

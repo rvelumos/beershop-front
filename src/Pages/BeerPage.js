@@ -7,7 +7,6 @@ import BreadCrumbs from "../Components/Website/Navigation/BreadCrumbs/BreadCrumb
 import SortResults from "../Components/Website/Filter/FilterContainer/SortResults/SortResults";
 
 const BeerPage = () => {
-
     const [categoryArray, setCategoryArray] = useState('');
     const [filterLabels, setFilterLabels] = useState('');
     const [sortResults, setSortResults] = useState('');

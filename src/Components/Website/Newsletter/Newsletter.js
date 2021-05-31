@@ -8,7 +8,6 @@ import {useForm} from "react-hook-form";
 import Feedback from "../UI/Feedback/Feedback";
 
 const Newsletter = () => {
-
     const [loading, toggleLoading] = useState(false);
     const [error, setError] = useState("");
     const [message, setMessage] = useState(false);
@@ -25,7 +24,6 @@ const Newsletter = () => {
         setFormValue({
             email: data.email
         })
-
         SaveEmail(data);
     }
 
@@ -36,20 +34,17 @@ const Newsletter = () => {
                 toggleLoading(true);
 
                 const url = `/api/v1/newsletter/subscriber/create`;
-
                 try {
                     const result = await axios.post(url, {
                         email: data.email
                     });
-
-                    console.log(result);
-                    setMessage(true);
-                    toggleLoading(false);
+                    if(result)
+                        setMessage(true);
                 } catch (e) {
                     console.error(e);
                     setError("Fout bij ophalen gegevens.");
-                    toggleLoading(false);
                 }
+                toggleLoading(false);
             }
             addMailAddress();
         }

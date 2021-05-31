@@ -6,14 +6,12 @@ import Feedback from "../../Website/UI/Feedback/Feedback";
 
 const UserManagement = ({ token, isAdmin }) => {
 
-    const [error, setError] = useState(false);
+    const [error, setError] = useState("");
     const [users, setUsers] = useState("");
     const [loading, toggleLoading] = useState(true);
 
     useEffect(() => {
         async function getUsers () {
-
-            setError(false);
             toggleLoading(true);
 
             let url = "/api/v1/admin/customers";
@@ -44,8 +42,7 @@ const UserManagement = ({ token, isAdmin }) => {
             }
         }
         getUsers();
-
-        // eslint-disable-next-line
+     // eslint-disable-next-line
     }, []);
 
     return (

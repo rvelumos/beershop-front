@@ -10,7 +10,7 @@ import axios from "axios";
 import Feedback from "../../../Website/UI/Feedback/Feedback";
 
 export function AddEditForm(props) {
-    const [error, setError] = useState(false);
+    const [error, setError] = useState("");
     const [loading, toggleLoading] = useState(false);
     const [submittedForm, setSubmittedForm] = useState(false);
     const [saved, setSaved] = useState(false);

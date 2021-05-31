@@ -17,11 +17,11 @@
     flex-direction: column;
 }
 
-.RegisterForm .formElement .formImage{
+.RegisterForm .formElement .formImage {
     margin: 30px 20px;
 }
 
-.RegisterForm .formElement .formImage input{
+.RegisterForm .formElement .formImage input {
     display: none;
 }
 

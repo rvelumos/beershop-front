@@ -8,7 +8,7 @@ import Button from "../../../Website/UI/Button/Button";
 import './AddEditForm.css';
 
 export function AddEditForm(props) {
-    const [error, setError] = useState(false);
+    const [error, setError] = useState("");
     const [loading, toggleLoading] = useState(false);
     const [submittedForm, setSubmittedForm] = useState(false);
 
@@ -40,7 +40,6 @@ export function AddEditForm(props) {
             try {
                 const url=`/api/v1/customer/${username}`
                 const result = await axios.get(url);
-                console.log(result);
                 const {
                     id,
                     email,
@@ -125,11 +124,9 @@ export function AddEditForm(props) {
     }
 
     async function handleLogin(userData) {
-        setError(false);
         toggleLoading(true);
 
         let url = `/api/v1/create_user/`;
-
         try {
             const result = await axios.post(url, userData);
 
@@ -167,18 +164,16 @@ export function AddEditForm(props) {
         }
     }
 
-    async function handleRegistrationData(customerData, isAddmode) {
-        setError(false);
+    async function handleRegistrationData(customerData) {
         toggleLoading(true);
 
         let url = `/api/v1/admin/customer/`;
-
         try {
             if(customerData.userId === null) {
                 const result = await axios.post(url, customerData, {
                     headers: {
                         "Content-type": "application/json",
-                        Authorization: `Bearer ${token}`
+                        authorization: `Bearer ${token}`
                     }
                 });
                 if (result)
@@ -201,7 +196,7 @@ export function AddEditForm(props) {
         toggleLoading(false);
     }
 
-    async function handleAddressData(addressData, isAddmode) {
+    async function handleAddressData(addressData) {
         let url = `/api/v1/address/`;
 
         try {

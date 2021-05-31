@@ -12,7 +12,7 @@ function FilterBlockItems(props) {
         async function getFilterItem({filterItems, setFilterItems}) {
             const {valueName} = props;
 
-            setError(false);
+            setError("");
             toggleLoading(true);
 
             let url = `/api/v1/products/categories`;
@@ -50,7 +50,6 @@ function FilterBlockItems(props) {
         const name = evt.target.name;
 
         setCategoryArray(prev => [...prev, value]);
-
         let areInputsChecked = [checked];
 
         areInputsChecked.forEach(isInputChecked => {
@@ -64,13 +63,13 @@ function FilterBlockItems(props) {
                    const index = catArr.indexOf(value);
                    const index_checked = checkedArr.indexOf(value);
 
-                   if (index !== -1) {
-                       catArr.splice(index, 1);
-                       setCategoryArray(catArr);
-                   }
                    if (index_checked !== -1) {
                        checkedArr.splice(index_checked, 1);
                        setChecked(checkedArr);
+                   }
+                   if (index !== -1) {
+                       catArr.splice(index, 1);
+                       setCategoryArray(catArr);
                    }
                }
             }

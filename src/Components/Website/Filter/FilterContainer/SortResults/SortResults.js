@@ -2,7 +2,6 @@ import React from "react";
 import './SortResults.css';
 
 const SortResults = ({setSortResults}) => {
-
     function updateFilterSort(e) {
         const value = e.target.value;
         if (value !== "") {

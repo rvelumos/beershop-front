@@ -2,7 +2,6 @@ import React from 'react';
 import './Feedback.css';
 
 const Feedback = (props) => {
-
     const {content, type} = props;
 
     return (

@@ -6,26 +6,25 @@ import PrivacyPage from "../../Pages/Info/PrivacyPage";
 import DeliveryPage from "../../Pages/Info/DeliveryPage";
 
 const InfoRouting = () => {
-
     return(
         <>
-        <Route path="/info/voorwaarden">
-            <ConditionPage />
-        </Route>
+            <Route path="/info/voorwaarden">
+                <ConditionPage />
+            </Route>
 
-        <Route path="/info/faq">
-            <FaqPage/>
-        </Route>
+            <Route path="/info/faq">
+                <FaqPage/>
+            </Route>
 
-        <Route path="/info/privacy">
-            <PrivacyPage />
-        </Route>
+            <Route path="/info/privacy">
+                <PrivacyPage />
+            </Route>
 
-        <Route path="/info/bezorging">
-            <DeliveryPage />
-        </Route>
+            <Route path="/info/bezorging">
+                <DeliveryPage />
+            </Route>
         </>
-        )
+    )
 }
 
 export default InfoRouting;

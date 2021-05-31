@@ -10,7 +10,6 @@ import './SearchBar.css';
 
      function handleClick() {
          setSearchHandler(query);
-         console.log(query);
          history.push({
              pathname: `/zoeken/${query}`,
              state: { search: query}
@@ -33,7 +32,6 @@ import './SearchBar.css';
                 type="text"
                 placeholder="Voer een zoekopdacht in..."
                 className="searchBar"
-
                 onChange={(e) => setQuery(e.target.value.replace(/[^\w\s]/gi, ""))}
                 onKeyUp={keyPressCheck}
                 name="zoekwoord"

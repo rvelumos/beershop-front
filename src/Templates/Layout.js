@@ -9,9 +9,7 @@ import MainRouting from "./Routing/MainRouting";
 import UserProfileRouting from "./Routing/UserprofileRouting";
 
 const Layout = (props) => {
-
     const { userLoggedIn, token } = props;
-
     const randomInt = Math.floor(Math.random() * 4) + 1;
 
     return(

@@ -11,13 +11,11 @@ import LeftMenu from "../../UserProfile/LeftMenu/LeftMenu";
 import SmallLoadingIndicator from "../../UI/LoadingIndicator/SmallLoadingIndicator";
 
 const EditForm = ({username}) => {
-
     const [error, setError] = useState(false);
     const [loading, toggleLoading] = useState(false);
     const [message, setMessage] = useState("");
     const [checked, toggleChecked] = useState(false);
     const [mode, setMode] = useState('init');
-
     const [formValues, setFormValues] = useState({
         firstname: '',
         lastname: '',
@@ -44,9 +42,6 @@ const EditForm = ({username}) => {
     }
 
     function onSubmitForm(data) {
-
-        console.table(data);
-
         if(error === false) {
             if(data.password !== "") {
                 updateLogin({
@@ -77,7 +72,6 @@ const EditForm = ({username}) => {
     }
 
     async function updateLogin(userData) {
-
         setError(false);
         toggleLoading(true);
 
@@ -85,24 +79,21 @@ const EditForm = ({username}) => {
 
         try {
             const result = await axios.put(url, userData);
-            console.log("User result: "+result);
-            toggleLoading(false);
+            if(!result)
+                setError("Fout bij opslaan data");
         } catch (e) {
             console.error(e);
             setError("Fout bij verwerken logingegevens.");
-            toggleLoading(false);
         }
+        toggleLoading(false);
     }
 
     async function updateRegistration(customerData) {
         setError(false);
         toggleLoading(true);
         const id = formValues.id;
-        console.log("update");
-        console.log(formValues);
 
         const url = `/api/v1/customer/${id}`;
-
         try {
             const result = await axios.put(url, customerData);
             if(result) {
@@ -116,11 +107,7 @@ const EditForm = ({username}) => {
     }
 
     async function updateAddress(addressData) {
-        console.log("update address");
-        console.log(addressData);
-
         const url = `/api/v1/address/${addressData.id}`;
-
         try {
             const result = await axios.put(url, addressData);
             if(result) {
@@ -141,8 +128,6 @@ const EditForm = ({username}) => {
             setMode('data');
         }
 
-        console.log(formValues);
-
         const { register, errors, watch, handleSubmit } = useForm({
             criteriaMode: "all",
             mode: "onChange",
@@ -157,7 +142,6 @@ const EditForm = ({username}) => {
                         <div className="RegisterForm" >
                             <h1>Jouw informatie aanpassen</h1>
                             <form onSubmit={handleSubmit(onSubmitForm)}>
-
                                 <fieldset>
                                     <input type="hidden" name="id" value={formValues.id} ref={register} />
                                     <div className="formElement">

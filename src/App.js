@@ -22,7 +22,6 @@ function App() {
     const getAuthorities = () => {
         setMode("authorizing");
         if (localStorage.getItem('user_roles') !== null) {
-
             const token = localStorage.getItem('user_token');
             setToken(token);
 

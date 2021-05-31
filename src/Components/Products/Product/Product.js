@@ -9,8 +9,8 @@ function Product(props) {
     let {productItems, isAdmin} = props;
 
     const [loading, toggleLoading] = useState(false);
-    const [error, setError] = useState(true);
-    const [message, setMessage] = useState(true);
+    const [error, setError] = useState("");
+    const [message, setMessage] = useState("");
 
     const {token} = props;
 
@@ -53,7 +53,7 @@ function Product(props) {
                             </div>
                         )
                     } else {
-                        let classStock = "";
+                        let classStock;
                         if (productItem.stock === 0) {
                             classStock = "outOfStockCell";
                         } else if (productItem.stock < 25 && productItem.stock > 0) {

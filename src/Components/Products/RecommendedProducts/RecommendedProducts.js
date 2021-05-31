@@ -15,7 +15,6 @@ function RecommendedProducts(props) {
             toggleLoading(true);
 
             let url = `/api/v1/products/recommended/${category}/`;
-
             try {
                 const result = await axios.get(url);
                 if (result.data.length > 0){
@@ -33,7 +32,7 @@ function RecommendedProducts(props) {
         }
         getRecommendedProducts();
 
-        // eslint-disable-next-line
+    // eslint-disable-next-line
     }, []);
 
     return(

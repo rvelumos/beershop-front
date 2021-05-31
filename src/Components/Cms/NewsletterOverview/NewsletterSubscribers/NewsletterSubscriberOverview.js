@@ -34,7 +34,6 @@ function NewsletterSubscriberOverview({token}) {
             }
             toggleLoading(false);
         }
-
         getSubscribers();
         // eslint-disable-next-line
     }, []);

@@ -134,7 +134,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
     }
 
     function increaseAmount(amount, id, stock) {
-        if(amount < 100 && amount < stock) {
+        if(amount < 99 && amount < stock) {
             amount = parseInt(amount) + 1;
             setShoppingCartItems({
                 product: {
@@ -186,7 +186,7 @@ const ShoppingCart = ({shoppingCartItems, shoppingCartActive, setShoppingCartIte
                 newArrayItems.map((cartItem, key) => {
                     const itemValue = Object.values(shoppingCartItems);
 
-                    let image = "";
+                    let image;
                     let discountMessage = "";
                     if (cartItem[1].type !== 4)
                         image = <div className="image"><img src={`/product_images/${cartItem[1].image}`} alt=''/></div>;

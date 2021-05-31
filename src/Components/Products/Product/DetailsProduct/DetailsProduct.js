@@ -40,8 +40,7 @@ function DetailsProduct() {
     }, [id, error])
 
     function getItemInfo() {
-
-        if(productItem !== null && productItem.type !== 3) {
+        if(productItem.type !== 3) {
             let image;
             if (productItem.type !== 4)
                 image = <img src={`/product_images/${productItem.image}`} alt=''/>;
@@ -62,10 +61,8 @@ function DetailsProduct() {
                 default:
                     sublink = 'alle-bieren';
             }
-            console.log(sublink);
 
             return (
-
                 <section>
                     <BreadCrumbs
                         sublink={sublink}

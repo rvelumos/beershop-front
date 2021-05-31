@@ -21,7 +21,7 @@ export function substituteNumberToName(value) {
     }
 }
 
-function FilterLabels({categoryArray, setCategoryArray, setFilterItems}) {
+function FilterLabels({categoryArray, setCategoryArray}) {
     const [checked, setChecked] = useState('');
 
     function handleClick(value) {

@@ -4,13 +4,11 @@ import './UserMenu.css';
 import ProfileMenu from "../../../../Modal/ProfileMenu/ProfileMenu";
 
 const UserMenu = () => {
-
     const [shoppingCartActive, setShoppingCartActive] = useState(false);
     const [mode, setMode] = useState('init');
     const [amountItems, setAmountItems] = useState("");
 
     let items = "";
-
     if(mode==='init') {
         const storedItems = localStorage.getItem("shopping_carts");
         if(storedItems !== null) {

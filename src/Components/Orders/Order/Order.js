@@ -14,22 +14,20 @@ function Order(props) {
         const [currentModal, setCurrentModal] = useState('');
 
         const updateCurrentModal = (id) => {
-
             if (currentModal === ''){
                 setCurrentModal(id);
             } else {
                 setCurrentModal('');
             }
-
             toggleCustomerModal();
         }
         const toggleCustomerModal = () => {
             setOpenCustomerModal(!openCustomerModal);
         }
-            if(orderItems.length > 0) {
-                orderItems = Array.from(orderItems);
-                return (
-                    orderItems.map((orderItem) => {
+        if(orderItems.length > 0) {
+            orderItems = Array.from(orderItems);
+            return (
+                orderItems.map((orderItem) => {
 
                     let orderDate = orderItem.orderDate;
                     let orderSent = orderItem.orderSent;
@@ -72,9 +70,6 @@ function Order(props) {
                                     <div className="edit">
                                         <Link to={`/cms/orders/edit/${orderItem.id}`}>&#9999;</Link>
                                     </div>
-                                    {/*<div className="delete" onClick={HandleClick(orderItem.id)}>*/}
-                                    {/*    &#10008;*/}
-                                    {/*</div>*/}
                                 </td>
                             </tr>
                          )
@@ -95,9 +90,9 @@ function Order(props) {
                             </React.Fragment>
                         )
                     }
-                }
-                ))
-            }
+                })
+            )
+        }
     }
     return(
         <>

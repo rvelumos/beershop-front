@@ -7,14 +7,13 @@ import FormElement from "../../Forms/FormElement/FormElement";
 import './Login.css';
 import {AuthContext} from "../../../../context/AuthContext";
 
-const Login = ({cmsLogin, shoppingCartItems, loginDefaultLandingPage, orderItems}) => {
+const Login = ({shoppingCartItems, loginDefaultLandingPage, orderItems}) => {
     const [error, setError] = useState("");
     const [loading, toggleLoading] = useState(false);
     const [formValue, setFormvalue] = useState({
         username: '',
         password: ''
     })
-
     const { login } = useContext(AuthContext);
 
     function OnFormSubmit(data) {
@@ -25,10 +24,8 @@ const Login = ({cmsLogin, shoppingCartItems, loginDefaultLandingPage, orderItems
         toggleLoading(true);
 
         let url = `/api/v1/authenticate`;
-
         try {
             const result = await axios.post(url, {
-
                     //     manufacturer: !_mf_login_!
                     //     administrator: $_ad_login_$
                     //      customer: %_cu_login_%

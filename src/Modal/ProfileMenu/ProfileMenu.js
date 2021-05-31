@@ -9,7 +9,6 @@ import MenuIcon from "../../Components/Cms/Navigation/LeftMenu/MenuIcon/MenuIcon
 
 function ProfileMenu() {
     const [openProfileModal, setOpenProfileModal] = useState(false);
-
     const { username, logout } = useContext(AuthContext);
 
     const toggleProfileModal = () => {
@@ -45,10 +44,7 @@ function ProfileMenu() {
                         <TopNavigationMenuItem url="/mijn_account/gegevens" name="mijn gegevens" handler={toggleProfileModal} />
                         <TopNavigationMenuItem url="/mijn_account/orders" name="mijn orders" handler={toggleProfileModal} />
                         <TopNavigationMenuItem url="/mijn_account/cadeaubonnen" name="mijn cadeaubonnen" handler={toggleProfileModal} />
-
                         <Link to="?logout" onClick={logout}><MenuIcon name="logout" /><p>Uitloggen</p></Link>
-
-
                     </div>
                 </div>
             </div>

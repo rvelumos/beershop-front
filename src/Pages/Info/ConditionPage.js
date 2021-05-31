@@ -2,7 +2,6 @@ import React from 'react';
 import BreadCrumbs from "../../Components/Website/Navigation/BreadCrumbs/BreadCrumbs";
 
 const ConditionPage = () => {
-
     return (
         <>
             <div className="mainTop">

@@ -9,7 +9,6 @@ const LeftMenu = ({isAdmin}) => {
 
     return (
         <>
-
             <div className="LeftMenuContainer">
                 <div className="authorizedUser">Ingelogd als <span>{username}</span></div>
                 <ul className="LeftMenuItems">

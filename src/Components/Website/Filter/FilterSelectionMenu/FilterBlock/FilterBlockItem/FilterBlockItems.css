@@ -39,7 +39,6 @@ label {
     border: var(--default-border-light);
     background: #FFF;
     border-radius: 2px;
-    /*box-shadow: inset 0 1px 3px rgba(0,0,0, .1), 0 0 0 rgba(203, 34, 237, .2);*/
     -webkit-transition: all .275s;
     transition: all .275s;
 }

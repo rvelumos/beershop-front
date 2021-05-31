@@ -4,11 +4,9 @@ import axios from "axios";
 import {AuthContext} from "../../../../context/AuthContext";
 
 const Confirmation = ({email, currentStep, token, orderItems, shipmentData}) => {
-
     const [mode, setMode] = useState('init');
     const [loading, toggleLoading] = useState(true);
     const [error, setError] = useState('');
-    //const [orderAdded, setOrderAdded] = useState(false);
 
     const { username } = useContext(AuthContext);
 
@@ -27,7 +25,6 @@ const Confirmation = ({email, currentStep, token, orderItems, shipmentData}) => 
         }
 
         let url = `/api/v1/customer/`;
-
         try {
             const result = await axios.post(url, customerData);
             if(!result) {
@@ -40,16 +37,12 @@ const Confirmation = ({email, currentStep, token, orderItems, shipmentData}) => 
     }
 
     function finishOrder(username) {
-        console.log('finishorder');
         if (mode === 'init' && orderItems !== "" && username !== undefined) {
-            console.log('init');
             if (token === '') {
                 addCustomer(username);
             } else {
-                console.log(shipmentData);
                 addOrder(shipmentData, username);
             }
-
             setMode('data');
         }
     }
@@ -59,7 +52,6 @@ const Confirmation = ({email, currentStep, token, orderItems, shipmentData}) => 
         const dd = today.getDate();
         const mm = today.getMonth()+1;
         const yyyy = today.getFullYear();
-
         const orderDate =  dd+'-'+mm+'-'+yyyy;
 
         const itemData = {
@@ -78,7 +70,6 @@ const Confirmation = ({email, currentStep, token, orderItems, shipmentData}) => 
                     url = '/api/v1/order/create';
                     const result = await axios.post(url, itemData);
                     if (result) {
-                        //setOrderAdded(true);
                         toggleLoading(false);
                         if (orderItems.giftcardId !== undefined)
                             await updateGiftCard();
@@ -103,7 +94,8 @@ const Confirmation = ({email, currentStep, token, orderItems, shipmentData}) => 
                 uses: 1
             });
 
-            console.log(result);
+            if(!result)
+                setError("Fout bij aanpassen gebruik");
         } catch (e) {
             console.error(e);
             setError("Fout bij verwerken data.");
@@ -123,7 +115,6 @@ const Confirmation = ({email, currentStep, token, orderItems, shipmentData}) => 
                 localStorage.removeItem('shopping_carts');
                 toggleLoading(false);
             }
-
         } catch (e) {
             console.error(e);
             setError("Fout bij verzenden emailbevestiging.");

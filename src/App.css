@@ -82,7 +82,7 @@ h1 {
 h2 {
   font-size: var(--font-size-xl);
   transition: font-size 0.3s ease-out;
-    font-family: var(--default-font-light);
+  font-family: var(--default-font-light);
 }
 
 h3 {
@@ -128,7 +128,7 @@ input[type="text"]:disabled {
   border: 1px solid red !important;
 }
 
-tr.warning .orderInvoice{
+tr.warning .orderInvoice {
   color: red;
 }
 

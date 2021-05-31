@@ -8,12 +8,10 @@ import LoadingIndicator from "../../UI/LoadingIndicator/LoadingIndicator";
 import {Link} from "react-router-dom";
 import Feedback from "../../UI/Feedback/Feedback";
 
-const RegistrationForm = ({mode}) => {
-
-    const [error, setError] = useState(false);
+const RegistrationForm = () => {
+    const [error, setError] = useState("");
     const [loading, toggleLoading] = useState(false);
     const [sentForm, setSentForm] = useState(false);
-
     const [formValues, setFormValues] = useState({
         firstname: '',
         lastname: '',
@@ -40,10 +38,7 @@ const RegistrationForm = ({mode}) => {
     }
 
     function onSubmitForm(data) {
-
-        console.table(data);
-
-        if(error === false) {
+        if(error === "") {
             createLogin({
                 username: data.username,
                 password: data.password,
@@ -76,15 +71,11 @@ const RegistrationForm = ({mode}) => {
     }
 
     async function createLogin(userData) {
-
-        setError(false);
         toggleLoading(true);
 
         let url = `/api/v1/create_user/`;
-
         try {
             const result = await axios.post(url, userData);
-            console.log("User result: "+result);
 
             if(result) {
                 url = `/api/v1/create_authority/`;
@@ -109,17 +100,15 @@ const RegistrationForm = ({mode}) => {
     }
 
     async function createRegistration(customerData) {
-        setError(false);
         toggleLoading(true);
 
         const url = `/api/v1/customer/`;
-
         try {
             const result = await axios.post(url, customerData);
             if(!result)
                 setError("Fout bij opslaan registratie");
             else
-                sendAccountConfirmationMail(customerData);
+                await sendAccountConfirmationMail(customerData);
         } catch (e) {
             console.error(e);
             setError("Fout bij verwerken registratiegegevens.");
@@ -150,7 +139,6 @@ const RegistrationForm = ({mode}) => {
 
     async function createAddress(addressData) {
         const url = `/api/v1/address`;
-console.log(addressData);
         try {
             const result = await axios.post(url, addressData);
             if(result)

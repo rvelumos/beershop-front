@@ -2,7 +2,6 @@ import React from 'react';
 import LeftMenu from "../../Components/Website/UserProfile/LeftMenu/LeftMenu";
 
 const UserProfilePage = ({username}) => {
-
     return (
         <>
             <div className="userContentContainer" >

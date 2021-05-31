@@ -19,7 +19,6 @@ import NewsletterSubscriberOverview
     from "../../Components/Cms/NewsletterOverview/NewsletterSubscribers/NewsletterSubscriberOverview";
 
 const CmsRouting = ({isAdmin, token}) => {
-
     const { username } = useContext(AuthContext);
 
     return (

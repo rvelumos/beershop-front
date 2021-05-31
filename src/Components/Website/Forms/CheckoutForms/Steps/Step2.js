@@ -135,7 +135,6 @@ function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
 
         useEffect(() => {
             if (shipmentData !== undefined) {
-                console.log(shipmentData);
                 setFormValues({
                     firstname: shipmentData.firstname,
                     lastname: shipmentData.lastname,
@@ -425,7 +424,6 @@ function Step2({currentStep,shipmentData, shoppingCartItems, orderItems}) {
 
     if(username !== "") {
         shipmentData = shipment;
-        console.log(shipment);
     }
 
     return(

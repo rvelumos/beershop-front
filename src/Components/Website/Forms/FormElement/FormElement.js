@@ -31,14 +31,12 @@ const FormElement = (props) => {
                         <input
                             type={type}
                             placeholder=""
-                            // defaultValue=""
                             disabled={disabled}
                             name={name}
                             defaultValue={valueLabel ? valueLabel : formValue}
                             onChange={(e) => handleTextChange(e.target.value)}
                             ref={fieldRef}
                         />
-
                         <label className={isActiveLabel ? "Active" : ""} htmlFor={name}>
                             {label}
                         </label>

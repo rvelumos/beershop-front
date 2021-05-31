@@ -1,8 +1,7 @@
 import React from 'react';
 import './Modal.css';
 
-function Modal({handler, title, item, type}) {
-
+function Modal({handler, title, item}) {
     function itemRows() {
         if(item !== undefined) {
             return(
@@ -24,10 +23,9 @@ function Modal({handler, title, item, type}) {
                     </div>
                 </>
             )
-
         } else {
             return (
-                <p class='errorContainer'>Geen gegevens gevonden</p>
+                <p className='errorContainer'>Geen gegevens gevonden</p>
             )
         }
     }
@@ -38,7 +36,7 @@ function Modal({handler, title, item, type}) {
                 <div className="close" onClick={handler}>&#10008;</div>
                 <h2>{title}</h2>
                 <div className="modalContainer">
-                        {itemRows()}
+                     {itemRows()}
                 </div>
             </div>
         </div>

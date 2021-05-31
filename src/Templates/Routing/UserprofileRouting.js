@@ -9,7 +9,6 @@ import {AuthContext} from "../../context/AuthContext";
 import EditForm from "../../Components/Website/Forms/EditForm/EditForm";
 
 const UserProfileRouting = ({userLoggedIn}) => {
-
     const { token, username } = useContext(AuthContext);
 
     return (

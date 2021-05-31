@@ -11,7 +11,7 @@ import './AddEditForm.css';
 import Feedback from "../../../Website/UI/Feedback/Feedback";
 
 export function AddEditForm(props) {
-    const [error, setError] = useState(false);
+    const [error, setError] = useState("");
     const [loading, toggleLoading] = useState(false);
     const [message, setMessage] = useState("");
     const [process, setProcess] = useState("pending");
@@ -20,10 +20,6 @@ export function AddEditForm(props) {
     const { token } = props;
     const isAddMode = !id;
 
-    // const [image, setImage] = useState({
-    //     preview: "",
-    //     raw: ""
-    // });
     const[options, setOptions] = useState({
         categories: '',
         manufacturers: ''
@@ -52,7 +48,6 @@ export function AddEditForm(props) {
                         "Access-Control-Allow-Origin": "*",
                     }
                 });
-                console.log(result);
                 const {
                     name,
                     price,
@@ -75,7 +70,6 @@ export function AddEditForm(props) {
                     type: type,
                     discount:discount
                 });
-
             } catch (e) {
                 console.error(e);
                 setError("Fout bij ophalen gegevens.");
@@ -95,12 +89,10 @@ export function AddEditForm(props) {
     useEffect(() => {
         async function getOptions(item) {
             let url;
-            if(item === 'categories') {
+            if(item === 'categories')
                 url = `/api/v1/products/categories`;
-            } else {
+            else
                 url = `/api/v1/manufacturers`;
-            }
-
 
             try {
                 const result = await axios.get(url, {
@@ -128,12 +120,10 @@ export function AddEditForm(props) {
                 setError(`Fout bij ophalen ${item}gegevens.`);
             }
         }
-
         getOptions("manufacturers");
         getOptions("categories");
         // eslint-disable-next-line
     }, [])
-
 
     function onSubmitForm(data) {
         const { categoryId,
@@ -147,9 +137,6 @@ export function AddEditForm(props) {
             type,
             discount
         } = data;
-
-        console.log("image");
-        console.log(image)
 
         setFormValues({
             category: {
@@ -167,14 +154,10 @@ export function AddEditForm(props) {
             type: type,
             discount: discount
         });
-
-        console.table(data);
         saveData(data);
     }
 
     function saveData(data) {
-
-        console.log(data);
         let formData = new FormData();
 
         formData.append("name", data.name);
@@ -228,23 +211,6 @@ export function AddEditForm(props) {
         if (process==="pending")
             handleData(formData);
     }
-
-    // const handleImageChange = e => {
-    //
-    //     const uploadFile = e.target.files[0];
-    //
-    //     if (uploadFile !== "") {
-    //         if (uploadFile.type === "image/jpeg" || uploadFile.type === "image/jpg" || uploadFile.type === "image/png") {
-    //             // setImage({
-    //             //     preview: URL.createObjectURL(e.target.files[0]),
-    //             //     raw: e.target.files[0]
-    //             // });
-    //             //uploadImage();
-    //         } else {
-    //             setError("Ongeldig bestand: alleen .png en .jpg toegestaan");
-    //         }
-    //     }
-    // };
 
     const ProductItem = () => {
         const { register, errors, handleSubmit } = useForm({

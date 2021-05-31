@@ -8,7 +8,6 @@ import Feedback from "../../UI/Feedback/Feedback";
 import SmallLoadingIndicator from "../../UI/LoadingIndicator/SmallLoadingIndicator";
 
 const ContactForm = () => {
-
     const [loading, toggleLoading] = useState(false);
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
@@ -20,16 +19,12 @@ const ContactForm = () => {
     })
 
     function onFormSubmit(data) {
-        //e.preventDefault();
-        console.log(data);
-
         setFormValues({
             firstname: data.firstname,
             lastname: data.lastname,
             email: data.email,
             message: data.message
         })
-
         sendEmail(data)
     }
 
@@ -38,9 +33,8 @@ const ContactForm = () => {
         try {
             const url = "/api/v1/forms/contactform"
             const result = await axios.post(url, data);
-
-            console.log(result);
-            setMessage("Bericht is verzonden, er wordt een kopie naar het opgegeven e-mailadres gestuurd.");
+            if(result)
+                setMessage("Bericht is verzonden, er wordt een kopie naar het opgegeven e-mailadres gestuurd.");
         } catch (e) {
             console.error(e);
             setError("Fout bij versturen e-mail.");
@@ -74,7 +68,6 @@ const ContactForm = () => {
                             })}
                             error={errors.firstname ? <span className='errorMessage'>{errors.firstname.message}</span> : <span>&nbsp;</span>}
                         />
-
 
                         <FormElement
                             type="text"

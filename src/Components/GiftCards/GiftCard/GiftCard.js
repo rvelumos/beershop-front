@@ -6,7 +6,6 @@ import LoadingIndicator from "../../Website/UI/LoadingIndicator/LoadingIndicator
 import Feedback from "react-bootstrap/Feedback";
 
 function GiftCard(props) {
-
     const [loading, toggleLoading] = useState(false);
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
@@ -45,22 +44,22 @@ function GiftCard(props) {
             return (
                 giftCardItems.map((giftCardItem) => {
                     return (
-                            <tr key={giftCardItem.id} className="Order">
-                                <td><p className="giftCardID">#{giftCardItem.id}</p></td>
-                                <td><p className="giftCardName">{giftCardItem.name}</p></td>
-                                <td><p className="giftCardPrice">€{giftCardItem.price}</p></td>
-                                <td><p className="giftCardDescription">{giftCardItem.description}</p></td>
-                                <td><p className="giftCardUsed"><Link to={`/cms/giftcard/${giftCardItem.id}`}>Bekijk overzicht</Link></p></td>
-                                <td>
-                                    <div className="actionContainer">
-                                        <div className="edit"><Link to={`/cms/giftcards/edit/${giftCardItem.id}`}>&#9999;</Link>
-                                        </div>
-                                        <div className="delete" onClick={(e) => deleteGiftCard(giftCardItem.id)}>
-                                            &#10008;
-                                        </div>
+                        <tr key={giftCardItem.id} className="Order">
+                            <td><p className="giftCardID">#{giftCardItem.id}</p></td>
+                            <td><p className="giftCardName">{giftCardItem.name}</p></td>
+                            <td><p className="giftCardPrice">€{giftCardItem.price}</p></td>
+                            <td><p className="giftCardDescription">{giftCardItem.description}</p></td>
+                            <td><p className="giftCardUsed"><Link to={`/cms/giftcard/${giftCardItem.id}`}>Bekijk overzicht</Link></p></td>
+                            <td>
+                                <div className="actionContainer">
+                                    <div className="edit"><Link to={`/cms/giftcards/edit/${giftCardItem.id}`}>&#9999;</Link>
                                     </div>
-                                </td>
-                            </tr>
+                                    <div className="delete" onClick={(e) => deleteGiftCard(giftCardItem.id)}>
+                                        &#10008;
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
                     )
                 })
             )

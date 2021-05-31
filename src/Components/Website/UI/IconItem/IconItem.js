@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import './IconItem.css';
 
 const IconItem = (props) => {
-
     return (
         <>
             <div className="IconContainer">

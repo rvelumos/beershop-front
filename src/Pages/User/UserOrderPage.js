@@ -4,7 +4,6 @@ import Orders from "../../Components/Orders/Orders";
 import DetailsOrder from "../../Components/Orders/Order/DetailsOrder/DetailsOrder";
 
 const UserOrderPage = ({token, showDetails}) => {
-
     return (
         <>
             <div className="userContentContainer" >
@@ -22,7 +21,6 @@ const UserOrderPage = ({token, showDetails}) => {
                             {<Orders token={token} />}
                         </>
                     }
-
                 </div>
             </div>
         </>

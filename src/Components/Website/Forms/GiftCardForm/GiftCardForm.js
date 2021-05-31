@@ -6,8 +6,7 @@ import Button from "../../UI/Button/Button";
 import {useForm} from "react-hook-form";
 import SmallLoadingIndicator from "../../UI/LoadingIndicator/SmallLoadingIndicator";
 
-function GiftCardForm({giftCardInfo, setGiftCardInfo}) {
-
+function GiftCardForm({setGiftCardInfo}) {
     const [loading, toggleLoading] = useState(false);
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
@@ -16,21 +15,15 @@ function GiftCardForm({giftCardInfo, setGiftCardInfo}) {
         const code = data.giftCardCode;
 
         let url = `/api/v1/products/giftcards/${code}`;
-
         try {
             const result = await axios.get(url);
             if(result.data.length > 0) {
-
                const name = result.data[0].name;
                const amount = result.data[0].amount;
-
-                const today = new Date();
-                const expirationDate = today.getTime();
-
-                console.log(expirationDate);
-                const rowExpirationDate = result.data[0].expiration_date.split('T')[0];
-                const date1 = new Date(rowExpirationDate).getTime();
-                console.log(date1);
+               const today = new Date();
+               const expirationDate = today.getTime();
+               const rowExpirationDate = result.data[0].expiration_date.split('T')[0];
+               const date1 = new Date(rowExpirationDate).getTime();
 
                if(date1 > expirationDate && result.data[0].uses === 0) {
                    setGiftCardInfo(result.data);

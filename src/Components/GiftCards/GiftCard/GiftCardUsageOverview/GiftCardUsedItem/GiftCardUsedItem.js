@@ -28,14 +28,14 @@ function GiftCardUsedItem(props) {
                             <React.Fragment key={giftCardItem.id}>
                                 <tr className={classGc}>
                                     {isAdmin &&
-                                    <td><p className="giftCardId">{giftCardItem.id}</p></td>
+                                        <td><p className="giftCardId">{giftCardItem.id}</p></td>
                                     }
                                     <td><p className="giftCardName">{giftCardItem.name}</p></td>
                                     <td><p className="giftCardAmount">€{giftCardItem.amount}</p></td>
                                     <td><p className="giftCardCode">{giftCardItem.code}</p></td>
                                     <td><p className="giftCardExpirationDate">{expiration_date}</p></td>
                                     {isAdmin &&
-                                    <td><p className="giftCardUser">{giftCardItem.username}</p></td>
+                                        <td><p className="giftCardUser">{giftCardItem.username}</p></td>
                                     }
                                     <td><p className={classGc}>{used}</p></td>
                                 </tr>

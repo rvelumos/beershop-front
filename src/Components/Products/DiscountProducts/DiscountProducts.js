@@ -6,7 +6,6 @@ import './DiscountProducts.css';
 import Feedback from "../../Website/UI/Feedback/Feedback";
 
 function DiscountProducts() {
-
     const [error, setError] = useState(false);
     const [message, setMessage] = useState("");
     const [productItems, setProductItems] = useState("");
@@ -35,7 +34,6 @@ function DiscountProducts() {
                 toggleLoading(false);
             }
         }
-
         getDiscountProducts();
 
         // eslint-disable-next-line

@@ -6,19 +6,12 @@ import UserMenu from "../../UserMenu/UserMenu";
 import {useHistory} from "react-router";
 import HamburgerMenu from "../../../../../Modal/HamburgerMenu/HamburgerMenu";
 
-
 const TopNavigationItems = () => {
-
     const [search, setSearch] = useState("");
-
     const history = useHistory();
 
     function goHome(e) {
         history.push("/");
-    }
-
-    function handler() {
-
     }
 
     return (
@@ -43,14 +36,14 @@ const TopNavigationItems = () => {
 
                   <div className="TopNavigationBottomSection">
                         <div className="TopNavigationMenu" >
-                        <TopNavigationMenuItem url="/alle-bieren" name="bieren" handler={handler} />
-                        <TopNavigationMenuItem url="/alle-pakketten" name="pakketten" handler={handler}  />
-                        <TopNavigationMenuItem url="/cadeaubonnen" name="cadeaubon" handler={handler}  />
-                        <TopNavigationMenuItem url="/aanbiedingen" name="aanbiedingen" handler={handler}  />
+                        <TopNavigationMenuItem url="/alle-bieren" name="bieren" />
+                        <TopNavigationMenuItem url="/alle-pakketten" name="pakketten"  />
+                        <TopNavigationMenuItem url="/cadeaubonnen" name="cadeaubon"  />
+                        <TopNavigationMenuItem url="/aanbiedingen" name="aanbiedingen"  />
                         </div>
 
                         <div className="TopNavigationIcon" >
-                          <UserMenu />
+                            <UserMenu />
                         </div>
 
                         <HamburgerMenu />

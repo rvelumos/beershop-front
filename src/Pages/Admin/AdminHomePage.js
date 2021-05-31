@@ -1,7 +1,6 @@
 import React from 'react';
 
 const AdminHomePage = ({username}) => {
-
     return (
         <>
             <div className="overview">

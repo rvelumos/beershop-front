@@ -3,7 +3,6 @@ import Products from "../Components/Products/Products";
 import BreadCrumbs from "../Components/Website/Navigation/BreadCrumbs/BreadCrumbs";
 
 const GiftPage = () => {
-
     return (
         <>
             <div className="mainTop">
@@ -11,7 +10,6 @@ const GiftPage = () => {
                     activeItem="Cadeaubonnen"
                 />
             </div>
-
             <div className="mainContent">
                 <div className="contentContainer">
                     <h1>Cadeaubonnen</h1>

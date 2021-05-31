@@ -6,7 +6,6 @@ import {AuthContext} from "../../../../context/AuthContext";
 const LeftMenu = () => {
 
     const { logout } = useContext(AuthContext);
-
     return (
         <>
             <div className="LeftMenuContainer">
@@ -15,7 +14,6 @@ const LeftMenu = () => {
                         <NavLink to="/mijn_account/gegevens" >Mijn gegevens</NavLink>
                         <NavLink to="/mijn_account/orders" >Mijn bestellingen</NavLink>
                         <NavLink to="/mijn_account/cadeaubonnen" >Mijn cadeaubonnen</NavLink>
-                        {/*<NavLink to="/mijn_account/bonus" >Bonusproducten</NavLink>*/}
                     </div>
                     <div className="logout">
                         <div className="button">

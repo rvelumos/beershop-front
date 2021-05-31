@@ -3,7 +3,7 @@ import LoadingIndicator from "../../Website/UI/LoadingIndicator/LoadingIndicator
 import axios from "axios";
 import Feedback from "../../Website/UI/Feedback/Feedback";
 
-function AddEdit({isAddMode, section, itemData, id, token, setSaved, saved}) {
+function AddEdit({isAddMode, section, itemData, id, token}) {
 
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");

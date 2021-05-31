@@ -5,7 +5,7 @@ import NewsletterTemplate from "./NewsletterTemplate/NewsletterTemplate";
 
 function NewsletterOverview ({token}) {
     const [loading, toggleLoading] = useState(false);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState("");
     const [items, setItems] = useState(false);
 
     useEffect(() => {

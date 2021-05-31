@@ -19,7 +19,6 @@ function GiftCardUsageOverview({isAdmin, token}) {
             toggleLoading(true);
 
             const url = `/api/v1/admin/products/giftcards/${id}/`;
-
             try {
                 const result = await axios.get(url, {
                     headers: {
@@ -39,7 +38,7 @@ function GiftCardUsageOverview({isAdmin, token}) {
         }
 
         getGiftCards();
-        // eslint-disable-next-line
+    // eslint-disable-next-line
     }, []);
 
     return (

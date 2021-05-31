@@ -3,7 +3,6 @@ import DiscountProducts from "../Components/Products/DiscountProducts/DiscountPr
 import BreadCrumbs from "../Components/Website/Navigation/BreadCrumbs/BreadCrumbs";
 
 const ProductOfferPage = () => {
-
     return (
         <>
             <div className="mainTop">
@@ -11,14 +10,12 @@ const ProductOfferPage = () => {
                     activeItem="Aanbiedingen"
                 />
             </div>
-
             <div className="mainContent">
                 <div className="ProductOverview">
                     <DiscountProducts />
                 </div>
             </div>
         </>
-
     )
 }
 

@@ -8,13 +8,12 @@ import {AuthContext} from "../../context/AuthContext";
 
 
 const GiftCards = ({isAdmin, token}) => {
-
     const [error, setError] = useState("");
     const [giftCardItems, setGiftCardItems] = useState("");
     const [loading, toggleLoading] = useState(false);
 
     const { username } = useContext(AuthContext);
-    // eslint-disable-next-line
+
     useEffect(() => {
         async function getGiftCards(username) {
             toggleLoading(true);
@@ -47,7 +46,7 @@ const GiftCards = ({isAdmin, token}) => {
         }
         if(username !== undefined)
             getGiftCards(username)
-        // eslint-disable-next-line
+    // eslint-disable-next-line
     },[username])
 
     return (

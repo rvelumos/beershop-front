@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import LoadingIndicator from "../../../Website/UI/LoadingIndicator/LoadingIndicator";
 import axios from "axios";
+import Feedback from "react-bootstrap/Feedback";
 
 function StatisticsKeywords({token}) {
     const [loading, toggleLoading] = useState(true);
     const [items, setItems] = useState("");
     const [error, setError] = useState("");
+    const [foundKeywords, setFoundKeywords] = useState(false);
 
     async function getTop10Keywords() {
         toggleLoading(true);
@@ -23,6 +25,7 @@ function StatisticsKeywords({token}) {
 
             if (result.data.length > 0) {
                 setItems(result.data);
+                setFoundKeywords(true);
             }
             toggleLoading(false);
         } catch(e) {
@@ -33,8 +36,22 @@ function StatisticsKeywords({token}) {
     }
     // select keyword, sum (amount) as aantal from search group by keyword order by aantal DESC
 
+    function displaySearchResults() {
+        return(
+            items.map((item) => {
+                return(
+                    <p>{item.name} ({item.amount})</p>
+                )
+            })
+        )
+    }
+
     return(
-        loading ? <LoadingIndicator /> : getTop10Keywords()
+        <>
+            {error && <Feedback type="error" content={error} />}
+            {loading ? <LoadingIndicator /> : getTop10Keywords()}
+            {foundKeywords && displaySearchResults()}
+        </>
     )
 }
 
