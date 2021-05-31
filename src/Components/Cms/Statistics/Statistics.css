@@ -6,6 +6,12 @@
     width: 100%;
 }
 
+.statisticsOverview div p:first-of-type {
+    color: var(--font-color-primary);
+    font-size: var(--font-size-l);
+    font-weight: bold;
+}
+
 .statisticsSearch,
 .statisticsBestSoldOverall,
 .statisticsBestSoldBrand {
