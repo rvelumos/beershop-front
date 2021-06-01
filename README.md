@@ -23,7 +23,7 @@ volg dan het commando:
 
     npm run build 
     
-Hierbij worden de bestanden van de applicate verzameld en samengevoegd in de map build. Nadat de bestanden zijn aangemaakt draai je het volgende commando:  
+Hierbij worden de bestanden van de applicate verzameld en samengevoegd in de map build. **Let op:** het poortnummer is nu 5000.  Nadat de bestanden zijn aangemaakt draai je het volgende commando:  
     
     serve -s build 
 
