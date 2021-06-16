@@ -26,11 +26,6 @@ const Login = ({shoppingCartItems, loginDefaultLandingPage, orderItems}) => {
         let url = `/api/v1/authenticate`;
         try {
             const result = await axios.post(url, {
-                    //     manufacturer: !_mf_login_!
-                    //     administrator: $_ad_login_$
-                    //      customer: %_cu_login_%
-                    //      klanttest: %_cu_login_%
-
                     username: username,
                     password: password
                 }

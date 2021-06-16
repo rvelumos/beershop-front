@@ -37,7 +37,8 @@ const Confirmation = ({email, currentStep, token, orderItems, shipmentData}) => 
     }
 
     function finishOrder(username) {
-        if (mode === 'init' && orderItems !== "" && username !== undefined) {
+        console.log("FINISH")
+        if (mode === 'init' && orderItems !== "") {
             if (token === '') {
                 addCustomer(username);
             } else {

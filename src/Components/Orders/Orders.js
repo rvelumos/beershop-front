@@ -19,11 +19,10 @@ const Orders = ({isAdmin, token}) => {
 
             let url = `/api/v1`;
 
-            if (isAdmin) {
+            if (isAdmin)
                 url = `${url}/admin/orders/`;
-            } else {
+            else
                 url = `${url}/orders/customer/${username}/`;
-            }
 
             try {
                     const result = await axios.get(url, {

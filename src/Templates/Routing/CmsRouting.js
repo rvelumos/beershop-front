@@ -27,6 +27,10 @@ const CmsRouting = ({isAdmin, token}) => {
                 <AdminHomePage username={username} />
             </Route>
 
+            <Route path="/cms/statistics" exact>
+                <StatisticsPage token={token} />
+            </Route>
+
             {isAdmin ?
                 <>
                      <Route path="/cms/giftcards" exact>
@@ -59,10 +63,6 @@ const CmsRouting = ({isAdmin, token}) => {
 
                     <Route path="/cms/newsletter/edit/:id">
                         <NewsletterForm token={token} />
-                    </Route>
-
-                    <Route path="/cms/statistics" exact>
-                        <StatisticsPage token={token} />
                     </Route>
 
                     <Route path="/cms/products/" exact>

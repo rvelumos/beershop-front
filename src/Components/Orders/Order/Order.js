@@ -1,29 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './Order.css';
 import { v4 as uuidv4 } from 'uuid';
 import {Link} from "react-router-dom";
-import Modal from "../../../Modal/Modal";
 
 function Order(props) {
     const {isAdmin} = props;
 
     const OrderItems = (props) => {
-        let {orderItems, token} = props;
+        let {orderItems} = props;
 
-        const [openCustomerModal, setOpenCustomerModal] = useState(false);
-        const [currentModal, setCurrentModal] = useState('');
-
-        const updateCurrentModal = (id) => {
-            if (currentModal === ''){
-                setCurrentModal(id);
-            } else {
-                setCurrentModal('');
-            }
-            toggleCustomerModal();
-        }
-        const toggleCustomerModal = () => {
-            setOpenCustomerModal(!openCustomerModal);
-        }
         if(orderItems.length > 0) {
             orderItems = Array.from(orderItems);
             return (
@@ -35,19 +20,12 @@ function Order(props) {
                     if(orderSent !== null)orderSent = orderSent.split('T')[0];
 
                     if (isAdmin) {
-                        let skip = true;
-                        if(currentModal===orderItem.id) {
-                             skip = false;
-                        }
 
                         return (
                             <tr key={orderItem.id} className="Order">
                                 <td className="orderID">#{orderItem.id}</td>
                                 <td className="orderUser">
-                                    {!openCustomerModal ?
-                                        <div onClick={(e) => updateCurrentModal(orderItem.id, "customer")} className="details">Details</div>
-                                        : !skip && <Modal token={token} item={orderItem.shipping.address.customer} title={`Klant #${orderItem.customerId}`}  section="customer" handler={updateCurrentModal} />
-                                    }
+                                    <Link to={`users/edit/${orderItem.username}`}>Details</Link>
                                 </td>
                                 <td className="orderPrice">€{orderItem.priceTotal}</td>
                                 <td className="orderDate">{orderDate}</td>
